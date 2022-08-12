@@ -1,0 +1,56 @@
+syntax = "proto3";
+package routerprotocol.routerchain.multichain;
+
+import "multichain/chain_config.proto";
+// this line is used by starport scaffolding # proto/tx/import
+import "multichain/chain_type.proto";
+
+option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc CreateChainConfig(MsgCreateChainConfig) returns (MsgCreateChainConfigResponse);
+  rpc UpdateChainConfig(MsgUpdateChainConfig) returns (MsgUpdateChainConfigResponse);
+  rpc DeleteChainConfig(MsgDeleteChainConfig) returns (MsgDeleteChainConfigResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgCreateChainConfig {
+  string creator = 1;
+  uint64 chain_id = 2;
+
+  string chainName = 3;
+  string symbol = 4;
+  ChainType chainType = 5;
+  uint64 confirmationsRequired = 6;
+  string gatewayContractAddress = 7;
+  uint64 gatewayContractHeight = 8;
+  string routerContractAddress = 9;
+  uint64 lastObservedEventNonce = 10;
+  uint64 lastObservedValsetNonce = 11;
+}
+message MsgCreateChainConfigResponse {}
+
+message MsgUpdateChainConfig {
+  string creator = 1;
+  uint64 chain_id = 2;
+
+  string chainName = 3;
+  string symbol = 4;
+  ChainType chainType = 5;
+  uint64 confirmationsRequired = 6;
+  string gatewayContractAddress = 7;
+  uint64 gatewayContractHeight = 8;
+  string routerContractAddress = 9;
+  uint64 lastObservedEventNonce = 10;
+  uint64 lastObservedValsetNonce = 11;
+}
+message MsgUpdateChainConfigResponse {}
+
+message MsgDeleteChainConfig {
+  string creator = 1;
+  uint64 chain_id = 2;
+}
+message MsgDeleteChainConfigResponse {}
+
+// this line is used by starport scaffolding # proto/tx/message

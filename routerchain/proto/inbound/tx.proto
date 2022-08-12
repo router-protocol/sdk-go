@@ -1,0 +1,28 @@
+syntax = "proto3";
+package routerprotocol.routerchain.inbound;
+
+// this line is used by starport scaffolding # proto/tx/import
+
+option go_package = "github.com/router-protocol/router-chain/x/inbound/types";
+
+// Msg defines the Msg service.
+service Msg {
+      rpc InboundRequest(MsgInboundRequest) returns (MsgInboundRequestResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgInboundRequest {
+  string orchestrator = 1;
+  uint64 eventNonce = 2;
+  uint64 chainId = 3;
+  uint64 blockHeight = 4;
+  string sourceTxHash = 5;
+  string sender = 6;
+  string routerBridgeContract = 7;
+  string payload = 8;
+}
+
+message MsgInboundRequestResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

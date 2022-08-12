@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.inbound;
+
+option go_package = "github.com/router-protocol/router-chain/x/inbound/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum IncomingTxStatus {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  INCOMING_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "INCOMING_TX_CREATED"];
+  INCOMING_TX_CONFIRMED = 1 [(gogoproto.enumvalue_customname) = "INCOMING_TX_CONFIRMED"];
+  INCOMING_TX_DELIVERED = 3 [(gogoproto.enumvalue_customname) = "INCOMING_TX_DELIVERED"];
+}
