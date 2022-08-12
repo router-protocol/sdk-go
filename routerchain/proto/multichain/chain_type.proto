@@ -1,0 +1,17 @@
+syntax = "proto3";
+package routerprotocol.routerchain.multichain;
+
+option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum ChainType {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  CHAIN_TYPE_EVM = 0 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_EVM"];
+  CHAIN_TYPE_COSMOS = 1 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_COSMOS"];
+  CHAIN_TYPE_POLKADOT = 2 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_POLKADOT"];
+  CHAIN_TYPE_SOLANO = 3 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_SOLANO"];
+  CHAIN_TYPE_NEAR = 4 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_NEAR"];
+}

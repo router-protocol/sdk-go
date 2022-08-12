@@ -1,0 +1,90 @@
+syntax = "proto3";
+package routerprotocol.routerchain.attestation;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "attestation/params.proto";
+import "attestation/valset.proto";
+import "attestation/attestation.proto";
+// this line is used by starport scaffolding # 1
+import "attestation/bridge_validator.proto";
+
+option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/attestation/params";
+  }
+  // Queries a Valset by nonce.
+	rpc Valset(QueryGetValsetRequest) returns (QueryGetValsetResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset/{nonce}";
+	}
+
+	// Queries a list of Valset items.
+	rpc ValsetAll(QueryAllValsetRequest) returns (QueryAllValsetResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset";
+	}
+
+// Queries a Attestation by index.
+	rpc Attestation(QueryGetAttestationRequest) returns (QueryGetAttestationResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/attestation/{chain_id}/{event_nonce}";
+	}
+
+	// Queries a list of Attestation items.
+	rpc AttestationAll(QueryAllAttestationRequest) returns (QueryAllAttestationResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/attestation";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetValsetRequest {
+	  uint64 nonce = 1;
+
+}
+
+message QueryGetValsetResponse {
+	Valset valset = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllValsetRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllValsetResponse {
+	repeated Valset valset = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetAttestationRequest {
+	  uint64 chain_id = 1;
+	  uint64 event_nonce = 2;
+
+}
+
+message QueryGetAttestationResponse {
+	Attestation attestation = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllAttestationRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllAttestationResponse {
+	repeated Attestation attestation = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

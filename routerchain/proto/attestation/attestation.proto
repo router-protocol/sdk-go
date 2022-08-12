@@ -1,0 +1,13 @@
+syntax = "proto3";
+package routerprotocol.routerchain.attestation;
+
+option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
+
+message Attestation {  
+  bool observed = 1; 
+  repeated string votes = 2; 
+  uint64 height = 3; 
+  string claim = 4; 
+  
+}
+

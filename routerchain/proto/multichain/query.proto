@@ -1,0 +1,60 @@
+syntax = "proto3";
+package routerprotocol.routerchain.multichain;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "multichain/params.proto";
+import "multichain/chain_config.proto";
+// this line is used by starport scaffolding # 1
+import "multichain/chain_type.proto";
+
+option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/params";
+  }
+  // Queries a ChainConfig by chain_id.
+	rpc ChainConfig(QueryGetChainConfigRequest) returns (QueryGetChainConfigResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config/{chain_id}";
+	}
+
+	// Queries a list of ChainConfig items.
+	rpc ChainConfigAll(QueryAllChainConfigRequest) returns (QueryAllChainConfigResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetChainConfigRequest {
+	  uint64 chain_id = 1;
+
+}
+
+message QueryGetChainConfigResponse {
+	ChainConfig chainConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllChainConfigRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllChainConfigResponse {
+	repeated ChainConfig chainConfig = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3
