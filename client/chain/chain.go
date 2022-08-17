@@ -158,11 +158,13 @@ func NewChainClient(
 	if cc.canSign {
 		var err error
 
+		fmt.Println("from addr", ctx.GetFromAddress())
 		cc.accNum, cc.accSeq, err = cc.txFactory.AccountRetriever().GetAccountNumberSequence(ctx, ctx.GetFromAddress())
 		if err != nil {
 			err = errors.Wrap(err, "failed to get initial account num and seq")
 			return nil, err
 		}
+		fmt.Println("before batch broadcast")
 
 		go cc.runBatchBroadcast()
 		go cc.syncTimeoutHeight()

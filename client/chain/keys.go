@@ -3,6 +3,7 @@ package chain
 import (
 	"bytes"
 	"crypto/rand"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -45,7 +46,7 @@ func InitCosmosKeyring(
 			return emptyCosmosAddress, nil, err
 		}
 
-		// Specfic to Injective chain with Ethermint keys
+		// Specfic to Router chain with Ethermint keys
 		// Should be secp256k1.PrivKey for generic Cosmos chain
 		cosmosAccPk := &ethsecp256k1.PrivKey{
 			Key: pkBytes,
@@ -78,16 +79,20 @@ func InitCosmosKeyring(
 		return addressFromPk, kb, err
 
 	case len(cosmosKeyFrom) > 0:
+		fmt.Println("cosmosKeyFrom", cosmosKeyFrom)
 		var fromIsAddress bool
 		addressFrom, err := cosmtypes.AccAddressFromBech32(cosmosKeyFrom)
 		if err == nil {
 			fromIsAddress = true
 		}
+		fmt.Println("addressFrom", addressFrom)
 
 		var passReader io.Reader = os.Stdin
 		if len(cosmosKeyPassphrase) > 0 {
 			passReader = newPassReader(cosmosKeyPassphrase)
 		}
+
+		fmt.Println("cosmosKeyPassphrase", cosmosKeyPassphrase)
 
 		var absoluteKeyringDir string
 		if filepath.IsAbs(cosmosKeyringDir) {
@@ -95,6 +100,8 @@ func InitCosmosKeyring(
 		} else {
 			absoluteKeyringDir, _ = filepath.Abs(cosmosKeyringDir)
 		}
+
+		fmt.Println("absoluteKeyringDir", absoluteKeyringDir, "cosmosKeyringBackend", cosmosKeyringBackend, "cosmosKeyringAppName", cosmosKeyringAppName)
 
 		kb, err := keyring.New(
 			cosmosKeyringAppName,
