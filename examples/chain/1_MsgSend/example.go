@@ -21,13 +21,14 @@ func main() {
 		fmt.Println(err)
 	}
 
+	fmt.Println("Network", network)
 	senderAddress, cosmosKeyring, err := chainclient.InitCosmosKeyring(
-		os.Getenv("HOME")+"/.routerd/keyring-file",
+		os.Getenv("HOME")+"/.routerd",
 		"routerd",
 		"file",
 		"genesis",
 		"12345678",
-		"5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e", // keyring will be used if pk not provided
+		"", // keyring will be used if pk not provided
 		false,
 	)
 
@@ -53,14 +54,14 @@ func main() {
 		FromAddress: senderAddress.String(),
 		ToAddress:   "router1mtp76jwymme78xaf0h73cmky8hdy3thhy0xz9a",
 		Amount: []sdktypes.Coin{{
-			Denom: "router", Amount: sdktypes.NewInt(10)}, // 1 router
+			Denom: "router", Amount: sdktypes.NewInt(1000000)}, // 1 router
 		},
 	}
 
 	chainClient, err := chainclient.NewChainClient(
 		clientCtx,
 		network.ChainGrpcEndpoint,
-		common.OptionTLSCert(network.ChainTlsCert),
+		// common.OptionTLSCert(network.ChainTlsCert),
 		common.OptionGasPrices("100000000000000router"),
 	)
 
@@ -69,7 +70,7 @@ func main() {
 	}
 
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
-	txResponse, err := chainClient.SyncBroadcastMsg(msg)
+	err = chainClient.QueueBroadcastMsg(msg)
 
 	if err != nil {
 		fmt.Println(err)
@@ -84,5 +85,5 @@ func main() {
 		return
 	}
 
-	fmt.Println("gas fee:", gasFee, "TxResponse", txResponse)
+	fmt.Println("gas fee:", gasFee)
 }

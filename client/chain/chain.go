@@ -463,6 +463,8 @@ func (c *chainClient) broadcastTx(
 		err = errors.Wrap(err, "failed to prepareFactory")
 		return nil, err
 	}
+
+	fmt.Println("prepare tx factory", "Simulate", clientCtx.Simulate)
 	ctx := context.Background()
 	if clientCtx.Simulate {
 		simTxBytes, err := tx.BuildSimTx(txf, msgs...)
@@ -484,6 +486,7 @@ func (c *chainClient) broadcastTx(
 		c.gasWanted = adjustedGas
 	}
 
+	fmt.Println("Build unsigned tx")
 	txn, err := tx.BuildUnsignedTx(txf, msgs...)
 
 	if err != nil {
@@ -492,6 +495,7 @@ func (c *chainClient) broadcastTx(
 	}
 
 	txn.SetFeeGranter(clientCtx.GetFeeGranterAddress())
+	fmt.Println("Sign tx", "signer", clientCtx.GetFromName())
 	err = tx.Sign(txf, clientCtx.GetFromName(), txn, true)
 	if err != nil {
 		err = errors.Wrap(err, "failed to Sign Tx")
@@ -504,6 +508,7 @@ func (c *chainClient) broadcastTx(
 		return nil, err
 	}
 
+	fmt.Println("Broadcast tx request")
 	req := txtypes.BroadcastTxRequest{
 		txBytes,
 		txtypes.BroadcastMode_BROADCAST_MODE_SYNC,
@@ -516,26 +521,31 @@ func (c *chainClient) broadcastTx(
 		return res, err
 	}
 
+	fmt.Println("Broadcasted tx")
 	awaitCtx, cancelFn := context.WithTimeout(context.Background(), defaultBroadcastTimeout)
 	defer cancelFn()
 
 	txHash, _ := hex.DecodeString(res.TxResponse.TxHash)
 	t := time.NewTimer(defaultBroadcastStatusPoll)
 
+	fmt.Println("Broadcasted tx", "txHash", txHash)
+
 	for {
 		select {
 		case <-awaitCtx.Done():
 			err := errors.Wrapf(ErrTimedOut, "%s", res.TxResponse.TxHash)
+			fmt.Println("Error timedout", err)
 			t.Stop()
 			return nil, err
 		case <-t.C:
 			resultTx, err := clientCtx.Client.Tx(awaitCtx, txHash, false)
 			if err != nil {
 				if errRes := client.CheckTendermintError(err, txBytes); errRes != nil {
+					fmt.Println("Tendermint error", err)
 					return &txtypes.BroadcastTxResponse{TxResponse: errRes}, err
 				}
 
-				// log.WithError(err).Warningln("Tx Error for Hash:", res.TxHash)
+				// log.WithError(err).Warningln("Tx Error for Hash:")
 
 				t.Reset(defaultBroadcastStatusPoll)
 				continue
@@ -586,6 +596,7 @@ func (c *chainClient) runBatchBroadcast() {
 		log.Debugln("broadcastTx with nonce", c.accSeq)
 		res, err := c.broadcastTx(c.ctx, c.txFactory, true, toSubmit...)
 		if err != nil {
+			fmt.Println("Error broadcasting tx", err)
 			if strings.Contains(err.Error(), "account sequence mismatch") {
 				c.syncNonce()
 				c.txFactory = c.txFactory.WithSequence(c.accSeq)
