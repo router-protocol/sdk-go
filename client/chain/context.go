@@ -1,6 +1,7 @@
 package chain
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -14,6 +15,7 @@ import (
 	keyscodec "github.com/router-protocol/sdk-go/routerchain/crypto/codec"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	chaintypes "github.com/router-protocol/sdk-go/routerchain/types"
 
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
 	signingtypes "github.com/cosmos/cosmos-sdk/types/tx/signing"
@@ -59,6 +61,7 @@ func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
 	feegranttypes.RegisterInterfaces(interfaceRegistry)
 	wasmtypes.RegisterInterfaces(interfaceRegistry)
 	icatypes.RegisterInterfaces(interfaceRegistry)
+	chaintypes.RegisterInterfaces(interfaceRegistry)
 
 	marshaler := codec.NewProtoCodec(interfaceRegistry)
 	return tx.NewTxConfig(marshaler, signModes)
@@ -70,11 +73,13 @@ func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
 func NewClientContext(
 	chainId, fromSpec string, kb keyring.Keyring,
 ) (client.Context, error) {
+	fmt.Println("chainId", chainId, "fromSpec", fromSpec)
 	clientCtx := client.Context{}
 
 	interfaceRegistry := types.NewInterfaceRegistry()
 	keyscodec.RegisterInterfaces(interfaceRegistry)
 	std.RegisterInterfaces(interfaceRegistry)
+	chaintypes.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)

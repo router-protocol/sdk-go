@@ -14,21 +14,21 @@ import (
 )
 
 func main() {
-	// network := common.LoadNetwork("mainnet", "k8s")
-	network := common.LoadNetwork("testnet", "k8s")
+	network := common.LoadNetwork("local", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	fmt.Println("tmRpc", tmRPC)
 	senderAddress, cosmosKeyring, err := chainclient.InitCosmosKeyring(
-		os.Getenv("HOME")+"/.router-chain",
-		"router-chaind",
+		os.Getenv("HOME")+"/.router-chain/keyring-file",
+		"router-chain",
 		"file",
-		"my-validator",
+		"genesis",
 		"12345678",
-		"", // keyring will be used if pk not provided
+		"5d386fbdbf11f1141010f81a46b40f94887367562bd33b452bbaa6ce1cd1381e", // keyring will be used if pk not provided
 		false,
 	)
 
@@ -37,7 +37,6 @@ func main() {
 	}
 
 	// initialize grpc client
-
 	clientCtx, err := chainclient.NewClientContext(
 		network.ChainId,
 		senderAddress.String(),
@@ -51,12 +50,11 @@ func main() {
 	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
 
 	// prepare tx msg
-
 	msg := &banktypes.MsgSend{
 		FromAddress: senderAddress.String(),
 		ToAddress:   "router1mtp76jwymme78xaf0h73cmky8hdy3thhy0xz9a",
 		Amount: []sdktypes.Coin{{
-			Denom: "stake", Amount: sdktypes.NewInt(1000000000000000000)}, // 1 Stake
+			Denom: "router", Amount: sdktypes.NewInt(10)}, // 1 router
 		},
 	}
 
@@ -64,15 +62,16 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("500000000token"),
+		common.OptionGasPrices("1000000router"),
 	)
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	fmt.Println("Broadcast tx")
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
-	err = chainClient.QueueBroadcastMsg(msg)
+	txResponse, err := chainClient.SyncBroadcastMsg(msg)
 
 	if err != nil {
 		fmt.Println(err)
@@ -87,5 +86,5 @@ func main() {
 		return
 	}
 
-	fmt.Println("gas fee:", gasFee, "INJ")
+	fmt.Println("gas fee:", gasFee, "TxResponse", txResponse)
 }
