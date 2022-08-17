@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.types;
+
+option go_package = "github.com/router-protocol/router-chain/types";
+
+// base header ak message type, we can cast the bytes into corresponding message response type
+message TxResponseGenericMessage {
+  string header = 1;
+  bytes data = 2;
+}
+
+// improvised message to unpack length prefixed messages in tx response data
+message TxResponseData {
+  repeated TxResponseGenericMessage messages  = 1;
+}

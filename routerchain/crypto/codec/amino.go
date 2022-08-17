@@ -29,7 +29,6 @@ var (
 // codec.
 func RegisterCrypto(cdc *codec.LegacyAmino) {
 	cryptocodec.RegisterCrypto(cdc)
-
 	cdc.RegisterConcrete(&ethsecp256k1.PubKey{},
 		ethsecp256k1.PubKeyName, nil)
 	cdc.RegisterConcrete(&ethsecp256k1.PrivKey{},

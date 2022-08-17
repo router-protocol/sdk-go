@@ -21,10 +21,9 @@ func main() {
 		fmt.Println(err)
 	}
 
-	fmt.Println("tmRpc", tmRPC)
 	senderAddress, cosmosKeyring, err := chainclient.InitCosmosKeyring(
-		os.Getenv("HOME")+"/.router-chain/keyring-file",
-		"router-chain",
+		os.Getenv("HOME")+"/.routerd/keyring-file",
+		"routerd",
 		"file",
 		"genesis",
 		"12345678",
@@ -62,14 +61,13 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("1000000router"),
+		common.OptionGasPrices("100000000000000router"),
 	)
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	fmt.Println("Broadcast tx")
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
 	txResponse, err := chainClient.SyncBroadcastMsg(msg)
 

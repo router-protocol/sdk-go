@@ -1,7 +1,6 @@
 package chain
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/cosmos/cosmos-sdk/client"
@@ -73,7 +72,6 @@ func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
 func NewClientContext(
 	chainId, fromSpec string, kb keyring.Keyring,
 ) (client.Context, error) {
-	fmt.Println("chainId", chainId, "fromSpec", fromSpec)
 	clientCtx := client.Context{}
 
 	interfaceRegistry := types.NewInterfaceRegistry()

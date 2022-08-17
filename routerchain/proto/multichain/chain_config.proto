@@ -2,19 +2,24 @@ syntax = "proto3";
 package routerprotocol.routerchain.multichain;
 
 option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
+
 import "multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 message ChainConfig {
-  uint64 chain_id = 1; 
+  string chainId = 1; 
   string chainName = 2; 
   string symbol = 3; 
-  ChainType chainType = 4; 
-  uint64 confirmationsRequired = 5; 
-  string gatewayContractAddress = 6; 
-  uint64 gatewayContractHeight = 7; 
-  string routerContractAddress = 8; 
-  uint64 lastObservedEventNonce = 9; 
-  uint64 lastObservedValsetNonce = 10; 
-  string creator = 11;
+  string TokenPrice = 4 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  string GasPrice = 5 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  ChainType chainType = 6; 
+  uint64 confirmationsRequired = 7; 
+  string gatewayContractAddress = 8; 
+  uint64 gatewayContractHeight = 9; 
+  string routerContractAddress = 10; 
+  uint64 lastObservedEventNonce = 11; 
+  uint64 lastObservedValsetNonce = 12; 
+  string creator = 13;
 }
 

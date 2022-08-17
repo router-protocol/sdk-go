@@ -8,10 +8,13 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/distribution/types"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
+	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
+	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
