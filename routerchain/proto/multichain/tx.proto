@@ -17,7 +17,7 @@ service Msg {
 
 message MsgCreateChainConfig {
   string creator = 1;
-  uint64 chain_id = 2;
+  string chain_id = 2;
 
   string chainName = 3;
   string symbol = 4;
@@ -33,7 +33,7 @@ message MsgCreateChainConfigResponse {}
 
 message MsgUpdateChainConfig {
   string creator = 1;
-  uint64 chain_id = 2;
+  string chain_id = 2;
 
   string chainName = 3;
   string symbol = 4;
@@ -49,7 +49,7 @@ message MsgUpdateChainConfigResponse {}
 
 message MsgDeleteChainConfig {
   string creator = 1;
-  uint64 chain_id = 2;
+  string chain_id = 2;
 }
 message MsgDeleteChainConfigResponse {}
 

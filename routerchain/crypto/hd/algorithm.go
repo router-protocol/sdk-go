@@ -3,14 +3,16 @@ package hd
 import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/btcsuite/btcutil/hdkeychain"
-	"github.com/cosmos/cosmos-sdk/crypto/hd"
-	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
+	bip39 "github.com/tyler-smith/go-bip39"
+
 	ethaccounts "github.com/ethereum/go-ethereum/accounts"
 	ethcrypto "github.com/ethereum/go-ethereum/crypto"
-	"github.com/router-protocol/sdk-go/routerchain/crypto/ethsecp256k1"
-	"github.com/tyler-smith/go-bip39"
 
+	"github.com/cosmos/cosmos-sdk/crypto/hd"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
+	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
+
+	"github.com/router-protocol/sdk-go/routerchain/crypto/ethsecp256k1"
 )
 
 const (
@@ -30,6 +32,7 @@ var (
 )
 
 // EthSecp256k1Option defines a function keys options for the ethereum Secp256k1 curve.
+// It supports eth_secp256k1 and secp256k1 keys for accounts.
 func EthSecp256k1Option() keyring.Option {
 	return func(options *keyring.Options) {
 		options.SupportedAlgos = SupportedAlgorithms
@@ -44,8 +47,7 @@ var (
 	EthSecp256k1 = ethSecp256k1Algo{}
 )
 
-type ethSecp256k1Algo struct {
-}
+type ethSecp256k1Algo struct{}
 
 // Name returns eth_secp256k1
 func (s ethSecp256k1Algo) Name() hd.PubKeyType {
@@ -54,7 +56,7 @@ func (s ethSecp256k1Algo) Name() hd.PubKeyType {
 
 // Derive derives and returns the eth_secp256k1 private key for the given mnemonic and HD path.
 func (s ethSecp256k1Algo) Derive() hd.DeriveFn {
-	return func(mnemonic string, bip39Passphrase, path string) ([]byte, error) {
+	return func(mnemonic, bip39Passphrase, path string) ([]byte, error) {
 		hdpath, err := ethaccounts.ParseDerivationPath(path)
 		if err != nil {
 			return nil, err
@@ -65,6 +67,7 @@ func (s ethSecp256k1Algo) Derive() hd.DeriveFn {
 			return nil, err
 		}
 
+		// create a BTC-utils hd-derivation key chain
 		masterKey, err := hdkeychain.NewMaster(seed, &chaincfg.MainNetParams)
 		if err != nil {
 			return nil, err
@@ -72,17 +75,21 @@ func (s ethSecp256k1Algo) Derive() hd.DeriveFn {
 
 		key := masterKey
 		for _, n := range hdpath {
-			key, err = key.Child(n)
+			key, err = key.Derive(n)
 			if err != nil {
 				return nil, err
 			}
 		}
 
+		// btc-utils representation of a secp256k1 private key
 		privateKey, err := key.ECPrivKey()
 		if err != nil {
 			return nil, err
 		}
 
+		// cast private key to a convertible form (single scalar field element of secp256k1)
+		// and then load into ethcrypto private key format.
+		// TODO: add links to godocs of the two methods or implementations of them, to compare equivalency
 		privateKeyECDSA := privateKey.ToECDSA()
 		derivedKey := ethcrypto.FromECDSA(privateKeyECDSA)
 
@@ -90,12 +97,15 @@ func (s ethSecp256k1Algo) Derive() hd.DeriveFn {
 	}
 }
 
-// Generate generates a secp256k1 private key from the given bytes.
+// Generate generates a eth_secp256k1 private key from the given bytes.
 func (s ethSecp256k1Algo) Generate() hd.GenerateFn {
 	return func(bz []byte) cryptotypes.PrivKey {
-		var bzArr = make([]byte, ethsecp256k1.PrivKeySize)
+		bzArr := make([]byte, ethsecp256k1.PrivKeySize)
 		copy(bzArr, bz)
 
-		return &ethsecp256k1.PrivKey{Key: bzArr}
+		// TODO: modulo P
+		return &ethsecp256k1.PrivKey{
+			Key: bzArr,
+		}
 	}
 }

@@ -15,7 +15,7 @@ var _ sdk.Msg = &MsgCreateChainConfig{}
 
 func NewMsgCreateChainConfig(
 	creator string,
-	chainId uint64,
+	chainId string,
 	chainName string,
 	symbol string,
 	chainType ChainType,
@@ -75,7 +75,7 @@ var _ sdk.Msg = &MsgUpdateChainConfig{}
 
 func NewMsgUpdateChainConfig(
 	creator string,
-	ChainId uint64,
+	ChainId string,
 	chainName string,
 	symbol string,
 	chainType ChainType,
@@ -135,7 +135,7 @@ var _ sdk.Msg = &MsgDeleteChainConfig{}
 
 func NewMsgDeleteChainConfig(
 	creator string,
-	ChainId uint64,
+	ChainId string,
 
 ) *MsgDeleteChainConfig {
 	return &MsgDeleteChainConfig{

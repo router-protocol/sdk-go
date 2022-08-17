@@ -3,6 +3,7 @@ package codec
 import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	cryptotypes "github.com/cosmos/cosmos-sdk/crypto/types"
+
 	"github.com/router-protocol/sdk-go/routerchain/crypto/ethsecp256k1"
 )
 

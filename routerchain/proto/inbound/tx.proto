@@ -5,6 +5,8 @@ package routerprotocol.routerchain.inbound;
 
 option go_package = "github.com/router-protocol/router-chain/x/inbound/types";
 
+import "multichain/chain_type.proto"; 
+
 // Msg defines the Msg service.
 service Msg {
       rpc InboundRequest(MsgInboundRequest) returns (MsgInboundRequestResponse);
@@ -13,13 +15,14 @@ service Msg {
 
 message MsgInboundRequest {
   string orchestrator = 1;
-  uint64 eventNonce = 2;
-  uint64 chainId = 3;
-  uint64 blockHeight = 4;
-  string sourceTxHash = 5;
-  string sender = 6;
-  string routerBridgeContract = 7;
-  string payload = 8;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2; 
+  string chainId = 3;
+  uint64 eventNonce = 4;
+  uint64 blockHeight = 5;
+  string sourceTxHash = 6;
+  string sourceSender = 7;
+  string routerBridgeContract = 8;
+  string payload = 9;
 }
 
 message MsgInboundRequestResponse {

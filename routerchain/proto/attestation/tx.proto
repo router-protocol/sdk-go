@@ -3,6 +3,8 @@ package routerprotocol.routerchain.attestation;
 
 // this line is used by starport scaffolding # proto/tx/import
 import "attestation/bridge_validator.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
 
 option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
 
@@ -37,8 +39,8 @@ message MsgValsetUpdatedClaim {
   string orchestrator = 1;
   uint64 eventNonce = 2;
   uint64 valsetNonce = 3;
-  uint64 blockHeight = 4;
-  repeated BridgeValidator members = 5;
+  uint64 blockHeight = 4;  
+  repeated BridgeValidator members = 5 [(gogoproto.nullable) = false];
 }
 
 message MsgValsetUpdatedClaimResponse {

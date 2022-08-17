@@ -1,15 +1,18 @@
 package types
 
 import (
+	fmt "fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 const TypeMsgValsetUpdatedClaim = "valset_updated_claim"
 
 var _ sdk.Msg = &MsgValsetUpdatedClaim{}
 
-func NewMsgValsetUpdatedClaim(orchestrator string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, members []*BridgeValidator) *MsgValsetUpdatedClaim {
+func NewMsgValsetUpdatedClaim(orchestrator string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, members []BridgeValidator) *MsgValsetUpdatedClaim {
 	return &MsgValsetUpdatedClaim{
 		Orchestrator: orchestrator,
 		EventNonce:   eventNonce,
@@ -46,4 +49,39 @@ func (msg *MsgValsetUpdatedClaim) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
+}
+
+/////////////////////////////
+//     Implement Claim     //
+/////////////////////////////
+
+// GetType returns the type of the claim
+func (e *MsgValsetUpdatedClaim) GetType() ClaimType {
+	return CLAIM_TYPE_VALSET_UPDATED
+}
+
+// Hash implements BridgeDeposit.Hash
+// modify this with care as it is security sensitive. If an element of the claim is not in this hash a single hostile validator
+// could engineer a hash collision and execute a version of the claim with any unhashed data changed to benefit them.
+// note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
+// structure for who has made what claim and is verified by the msg ante-handler for signatures
+func (b *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
+	var members BridgeValidators = b.Members
+	internalMembers, err := members.ToInternal()
+	if err != nil {
+		return nil, sdkerrors.Wrap(err, "invalid members")
+	}
+	internalMembers.Sort()
+	path := fmt.Sprintf("%d/%d/%d/%x/", b.EventNonce, b.ValsetNonce, b.BlockHeight, internalMembers.ToExternal())
+	return tmhash.Sum([]byte(path)), nil
+}
+
+func (msg MsgValsetUpdatedClaim) GetClaimer() sdk.AccAddress {
+	err := msg.ValidateBasic()
+	if err != nil {
+		panic("MsgValsetUpdatedClaim failed ValidateBasic! Should have been handled earlier")
+	}
+
+	val, _ := sdk.AccAddressFromBech32(msg.Orchestrator)
+	return val
 }

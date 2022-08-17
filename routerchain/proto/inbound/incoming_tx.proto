@@ -1,17 +1,20 @@
 syntax = "proto3";
 package routerprotocol.routerchain.inbound;
 
+
 option go_package = "github.com/router-protocol/router-chain/x/inbound/types";
 import "inbound/incoming_tx_status.proto"; 
+import "multichain/chain_type.proto"; 
 
 message IncomingTx {  
-  uint64 chainId = 1; 
-  uint64 eventNonce = 2; 
-  uint64 blockHeight = 3;
-  string sourceTxHash = 4; 
-  string sender = 5;   
-  string routerBridgeContract = 6; 
-  string payload = 7; 
-  IncomingTxStatus status = 8;   
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;
+  string chainId = 2; 
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4;
+  string sourceTxHash = 5; 
+  string sourceSender = 6;   
+  string routerBridgeContract = 7; 
+  string payload = 8; 
+  IncomingTxStatus status = 9;   
 }
 

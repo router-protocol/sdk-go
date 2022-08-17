@@ -40,7 +40,7 @@ message QueryParamsResponse {
 }
 
 message QueryGetChainConfigRequest {
-	  uint64 chain_id = 1;
+	  string chain_id = 1;
 
 }
 

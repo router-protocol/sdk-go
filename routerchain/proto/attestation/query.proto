@@ -69,8 +69,9 @@ message QueryAllValsetResponse {
 }
 
 message QueryGetAttestationRequest {
-	  uint64 chain_id = 1;
-	  uint64 event_nonce = 2;
+	  uint64 chain_type = 1;
+	  string chain_id = 2;
+	  uint64 event_nonce = 3;
 
 }
 
