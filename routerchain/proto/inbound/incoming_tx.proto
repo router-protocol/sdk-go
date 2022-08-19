@@ -14,7 +14,6 @@ message IncomingTx {
   string sourceTxHash = 5; 
   string sourceSender = 6;   
   string routerBridgeContract = 7; 
-  string payload = 8; 
+  bytes payload = 8; 
   IncomingTxStatus status = 9;   
 }
-

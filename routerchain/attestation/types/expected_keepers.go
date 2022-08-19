@@ -14,6 +14,9 @@ import (
 type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
 	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
+	SetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, nonce uint64)
+	GetLastObservedEventBlockHeight(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
+	SetLastObservedEventBlockHeight(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, blockHeight uint64)
 	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
 }
 

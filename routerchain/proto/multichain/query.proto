@@ -19,7 +19,7 @@ service Query {
   }
   // Queries a ChainConfig by chain_id.
 	rpc ChainConfig(QueryGetChainConfigRequest) returns (QueryGetChainConfigResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config/{chain_id}";
+		option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config/{chain_type}/{chain_id}";
 	}
 
 	// Queries a list of ChainConfig items.
@@ -40,7 +40,8 @@ message QueryParamsResponse {
 }
 
 message QueryGetChainConfigRequest {
-	  string chain_id = 1;
+	  uint64 chain_type =1;
+	  string chain_id = 2;
 
 }
 

@@ -18,8 +18,9 @@ message ChainConfig {
   string gatewayContractAddress = 8; 
   uint64 gatewayContractHeight = 9; 
   string routerContractAddress = 10; 
-  uint64 lastObservedEventNonce = 11; 
-  uint64 lastObservedValsetNonce = 12; 
-  string creator = 13;
+  uint64 lastObservedEventNonce = 11;
+  uint64 lastObservedEventBlockHeight = 12; 
+  uint64 lastObservedValsetNonce = 13; 
+  string creator = 14;
 }
 

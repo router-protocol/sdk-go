@@ -5,6 +5,7 @@ package routerprotocol.routerchain.attestation;
 import "attestation/bridge_validator.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
+import "multichain/chain_type.proto"; 
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
@@ -37,10 +38,12 @@ message MsgValsetConfirmResponse {
 
 message MsgValsetUpdatedClaim {
   string orchestrator = 1;
-  uint64 eventNonce = 2;
-  uint64 valsetNonce = 3;
-  uint64 blockHeight = 4;  
-  repeated BridgeValidator members = 5 [(gogoproto.nullable) = false];
+  routerprotocol.routerchain.multichain.ChainType chainType = 2; 
+  string chainId = 3;
+  uint64 eventNonce = 4;
+  uint64 valsetNonce = 5;
+  uint64 blockHeight = 6;  
+  repeated BridgeValidator members = 7 [(gogoproto.nullable) = false];
 }
 
 message MsgValsetUpdatedClaimResponse {

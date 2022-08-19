@@ -1,0 +1,28 @@
+syntax = "proto3";
+package routerprotocol.routerchain.inbound;
+
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/inbound/types";
+import "inbound/incoming_tx_status.proto"; 
+import "multichain/chain_type.proto"; 
+
+message EventIncomingTxCreated {  
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3; 
+  uint64 eventNonce = 4; 
+  uint64 blockHeight = 5;
+  string sourceTxHash = 6; 
+  string sourceSender = 7;   
+  string routerBridgeContract = 8; 
+  bytes payload = 9; 
+  IncomingTxStatus status = 10;   
+}
+
+message EventIncomingTxDelegated {
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3; 
+  uint64 eventNonce = 4;
+  bytes delegationResponse = 5;
+}
