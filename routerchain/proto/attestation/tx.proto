@@ -6,7 +6,7 @@ import "attestation/bridge_validator.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 
-option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
 // Msg defines the Msg service.
 service Msg {
