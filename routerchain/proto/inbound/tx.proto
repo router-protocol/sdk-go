@@ -3,7 +3,7 @@ package routerprotocol.routerchain.inbound;
 
 // this line is used by starport scaffolding # proto/tx/import
 
-option go_package = "github.com/router-protocol/router-chain/x/inbound/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/inbound/types";
 
 import "multichain/chain_type.proto"; 
 

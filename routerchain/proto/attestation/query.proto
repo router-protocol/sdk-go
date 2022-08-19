@@ -10,7 +10,7 @@ import "attestation/attestation.proto";
 // this line is used by starport scaffolding # 1
 import "attestation/bridge_validator.proto";
 
-option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
 // Query defines the gRPC querier service.
 service Query {

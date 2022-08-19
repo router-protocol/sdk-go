@@ -11,3 +11,4 @@ copy-chain-types:
 	cp ../router-chain/util/*.go routerchain/util
 
 	echo "👉 Replace router-chain/util with sdk-go/routerchain/util"
+	echo "👉 Replace sdk-go/routerchain with sdk-go/routerchain

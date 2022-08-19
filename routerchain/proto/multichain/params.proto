@@ -3,7 +3,7 @@ package routerprotocol.routerchain.multichain;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
 
 // Params defines the parameters for the module.
 message Params {
