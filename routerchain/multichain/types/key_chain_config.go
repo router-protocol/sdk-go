@@ -3,7 +3,7 @@ package types
 import (
 	"encoding/binary"
 
-	"github.com/router-protocol/router-chain/util"
+	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
 var _ binary.ByteOrder
