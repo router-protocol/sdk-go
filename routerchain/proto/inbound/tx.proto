@@ -22,7 +22,7 @@ message MsgInboundRequest {
   string sourceTxHash = 6;
   string sourceSender = 7;
   string routerBridgeContract = 8;
-  string payload = 9;
+  bytes payload = 9;
 }
 
 message MsgInboundRequestResponse {
