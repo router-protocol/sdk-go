@@ -10,6 +10,12 @@ copy-chain-types:
 	cp ../router-chain/x/inbound/types/*.go routerchain/inbound/types
 	rm -rf routerchain/inbound/types/*test.go  rm -rf routerchain/inbound/types/*gw.go
 	
+	cp ../router-chain/x/outbound/types/*.go routerchain/outbound/types
+	rm -rf routerchain/outbound/types/*test.go  rm -rf routerchain/outbound/types/*gw.go
+
+	cp ../router-chain/x/oracle/types/*.go routerchain/oracle/types
+	rm -rf routerchain/oracle/types/*test.go  rm -rf routerchain/oracle/types/*gw.go
+
 	cp -r ../router-chain/types/*.go routerchain/types
 	rm -rf routerchain/types/*test.go
 
