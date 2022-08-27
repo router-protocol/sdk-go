@@ -1,0 +1,97 @@
+syntax = "proto3";
+package routerprotocol.routerchain.outbound;
+
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "outbound/params.proto";
+import "outbound/outgoing_batch_tx.proto";
+import "outbound/outgoing_batch_confirm.proto";
+// this line is used by starport scaffolding # 1
+import "outbound/outgoing_tx_status.proto";
+import "outbound/contract_call.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/outbound/params";
+  }
+  // Queries a OutgoingBatchTx by index.
+	rpc OutgoingBatchTx(QueryGetOutgoingBatchTxRequest) returns (QueryGetOutgoingBatchTxResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_tx/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}";
+	}
+
+	// Queries a list of OutgoingBatchTx items.
+	rpc OutgoingBatchTxAll(QueryAllOutgoingBatchTxRequest) returns (QueryAllOutgoingBatchTxResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_tx";
+	}
+
+// Queries a OutgoingBatchConfirm by index.
+	rpc OutgoingBatchConfirm(QueryGetOutgoingBatchConfirmRequest) returns (QueryGetOutgoingBatchConfirmResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}/{validator}";
+	}
+
+	// Queries a list of OutgoingBatchConfirm items.
+	rpc OutgoingBatchConfirmAll(QueryAllOutgoingBatchConfirmRequest) returns (QueryAllOutgoingBatchConfirmResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetOutgoingBatchTxRequest {
+	  uint64 destination_chain_type =1;
+	  string destination_chain_id = 2;
+	  string source_address = 3;
+	  uint64 nonce = 4;	  
+}
+
+message QueryGetOutgoingBatchTxResponse {
+	OutgoingBatchTx outgoingBatchTx = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOutgoingBatchTxRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOutgoingBatchTxResponse {
+	repeated OutgoingBatchTx outgoingBatchTx = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetOutgoingBatchConfirmRequest {
+	uint64 destination_chain_type =1;
+	  string destination_chain_id = 2;
+	  string source_address = 3;
+	  uint64 nonce = 4;
+	  string validator = 5;
+
+}
+
+message QueryGetOutgoingBatchConfirmResponse {
+	OutgoingBatchConfirm outgoingBatchConfirm = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOutgoingBatchConfirmRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOutgoingBatchConfirmResponse {
+	repeated OutgoingBatchConfirm outgoingBatchConfirm = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

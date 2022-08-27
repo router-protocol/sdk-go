@@ -11,5 +11,5 @@ enum IncomingTxStatus {
 
   INCOMING_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "INCOMING_TX_CREATED"];
   INCOMING_TX_OBSERVED = 1 [(gogoproto.enumvalue_customname) = "INCOMING_TX_OBSERVED"];
-  INCOMING_TX_DELIVERED = 2 [(gogoproto.enumvalue_customname) = "INCOMING_TX_DELIVERED"];
+  INCOMING_TX_DELEGATED = 2 [(gogoproto.enumvalue_customname) = "INCOMING_TX_DELEGATED"];
 }

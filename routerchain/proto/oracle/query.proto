@@ -1,0 +1,51 @@
+syntax = "proto3";
+package routerprotocol.routerchain.oracle;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "oracle/params.proto";
+import "oracle/band_token_prices.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/oracle/params";
+  }
+  
+  	// BandTokenPricesResult defines a rpc handler method for MsgBandTokenPricesData.
+  	rpc BandTokenPricesResult(QueryBandTokenPricesRequest) returns (QueryBandTokenPricesResponse) {
+		option (google.api.http).get = "/routerchain/oracle/band_token_prices_result/{request_id}";
+  	}
+
+  	// LastBandTokenPricesId query the last BandTokenPrices result id
+  	rpc LastBandTokenPricesId(QueryLastBandTokenPricesIdRequest) returns (QueryLastBandTokenPricesIdResponse) {
+		option (google.api.http).get = "/routerchain/oracle/last_band_token_prices_id";
+  	}
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryBandTokenPricesRequest {int64 request_id = 1;}
+
+message QueryBandTokenPricesResponse {
+  BandTokenPricesResult result = 1;
+}
+
+message QueryLastBandTokenPricesIdRequest {}
+
+message QueryLastBandTokenPricesIdResponse {int64 request_id = 1;}
+
+// this line is used by starport scaffolding # 3
