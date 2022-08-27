@@ -1,0 +1,10 @@
+syntax = "proto3";
+package routerprotocol.routerchain.outbound;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
+
+message ContractCall {
+  
+  bytes destinationContractAddress = 1; 
+  bytes payload = 2; 
+}

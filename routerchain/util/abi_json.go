@@ -16,18 +16,20 @@ package util
 const (
 	// OutgoingBatchTxCheckpointABIJSON checks the ETH ABI for compatibility of the OutgoingBatchTx message
 	OutgoingBatchTxCheckpointABIJSON = `[{
-		"name": "submitBatch",
-		"stateMutability": "pure",
+		"name": "checkpoint",
+		"stateMutability": "nonpayable",
 		"type": "function",
-		"inputs": [
-			{ "internalType": "bytes32",   "name": "_gravityId",       "type": "bytes32" },
-			{ "internalType": "bytes32",   "name": "_methodName",    "type": "bytes32" },
-			{ "internalType": "uint256[]", "name": "_amounts",       "type": "uint256[]" },
-			{ "internalType": "address[]", "name": "_destinations",  "type": "address[]" },
-			{ "internalType": "uint256[]", "name": "_fees",          "type": "uint256[]" },
-			{ "internalType": "uint256",   "name": "_batchNonce",    "type": "uint256" },
-			{ "internalType": "address",   "name": "_tokenContract", "type": "address" },
-			{ "internalType": "uint256",   "name": "_batchTimeout",  "type": "uint256" }
+		"inputs":  [			
+			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+			{ "internalType": "uint64","name": "_chainType","type": "uint64" },
+			{ "internalType": "string", "name": "_chainId","type": "string" },
+			{ "internalType": "string", "name": "_sender","type": "string" },
+			{"internalType": "uint256","name": "_nonce","type": "uint256"},
+			{ "internalType": "uint256","name": "_relayerFee","type": "uint256"},
+			{"internalType": "uint256","name": "_outgoingTxFee","type": "uint256"},
+			{"internalType": "bool","name": "_isAtomic","type": "bool"},			
+			{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
+			{"internalType": "bytes[]","name": "_payloads","type": "bytes[]"}			
 		],
 		"outputs": [
 			{ "internalType": "bytes32", "name": "", "type": "bytes32" }

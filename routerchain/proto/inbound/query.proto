@@ -19,7 +19,7 @@ service Query {
   }
   // Queries a IncomingTx by index.
 	rpc IncomingTx(QueryGetIncomingTxRequest) returns (QueryGetIncomingTxResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/inbound/incoming_tx/{chain_id}/{event_nonce}";
+		option (google.api.http).get = "/router-protocol/router-chain/inbound/incoming_tx/{chain_type}/{chain_id}/{event_nonce}";
 	}
 
 	// Queries a list of IncomingTx items.
