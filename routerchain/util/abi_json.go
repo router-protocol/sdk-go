@@ -21,7 +21,7 @@ const (
 		"type": "function",
 		"inputs":  [			
 			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
-			{ "internalType": "uint64","name": "_chainType","type": "uint64" },
+			{ "internalType": "uint256","name": "_chainType","type": "uint256" },
 			{ "internalType": "string", "name": "_chainId","type": "string" },
 			{ "internalType": "string", "name": "_sender","type": "string" },
 			{"internalType": "uint256","name": "_nonce","type": "uint256"},
