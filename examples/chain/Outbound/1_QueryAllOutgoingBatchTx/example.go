@@ -8,13 +8,8 @@ import (
 
 	chainclient "github.com/router-protocol/sdk-go/client/chain"
 	"github.com/router-protocol/sdk-go/client/common"
-	log "github.com/xlab/suplog"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/connectivity"
 
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
-
-	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 )
@@ -83,30 +78,7 @@ func main() {
 
 	// prepare tx msg
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
-	grpcConn := chainClient.QueryClient()
-	waitForService(ctx, grpcConn)
-	outboundTypesGrpcQuerier := outboundTypes.NewQueryClient(grpcConn)
 
-	outgoingBatchTxs, err := outboundTypesGrpcQuerier.OutgoingBatchTxAll(ctx, &outboundTypes.QueryAllOutgoingBatchTxRequest{})
+	outgoingBatchTxs, err := chainClient.GetAllOutgoingBatchTx(ctx)
 	fmt.Println("OutgoingBatchTxs", outgoingBatchTxs, "Checkpoint", outgoingBatchTxs.OutgoingBatchTx[0].GetCheckpoint("routerchain"))
-}
-
-// waitForService awaits an active ClientConn to a GRPC service.
-func waitForService(ctx context.Context, clientconn *grpc.ClientConn) {
-	for {
-		select {
-		case <-ctx.Done():
-			log.Fatalln("GRPC service wait timed out")
-		default:
-			state := clientconn.GetState()
-
-			if state != connectivity.Ready {
-				log.WithField("state", state.String()).Warningln("state of GRPC connection not ready")
-				time.Sleep(5 * time.Second)
-				continue
-			}
-
-			return
-		}
-	}
 }
