@@ -8,13 +8,9 @@ import (
 
 	chainclient "github.com/router-protocol/sdk-go/client/chain"
 	"github.com/router-protocol/sdk-go/client/common"
-	log "github.com/xlab/suplog"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/connectivity"
 
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
@@ -22,10 +18,6 @@ import (
 
 const (
 	// Tx Agrs
-	CHAIN_TYPE               = 0
-	CHAIN_ID                 = "137"
-	BATCH_NONCE              = 1
-	ROUTER_BRIDGE_CONTRACT   = "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk"
 	ORCHESTRATOR_ETH_ADDRESS = "0xdE23C5FfC7B045b48F0B85ADA2c518d213d9e24F"
 	IS_ATOMIC                = false
 )
@@ -84,15 +76,13 @@ func main() {
 
 	// prepare tx msg
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
-	grpcConn := chainClient.QueryClient()
-	waitForService(ctx, grpcConn)
-	outboundTypesGrpcQuerier := outboundTypes.NewQueryClient(grpcConn)
-
-	outgoingBatchTxs, err := outboundTypesGrpcQuerier.OutgoingBatchTxAll(ctx, &outboundTypes.QueryAllOutgoingBatchTxRequest{})
+	outgoingBatchTxs, err := chainClient.GetAllOutgoingBatchTx(ctx)
 	fmt.Println("OutgoingBatchTxs", outgoingBatchTxs, "Checkpoint", outgoingBatchTxs.OutgoingBatchTx[0].GetCheckpoint("routerchain"))
 
+	outgoingBatchTx := outgoingBatchTxs.OutgoingBatchTx[0]
 	signature := ""
-	msg := outboundTypes.NewMsgOutgoingBatchConfirm(senderAddress.String(), multichainTypes.ChainType(CHAIN_TYPE), CHAIN_ID, ROUTER_BRIDGE_CONTRACT, BATCH_NONCE, ORCHESTRATOR_ETH_ADDRESS, signature)
+	msg := outboundTypes.NewMsgOutgoingBatchConfirm(senderAddress.String(), outgoingBatchTx.GetDestinationChainType(),
+		outgoingBatchTx.GetDestinationChainId(), outgoingBatchTx.GetSourceAddress(), outgoingBatchTx.GetNonce(), ORCHESTRATOR_ETH_ADDRESS, signature)
 
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
 	err = chainClient.QueueBroadcastMsg(msg)
@@ -111,24 +101,4 @@ func main() {
 	}
 
 	fmt.Println("gas fee:", gasFee)
-}
-
-// waitForService awaits an active ClientConn to a GRPC service.
-func waitForService(ctx context.Context, clientconn *grpc.ClientConn) {
-	for {
-		select {
-		case <-ctx.Done():
-			log.Fatalln("GRPC service wait timed out")
-		default:
-			state := clientconn.GetState()
-
-			if state != connectivity.Ready {
-				log.WithField("state", state.String()).Warningln("state of GRPC connection not ready")
-				time.Sleep(5 * time.Second)
-				continue
-			}
-
-			return
-		}
-	}
 }
