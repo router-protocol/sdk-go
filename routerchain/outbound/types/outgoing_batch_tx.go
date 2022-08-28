@@ -2,6 +2,7 @@ package types
 
 import (
 	"fmt"
+	"math/big"
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
@@ -47,15 +48,21 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 		payloads[j] = contractCal.Payload
 	}
 
+	chainType := &big.Int{}
+	chainType.SetUint64(uint64(outgoingBatchTx.DestinationChainType))
+
+	batchNonce := &big.Int{}
+	batchNonce.SetUint64(outgoingBatchTx.Nonce)
+
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
 	abiEncodedBatch, err := abi.Pack("checkpoint",
 		batchMethodName,
-		uint64(outgoingBatchTx.DestinationChainType),
+		chainType,
 		outgoingBatchTx.DestinationChainId,
 		outgoingBatchTx.SourceAddress,
-		outgoingBatchTx.Nonce,
+		batchNonce,
 		outgoingBatchTx.RelayerFee.Amount.BigInt(),
 		outgoingBatchTx.OutgoingTxFee.Amount.BigInt(),
 		outgoingBatchTx.IsAtomic,
