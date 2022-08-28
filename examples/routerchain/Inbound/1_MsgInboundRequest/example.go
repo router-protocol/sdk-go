@@ -5,26 +5,25 @@ import (
 	"os"
 	"time"
 
-	chainclient "github.com/router-protocol/sdk-go/client/chain"
-	"github.com/router-protocol/sdk-go/client/common"
+	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 
+	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 const (
 	// Tx Agrs
-	CHAIN_ID                   = "137"
-	CHAIN_NAME                 = "Ethereum"
-	SYMBOL                     = "ETH"
-	CHAIN_TYPE                 = 0
-	CONFIRMATIONS_REQUIRED     = 12
-	GATEWAY_CONTRACT_ADDRESS   = "0xef1c3fd2a191b557813df429fa095ac0cae0f159"
-	GATEWAY_CONTRACT_HEIGHT    = 15307415
-	ROUTER_CONTRACT_ADDRESS    = "0x0fb1097e5b4bce1b5ca83f53e29752d60dfa10aa"
-	LAST_OBSERVED_EVENT_NONCE  = 0
-	LAST_OBSERVED_VALSET_NONCE = 0
+	CHAIN_TYPE             = 0
+	CHAIN_ID               = "137"
+	EVENT_NONCE            = 1
+	BLOCK_HEIGHT           = 23423
+	SOURCE_SENDER          = "0xdE23C5FfC7B045b48F0B85ADA2c518d213d9e24F"
+	SOURCE_TX_HASH         = "0x93eafe329a93d3b83b7bc34852c1bcf0ed2094a1634e1b0296c14f4d156cf141"
+	ROUTER_BRIDGE_CONTRACT = "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk"
+	PAYLOAD                = "router"
 )
 
 func main() {
@@ -64,8 +63,7 @@ func main() {
 	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
 
 	// prepare tx msg
-	msg := multichainTypes.NewMsgCreateChainConfig(senderAddress.String(), CHAIN_ID, CHAIN_NAME, SYMBOL, CHAIN_TYPE, CONFIRMATIONS_REQUIRED, GATEWAY_CONTRACT_ADDRESS, GATEWAY_CONTRACT_HEIGHT, ROUTER_CONTRACT_ADDRESS,
-		LAST_OBSERVED_EVENT_NONCE, LAST_OBSERVED_VALSET_NONCE)
+	msg := inboundTypes.NewMsgInboundRequest(senderAddress.String(), multichainTypes.ChainType(CHAIN_TYPE), CHAIN_ID, EVENT_NONCE, BLOCK_HEIGHT, SOURCE_SENDER, SOURCE_TX_HASH, ROUTER_BRIDGE_CONTRACT, []byte(PAYLOAD))
 
 	chainClient, err := chainclient.NewChainClient(
 		clientCtx,

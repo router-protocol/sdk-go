@@ -1,4 +1,4 @@
-package chain
+package routerchain
 
 import (
 	"github.com/cosmos/cosmos-sdk/client"
