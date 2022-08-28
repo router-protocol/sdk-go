@@ -5,25 +5,12 @@ import (
 	"os"
 	"time"
 
-	chainclient "github.com/router-protocol/sdk-go/client/chain"
-	"github.com/router-protocol/sdk-go/client/common"
+	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
+	sdktypes "github.com/cosmos/cosmos-sdk/types"
+	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
-
-	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-)
-
-const (
-	// Tx Agrs
-	CHAIN_TYPE             = 0
-	CHAIN_ID               = "137"
-	EVENT_NONCE            = 1
-	BLOCK_HEIGHT           = 23423
-	SOURCE_SENDER          = "0xdE23C5FfC7B045b48F0B85ADA2c518d213d9e24F"
-	SOURCE_TX_HASH         = "0x93eafe329a93d3b83b7bc34852c1bcf0ed2094a1634e1b0296c14f4d156cf141"
-	ROUTER_BRIDGE_CONTRACT = "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk"
-	PAYLOAD                = "router"
 )
 
 func main() {
@@ -63,7 +50,13 @@ func main() {
 	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
 
 	// prepare tx msg
-	msg := inboundTypes.NewMsgInboundRequest(senderAddress.String(), multichainTypes.ChainType(CHAIN_TYPE), CHAIN_ID, EVENT_NONCE, BLOCK_HEIGHT, SOURCE_SENDER, SOURCE_TX_HASH, ROUTER_BRIDGE_CONTRACT, []byte(PAYLOAD))
+	msg := &banktypes.MsgSend{
+		FromAddress: senderAddress.String(),
+		ToAddress:   "router1mtp76jwymme78xaf0h73cmky8hdy3thhy0xz9a",
+		Amount: []sdktypes.Coin{{
+			Denom: "router", Amount: sdktypes.NewInt(1000000)}, // 1 router
+		},
+	}
 
 	chainClient, err := chainclient.NewChainClient(
 		clientCtx,

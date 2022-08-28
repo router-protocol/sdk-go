@@ -5,12 +5,26 @@ import (
 	"os"
 	"time"
 
-	chainclient "github.com/router-protocol/sdk-go/client/chain"
-	"github.com/router-protocol/sdk-go/client/common"
+	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
-	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
+
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+)
+
+const (
+	// Tx Agrs
+	CHAIN_ID                   = "137"
+	CHAIN_NAME                 = "Ethereum"
+	SYMBOL                     = "ETH"
+	CHAIN_TYPE                 = 0
+	CONFIRMATIONS_REQUIRED     = 12
+	GATEWAY_CONTRACT_ADDRESS   = "0xef1c3fd2a191b557813df429fa095ac0cae0f159"
+	GATEWAY_CONTRACT_HEIGHT    = 15307415
+	ROUTER_CONTRACT_ADDRESS    = "0x0fb1097e5b4bce1b5ca83f53e29752d60dfa10aa"
+	LAST_OBSERVED_EVENT_NONCE  = 0
+	LAST_OBSERVED_VALSET_NONCE = 0
 )
 
 func main() {
@@ -50,13 +64,8 @@ func main() {
 	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
 
 	// prepare tx msg
-	msg := &banktypes.MsgSend{
-		FromAddress: senderAddress.String(),
-		ToAddress:   "router1mtp76jwymme78xaf0h73cmky8hdy3thhy0xz9a",
-		Amount: []sdktypes.Coin{{
-			Denom: "router", Amount: sdktypes.NewInt(1000000)}, // 1 router
-		},
-	}
+	msg := multichainTypes.NewMsgCreateChainConfig(senderAddress.String(), CHAIN_ID, CHAIN_NAME, SYMBOL, CHAIN_TYPE, CONFIRMATIONS_REQUIRED, GATEWAY_CONTRACT_ADDRESS, GATEWAY_CONTRACT_HEIGHT, ROUTER_CONTRACT_ADDRESS,
+		LAST_OBSERVED_EVENT_NONCE, LAST_OBSERVED_VALSET_NONCE)
 
 	chainClient, err := chainclient.NewChainClient(
 		clientCtx,

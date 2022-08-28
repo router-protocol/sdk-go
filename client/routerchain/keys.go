@@ -1,4 +1,4 @@
-package chain
+package routerchain
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ import (
 	cosmtypes "github.com/cosmos/cosmos-sdk/types"
 	"github.com/pkg/errors"
 
-	"github.com/router-protocol/sdk-go/client/common"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 	"github.com/router-protocol/sdk-go/routerchain/crypto/ethsecp256k1"
 	"github.com/router-protocol/sdk-go/routerchain/crypto/hd"
 )

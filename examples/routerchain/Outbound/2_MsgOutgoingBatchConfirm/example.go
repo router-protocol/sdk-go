@@ -6,8 +6,8 @@ import (
 	"os"
 	"time"
 
-	chainclient "github.com/router-protocol/sdk-go/client/chain"
-	"github.com/router-protocol/sdk-go/client/common"
+	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 

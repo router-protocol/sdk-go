@@ -1,4 +1,4 @@
-package chain
+package routerchain
 
 import (
 	"context"
@@ -22,10 +22,16 @@ import (
 	authztypes "github.com/cosmos/cosmos-sdk/x/authz"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/pkg/errors"
-	"github.com/router-protocol/sdk-go/client/common"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 	log "github.com/xlab/suplog"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
+
+	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 )
 
 const (
@@ -62,6 +68,9 @@ type ChainClient interface {
 	GetBankBalance(ctx context.Context, address string, denom string) (*banktypes.QueryBalanceResponse, error)
 	GetAccount(ctx context.Context, address string) (*authtypes.QueryAccountResponse, error)
 
+	// Outbound
+	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
+
 	GetGasFee() (string, error)
 	Close()
 }
@@ -90,6 +99,13 @@ type chainClient struct {
 	authQueryClient  authtypes.QueryClient
 	bankQueryClient  banktypes.QueryClient
 	authzQueryClient authztypes.QueryClient
+
+	// Custom Query clients
+	multichainQueryClient  multichainTypes.QueryClient
+	attestationQueryClient attestationTypes.QueryClient
+	inboundQueryClient     inboundTypes.QueryClient
+	outboundQueryClient    outboundTypes.QueryClient
+	oracleQueryClient      oracleTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -153,6 +169,12 @@ func NewChainClient(
 		authQueryClient:  authtypes.NewQueryClient(conn),
 		bankQueryClient:  banktypes.NewQueryClient(conn),
 		authzQueryClient: authztypes.NewQueryClient(conn),
+
+		multichainQueryClient:  multichainTypes.NewQueryClient(conn),
+		attestationQueryClient: attestationTypes.NewQueryClient(conn),
+		inboundQueryClient:     inboundTypes.NewQueryClient(conn),
+		outboundQueryClient:    outboundTypes.NewQueryClient(conn),
+		oracleQueryClient:      oracleTypes.NewQueryClient(conn),
 	}
 
 	if cc.canSign {
@@ -363,6 +385,15 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 		Denom:   denom,
 	}
 	return c.bankQueryClient.Balance(ctx, req)
+}
+
+/////////////////////////////////
+////     Outbound           ////
+////////////////////////////////
+
+func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
+	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{}
+	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.

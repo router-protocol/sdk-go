@@ -1,32 +1,22 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"os"
 	"time"
 
-	chainclient "github.com/router-protocol/sdk-go/client/chain"
-	"github.com/router-protocol/sdk-go/client/common"
-
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
+	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
+	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
+	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
+
+	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 )
 
 const (
 	// Tx Agrs
-	CHAIN_TYPE               = 0
-	CHAIN_ID                 = "137"
-	BATCH_NONCE              = 1
-	ROUTER_BRIDGE_CONTRACT   = "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk"
 	ORCHESTRATOR_ETH_ADDRESS = "0xdE23C5FfC7B045b48F0B85ADA2c518d213d9e24F"
-	IS_ATOMIC                = false
-)
-
-var (
-	RELAYER_FEE     = sdktypes.NewCoin("router", sdktypes.NewIntFromUint64(uint64(100000000)))
-	OUTGOING_TX_FEE = sdktypes.NewCoin("router", sdktypes.NewIntFromUint64(uint64(900000000)))
 )
 
 func main() {
@@ -65,6 +55,10 @@ func main() {
 
 	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
 
+	// prepare tx msg
+	val := sdktypes.ValAddress(clientCtx.GetFromAddress())
+	msg := attestationTypes.NewMsgSetOrchestratorAddress(val.String(), senderAddress.String(), ORCHESTRATOR_ETH_ADDRESS)
+
 	chainClient, err := chainclient.NewChainClient(
 		clientCtx,
 		network.ChainGrpcEndpoint,
@@ -76,9 +70,21 @@ func main() {
 		fmt.Println(err)
 	}
 
-	// prepare tx msg
-	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
+	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
+	err = chainClient.QueueBroadcastMsg(msg)
 
-	outgoingBatchTxs, err := chainClient.GetAllOutgoingBatchTx(ctx)
-	fmt.Println("OutgoingBatchTxs", outgoingBatchTxs, "Checkpoint", outgoingBatchTxs.OutgoingBatchTx[0].GetCheckpoint("routerchain"))
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	time.Sleep(time.Second * 5)
+
+	gasFee, err := chainClient.GetGasFee()
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("gas fee:", gasFee)
 }
