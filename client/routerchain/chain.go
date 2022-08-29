@@ -68,8 +68,12 @@ type ChainClient interface {
 	GetBankBalance(ctx context.Context, address string, denom string) (*banktypes.QueryBalanceResponse, error)
 	GetAccount(ctx context.Context, address string) (*authtypes.QueryAccountResponse, error)
 
+	// Attestation
+	GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error)
+
 	// Outbound
 	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
+	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
 
 	GetGasFee() (string, error)
 	Close()
@@ -388,12 +392,26 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 }
 
 /////////////////////////////////
+////     Attestation           ////
+////////////////////////////////
+
+func (c *chainClient) GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error) {
+	req := &attestationTypes.QueryAllValsetRequest{}
+	return c.attestationQueryClient.ValsetAll(ctx, req)
+}
+
+/////////////////////////////////
 ////     Outbound           ////
 ////////////////////////////////
 
 func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
 	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{}
 	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
+}
+
+func (c *chainClient) GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
+	req := &outboundTypes.QueryAllOutgoingBatchConfirmRequest{}
+	return c.outboundQueryClient.OutgoingBatchConfirmAll(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.

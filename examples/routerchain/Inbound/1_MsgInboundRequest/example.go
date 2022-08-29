@@ -23,7 +23,7 @@ const (
 	SOURCE_SENDER          = "0xdE23C5FfC7B045b48F0B85ADA2c518d213d9e24F"
 	SOURCE_TX_HASH         = "0x93eafe329a93d3b83b7bc34852c1bcf0ed2094a1634e1b0296c14f4d156cf141"
 	ROUTER_BRIDGE_CONTRACT = "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk"
-	PAYLOAD                = "router"
+	PAYLOAD                = "abcd"
 )
 
 func main() {

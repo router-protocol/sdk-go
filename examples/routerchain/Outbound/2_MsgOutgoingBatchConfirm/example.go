@@ -2,10 +2,15 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 	"os"
 	"time"
 
+	"github.com/ethereum/go-ethereum/accounts"
+	ethcmn "github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
@@ -14,11 +19,14 @@ import (
 	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
+
+	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/wrappers"
 )
 
 const (
 	// Tx Agrs
-	ORCHESTRATOR_ETH_ADDRESS = "0xdE23C5FfC7B045b48F0B85ADA2c518d213d9e24F"
+	ORCHESTRATOR_ETH_ADDRESS = "0x46e551558388e670ac58e6C84c0759Ca2dCBe6e3"
+	ORCHESTRATOR_PRIVATE_KEY = "843EE93DA70C08B88C726C43329B8DA92CC26AEFE2A0F3F33832A0540E66EA53"
 	IS_ATOMIC                = false
 )
 
@@ -75,14 +83,26 @@ func main() {
 	}
 
 	// prepare tx msg
+	privateKey, err := crypto.HexToECDSA(ORCHESTRATOR_PRIVATE_KEY)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
 	outgoingBatchTxs, err := chainClient.GetAllOutgoingBatchTx(ctx)
-	fmt.Println("OutgoingBatchTxs", outgoingBatchTxs, "Checkpoint", outgoingBatchTxs.OutgoingBatchTx[0].GetCheckpoint("routerchain"))
+	checkpoint := outgoingBatchTxs.OutgoingBatchTx[0].GetCheckpoint("routerchain")
+	protectedHash := accounts.TextHash(checkpoint)
 
 	outgoingBatchTx := outgoingBatchTxs.OutgoingBatchTx[0]
-	signature := ""
+
+	signature, err := crypto.Sign(protectedHash, privateKey)
+	if err != nil {
+		err = errors.New("failed to sign validator address")
+		fmt.Println("Error", err)
+	}
+
 	msg := outboundTypes.NewMsgOutgoingBatchConfirm(senderAddress.String(), outgoingBatchTx.GetDestinationChainType(),
-		outgoingBatchTx.GetDestinationChainId(), outgoingBatchTx.GetSourceAddress(), outgoingBatchTx.GetNonce(), ORCHESTRATOR_ETH_ADDRESS, signature)
+		outgoingBatchTx.GetDestinationChainId(), outgoingBatchTx.GetSourceAddress(), outgoingBatchTx.GetNonce(), ORCHESTRATOR_ETH_ADDRESS, ethcmn.Bytes2Hex(signature))
 
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
 	err = chainClient.QueueBroadcastMsg(msg)
@@ -92,6 +112,9 @@ func main() {
 	}
 
 	time.Sleep(time.Second * 5)
+
+	gatewayAbi := gatewayWrapper.GatewayABI
+	fmt.Println(gatewayAbi)
 
 	gasFee, err := chainClient.GetGasFee()
 
