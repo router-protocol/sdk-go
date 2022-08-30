@@ -26,10 +26,11 @@ import (
 const (
 	// Tx Agrs
 	RELAYER_PRIVATE_KEY = "843EE93DA70C08B88C726C43329B8DA92CC26AEFE2A0F3F33832A0540E66EA53"
+	ETH_RPC             = "https://ropsten.infura.io/v3/74c8b06d2481408c86fe936c11657def"
 )
 
 var (
-	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0x37CCe696479cc7A797acD18860ed4e940c8D975e")
+	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0xEE39624b883fe60b1B6b77686ecB0Be10c990341")
 )
 
 func main() {
@@ -107,7 +108,7 @@ func CollectSignatures(ctx context.Context, chainClient chainclient.ChainClient,
 
 func SendTx(signatures []string, outgoingBatchTx types.OutgoingBatchTx, currentValset attestationTypes.Valset) {
 	// address of etherum env
-	client, err := ethclient.Dial("https://ropsten.infura.io/v3/74c8b06d2481408c86fe936c11657def")
+	client, err := ethclient.Dial(ETH_RPC)
 	if err != nil {
 		panic(err)
 	}
@@ -163,9 +164,7 @@ func SendTx(signatures []string, outgoingBatchTx types.OutgoingBatchTx, currentV
 	for i, valsetMember := range currentValset.Members {
 		currentValsetArs.Validators[i] = ethcmn.HexToAddress(valsetMember.EthereumAddress)
 		power := &big.Int{}
-		// TODO: change power set
-		// power.SetUint64(valsetMember.Power)
-		power.SetUint64(4294967296)
+		power.SetUint64(valsetMember.Power)
 		currentValsetArs.Powers[i] = power
 	}
 
@@ -219,7 +218,7 @@ func getAccountAuth(client *ethclient.Client, privateKeyStr string) *bind.Transa
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)      // in wei
 	auth.GasLimit = uint64(3000000) // in units
-	auth.GasPrice = big.NewInt(10000000000)
+	auth.GasPrice = big.NewInt(1000000000000)
 
 	return auth
 }
