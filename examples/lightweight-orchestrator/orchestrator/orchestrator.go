@@ -95,26 +95,34 @@ func (orchestrator *orchestrator) ConfirmOutgoingBatches() {
 
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
 	outgoingBatchTxs, err := orchestrator.routerChainClient.GetAllOutgoingBatchTx(ctx)
-	outgoingBatchTx := outgoingBatchTxs.OutgoingBatchTx[1]
-	checkpoint := outgoingBatchTx.GetCheckpoint("routerchain")
-	protectedHash := accounts.TextHash(checkpoint)
 
-	signature, err := crypto.Sign(protectedHash, privateKey)
-	if err != nil {
-		err = errors.New("failed to sign validator address")
-		fmt.Println("Error", err)
+	for _, outgoingBatchTx := range outgoingBatchTxs.OutgoingBatchTx {
+
+		outgoingBatchConfirm, err := orchestrator.routerChainClient.GetOutgoingBatchTxConfirm(ctx, uint64(outgoingBatchTx.DestinationChainType), outgoingBatchTx.DestinationChainId, outgoingBatchTx.SourceAddress, outgoingBatchTx.Nonce, orchestrator.routerChainClient.FromAddress().String())
+		if outgoingBatchConfirm.OutgoingBatchConfirm.Orchestrator == orchestrator.routerChainClient.FromAddress().String() {
+			return
+		}
+
+		checkpoint := outgoingBatchTx.GetCheckpoint("routerchain")
+		protectedHash := accounts.TextHash(checkpoint)
+
+		signature, err := crypto.Sign(protectedHash, privateKey)
+		if err != nil {
+			err = errors.New("failed to sign validator address")
+			fmt.Println("Error", err)
+		}
+
+		fmt.Println("sending outgoing batch confirm")
+		msg := outboundTypes.NewMsgOutgoingBatchConfirm(orchestrator.routerChainClient.FromAddress().String(), outgoingBatchTx.GetDestinationChainType(),
+			outgoingBatchTx.GetDestinationChainId(), outgoingBatchTx.GetSourceAddress(), outgoingBatchTx.GetNonce(), orchestrator.ethAddress, ethcmn.Bytes2Hex(signature))
+
+		//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
+		err = orchestrator.routerChainClient.QueueBroadcastMsg(msg)
+
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		time.Sleep(time.Second * 5)
 	}
-
-	fmt.Println("sending outgoing batch confirm")
-	msg := outboundTypes.NewMsgOutgoingBatchConfirm(orchestrator.routerChainClient.FromAddress().String(), outgoingBatchTx.GetDestinationChainType(),
-		outgoingBatchTx.GetDestinationChainId(), outgoingBatchTx.GetSourceAddress(), outgoingBatchTx.GetNonce(), orchestrator.ethAddress, ethcmn.Bytes2Hex(signature))
-
-	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
-	err = orchestrator.routerChainClient.QueueBroadcastMsg(msg)
-
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	time.Sleep(time.Second * 5)
 }
