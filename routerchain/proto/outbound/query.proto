@@ -32,12 +32,12 @@ service Query {
 
 // Queries a OutgoingBatchConfirm by index.
 	rpc OutgoingBatchConfirm(QueryGetOutgoingBatchConfirmRequest) returns (QueryGetOutgoingBatchConfirmResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}/{validator}";
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}/{orchestrator}";
 	}
 
 	// Queries a list of OutgoingBatchConfirm items.
 	rpc OutgoingBatchConfirmAll(QueryAllOutgoingBatchConfirmRequest) returns (QueryAllOutgoingBatchConfirmResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm";
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -77,7 +77,7 @@ message QueryGetOutgoingBatchConfirmRequest {
 	  string destination_chain_id = 2;
 	  string source_address = 3;
 	  uint64 nonce = 4;
-	  string validator = 5;
+	  string orchestrator = 5;
 
 }
 
@@ -86,7 +86,11 @@ message QueryGetOutgoingBatchConfirmResponse {
 }
 
 message QueryAllOutgoingBatchConfirmRequest {
-	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+  	 uint64 destination_chain_type =1;
+	  string destination_chain_id = 2;
+	  string source_address = 3;
+	  uint64 nonce = 4;
+	cosmos.base.query.v1beta1.PageRequest pagination = 5;
 }
 
 message QueryAllOutgoingBatchConfirmResponse {

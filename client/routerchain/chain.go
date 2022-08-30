@@ -462,8 +462,13 @@ func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes
 	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
 }
 
-func (c *chainClient) GetAllOutgoingBatchTxConfirmations(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
-	req := &outboundTypes.QueryAllOutgoingBatchConfirmRequest{}
+func (c *chainClient) GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
+	req := &outboundTypes.QueryAllOutgoingBatchConfirmRequest{
+		DestinationChainType: destinationChainType,
+		DestinationChainId:   destinationChainId,
+		SourceAddress:        sourceAddress,
+		Nonce:                batchNonce,
+	}
 	return c.outboundQueryClient.OutgoingBatchConfirmAll(ctx, req)
 }
 
@@ -473,7 +478,7 @@ func (c *chainClient) GetOutgoingBatchTxConfirm(ctx context.Context, destination
 		DestinationChainId:   destinationChainId,
 		SourceAddress:        sourceAddress,
 		Nonce:                batchNonce,
-		Orchestrator: 
+		Orchestrator:         orchestrator,
 	}
 	return c.outboundQueryClient.OutgoingBatchConfirm(ctx, req)
 }

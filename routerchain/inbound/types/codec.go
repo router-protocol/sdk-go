@@ -5,8 +5,6 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
-
-	cryptocodec "github.com/cosmos/cosmos-sdk/crypto/codec"
 )
 
 // RegisterLegacyAminoCodec registers the necessary x/inbound interfaces and concrete types
@@ -28,12 +26,12 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 }
 
 var (
-	amino     = codec.NewLegacyAmino()
+	Amino     = codec.NewLegacyAmino()
 	ModuleCdc = codec.NewProtoCodec(cdctypes.NewInterfaceRegistry())
 )
 
-func init() {
-	RegisterLegacyAminoCodec(amino)
-	cryptocodec.RegisterCrypto(amino)
-	amino.Seal()
-}
+// func init() {
+// 	RegisterLegacyAminoCodec(amino)
+// 	cryptocodec.RegisterCrypto(amino)
+// 	amino.Seal()
+// }
