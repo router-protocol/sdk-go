@@ -21,11 +21,6 @@ import (
 	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 )
 
-type Orchestrator interface {
-	fetchAndProcessGatewayEvents()
-	ConfirmOutgoingBatches(ctx context.Context)
-}
-
 type orchestrator struct {
 	clientContext         client.Context
 	ethClient             *ethclient.Client
