@@ -75,6 +75,7 @@ type ChainClient interface {
 
 	// Outbound
 	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
+	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
 
 	GetGasFee() (string, error)
@@ -461,9 +462,20 @@ func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes
 	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
 }
 
-func (c *chainClient) GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
+func (c *chainClient) GetAllOutgoingBatchTxConfirmations(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
 	req := &outboundTypes.QueryAllOutgoingBatchConfirmRequest{}
 	return c.outboundQueryClient.OutgoingBatchConfirmAll(ctx, req)
+}
+
+func (c *chainClient) GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error) {
+	req := &outboundTypes.QueryGetOutgoingBatchConfirmRequest{
+		DestinationChainType: destinationChainType,
+		DestinationChainId:   destinationChainId,
+		SourceAddress:        sourceAddress,
+		Nonce:                batchNonce,
+		Orchestrator: 
+	}
+	return c.outboundQueryClient.OutgoingBatchConfirm(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.
