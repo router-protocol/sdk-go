@@ -38,7 +38,7 @@ func main() {
 	orchestrator := orchestrator.NewOrchestrator(ethClient, gatewayContractClient, routerchainClient, ORCHESTRATOR_PRIVATE_KEY, ORCHESTRATOR_ETH_ADDRESS)
 
 	// TRIGGER ACTIONS
-	// orchestrator.FetchAndProcessGatewayEvents(startBlock, endBlock)
+	orchestrator.FetchAndProcessGatewayEvents(startBlock, endBlock)
 	orchestrator.ConfirmOutgoingBatches()
 
 }
