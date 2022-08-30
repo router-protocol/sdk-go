@@ -23,20 +23,20 @@ import (
 
 type Orchestrator interface {
 	fetchAndProcessGatewayEvents()
-	ConfirmOutgoingBatches(ctx context.Context, chainClient chainclient.ChainClient)
+	ConfirmOutgoingBatches(ctx context.Context)
 }
 
 type orchestrator struct {
 	clientContext         client.Context
 	ethClient             *ethclient.Client
-	gatewayContractClient gateway.GatewayContractClient
+	gatewayContractClient *gateway.GatewayContractClient
 	routerChainClient     routerclient.ChainClient
 
 	ethPrivatekey string
 	ethAddress    string
 }
 
-func NewOrchestrator(ethClient *ethclient.Client, gatewayContractClient gateway.GatewayContractClient, routerChainClient routerclient.ChainClient, orchestratorEthPrivKey string, orchestratorEthAddress string) *orchestrator {
+func NewOrchestrator(ethClient *ethclient.Client, gatewayContractClient *gateway.GatewayContractClient, routerChainClient routerclient.ChainClient, orchestratorEthPrivKey string, orchestratorEthAddress string) *orchestrator {
 
 	return &orchestrator{
 		ethClient:             ethClient,

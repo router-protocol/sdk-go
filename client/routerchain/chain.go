@@ -27,6 +27,8 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
+	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
+
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
@@ -113,6 +115,56 @@ type chainClient struct {
 
 	closed  int64
 	canSign bool
+}
+
+func InitialiseChainClient(networkName string, keyringFrom string, passphrase string) ChainClient {
+	network := common.LoadNetwork(networkName, "k8s")
+	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("Network", network)
+	senderAddress, cosmosKeyring, err := InitCosmosKeyring(
+		os.Getenv("HOME")+"/.routerd",
+		"routerd",
+		"file",
+		keyringFrom,
+		passphrase,
+		"", // keyring will be used if pk not provided
+		false,
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
+	// initialize grpc client
+	clientCtx, err := NewClientContext(
+		network.ChainId,
+		senderAddress.String(),
+		cosmosKeyring,
+	)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
+
+	routerchainClient, err := NewChainClient(
+		clientCtx,
+		network.ChainGrpcEndpoint,
+		// common.OptionTLSCert(network.ChainTlsCert),
+		common.OptionGasPrices("100000000000000router"),
+	)
+
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	return routerchainClient
 }
 
 // NewCosmosClient creates a new gRPC client that communicates with gRPC server at protoAddr.
