@@ -36,6 +36,24 @@ func LoadNetwork(name string, node string) Network {
 			Fee_denom:         "router",
 			Name:              "local",
 		}
+	} else if name == "devnet-alpha" {
+		return Network{
+			ApiEndpoint:       "https://devnet-alpha.lcd.routerprotocol.com:443",
+			TmEndpoint:        "https://devnet-alpha.tm.routerprotocol.com:443",
+			ChainGrpcEndpoint: "https://devnet-alpha.grpc.routerprotocol.com:443",
+			ChainId:           "router-1",
+			Fee_denom:         "router",
+			Name:              "local",
+		}
+	} else if name == "devnet-alpha-nondocker" {
+		return Network{
+			ApiEndpoint:       "http://3.110.19.140:1317",
+			TmEndpoint:        "http://3.110.19.140:26657",
+			ChainGrpcEndpoint: "tcp://3.110.19.140:9090",
+			ChainId:           "router-1",
+			Fee_denom:         "router",
+			Name:              "local",
+		}
 	}
 	return Network{}
 }
