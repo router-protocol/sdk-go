@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "oracle/params.proto";
 import "oracle/band_token_prices.proto";
+import "oracle/band_token_price_state.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
@@ -26,6 +27,16 @@ service Query {
   	rpc LastBandTokenPricesId(QueryLastBandTokenPricesIdRequest) returns (QueryLastBandTokenPricesIdResponse) {
 		option (google.api.http).get = "/routerchain/oracle/last_band_token_prices_id";
   	}
+// Queries a BandTokenPriceState by symbol.
+	rpc BandTokenPriceState(QueryGetBandTokenPriceStateRequest) returns (QueryGetBandTokenPriceStateResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/band_token_price_state/{symbol}";
+	}
+
+	// Queries a list of BandTokenPriceState items.
+	rpc BandTokenPriceStateAll(QueryAllBandTokenPriceStateRequest) returns (QueryAllBandTokenPriceStateResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/band_token_price_state";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -47,5 +58,23 @@ message QueryBandTokenPricesResponse {
 message QueryLastBandTokenPricesIdRequest {}
 
 message QueryLastBandTokenPricesIdResponse {int64 request_id = 1;}
+
+message QueryGetBandTokenPriceStateRequest {
+	  string symbol = 1;
+
+}
+
+message QueryGetBandTokenPriceStateResponse {
+	BandTokenPriceState bandTokenPriceState = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllBandTokenPriceStateRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBandTokenPriceStateResponse {
+	repeated BandTokenPriceState bandTokenPriceState = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
 
 // this line is used by starport scaffolding # 3

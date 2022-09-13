@@ -28,6 +28,7 @@ const (
 			{ "internalType": "uint256","name": "_relayerFee","type": "uint256"},
 			{"internalType": "uint256","name": "_outgoingTxFee","type": "uint256"},
 			{"internalType": "bool","name": "_isAtomic","type": "bool"},			
+			{"internalType": "uint256","name": "_expTimestamp","type": "uint256"},
 			{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
 			{"internalType": "bytes[]","name": "_payloads","type": "bytes[]"}			
 		],

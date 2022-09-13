@@ -1,0 +1,23 @@
+syntax = "proto3";
+package routerprotocol.routerchain.outbound;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
+
+import "outbound/outgoing_tx_status.proto"; 
+import "multichain/chain_type.proto"; 
+import "outbound/contract_ack_response.proto";
+
+message OutboundAck {
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;  
+  string chainId = 2; 
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4; 
+  uint64 outboundTxNonce = 5; 
+  string outboundTxRequestedBy = 6; 
+  string relayer = 7; 
+  string destinationTxHash = 8; 
+  repeated ContractAckResponse contractAckResponses = 9;
+  uint64 feeConsumed = 10;     
+  OutgoingTxStatus status = 11; 
+}
+
