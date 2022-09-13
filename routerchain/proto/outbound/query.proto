@@ -11,6 +11,7 @@ import "outbound/outgoing_tx_status.proto";
 import "outbound/contract_call.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
+import "outbound/outbound_ack.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
 
@@ -40,6 +41,15 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}";
 	}
 
+  // Queries a OutboundAck by index.
+	rpc OutboundAck(QueryGetOutboundAckRequest) returns (QueryGetOutboundAckResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outbound_ack/{chain_type}/{chain_id}/{event_nonce}";
+	}
+
+	// Queries a list of OutboundAck items.
+	rpc OutboundAckAll(QueryAllOutboundAckRequest) returns (QueryAllOutboundAckResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/outbound_ack";
+	}
 // this line is used by starport scaffolding # 2
 }
 
@@ -97,5 +107,27 @@ message QueryAllOutgoingBatchConfirmResponse {
 	repeated OutgoingBatchConfirm outgoingBatchConfirm = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
+
+
+message QueryGetOutboundAckRequest {
+	  uint64 chain_type =1;
+	  string chain_id = 2;
+	  uint64 event_nonce = 3;
+
+}
+
+message QueryGetOutboundAckResponse {
+	OutboundAck OutboundAck = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllOutboundAckRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllOutboundAckResponse {
+	repeated OutboundAck OutboundAck = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 
 // this line is used by starport scaffolding # 3

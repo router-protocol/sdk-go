@@ -1,0 +1,57 @@
+syntax = "proto3";
+package routerprotocol.routerchain.outbound;
+
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
+import "outbound/outgoing_tx_status.proto"; 
+import "outbound/contract_call.proto";
+import "outbound/contract_ack_response.proto";
+import "multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+
+message EventOutgoingBatchTxCreated {
+  uint64 outgoing_tx_nonce = 1; 
+  routerprotocol.routerchain.multichain.ChainType destinationChainType = 2;
+  string destinationChainId = 3; 
+  repeated ContractCall contractCalls = 4 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin relayerFee = 5 [(gogoproto.nullable) = false]; 
+  cosmos.base.v1beta1.Coin outgoingTxFee = 6 [(gogoproto.nullable) = false]; 
+  bool isAtomic = 7; 
+  string sourceAddress = 8; 
+  OutgoingTxStatus status = 9; 
+}
+
+message EventOutgoingBatchTxConfirm {  
+  routerprotocol.routerchain.multichain.ChainType destinationChainType = 1;  
+  string destinationChainId = 2; 
+  string outgoingBatchSender = 3; 
+  uint64 outgoingBatchNonce = 4; 
+  string ethSigner = 5; 
+  string signature = 6; 
+  string orchestrator = 7;
+}
+
+message EventOutgoingAckCreated {  
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType destinationChainType = 2;
+  string destinationChainId = 3; 
+  uint64 eventNonce = 4;
+  uint64 blockHeight = 5;
+  uint64 outboundTxNonce = 6;
+  string outboundTxRequestedBy = 7;   
+  string relayer = 8;
+  string destinationTxHash = 9;
+  uint64 feeConsumed = 10;
+  repeated ContractAckResponse contractAckResponses  = 11;
+  OutgoingTxStatus status = 12;   
+}
+
+message EventOutgoingAckDelegated {
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3; 
+  uint64 eventNonce = 4;
+  bytes delegationResponse = 5;
+}

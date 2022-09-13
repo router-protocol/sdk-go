@@ -4,6 +4,7 @@ package routerprotocol.routerchain.outbound;
 import "outbound/outgoing_batch_confirm.proto";
 // this line is used by starport scaffolding # proto/tx/import
 import "outbound/contract_call.proto";
+import "outbound/contract_ack_response.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "multichain/chain_type.proto"; 
@@ -14,6 +15,7 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/type
 service Msg {
       rpc OutboundBatchRequest(MsgOutboundBatchRequest) returns (MsgOutboundBatchRequestResponse);
   rpc OutgoingBatchConfirm(MsgOutgoingBatchConfirm) returns (MsgOutgoingBatchConfirmResponse);
+  rpc OutboundAckRequest(MsgOutboundAckRequest) returns (MsgOutboundAckRequestResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -25,6 +27,7 @@ message MsgOutboundBatchRequest {
   bool isAtomic = 5;
   cosmos.base.v1beta1.Coin relayerFee = 6 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin outgoingTxFee = 7 [(gogoproto.nullable) = false];
+  uint64 expiryTimestamp = 8;
 }
 
 message MsgOutboundBatchRequestResponse {
@@ -40,3 +43,22 @@ message MsgOutgoingBatchConfirm {
   string signature = 7;
 }
 message MsgOutgoingBatchConfirmResponse {}
+
+message MsgOutboundAckRequest {
+  string orchestrator = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3;
+  uint64 outboundTxNonce = 4;
+  string outboundTxRequestedBy = 5;
+  string relayer = 6;
+  string destinationTxHash = 7;
+  uint64 feeConsumed = 8;
+  repeated ContractAckResponse ContractAckResponses  = 9;
+  uint64 eventNonce = 10;
+  uint64 blockHeight = 11;
+}
+
+message MsgOutboundAckRequestResponse {
+}
+
+// this line is used by starport scaffolding # proto/tx/message

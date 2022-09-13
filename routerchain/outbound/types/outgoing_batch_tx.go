@@ -54,6 +54,10 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 	batchNonce := &big.Int{}
 	batchNonce.SetUint64(outgoingBatchTx.Nonce)
 
+	expTimestamp := &big.Int{}
+	// TODO: Remove hardcoded values
+	expTimestamp.SetUint64(78878)
+
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
@@ -66,6 +70,7 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 		outgoingBatchTx.RelayerFee.Amount.BigInt(),
 		outgoingBatchTx.OutgoingTxFee.Amount.BigInt(),
 		outgoingBatchTx.IsAtomic,
+		expTimestamp,
 		handlers,
 		payloads,
 	)

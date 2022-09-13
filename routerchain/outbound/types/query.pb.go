@@ -570,6 +570,206 @@ func (m *QueryAllOutgoingBatchConfirmResponse) GetPagination() *query.PageRespon
 	return nil
 }
 
+type QueryGetOutboundAckRequest struct {
+	ChainType  uint64 `protobuf:"varint,1,opt,name=chain_type,json=chainType,proto3" json:"chain_type,omitempty"`
+	ChainId    string `protobuf:"bytes,2,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+	EventNonce uint64 `protobuf:"varint,3,opt,name=event_nonce,json=eventNonce,proto3" json:"event_nonce,omitempty"`
+}
+
+func (m *QueryGetOutboundAckRequest) Reset()         { *m = QueryGetOutboundAckRequest{} }
+func (m *QueryGetOutboundAckRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetOutboundAckRequest) ProtoMessage()    {}
+func (*QueryGetOutboundAckRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_88a2da1ca53c2871, []int{10}
+}
+func (m *QueryGetOutboundAckRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetOutboundAckRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetOutboundAckRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetOutboundAckRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetOutboundAckRequest.Merge(m, src)
+}
+func (m *QueryGetOutboundAckRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetOutboundAckRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetOutboundAckRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetOutboundAckRequest proto.InternalMessageInfo
+
+func (m *QueryGetOutboundAckRequest) GetChainType() uint64 {
+	if m != nil {
+		return m.ChainType
+	}
+	return 0
+}
+
+func (m *QueryGetOutboundAckRequest) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *QueryGetOutboundAckRequest) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+type QueryGetOutboundAckResponse struct {
+	OutboundAck OutboundAck `protobuf:"bytes,1,opt,name=OutboundAck,proto3" json:"OutboundAck"`
+}
+
+func (m *QueryGetOutboundAckResponse) Reset()         { *m = QueryGetOutboundAckResponse{} }
+func (m *QueryGetOutboundAckResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetOutboundAckResponse) ProtoMessage()    {}
+func (*QueryGetOutboundAckResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_88a2da1ca53c2871, []int{11}
+}
+func (m *QueryGetOutboundAckResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetOutboundAckResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetOutboundAckResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetOutboundAckResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetOutboundAckResponse.Merge(m, src)
+}
+func (m *QueryGetOutboundAckResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetOutboundAckResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetOutboundAckResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetOutboundAckResponse proto.InternalMessageInfo
+
+func (m *QueryGetOutboundAckResponse) GetOutboundAck() OutboundAck {
+	if m != nil {
+		return m.OutboundAck
+	}
+	return OutboundAck{}
+}
+
+type QueryAllOutboundAckRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllOutboundAckRequest) Reset()         { *m = QueryAllOutboundAckRequest{} }
+func (m *QueryAllOutboundAckRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllOutboundAckRequest) ProtoMessage()    {}
+func (*QueryAllOutboundAckRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_88a2da1ca53c2871, []int{12}
+}
+func (m *QueryAllOutboundAckRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllOutboundAckRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllOutboundAckRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllOutboundAckRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllOutboundAckRequest.Merge(m, src)
+}
+func (m *QueryAllOutboundAckRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllOutboundAckRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllOutboundAckRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllOutboundAckRequest proto.InternalMessageInfo
+
+func (m *QueryAllOutboundAckRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllOutboundAckResponse struct {
+	OutboundAck []OutboundAck       `protobuf:"bytes,1,rep,name=OutboundAck,proto3" json:"OutboundAck"`
+	Pagination  *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllOutboundAckResponse) Reset()         { *m = QueryAllOutboundAckResponse{} }
+func (m *QueryAllOutboundAckResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllOutboundAckResponse) ProtoMessage()    {}
+func (*QueryAllOutboundAckResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_88a2da1ca53c2871, []int{13}
+}
+func (m *QueryAllOutboundAckResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllOutboundAckResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllOutboundAckResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllOutboundAckResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllOutboundAckResponse.Merge(m, src)
+}
+func (m *QueryAllOutboundAckResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllOutboundAckResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllOutboundAckResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllOutboundAckResponse proto.InternalMessageInfo
+
+func (m *QueryAllOutboundAckResponse) GetOutboundAck() []OutboundAck {
+	if m != nil {
+		return m.OutboundAck
+	}
+	return nil
+}
+
+func (m *QueryAllOutboundAckResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "routerprotocol.routerchain.outbound.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "routerprotocol.routerchain.outbound.QueryParamsResponse")
@@ -581,65 +781,80 @@ func init() {
 	proto.RegisterType((*QueryGetOutgoingBatchConfirmResponse)(nil), "routerprotocol.routerchain.outbound.QueryGetOutgoingBatchConfirmResponse")
 	proto.RegisterType((*QueryAllOutgoingBatchConfirmRequest)(nil), "routerprotocol.routerchain.outbound.QueryAllOutgoingBatchConfirmRequest")
 	proto.RegisterType((*QueryAllOutgoingBatchConfirmResponse)(nil), "routerprotocol.routerchain.outbound.QueryAllOutgoingBatchConfirmResponse")
+	proto.RegisterType((*QueryGetOutboundAckRequest)(nil), "routerprotocol.routerchain.outbound.QueryGetOutboundAckRequest")
+	proto.RegisterType((*QueryGetOutboundAckResponse)(nil), "routerprotocol.routerchain.outbound.QueryGetOutboundAckResponse")
+	proto.RegisterType((*QueryAllOutboundAckRequest)(nil), "routerprotocol.routerchain.outbound.QueryAllOutboundAckRequest")
+	proto.RegisterType((*QueryAllOutboundAckResponse)(nil), "routerprotocol.routerchain.outbound.QueryAllOutboundAckResponse")
 }
 
 func init() { proto.RegisterFile("outbound/query.proto", fileDescriptor_88a2da1ca53c2871) }
 
 var fileDescriptor_88a2da1ca53c2871 = []byte{
-	// 841 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x56, 0xcd, 0x6f, 0xd3, 0x48,
-	0x14, 0xcf, 0xa4, 0x4d, 0xa5, 0x9d, 0xfd, 0xa8, 0x34, 0x9b, 0xdd, 0x8d, 0xa2, 0xca, 0xed, 0xba,
-	0xdb, 0xdd, 0x6a, 0x51, 0x6d, 0x5a, 0x8a, 0x28, 0x9c, 0x68, 0x8b, 0x68, 0x7b, 0xa2, 0x44, 0x3d,
-	0x71, 0x09, 0x13, 0x7b, 0x70, 0x2c, 0x39, 0x9e, 0xd4, 0x33, 0x46, 0xa9, 0xa2, 0x1c, 0x40, 0x08,
-	0x84, 0xb8, 0x54, 0x20, 0x24, 0x24, 0x0e, 0xdc, 0x39, 0xf2, 0x1f, 0x70, 0x40, 0xea, 0x05, 0xa9,
-	0x12, 0x17, 0x4e, 0x88, 0x7e, 0x9c, 0xf9, 0x1b, 0x50, 0x66, 0xc6, 0x6d, 0x9c, 0x8f, 0x36, 0x09,
-	0x41, 0xa2, 0x37, 0xcf, 0xcc, 0x7b, 0xbf, 0x79, 0xbf, 0xdf, 0x7b, 0x6f, 0x9e, 0x61, 0x9a, 0x86,
-	0xbc, 0x40, 0x43, 0xdf, 0x36, 0x37, 0x43, 0x12, 0x6c, 0x19, 0xe5, 0x80, 0x72, 0x8a, 0x26, 0x03,
-	0x1a, 0x72, 0x12, 0x88, 0x85, 0x45, 0x3d, 0x43, 0x2e, 0xad, 0x22, 0x76, 0x7d, 0x23, 0x72, 0xc8,
-	0x8e, 0x39, 0x94, 0x3a, 0x1e, 0x31, 0x71, 0xd9, 0x35, 0xb1, 0xef, 0x53, 0x8e, 0xb9, 0x4b, 0x7d,
-	0x26, 0x21, 0xb2, 0xff, 0x5b, 0x94, 0x95, 0x28, 0x33, 0x0b, 0x98, 0x11, 0x89, 0x6d, 0xde, 0x9d,
-	0x2d, 0x10, 0x8e, 0x67, 0xcd, 0x32, 0x76, 0x5c, 0x5f, 0x18, 0x2b, 0xdb, 0x3f, 0x8e, 0x82, 0x28,
-	0xe3, 0x00, 0x97, 0x22, 0x88, 0x89, 0xa3, 0x6d, 0x1a, 0x72, 0x87, 0xba, 0xbe, 0x93, 0x2f, 0x60,
-	0x6e, 0x15, 0xf3, 0xbc, 0xa2, 0x2c, 0xa6, 0x3a, 0x59, 0x58, 0xd4, 0xbf, 0xe3, 0x06, 0x25, 0x65,
-	0xf6, 0x77, 0xab, 0x19, 0xaf, 0xe4, 0x19, 0xc7, 0x3c, 0x8c, 0xee, 0x1a, 0x3b, 0x32, 0xb1, 0xa8,
-	0xcf, 0x03, 0x6c, 0xf1, 0xbc, 0x85, 0x3d, 0x4f, 0x9d, 0x6a, 0x8d, 0x64, 0x22, 0x1a, 0x16, 0x75,
-	0x23, 0x02, 0x69, 0x87, 0x3a, 0x54, 0x7c, 0x9a, 0xf5, 0x2f, 0xb9, 0xab, 0xa7, 0x21, 0xba, 0x59,
-	0x27, 0xbe, 0x2e, 0x48, 0xe5, 0xc8, 0x66, 0x48, 0x18, 0xd7, 0x6f, 0xc3, 0xdf, 0x63, 0xbb, 0xac,
-	0x4c, 0x7d, 0x46, 0xd0, 0x1a, 0x1c, 0x91, 0xe4, 0x33, 0x60, 0x02, 0x4c, 0xff, 0x3c, 0x77, 0xce,
-	0xe8, 0x22, 0x07, 0x86, 0x04, 0x59, 0x1a, 0xde, 0xf9, 0x34, 0x9e, 0xc8, 0x29, 0x00, 0xfd, 0x1d,
-	0x80, 0x9a, 0xb8, 0x62, 0x85, 0xf0, 0x1b, 0x8a, 0xf0, 0x52, 0x5d, 0x96, 0x8d, 0x8a, 0x0a, 0x02,
-	0xcd, 0xc3, 0x3f, 0x6d, 0xc2, 0xb8, 0x4a, 0x43, 0x5e, 0xa0, 0xe6, 0xf9, 0x56, 0x99, 0x88, 0xdb,
-	0x87, 0x73, 0xe9, 0x86, 0xd3, 0xe5, 0xfa, 0xe1, 0xc6, 0x56, 0x99, 0xa0, 0xf3, 0x30, 0xdd, 0xea,
-	0xe5, 0xda, 0x99, 0xe4, 0x04, 0x98, 0xfe, 0x29, 0x87, 0x9a, 0x7d, 0xd6, 0x6c, 0x34, 0x05, 0x7f,
-	0x63, 0x34, 0x0c, 0x2c, 0x92, 0xc7, 0xb6, 0x1d, 0x10, 0xc6, 0x32, 0x43, 0xc2, 0xf6, 0x57, 0xb9,
-	0xbb, 0x28, 0x37, 0x51, 0x1a, 0xa6, 0x7c, 0xea, 0x5b, 0x24, 0x33, 0x2c, 0x6e, 0x97, 0x0b, 0xfd,
-	0x11, 0x80, 0xe3, 0x1d, 0x79, 0x28, 0xd9, 0x6c, 0x38, 0x4a, 0xe3, 0x47, 0x4a, 0xbf, 0xf9, 0xae,
-	0xf4, 0x6b, 0x82, 0x55, 0x42, 0x36, 0x43, 0xea, 0x45, 0x25, 0xe8, 0xa2, 0xe7, 0x75, 0x10, 0xf4,
-	0x3a, 0x84, 0xc7, 0x65, 0xad, 0x42, 0xf8, 0xd7, 0x90, 0x65, 0x63, 0xd4, 0xcb, 0xc6, 0x90, 0xfd,
-	0xa5, 0x8a, 0xc7, 0x58, 0xc7, 0x0e, 0x51, 0xbe, 0xb9, 0x06, 0x4f, 0x7d, 0x37, 0xe2, 0xdc, 0xee,
-	0xaa, 0x93, 0x38, 0x0f, 0x0d, 0x98, 0x33, 0x5a, 0x89, 0x31, 0x4a, 0x0a, 0x46, 0xff, 0x9d, 0xca,
-	0x48, 0x86, 0x18, 0xa3, 0xf4, 0x05, 0xc0, 0xc9, 0xb6, 0x69, 0x5c, 0x96, 0x4d, 0x7a, 0x96, 0x6a,
-	0x12, 0xe9, 0xf0, 0x17, 0x1a, 0x58, 0x45, 0xc2, 0x78, 0x80, 0x39, 0x0d, 0x32, 0x29, 0xe1, 0x1a,
-	0xdb, 0xd3, 0x5f, 0x02, 0xf8, 0xcf, 0xc9, 0x84, 0x55, 0x22, 0x99, 0x78, 0x7e, 0x5b, 0xce, 0x55,
-	0xf9, 0x5c, 0xee, 0x3d, 0x9b, 0x0a, 0x40, 0xa5, 0xb4, 0x2d, 0xb8, 0xfe, 0x34, 0xa9, 0xd2, 0xd1,
-	0x5c, 0x61, 0x67, 0x31, 0x1d, 0xf1, 0xb6, 0x4b, 0xf5, 0xdd, 0x76, 0x87, 0x51, 0xca, 0x3a, 0x8a,
-	0x72, 0x6a, 0xca, 0x86, 0xbe, 0x5b, 0xca, 0x06, 0xd6, 0x8a, 0x73, 0x7b, 0x10, 0xa6, 0x04, 0x4d,
-	0xf4, 0x06, 0xc0, 0x11, 0x39, 0x3c, 0xd0, 0xa5, 0xae, 0x82, 0x6e, 0x9d, 0x64, 0xd9, 0x85, 0xde,
-	0x1d, 0x65, 0x4c, 0xfa, 0xc5, 0xfb, 0x1f, 0x0e, 0x9f, 0x25, 0x4d, 0x34, 0x63, 0x4a, 0x97, 0x99,
-	0x08, 0x22, 0x5a, 0x0b, 0x0c, 0xb3, 0xe9, 0xb7, 0x00, 0xbd, 0x4e, 0xc2, 0xd1, 0xa6, 0xd7, 0x0b,
-	0x2d, 0x77, 0x1f, 0x44, 0xc7, 0x71, 0x98, 0xbd, 0xf6, 0x6d, 0x20, 0x8a, 0xd5, 0x13, 0x20, 0x68,
-	0x3d, 0x00, 0xe8, 0x1e, 0xe8, 0x92, 0x58, 0xcb, 0x8f, 0x8d, 0x59, 0x6d, 0xdf, 0x74, 0xb5, 0x76,
-	0x07, 0xae, 0x5d, 0x33, 0xab, 0xf1, 0xe6, 0xa9, 0x99, 0x55, 0xd1, 0x19, 0x35, 0xb4, 0x07, 0x20,
-	0x6a, 0x8a, 0x74, 0xd1, 0xf3, 0x7a, 0xd1, 0xab, 0xe3, 0xb4, 0xeb, 0x45, 0xaf, 0xce, 0x73, 0x4c,
-	0xbf, 0x2a, 0xe4, 0xba, 0x82, 0x16, 0xfa, 0x15, 0x0b, 0xbd, 0x4f, 0xc2, 0x74, 0xbb, 0x6e, 0x42,
-	0xab, 0xfd, 0x27, 0x34, 0xfe, 0x0c, 0x66, 0xd7, 0x06, 0x80, 0xa4, 0xf8, 0xbe, 0x92, 0xf5, 0xf1,
-	0x02, 0xa0, 0xe7, 0x7d, 0xd6, 0x87, 0xfa, 0xad, 0x1d, 0x58, 0x91, 0x98, 0xd5, 0xc6, 0xc1, 0x55,
-	0x43, 0x6f, 0x93, 0xf0, 0xaf, 0x76, 0x14, 0xea, 0x85, 0xb3, 0xda, 0x7f, 0xce, 0xfb, 0x97, 0xf4,
-	0x94, 0xe7, 0x58, 0xdf, 0x96, 0x92, 0x3e, 0x06, 0xe8, 0xe1, 0x0f, 0x22, 0xe9, 0x52, 0x6e, 0x67,
-	0x5f, 0x03, 0xbb, 0xfb, 0x1a, 0xf8, 0xbc, 0xaf, 0x81, 0xed, 0x03, 0x2d, 0xb1, 0x7b, 0xa0, 0x25,
-	0x3e, 0x1e, 0x68, 0x89, 0x5b, 0x0b, 0x8e, 0xcb, 0x8b, 0x61, 0xc1, 0xb0, 0x68, 0xe9, 0xe4, 0x58,
-	0x2b, 0xc7, 0xd1, 0xd6, 0x63, 0x60, 0x85, 0x11, 0x61, 0x77, 0xe1, 0x6b, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0xa5, 0x35, 0x96, 0xbb, 0xae, 0x0d, 0x00, 0x00,
+	// 1019 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x57, 0xcf, 0x6f, 0xdc, 0x44,
+	0x14, 0xce, 0xec, 0x26, 0x81, 0x4e, 0x20, 0x95, 0x86, 0x05, 0x96, 0x6d, 0x71, 0x82, 0x4b, 0xa1,
+	0x02, 0xd5, 0xee, 0x4f, 0x11, 0xe0, 0xd0, 0x26, 0x41, 0xb4, 0xb9, 0x40, 0x59, 0xf5, 0xc0, 0x8f,
+	0x83, 0x99, 0x1d, 0x0f, 0x5e, 0xab, 0x8e, 0x67, 0x6b, 0x8f, 0xdb, 0x44, 0xab, 0x3d, 0x80, 0x10,
+	0x08, 0x71, 0xa9, 0x40, 0x48, 0x48, 0x1c, 0xb8, 0xf7, 0xc8, 0x5f, 0x00, 0x07, 0xa4, 0x5e, 0x90,
+	0x22, 0x71, 0xe1, 0x84, 0x20, 0xe9, 0x99, 0x0b, 0xff, 0x00, 0xf2, 0xcc, 0x78, 0x6b, 0x7b, 0xed,
+	0x64, 0xd7, 0x5d, 0xa4, 0xe6, 0xb6, 0x9e, 0x99, 0xf7, 0xcd, 0xfb, 0xbe, 0xef, 0xcd, 0xcc, 0x5b,
+	0xd8, 0x60, 0x11, 0xef, 0xb0, 0xc8, 0xb7, 0xcd, 0x9b, 0x11, 0x0d, 0xb6, 0x8d, 0x5e, 0xc0, 0x38,
+	0x43, 0x27, 0x02, 0x16, 0x71, 0x1a, 0x88, 0x0f, 0xc2, 0x3c, 0x43, 0x7e, 0x92, 0x2e, 0x76, 0x7d,
+	0x23, 0x09, 0x68, 0x1d, 0x77, 0x18, 0x73, 0x3c, 0x6a, 0xe2, 0x9e, 0x6b, 0x62, 0xdf, 0x67, 0x1c,
+	0x73, 0x97, 0xf9, 0xa1, 0x84, 0x68, 0xbd, 0x42, 0x58, 0xb8, 0xc9, 0x42, 0xb3, 0x83, 0x43, 0x2a,
+	0xb1, 0xcd, 0x5b, 0x67, 0x3b, 0x94, 0xe3, 0xb3, 0x66, 0x0f, 0x3b, 0xae, 0x2f, 0x16, 0xab, 0xb5,
+	0x4f, 0x0f, 0x93, 0xe8, 0xe1, 0x00, 0x6f, 0x26, 0x10, 0xcb, 0xc3, 0x61, 0x16, 0x71, 0x87, 0xb9,
+	0xbe, 0x63, 0x75, 0x30, 0x27, 0x5d, 0x8b, 0x6f, 0xa9, 0x15, 0x27, 0xcb, 0x56, 0x10, 0xe6, 0x7f,
+	0xe2, 0x06, 0x9b, 0x6a, 0xd9, 0x0b, 0xa3, 0xcb, 0xf8, 0x96, 0x15, 0x72, 0xcc, 0xa3, 0x64, 0xaf,
+	0xe3, 0xc3, 0x25, 0x84, 0xf9, 0x3c, 0xc0, 0x84, 0x5b, 0x04, 0x7b, 0x9e, 0x9a, 0xd5, 0xd2, 0x64,
+	0x12, 0x1a, 0x84, 0xb9, 0x09, 0x81, 0x86, 0xc3, 0x1c, 0x26, 0x7e, 0x9a, 0xf1, 0x2f, 0x35, 0x7a,
+	0x2c, 0xbd, 0xad, 0xf8, 0x61, 0x61, 0x72, 0x43, 0x4e, 0xea, 0x0d, 0x88, 0xde, 0x8b, 0x55, 0xb9,
+	0x26, 0x18, 0xb7, 0xe9, 0xcd, 0x88, 0x86, 0x5c, 0xff, 0x18, 0x3e, 0x95, 0x19, 0x0d, 0x7b, 0xcc,
+	0x0f, 0x29, 0xda, 0x80, 0xf3, 0x52, 0x99, 0x26, 0x58, 0x06, 0xa7, 0x16, 0xce, 0xbd, 0x6a, 0x8c,
+	0x61, 0x90, 0x21, 0x41, 0xd6, 0x66, 0xef, 0xfd, 0xb9, 0x34, 0xd3, 0x56, 0x00, 0xfa, 0xaf, 0x00,
+	0x6a, 0x62, 0x8b, 0x2b, 0x94, 0xbf, 0xab, 0xd4, 0x58, 0x8b, 0x35, 0xbb, 0xbe, 0xa5, 0x92, 0x40,
+	0x17, 0xe0, 0x33, 0x36, 0x0d, 0xb9, 0xf2, 0xc8, 0x12, 0xa8, 0x16, 0xdf, 0xee, 0x51, 0xb1, 0xfb,
+	0x6c, 0xbb, 0x91, 0x9a, 0x5d, 0x8f, 0x27, 0xaf, 0x6f, 0xf7, 0x28, 0x3a, 0x03, 0x1b, 0xa3, 0x51,
+	0xae, 0xdd, 0xac, 0x2d, 0x83, 0x53, 0x47, 0xda, 0x28, 0x1f, 0xb3, 0x61, 0xa3, 0x93, 0x70, 0x31,
+	0x64, 0x51, 0x40, 0xa8, 0x85, 0x6d, 0x3b, 0xa0, 0x61, 0xd8, 0xac, 0x8b, 0xb5, 0x4f, 0xca, 0xd1,
+	0x55, 0x39, 0x88, 0x1a, 0x70, 0xce, 0x67, 0x3e, 0xa1, 0xcd, 0x59, 0xb1, 0xbb, 0xfc, 0xd0, 0xbf,
+	0x04, 0x70, 0xa9, 0x94, 0x87, 0x92, 0xcd, 0x86, 0x47, 0x59, 0x76, 0x4a, 0xe9, 0x77, 0x61, 0x2c,
+	0xfd, 0x72, 0xb0, 0x4a, 0xc8, 0x3c, 0xa4, 0xde, 0x55, 0x82, 0xae, 0x7a, 0x5e, 0x89, 0xa0, 0x6f,
+	0x43, 0xf8, 0xa0, 0xe6, 0x55, 0x0a, 0x2f, 0x19, 0xb2, 0xa6, 0x8c, 0xb8, 0xa6, 0x0c, 0x79, 0xf8,
+	0x54, 0x65, 0x19, 0xd7, 0xb0, 0x43, 0x55, 0x6c, 0x3b, 0x15, 0xa9, 0xef, 0x24, 0x9c, 0x8b, 0xb6,
+	0xda, 0x8f, 0x73, 0x7d, 0xca, 0x9c, 0xd1, 0x95, 0x0c, 0xa3, 0x9a, 0x60, 0xf4, 0xf2, 0x81, 0x8c,
+	0x64, 0x8a, 0x19, 0x4a, 0xff, 0x00, 0x78, 0xa2, 0xd0, 0xc6, 0x75, 0x79, 0x82, 0x0f, 0x53, 0x4d,
+	0x22, 0x1d, 0x3e, 0xc1, 0x02, 0xd2, 0xa5, 0x21, 0x0f, 0x30, 0x67, 0x41, 0x73, 0x4e, 0x84, 0x66,
+	0xc6, 0xf4, 0x1f, 0x00, 0x7c, 0x71, 0x7f, 0xc2, 0xca, 0xc8, 0x50, 0xdc, 0xcd, 0x23, 0xf3, 0xaa,
+	0x7c, 0x5e, 0x9f, 0xdc, 0x4d, 0x05, 0xa0, 0x2c, 0x2d, 0x04, 0xd7, 0xbf, 0xa9, 0x29, 0x3b, 0xf2,
+	0x15, 0x76, 0x18, 0xed, 0xc8, 0x1e, 0xbb, 0xb9, 0xca, 0xc7, 0xee, 0x7e, 0x62, 0x59, 0xa9, 0x28,
+	0x07, 0x5a, 0x56, 0xff, 0xdf, 0x2c, 0x9b, 0xde, 0x51, 0xbc, 0x0d, 0x5b, 0xa9, 0xc2, 0x14, 0xd9,
+	0xac, 0x92, 0x1b, 0x89, 0xe3, 0xcf, 0x43, 0x38, 0xe2, 0xf2, 0x11, 0x32, 0xb4, 0xf6, 0x39, 0xf8,
+	0x78, 0xce, 0xce, 0xc7, 0x88, 0xf2, 0x70, 0x09, 0x2e, 0xd0, 0x5b, 0xd4, 0xe7, 0x96, 0xb4, 0xa8,
+	0x2e, 0x42, 0xa1, 0x18, 0x7a, 0x47, 0x5c, 0xe5, 0xb7, 0xe1, 0xb1, 0xc2, 0x8d, 0x95, 0xaa, 0xef,
+	0xc3, 0x85, 0xd4, 0xb0, 0xaa, 0xff, 0x33, 0xe3, 0x8a, 0x99, 0xc4, 0x29, 0x0d, 0xd3, 0x50, 0xba,
+	0xad, 0x18, 0x4b, 0x5f, 0xf3, 0x8c, 0xa7, 0x75, 0x6b, 0xff, 0x0c, 0x14, 0xbf, 0xfc, 0x36, 0x65,
+	0xfc, 0xea, 0x53, 0xe2, 0x37, 0xb5, 0xd2, 0x38, 0x77, 0x77, 0x11, 0xce, 0x09, 0x0a, 0xe8, 0x27,
+	0x00, 0xe7, 0x65, 0x5f, 0x81, 0x5e, 0x1b, 0x2b, 0xc5, 0xd1, 0x26, 0xa7, 0xb5, 0x32, 0x79, 0xa0,
+	0xcc, 0x49, 0xbf, 0xf8, 0xd9, 0xef, 0xf7, 0xbf, 0xad, 0x99, 0xe8, 0xb4, 0x29, 0x43, 0x4e, 0x27,
+	0x10, 0xc9, 0xb7, 0xc0, 0x30, 0x73, 0xed, 0x24, 0xba, 0x5b, 0x83, 0x47, 0x73, 0x0f, 0x1b, 0x5a,
+	0x1f, 0x3f, 0x89, 0xd2, 0x4e, 0xa9, 0xf5, 0xd6, 0xc3, 0x81, 0x28, 0x56, 0x5f, 0x03, 0x41, 0xeb,
+	0x73, 0x80, 0x3e, 0x05, 0x63, 0x12, 0x1b, 0x69, 0x88, 0xcd, 0x7e, 0xf1, 0x7d, 0x3c, 0x28, 0x9a,
+	0x70, 0xed, 0x81, 0xd9, 0xcf, 0xde, 0xab, 0x03, 0xb3, 0x2f, 0x8e, 0xe7, 0x00, 0xfd, 0x0d, 0x20,
+	0xca, 0x65, 0xba, 0xea, 0x79, 0x93, 0xe8, 0x55, 0xda, 0x08, 0x4d, 0xa2, 0x57, 0x79, 0x8b, 0xa3,
+	0x5f, 0x16, 0x72, 0xbd, 0x81, 0x56, 0xaa, 0x8a, 0x85, 0x7e, 0xab, 0xc1, 0x46, 0xd1, 0x45, 0x8b,
+	0xae, 0x56, 0x37, 0x34, 0xfb, 0x42, 0xb6, 0x36, 0xa6, 0x80, 0xa4, 0xf8, 0xfe, 0x28, 0xeb, 0xe3,
+	0x7b, 0x80, 0xbe, 0xab, 0x58, 0x1f, 0xea, 0xef, 0xd0, 0xd4, 0x8a, 0xc4, 0xec, 0xa7, 0x7b, 0x9a,
+	0x01, 0xfa, 0xa5, 0x06, 0x9f, 0x2d, 0xa2, 0x10, 0x17, 0xce, 0xd5, 0xea, 0x9e, 0x57, 0x97, 0xf4,
+	0x80, 0x97, 0x5a, 0xbf, 0x23, 0x25, 0xfd, 0x0a, 0xa0, 0x2f, 0x1e, 0x11, 0x49, 0xd1, 0xbf, 0x20,
+	0xf3, 0x0e, 0xa0, 0x4b, 0x93, 0x16, 0x50, 0xee, 0xfd, 0x6a, 0x5d, 0xae, 0x0e, 0xa0, 0x54, 0xc2,
+	0x42, 0xa4, 0x8f, 0xd0, 0x07, 0xe3, 0x4b, 0x34, 0xfc, 0x9b, 0x6b, 0xf6, 0x33, 0x62, 0xa4, 0x04,
+	0x48, 0x35, 0x03, 0x03, 0xb4, 0x03, 0xe0, 0x62, 0x6a, 0xeb, 0xb8, 0x60, 0x2e, 0x4d, 0x6a, 0xf3,
+	0x43, 0x10, 0x2f, 0x7e, 0x92, 0xf5, 0x37, 0x05, 0xf1, 0x8b, 0xe8, 0x7c, 0x05, 0xe2, 0x6b, 0xed,
+	0x7b, 0xbb, 0x1a, 0xd8, 0xd9, 0xd5, 0xc0, 0x5f, 0xbb, 0x1a, 0xb8, 0xb3, 0xa7, 0xcd, 0xec, 0xec,
+	0x69, 0x33, 0x7f, 0xec, 0x69, 0x33, 0x1f, 0xae, 0x38, 0x2e, 0xef, 0x46, 0x1d, 0x83, 0xb0, 0xcd,
+	0xfd, 0x81, 0xb7, 0x1e, 0x40, 0xc7, 0xfa, 0x85, 0x9d, 0x79, 0xb1, 0xee, 0xfc, 0x7f, 0x01, 0x00,
+	0x00, 0xff, 0xff, 0x55, 0x69, 0x31, 0x34, 0xaf, 0x11, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -664,6 +879,10 @@ type QueryClient interface {
 	OutgoingBatchConfirm(ctx context.Context, in *QueryGetOutgoingBatchConfirmRequest, opts ...grpc.CallOption) (*QueryGetOutgoingBatchConfirmResponse, error)
 	// Queries a list of OutgoingBatchConfirm items.
 	OutgoingBatchConfirmAll(ctx context.Context, in *QueryAllOutgoingBatchConfirmRequest, opts ...grpc.CallOption) (*QueryAllOutgoingBatchConfirmResponse, error)
+	// Queries a OutboundAck by index.
+	OutboundAck(ctx context.Context, in *QueryGetOutboundAckRequest, opts ...grpc.CallOption) (*QueryGetOutboundAckResponse, error)
+	// Queries a list of OutboundAck items.
+	OutboundAckAll(ctx context.Context, in *QueryAllOutboundAckRequest, opts ...grpc.CallOption) (*QueryAllOutboundAckResponse, error)
 }
 
 type queryClient struct {
@@ -719,6 +938,24 @@ func (c *queryClient) OutgoingBatchConfirmAll(ctx context.Context, in *QueryAllO
 	return out, nil
 }
 
+func (c *queryClient) OutboundAck(ctx context.Context, in *QueryGetOutboundAckRequest, opts ...grpc.CallOption) (*QueryGetOutboundAckResponse, error) {
+	out := new(QueryGetOutboundAckResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.outbound.Query/OutboundAck", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) OutboundAckAll(ctx context.Context, in *QueryAllOutboundAckRequest, opts ...grpc.CallOption) (*QueryAllOutboundAckResponse, error) {
+	out := new(QueryAllOutboundAckResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.outbound.Query/OutboundAckAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -731,6 +968,10 @@ type QueryServer interface {
 	OutgoingBatchConfirm(context.Context, *QueryGetOutgoingBatchConfirmRequest) (*QueryGetOutgoingBatchConfirmResponse, error)
 	// Queries a list of OutgoingBatchConfirm items.
 	OutgoingBatchConfirmAll(context.Context, *QueryAllOutgoingBatchConfirmRequest) (*QueryAllOutgoingBatchConfirmResponse, error)
+	// Queries a OutboundAck by index.
+	OutboundAck(context.Context, *QueryGetOutboundAckRequest) (*QueryGetOutboundAckResponse, error)
+	// Queries a list of OutboundAck items.
+	OutboundAckAll(context.Context, *QueryAllOutboundAckRequest) (*QueryAllOutboundAckResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -751,6 +992,12 @@ func (*UnimplementedQueryServer) OutgoingBatchConfirm(ctx context.Context, req *
 }
 func (*UnimplementedQueryServer) OutgoingBatchConfirmAll(ctx context.Context, req *QueryAllOutgoingBatchConfirmRequest) (*QueryAllOutgoingBatchConfirmResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OutgoingBatchConfirmAll not implemented")
+}
+func (*UnimplementedQueryServer) OutboundAck(ctx context.Context, req *QueryGetOutboundAckRequest) (*QueryGetOutboundAckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OutboundAck not implemented")
+}
+func (*UnimplementedQueryServer) OutboundAckAll(ctx context.Context, req *QueryAllOutboundAckRequest) (*QueryAllOutboundAckResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OutboundAckAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -847,6 +1094,42 @@ func _Query_OutgoingBatchConfirmAll_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_OutboundAck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetOutboundAckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).OutboundAck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.outbound.Query/OutboundAck",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).OutboundAck(ctx, req.(*QueryGetOutboundAckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_OutboundAckAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllOutboundAckRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).OutboundAckAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.outbound.Query/OutboundAckAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).OutboundAckAll(ctx, req.(*QueryAllOutboundAckRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "routerprotocol.routerchain.outbound.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -870,6 +1153,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "OutgoingBatchConfirmAll",
 			Handler:    _Query_OutgoingBatchConfirmAll_Handler,
+		},
+		{
+			MethodName: "OutboundAck",
+			Handler:    _Query_OutboundAck_Handler,
+		},
+		{
+			MethodName: "OutboundAckAll",
+			Handler:    _Query_OutboundAckAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1291,6 +1582,163 @@ func (m *QueryAllOutgoingBatchConfirmResponse) MarshalToSizedBuffer(dAtA []byte)
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetOutboundAckRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetOutboundAckRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetOutboundAckRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.EventNonce != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.ChainType != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.ChainType))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetOutboundAckResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetOutboundAckResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetOutboundAckResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.OutboundAck.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllOutboundAckRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllOutboundAckRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllOutboundAckRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllOutboundAckResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllOutboundAckResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllOutboundAckResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.OutboundAck) > 0 {
+		for iNdEx := len(m.OutboundAck) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.OutboundAck[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1461,6 +1909,68 @@ func (m *QueryAllOutgoingBatchConfirmResponse) Size() (n int) {
 	_ = l
 	if len(m.OutgoingBatchConfirm) > 0 {
 		for _, e := range m.OutgoingBatchConfirm {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetOutboundAckRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ChainType != 0 {
+		n += 1 + sovQuery(uint64(m.ChainType))
+	}
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovQuery(uint64(m.EventNonce))
+	}
+	return n
+}
+
+func (m *QueryGetOutboundAckResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.OutboundAck.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllOutboundAckRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllOutboundAckResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.OutboundAck) > 0 {
+		for _, e := range m.OutboundAck {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -2567,6 +3077,415 @@ func (m *QueryAllOutgoingBatchConfirmResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.OutgoingBatchConfirm = append(m.OutgoingBatchConfirm, OutgoingBatchConfirm{})
 			if err := m.OutgoingBatchConfirm[len(m.OutgoingBatchConfirm)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetOutboundAckRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetOutboundAckRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetOutboundAckRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
+			}
+			m.ChainType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ChainType |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetOutboundAckResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetOutboundAckResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetOutboundAckResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OutboundAck", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.OutboundAck.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllOutboundAckRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllOutboundAckRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllOutboundAckRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllOutboundAckResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllOutboundAckResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllOutboundAckResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OutboundAck", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OutboundAck = append(m.OutboundAck, OutboundAck{})
+			if err := m.OutboundAck[len(m.OutboundAck)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

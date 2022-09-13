@@ -1,0 +1,14 @@
+syntax = "proto3";
+package routerprotocol.routerchain.oracle;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum OracleType  {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  ORACLE_TYPE_BAND = 0 [(gogoproto.enumvalue_customname) = "ORACLE_TYPE_BAND"];
+  ORACLE_TYPE_CHAINLINK = 1 [(gogoproto.enumvalue_customname) = "ORACLE_TYPE_CHAINLINK"];
+}

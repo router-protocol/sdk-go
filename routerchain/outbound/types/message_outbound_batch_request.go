@@ -48,5 +48,15 @@ func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sender address (%s)", err)
 	}
+
+	if msg.OutgoingTxFee.IsNil() || msg.OutgoingTxFee.IsZero() || msg.OutgoingTxFee.IsNegative() {
+		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid outgoung tx fee (%d)", msg.OutgoingTxFee.Amount)
+	}
+
+	// RelayerFee can be zero or nil.
+	if msg.RelayerFee.IsNegative() {
+		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid relayer fee (%d)", msg.RelayerFee.Amount)
+	}
+
 	return nil
 }
