@@ -3,9 +3,9 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	chaintypes "github.com/router-protocol/router-chain/types"
 	"github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichaintypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	chaintypes "github.com/router-protocol/sdk-go/routerchain/types"
 )
 
 const TypeMsgOutboundBatchRequest = "outbound_batch_request"

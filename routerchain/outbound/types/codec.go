@@ -9,7 +9,7 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgOutboundBatchRequest{}, "outbound/OutboundBatchRequest", nil)
-	cdc.RegisterConcrete(&MsgOutgoingBatchConfirm{}, "outbound/CreateOutgoingBatchConfirm", nil)
+	cdc.RegisterConcrete(&MsgOutgoingBatchConfirm{}, "outbound/OutgoingBatchConfirm", nil)
 	cdc.RegisterConcrete(&MsgOutboundAckRequest{}, "outbound/OutboundAckRequest", nil)
 	// this line is used by starport scaffolding # 2
 }

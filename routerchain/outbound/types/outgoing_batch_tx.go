@@ -56,7 +56,7 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 
 	expTimestamp := &big.Int{}
 	// TODO: Remove hardcoded values
-	expTimestamp.SetUint64(78878)
+	expTimestamp.SetUint64(uint64(outgoingBatchTx.ExpiryTimestamp))
 
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
