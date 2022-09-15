@@ -15,7 +15,7 @@ message OutgoingBatchTx {
   repeated ContractCall contractCalls = 4 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin relayerFee = 5 [(gogoproto.nullable) = false]; 
   cosmos.base.v1beta1.Coin outgoingTxFee = 6 [(gogoproto.nullable) = false]; 
-  uint64 expiryTimestamp = 7;
+  int64 expiryTimestamp = 7;
   bool isAtomic = 8; 
   string sourceAddress = 9; 
   OutgoingTxStatus status = 10; 

@@ -27,7 +27,7 @@ message MsgOutboundBatchRequest {
   bool isAtomic = 5;
   cosmos.base.v1beta1.Coin relayerFee = 6 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin outgoingTxFee = 7 [(gogoproto.nullable) = false];
-  uint64 expiryTimestamp = 8;
+  int64 expiryTimestamp = 8;
 }
 
 message MsgOutboundBatchRequestResponse {
@@ -50,7 +50,7 @@ message MsgOutboundAckRequest {
   string chainId = 3;
   uint64 outboundTxNonce = 4;
   string outboundTxRequestedBy = 5;
-  string relayer = 6;
+  string relayerRouterAddress = 6;
   string destinationTxHash = 7;
   uint64 feeConsumed = 8;
   repeated ContractAckResponse ContractAckResponses  = 9;

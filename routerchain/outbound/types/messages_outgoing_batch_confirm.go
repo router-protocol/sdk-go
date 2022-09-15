@@ -1,8 +1,11 @@
 package types
 
 import (
+	"encoding/hex"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
@@ -55,9 +58,18 @@ func (msg *MsgOutgoingBatchConfirm) GetSignBytes() []byte {
 }
 
 func (msg *MsgOutgoingBatchConfirm) ValidateBasic() error {
-	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
-	if err != nil {
+
+	if _, err := sdk.AccAddressFromBech32(msg.Orchestrator); err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
+
+	if err := attestationTypes.ValidateEthAddress(msg.EthSigner); err != nil {
+		return sdkerrors.Wrap(err, "eth signer")
+	}
+
+	if _, err := hex.DecodeString(msg.Signature); err != nil {
+		return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "Could not decode hex string %s", msg.Signature)
+	}
 	return nil
+
 }

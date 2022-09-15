@@ -14,7 +14,7 @@ message OutboundAck {
   uint64 blockHeight = 4; 
   uint64 outboundTxNonce = 5; 
   string outboundTxRequestedBy = 6; 
-  string relayer = 7; 
+  string relayerRouterAddress = 7; 
   string destinationTxHash = 8; 
   repeated ContractAckResponse contractAckResponses = 9;
   uint64 feeConsumed = 10;     

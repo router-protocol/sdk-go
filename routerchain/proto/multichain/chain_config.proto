@@ -21,6 +21,7 @@ message ChainConfig {
   uint64 lastObservedEventNonce = 11;
   uint64 lastObservedEventBlockHeight = 12; 
   uint64 lastObservedValsetNonce = 13; 
-  string creator = 14;
+  bool chain_enabled = 14; 
+  string creator = 15;
 }
 

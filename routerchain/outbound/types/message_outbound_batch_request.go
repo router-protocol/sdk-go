@@ -3,6 +3,8 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	chaintypes "github.com/router-protocol/router-chain/types"
+	"github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichaintypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
@@ -52,10 +54,31 @@ func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
 	if msg.OutgoingTxFee.IsNil() || msg.OutgoingTxFee.IsZero() || msg.OutgoingTxFee.IsNegative() {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid outgoung tx fee (%d)", msg.OutgoingTxFee.Amount)
 	}
+	if msg.OutgoingTxFee.Denom != chaintypes.RouterCoin {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid outgoung tx fee denom (%d)", msg.OutgoingTxFee.Denom)
+	}
 
 	// RelayerFee can be zero or nil.
 	if msg.RelayerFee.IsNegative() {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid relayer fee (%d)", msg.RelayerFee.Amount)
+	}
+	if msg.RelayerFee.Denom != chaintypes.RouterCoin {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid relayer fee denom (%d)", msg.OutgoingTxFee.Denom)
+	}
+
+	// Validate contract calls data
+	if len(msg.ContractCalls) == 0 {
+		return sdkerrors.Wrap(types.ErrInvalid, "No contract call in outbound request")
+	}
+
+	for _, contractCall := range msg.ContractCalls {
+		if contractCall.DestinationContractAddress == nil {
+			return sdkerrors.Wrap(types.ErrInvalid, "Destination contract address cannot be nil")
+		}
+
+		if contractCall.Payload == nil {
+			return sdkerrors.Wrap(types.ErrInvalid, "Destination contract Payload cannot be nil")
+		}
 	}
 
 	return nil

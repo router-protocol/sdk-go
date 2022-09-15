@@ -8,5 +8,5 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/type
 // Params defines the parameters for the module.
 message Params {
   option (gogoproto.goproto_stringer) = false;
-  
+  int64 outbound_expiry_duration = 1; 
 }
