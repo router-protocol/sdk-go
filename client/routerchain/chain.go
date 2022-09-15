@@ -445,6 +445,23 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 }
 
 /////////////////////////////////
+////    Multichain           ////
+////////////////////////////////
+
+func (c *chainClient) GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error) {
+	req := &multichainTypes.QueryAllChainConfigRequest{}
+	return c.multichainQueryClient.ChainConfigAll(ctx, req)
+}
+
+func (c *chainClient) GetChainConfig(ctx context.Context, chainType uint64, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error) {
+	req := &multichainTypes.QueryGetChainConfigRequest{
+		ChainType: chainType,
+		ChainId:   chainId,
+	}
+	return c.multichainQueryClient.ChainConfig(ctx, req)
+}
+
+/////////////////////////////////
 ////     Attestation           ////
 ////////////////////////////////
 
