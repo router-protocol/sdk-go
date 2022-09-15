@@ -447,7 +447,6 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 /////////////////////////////////
 ////    Multichain           ////
 ////////////////////////////////
-
 func (c *chainClient) GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error) {
 	req := &multichainTypes.QueryAllChainConfigRequest{}
 	return c.multichainQueryClient.ChainConfigAll(ctx, req)
@@ -464,7 +463,6 @@ func (c *chainClient) GetChainConfig(ctx context.Context, chainType uint64, chai
 /////////////////////////////////
 ////     Attestation           ////
 ////////////////////////////////
-
 func (c *chainClient) GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error) {
 	req := &attestationTypes.QueryAllValsetRequest{}
 	return c.attestationQueryClient.ValsetAll(ctx, req)
@@ -473,7 +471,6 @@ func (c *chainClient) GetAllValsets(ctx context.Context) (*attestationTypes.Quer
 /////////////////////////////////
 ////     Outbound           ////
 ////////////////////////////////
-
 func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
 	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{}
 	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
