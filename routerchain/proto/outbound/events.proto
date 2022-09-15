@@ -20,7 +20,8 @@ message EventOutgoingBatchTxCreated {
   cosmos.base.v1beta1.Coin outgoingTxFee = 6 [(gogoproto.nullable) = false]; 
   bool isAtomic = 7; 
   string sourceAddress = 8; 
-  OutgoingTxStatus status = 9; 
+  int64 expiryTimestamp = 9; 
+  OutgoingTxStatus status = 10; 
 }
 
 message EventOutgoingBatchTxConfirm {  
@@ -41,7 +42,7 @@ message EventOutgoingAckCreated {
   uint64 blockHeight = 5;
   uint64 outboundTxNonce = 6;
   string outboundTxRequestedBy = 7;   
-  string relayer = 8;
+  string relayerRouterAddress = 8;
   string destinationTxHash = 9;
   uint64 feeConsumed = 10;
   repeated ContractAckResponse contractAckResponses  = 11;
