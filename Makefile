@@ -24,3 +24,4 @@ copy-chain-types:
 
 	echo "👉 Replace router-chain/util with sdk-go/routerchain/util"
 	echo "👉 Replace router-chain/x with sdk-go/routerchain"
+	echo "👉 Replace router-chain/types with sdk-go/routerchain/types"

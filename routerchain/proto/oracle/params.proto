@@ -9,4 +9,16 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 message Params {
   option (gogoproto.goproto_stringer) = false;
   
+  // true if Band IBC should be enabled
+  bool band_ibc_enabled = 1;
+  // block request interval to send Band IBC prices
+  int64 ibc_request_interval = 2;
+
+  // band IBC source channel
+  string ibc_source_channel = 3;
+  // band IBC version
+  string ibc_version = 4;
+  // band IBC portID
+  string ibc_port_id = 5;
+  
 }

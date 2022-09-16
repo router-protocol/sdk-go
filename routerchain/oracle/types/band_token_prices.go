@@ -31,9 +31,10 @@ func NewMsgBandTokenPricesData(
 	feeLimit sdk.Coins,
 	prepareGas uint64,
 	executeGas uint64,
+	clientId string,
 ) *MsgBandTokenPricesData {
 	return &MsgBandTokenPricesData{
-		ClientID:       BandTokenPricesClientIDKey,
+		ClientID:       clientId,
 		Creator:        creator,
 		OracleScriptID: uint64(oracleScriptID),
 		SourceChannel:  sourceChannel,

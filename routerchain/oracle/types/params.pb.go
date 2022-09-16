@@ -25,6 +25,16 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the module.
 type Params struct {
+	// true if Band IBC should be enabled
+	BandIbcEnabled bool `protobuf:"varint,1,opt,name=band_ibc_enabled,json=bandIbcEnabled,proto3" json:"band_ibc_enabled,omitempty"`
+	// block request interval to send Band IBC prices
+	IbcRequestInterval int64 `protobuf:"varint,2,opt,name=ibc_request_interval,json=ibcRequestInterval,proto3" json:"ibc_request_interval,omitempty"`
+	// band IBC source channel
+	IbcSourceChannel string `protobuf:"bytes,3,opt,name=ibc_source_channel,json=ibcSourceChannel,proto3" json:"ibc_source_channel,omitempty"`
+	// band IBC version
+	IbcVersion string `protobuf:"bytes,4,opt,name=ibc_version,json=ibcVersion,proto3" json:"ibc_version,omitempty"`
+	// band IBC portID
+	IbcPortId string `protobuf:"bytes,5,opt,name=ibc_port_id,json=ibcPortId,proto3" json:"ibc_port_id,omitempty"`
 }
 
 func (m *Params) Reset()      { *m = Params{} }
@@ -59,6 +69,41 @@ func (m *Params) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
+func (m *Params) GetBandIbcEnabled() bool {
+	if m != nil {
+		return m.BandIbcEnabled
+	}
+	return false
+}
+
+func (m *Params) GetIbcRequestInterval() int64 {
+	if m != nil {
+		return m.IbcRequestInterval
+	}
+	return 0
+}
+
+func (m *Params) GetIbcSourceChannel() string {
+	if m != nil {
+		return m.IbcSourceChannel
+	}
+	return ""
+}
+
+func (m *Params) GetIbcVersion() string {
+	if m != nil {
+		return m.IbcVersion
+	}
+	return ""
+}
+
+func (m *Params) GetIbcPortId() string {
+	if m != nil {
+		return m.IbcPortId
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*Params)(nil), "routerprotocol.routerchain.oracle.Params")
 }
@@ -66,17 +111,27 @@ func init() {
 func init() { proto.RegisterFile("oracle/params.proto", fileDescriptor_2db12dafa3fbe2a3) }
 
 var fileDescriptor_2db12dafa3fbe2a3 = []byte{
-	// 160 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xce, 0x2f, 0x4a, 0x4c,
-	0xce, 0x49, 0xd5, 0x2f, 0x48, 0x2c, 0x4a, 0xcc, 0x2d, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17,
-	0x52, 0x2c, 0xca, 0x2f, 0x2d, 0x49, 0x2d, 0x02, 0x73, 0x92, 0xf3, 0x73, 0xf4, 0x20, 0xdc, 0xe4,
-	0x8c, 0xc4, 0xcc, 0x3c, 0x3d, 0x88, 0x7a, 0x29, 0x91, 0xf4, 0xfc, 0xf4, 0x7c, 0xb0, 0x02, 0x7d,
-	0x10, 0x0b, 0xa2, 0x51, 0x89, 0x8f, 0x8b, 0x2d, 0x00, 0x6c, 0x90, 0x15, 0xcb, 0x8c, 0x05, 0xf2,
-	0x0c, 0x4e, 0x01, 0x27, 0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3,
-	0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x65, 0x96, 0x9e,
-	0x59, 0x92, 0x51, 0x9a, 0xa4, 0x97, 0x9c, 0x9f, 0xab, 0x0f, 0x31, 0x5e, 0x17, 0x66, 0x1d, 0x8c,
-	0x0f, 0xb6, 0x4f, 0xbf, 0x42, 0x1f, 0xea, 0xc2, 0x92, 0xca, 0x82, 0xd4, 0xe2, 0x24, 0x36, 0xb0,
-	0x2a, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0x39, 0xb8, 0xdc, 0x1b, 0xb8, 0x00, 0x00, 0x00,
+	// 305 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x34, 0x90, 0xb1, 0x4e, 0xc3, 0x30,
+	0x14, 0x45, 0x63, 0x5a, 0x2a, 0x6a, 0x24, 0x54, 0x99, 0x0e, 0x11, 0x83, 0x5b, 0x98, 0x32, 0x40,
+	0x82, 0x84, 0xc4, 0xc0, 0x08, 0x62, 0xe8, 0x56, 0x05, 0x89, 0x81, 0xc5, 0xb2, 0x1d, 0xab, 0xb5,
+	0x94, 0xfa, 0x05, 0xc7, 0xa9, 0xe0, 0x2f, 0x18, 0x19, 0xf9, 0x1c, 0xc6, 0x8e, 0xb0, 0xa1, 0xe6,
+	0x47, 0x50, 0xec, 0x76, 0xf3, 0x3d, 0xf7, 0xf8, 0x0d, 0x17, 0x9f, 0x82, 0xe5, 0xb2, 0x54, 0x59,
+	0xc5, 0x2d, 0x5f, 0xd5, 0x69, 0x65, 0xc1, 0x01, 0x39, 0xb7, 0xd0, 0x38, 0x65, 0x7d, 0x90, 0x50,
+	0xa6, 0x21, 0xca, 0x25, 0xd7, 0x26, 0x0d, 0xfe, 0xd9, 0x78, 0x01, 0x0b, 0xf0, 0x42, 0xd6, 0xbd,
+	0xc2, 0xc7, 0x8b, 0x5f, 0x84, 0x07, 0x73, 0x7f, 0x89, 0x24, 0x78, 0x24, 0xb8, 0x29, 0x98, 0x16,
+	0x92, 0x29, 0xc3, 0x45, 0xa9, 0x8a, 0x18, 0x4d, 0x51, 0x72, 0x94, 0x9f, 0x74, 0x7c, 0x26, 0xe4,
+	0x63, 0xa0, 0xe4, 0x1a, 0x8f, 0x3b, 0xc9, 0xaa, 0xd7, 0x46, 0xd5, 0x8e, 0x69, 0xe3, 0x94, 0x5d,
+	0xf3, 0x32, 0x3e, 0x98, 0xa2, 0xa4, 0x97, 0x13, 0x2d, 0x64, 0x1e, 0xaa, 0xd9, 0xae, 0x21, 0x97,
+	0xb8, 0xa3, 0xac, 0x86, 0xc6, 0x4a, 0xc5, 0xe4, 0x92, 0x1b, 0xa3, 0xca, 0xb8, 0x37, 0x45, 0xc9,
+	0x30, 0x1f, 0x69, 0x21, 0x9f, 0x7c, 0xf1, 0x10, 0x38, 0x99, 0xe0, 0xe3, 0xce, 0x5e, 0x2b, 0x5b,
+	0x6b, 0x30, 0x71, 0xdf, 0x6b, 0x58, 0x0b, 0xf9, 0x1c, 0x08, 0xa1, 0x41, 0xa8, 0xc0, 0x3a, 0xa6,
+	0x8b, 0xf8, 0xd0, 0x0b, 0x43, 0x2d, 0xe4, 0x1c, 0xac, 0x9b, 0x15, 0x77, 0xfd, 0xcf, 0xaf, 0x49,
+	0x74, 0x3f, 0xff, 0xde, 0x52, 0xb4, 0xd9, 0x52, 0xf4, 0xb7, 0xa5, 0xe8, 0xa3, 0xa5, 0xd1, 0xa6,
+	0xa5, 0xd1, 0x4f, 0x4b, 0xa3, 0x97, 0xdb, 0x85, 0x76, 0xcb, 0x46, 0xa4, 0x12, 0x56, 0x59, 0x98,
+	0xea, 0x6a, 0x3f, 0xdd, 0x3e, 0xfb, 0xed, 0xb2, 0xb7, 0x6c, 0xb7, 0xb6, 0x7b, 0xaf, 0x54, 0x2d,
+	0x06, 0xde, 0xba, 0xf9, 0x0f, 0x00, 0x00, 0xff, 0xff, 0xd4, 0xd4, 0xea, 0xb9, 0x84, 0x01, 0x00,
+	0x00,
 }
 
 func (m *Params) Marshal() (dAtA []byte, err error) {
@@ -99,6 +154,42 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if len(m.IbcPortId) > 0 {
+		i -= len(m.IbcPortId)
+		copy(dAtA[i:], m.IbcPortId)
+		i = encodeVarintParams(dAtA, i, uint64(len(m.IbcPortId)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.IbcVersion) > 0 {
+		i -= len(m.IbcVersion)
+		copy(dAtA[i:], m.IbcVersion)
+		i = encodeVarintParams(dAtA, i, uint64(len(m.IbcVersion)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.IbcSourceChannel) > 0 {
+		i -= len(m.IbcSourceChannel)
+		copy(dAtA[i:], m.IbcSourceChannel)
+		i = encodeVarintParams(dAtA, i, uint64(len(m.IbcSourceChannel)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.IbcRequestInterval != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.IbcRequestInterval))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.BandIbcEnabled {
+		i--
+		if m.BandIbcEnabled {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x8
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -119,6 +210,24 @@ func (m *Params) Size() (n int) {
 	}
 	var l int
 	_ = l
+	if m.BandIbcEnabled {
+		n += 2
+	}
+	if m.IbcRequestInterval != 0 {
+		n += 1 + sovParams(uint64(m.IbcRequestInterval))
+	}
+	l = len(m.IbcSourceChannel)
+	if l > 0 {
+		n += 1 + l + sovParams(uint64(l))
+	}
+	l = len(m.IbcVersion)
+	if l > 0 {
+		n += 1 + l + sovParams(uint64(l))
+	}
+	l = len(m.IbcPortId)
+	if l > 0 {
+		n += 1 + l + sovParams(uint64(l))
+	}
 	return n
 }
 
@@ -157,6 +266,141 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: Params: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BandIbcEnabled", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.BandIbcEnabled = bool(v != 0)
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IbcRequestInterval", wireType)
+			}
+			m.IbcRequestInterval = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.IbcRequestInterval |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IbcSourceChannel", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IbcSourceChannel = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IbcVersion", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IbcVersion = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IbcPortId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.IbcPortId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipParams(dAtA[iNdEx:])
