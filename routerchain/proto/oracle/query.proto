@@ -7,6 +7,8 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "oracle/params.proto";
 import "oracle/band_token_prices.proto";
 import "oracle/band_token_price_state.proto";
+import "oracle/call_data_record.proto";
+import "oracle/band_oracle_request.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
@@ -35,6 +37,26 @@ service Query {
 	// Queries a list of BandTokenPriceState items.
 	rpc BandTokenPriceStateAll(QueryAllBandTokenPriceStateRequest) returns (QueryAllBandTokenPriceStateResponse) {
 		option (google.api.http).get = "/router-protocol/router-chain/oracle/band_token_price_state";
+	}
+
+// Queries a CallDataRecord by clientId.
+	rpc CallDataRecord(QueryGetCallDataRecordRequest) returns (QueryGetCallDataRecordResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/call_data_record/{clientId}";
+	}
+
+	// Queries a list of CallDataRecord items.
+	rpc CallDataRecordAll(QueryAllCallDataRecordRequest) returns (QueryAllCallDataRecordResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/call_data_record";
+	}
+
+// Queries a BandOracleRequest by requestId.
+	rpc BandOracleRequest(QueryGetBandOracleRequestRequest) returns (QueryGetBandOracleRequestResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/band_oracle_request/{requestId}";
+	}
+
+	// Queries a list of BandOracleRequest items.
+	rpc BandOracleRequestAll(QueryAllBandOracleRequestRequest) returns (QueryAllBandOracleRequestResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/band_oracle_request";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -74,6 +96,42 @@ message QueryAllBandTokenPriceStateRequest {
 
 message QueryAllBandTokenPriceStateResponse {
 	repeated BandTokenPriceState bandTokenPriceState = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCallDataRecordRequest {
+	  uint64 clientId = 1;
+
+}
+
+message QueryGetCallDataRecordResponse {
+	CallDataRecord callDataRecord = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCallDataRecordRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCallDataRecordResponse {
+	repeated CallDataRecord callDataRecord = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetBandOracleRequestRequest {
+	  uint64 requestId = 1;
+
+}
+
+message QueryGetBandOracleRequestResponse {
+	BandOracleRequest bandOracleRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllBandOracleRequestRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBandOracleRequestResponse {
+	repeated BandOracleRequest bandOracleRequest = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

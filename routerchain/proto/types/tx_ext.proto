@@ -3,7 +3,7 @@ package routerprotocol.routerchain.types;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/router-protocol/router-chain/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/types";
 
 message ExtensionOptionsWeb3Tx {
   option (gogoproto.goproto_getters) = false;

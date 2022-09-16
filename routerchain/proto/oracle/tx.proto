@@ -4,6 +4,7 @@ package routerprotocol.routerchain.oracle;
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "oracle/band_token_prices.proto";
+import "oracle/band_oracle_request.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
@@ -11,6 +12,9 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 // Msg defines the Msg service.
 service Msg {
       rpc BandTokenPricesData(MsgBandTokenPricesData) returns (MsgBandTokenPricesDataResponse);
+  rpc CreateBandOracleRequest(MsgCreateBandOracleRequest) returns (MsgCreateBandOracleRequestResponse);
+  rpc UpdateBandOracleRequest(MsgUpdateBandOracleRequest) returns (MsgUpdateBandOracleRequestResponse);
+  rpc DeleteBandOracleRequest(MsgDeleteBandOracleRequest) returns (MsgDeleteBandOracleRequestResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -35,5 +39,37 @@ message MsgBandTokenPricesData {
 
 message MsgBandTokenPricesDataResponse {
 }
+
+message MsgCreateBandOracleRequest {
+  string creator = 1;
+  uint64 requestId = 2;
+
+  uint64 oracleScriptId = 3;
+  repeated string symbols = 4;
+  uint64 askCount = 5;
+  uint64 minCount = 6;
+  uint64 prepareGas = 7;
+  uint64 executeGas = 8;
+}
+message MsgCreateBandOracleRequestResponse {}
+
+message MsgUpdateBandOracleRequest {
+  string creator = 1;
+  uint64 requestId = 2;
+
+  uint64 oracleScriptId = 3;
+  repeated string symbols = 4;
+  uint64 askCount = 5;
+  uint64 minCount = 6;
+  uint64 prepareGas = 7;
+  uint64 executeGas = 8;
+}
+message MsgUpdateBandOracleRequestResponse {}
+
+message MsgDeleteBandOracleRequest {
+  string creator = 1;
+  uint64 requestId = 2;
+}
+message MsgDeleteBandOracleRequestResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

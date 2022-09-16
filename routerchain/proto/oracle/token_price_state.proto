@@ -9,6 +9,6 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 message TokenPriceState { 
   string price = 1 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false]; 
   string cumulativePrice = 2 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false]; 
-  uint64 timestamp = 3; 
+  int64 timestamp = 3; 
 }
 

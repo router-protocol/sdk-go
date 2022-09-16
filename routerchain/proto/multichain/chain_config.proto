@@ -10,18 +10,16 @@ import "gogoproto/gogo.proto";
 message ChainConfig {
   string chainId = 1; 
   string chainName = 2; 
-  string symbol = 3; 
-  string TokenPrice = 4 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
-  string GasPrice = 5 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
-  ChainType chainType = 6; 
-  uint64 confirmationsRequired = 7; 
-  string gatewayContractAddress = 8; 
-  uint64 gatewayContractHeight = 9; 
-  string routerContractAddress = 10; 
-  uint64 lastObservedEventNonce = 11;
-  uint64 lastObservedEventBlockHeight = 12; 
-  uint64 lastObservedValsetNonce = 13; 
-  bool chain_enabled = 14; 
-  string creator = 15;
+  string symbol = 3;   
+  ChainType chainType = 4; 
+  uint64 confirmationsRequired = 5; 
+  string gatewayContractAddress = 6; 
+  uint64 gatewayContractHeight = 7; 
+  string routerContractAddress = 8; 
+  uint64 lastObservedEventNonce = 9;
+  uint64 lastObservedEventBlockHeight = 10; 
+  uint64 lastObservedValsetNonce = 11; 
+  bool chain_enabled = 12; 
+  string creator = 13;
 }
 
