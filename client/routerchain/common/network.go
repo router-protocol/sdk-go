@@ -40,7 +40,7 @@ func LoadNetwork(name string, node string) Network {
 		return Network{
 			ApiEndpoint:       "https://devnet-alpha.lcd.routerprotocol.com:443",
 			TmEndpoint:        "https://devnet-alpha.tm.routerprotocol.com:443",
-			ChainGrpcEndpoint: "https://devnet-alpha.grpc.routerprotocol.com:9090",
+			ChainGrpcEndpoint: "tcp://devnet-alpha.grpc.routerprotocol.com:9090",
 			ChainId:           "router-1",
 			Fee_denom:         "router",
 			Name:              "local",
