@@ -5,9 +5,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	attestationTypes "github.com/router-protocol/router-chain/x/attestation/types"
+	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
+	oracleTypes "github.com/router-protocol/router-chain/x/oracle/types"
 )
 
 type MultichainKeeper interface {

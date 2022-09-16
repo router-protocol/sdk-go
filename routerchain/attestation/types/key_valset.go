@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 

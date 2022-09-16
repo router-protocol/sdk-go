@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
@@ -21,7 +21,7 @@ func OutgoingBatchConfirmKey(
 	chainId string,
 	sourceAddress string,
 	nonce uint64,
-	validator sdk.AccAddress,
+	orchestrator sdk.AccAddress,
 ) []byte {
-	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), []byte(sourceAddress), util.UInt64Bytes(nonce), validator.Bytes())
+	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), []byte(sourceAddress), util.UInt64Bytes(nonce), orchestrator.Bytes())
 }

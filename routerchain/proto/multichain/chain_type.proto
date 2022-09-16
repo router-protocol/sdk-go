@@ -1,7 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.multichain;
 
-option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
+option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
 
 import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";

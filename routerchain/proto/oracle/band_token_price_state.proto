@@ -5,7 +5,7 @@ import "oracle/token_price_state.proto";
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
+option go_package = "github.com/router-protocol/router-chain/x/oracle/types";
 
 message BandTokenPriceState {
   string symbol = 1; 

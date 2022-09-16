@@ -3,7 +3,7 @@ package routerprotocol.routerchain.attestation;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
+option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
 
 // Params defines the parameters for the module.
 message Params {

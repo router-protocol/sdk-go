@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	attestationTypes "github.com/router-protocol/router-chain/x/attestation/types"
+	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 

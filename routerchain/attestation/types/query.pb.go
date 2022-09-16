@@ -497,6 +497,398 @@ func (m *QueryAllAttestationResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetValsetConfirmationRequest struct {
+	ValsetNonce  uint64 `protobuf:"varint,1,opt,name=valset_nonce,json=valsetNonce,proto3" json:"valset_nonce,omitempty"`
+	Orchestrator string `protobuf:"bytes,2,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
+}
+
+func (m *QueryGetValsetConfirmationRequest) Reset()         { *m = QueryGetValsetConfirmationRequest{} }
+func (m *QueryGetValsetConfirmationRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValsetConfirmationRequest) ProtoMessage()    {}
+func (*QueryGetValsetConfirmationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{10}
+}
+func (m *QueryGetValsetConfirmationRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValsetConfirmationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValsetConfirmationRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValsetConfirmationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValsetConfirmationRequest.Merge(m, src)
+}
+func (m *QueryGetValsetConfirmationRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValsetConfirmationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValsetConfirmationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValsetConfirmationRequest proto.InternalMessageInfo
+
+func (m *QueryGetValsetConfirmationRequest) GetValsetNonce() uint64 {
+	if m != nil {
+		return m.ValsetNonce
+	}
+	return 0
+}
+
+func (m *QueryGetValsetConfirmationRequest) GetOrchestrator() string {
+	if m != nil {
+		return m.Orchestrator
+	}
+	return ""
+}
+
+type QueryGetValsetConfirmationResponse struct {
+	ValsetConfirmation ValsetConfirmation `protobuf:"bytes,1,opt,name=valsetConfirmation,proto3" json:"valsetConfirmation"`
+}
+
+func (m *QueryGetValsetConfirmationResponse) Reset()         { *m = QueryGetValsetConfirmationResponse{} }
+func (m *QueryGetValsetConfirmationResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValsetConfirmationResponse) ProtoMessage()    {}
+func (*QueryGetValsetConfirmationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{11}
+}
+func (m *QueryGetValsetConfirmationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValsetConfirmationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValsetConfirmationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValsetConfirmationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValsetConfirmationResponse.Merge(m, src)
+}
+func (m *QueryGetValsetConfirmationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValsetConfirmationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValsetConfirmationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValsetConfirmationResponse proto.InternalMessageInfo
+
+func (m *QueryGetValsetConfirmationResponse) GetValsetConfirmation() ValsetConfirmation {
+	if m != nil {
+		return m.ValsetConfirmation
+	}
+	return ValsetConfirmation{}
+}
+
+type QueryAllValsetConfirmationRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValsetConfirmationRequest) Reset()         { *m = QueryAllValsetConfirmationRequest{} }
+func (m *QueryAllValsetConfirmationRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValsetConfirmationRequest) ProtoMessage()    {}
+func (*QueryAllValsetConfirmationRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{12}
+}
+func (m *QueryAllValsetConfirmationRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValsetConfirmationRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValsetConfirmationRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValsetConfirmationRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValsetConfirmationRequest.Merge(m, src)
+}
+func (m *QueryAllValsetConfirmationRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValsetConfirmationRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValsetConfirmationRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValsetConfirmationRequest proto.InternalMessageInfo
+
+func (m *QueryAllValsetConfirmationRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllValsetConfirmationResponse struct {
+	ValsetConfirmation []ValsetConfirmation `protobuf:"bytes,1,rep,name=valsetConfirmation,proto3" json:"valsetConfirmation"`
+	Pagination         *query.PageResponse  `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValsetConfirmationResponse) Reset()         { *m = QueryAllValsetConfirmationResponse{} }
+func (m *QueryAllValsetConfirmationResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValsetConfirmationResponse) ProtoMessage()    {}
+func (*QueryAllValsetConfirmationResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{13}
+}
+func (m *QueryAllValsetConfirmationResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValsetConfirmationResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValsetConfirmationResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValsetConfirmationResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValsetConfirmationResponse.Merge(m, src)
+}
+func (m *QueryAllValsetConfirmationResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValsetConfirmationResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValsetConfirmationResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValsetConfirmationResponse proto.InternalMessageInfo
+
+func (m *QueryAllValsetConfirmationResponse) GetValsetConfirmation() []ValsetConfirmation {
+	if m != nil {
+		return m.ValsetConfirmation
+	}
+	return nil
+}
+
+func (m *QueryAllValsetConfirmationResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryGetValsetUpdatedClaimRequest struct {
+	ChainType  uint64 `protobuf:"varint,1,opt,name=chain_type,json=chainType,proto3" json:"chain_type,omitempty"`
+	ChainId    string `protobuf:"bytes,2,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+	EventNonce uint64 `protobuf:"varint,3,opt,name=event_nonce,json=eventNonce,proto3" json:"event_nonce,omitempty"`
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) Reset()         { *m = QueryGetValsetUpdatedClaimRequest{} }
+func (m *QueryGetValsetUpdatedClaimRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValsetUpdatedClaimRequest) ProtoMessage()    {}
+func (*QueryGetValsetUpdatedClaimRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{14}
+}
+func (m *QueryGetValsetUpdatedClaimRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValsetUpdatedClaimRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValsetUpdatedClaimRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValsetUpdatedClaimRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValsetUpdatedClaimRequest.Merge(m, src)
+}
+func (m *QueryGetValsetUpdatedClaimRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValsetUpdatedClaimRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValsetUpdatedClaimRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValsetUpdatedClaimRequest proto.InternalMessageInfo
+
+func (m *QueryGetValsetUpdatedClaimRequest) GetChainType() uint64 {
+	if m != nil {
+		return m.ChainType
+	}
+	return 0
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+type QueryGetValsetUpdatedClaimResponse struct {
+	ValsetUpdatedClaim ValsetUpdatedClaim `protobuf:"bytes,1,opt,name=valsetUpdatedClaim,proto3" json:"valsetUpdatedClaim"`
+}
+
+func (m *QueryGetValsetUpdatedClaimResponse) Reset()         { *m = QueryGetValsetUpdatedClaimResponse{} }
+func (m *QueryGetValsetUpdatedClaimResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetValsetUpdatedClaimResponse) ProtoMessage()    {}
+func (*QueryGetValsetUpdatedClaimResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{15}
+}
+func (m *QueryGetValsetUpdatedClaimResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetValsetUpdatedClaimResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetValsetUpdatedClaimResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetValsetUpdatedClaimResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetValsetUpdatedClaimResponse.Merge(m, src)
+}
+func (m *QueryGetValsetUpdatedClaimResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetValsetUpdatedClaimResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetValsetUpdatedClaimResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetValsetUpdatedClaimResponse proto.InternalMessageInfo
+
+func (m *QueryGetValsetUpdatedClaimResponse) GetValsetUpdatedClaim() ValsetUpdatedClaim {
+	if m != nil {
+		return m.ValsetUpdatedClaim
+	}
+	return ValsetUpdatedClaim{}
+}
+
+type QueryAllValsetUpdatedClaimRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValsetUpdatedClaimRequest) Reset()         { *m = QueryAllValsetUpdatedClaimRequest{} }
+func (m *QueryAllValsetUpdatedClaimRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValsetUpdatedClaimRequest) ProtoMessage()    {}
+func (*QueryAllValsetUpdatedClaimRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{16}
+}
+func (m *QueryAllValsetUpdatedClaimRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValsetUpdatedClaimRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValsetUpdatedClaimRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValsetUpdatedClaimRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValsetUpdatedClaimRequest.Merge(m, src)
+}
+func (m *QueryAllValsetUpdatedClaimRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValsetUpdatedClaimRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValsetUpdatedClaimRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValsetUpdatedClaimRequest proto.InternalMessageInfo
+
+func (m *QueryAllValsetUpdatedClaimRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllValsetUpdatedClaimResponse struct {
+	ValsetUpdatedClaim []ValsetUpdatedClaim `protobuf:"bytes,1,rep,name=valsetUpdatedClaim,proto3" json:"valsetUpdatedClaim"`
+	Pagination         *query.PageResponse  `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllValsetUpdatedClaimResponse) Reset()         { *m = QueryAllValsetUpdatedClaimResponse{} }
+func (m *QueryAllValsetUpdatedClaimResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllValsetUpdatedClaimResponse) ProtoMessage()    {}
+func (*QueryAllValsetUpdatedClaimResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_db8c67b37c567218, []int{17}
+}
+func (m *QueryAllValsetUpdatedClaimResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllValsetUpdatedClaimResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllValsetUpdatedClaimResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllValsetUpdatedClaimResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllValsetUpdatedClaimResponse.Merge(m, src)
+}
+func (m *QueryAllValsetUpdatedClaimResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllValsetUpdatedClaimResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllValsetUpdatedClaimResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllValsetUpdatedClaimResponse proto.InternalMessageInfo
+
+func (m *QueryAllValsetUpdatedClaimResponse) GetValsetUpdatedClaim() []ValsetUpdatedClaim {
+	if m != nil {
+		return m.ValsetUpdatedClaim
+	}
+	return nil
+}
+
+func (m *QueryAllValsetUpdatedClaimResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "routerprotocol.routerchain.attestation.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "routerprotocol.routerchain.attestation.QueryParamsResponse")
@@ -508,56 +900,84 @@ func init() {
 	proto.RegisterType((*QueryGetAttestationResponse)(nil), "routerprotocol.routerchain.attestation.QueryGetAttestationResponse")
 	proto.RegisterType((*QueryAllAttestationRequest)(nil), "routerprotocol.routerchain.attestation.QueryAllAttestationRequest")
 	proto.RegisterType((*QueryAllAttestationResponse)(nil), "routerprotocol.routerchain.attestation.QueryAllAttestationResponse")
+	proto.RegisterType((*QueryGetValsetConfirmationRequest)(nil), "routerprotocol.routerchain.attestation.QueryGetValsetConfirmationRequest")
+	proto.RegisterType((*QueryGetValsetConfirmationResponse)(nil), "routerprotocol.routerchain.attestation.QueryGetValsetConfirmationResponse")
+	proto.RegisterType((*QueryAllValsetConfirmationRequest)(nil), "routerprotocol.routerchain.attestation.QueryAllValsetConfirmationRequest")
+	proto.RegisterType((*QueryAllValsetConfirmationResponse)(nil), "routerprotocol.routerchain.attestation.QueryAllValsetConfirmationResponse")
+	proto.RegisterType((*QueryGetValsetUpdatedClaimRequest)(nil), "routerprotocol.routerchain.attestation.QueryGetValsetUpdatedClaimRequest")
+	proto.RegisterType((*QueryGetValsetUpdatedClaimResponse)(nil), "routerprotocol.routerchain.attestation.QueryGetValsetUpdatedClaimResponse")
+	proto.RegisterType((*QueryAllValsetUpdatedClaimRequest)(nil), "routerprotocol.routerchain.attestation.QueryAllValsetUpdatedClaimRequest")
+	proto.RegisterType((*QueryAllValsetUpdatedClaimResponse)(nil), "routerprotocol.routerchain.attestation.QueryAllValsetUpdatedClaimResponse")
 }
 
 func init() { proto.RegisterFile("attestation/query.proto", fileDescriptor_db8c67b37c567218) }
 
 var fileDescriptor_db8c67b37c567218 = []byte{
-	// 704 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x55, 0xcf, 0x6e, 0xd3, 0x4e,
-	0x10, 0xce, 0xf6, 0x4f, 0x7e, 0xed, 0x46, 0xfa, 0x1d, 0x96, 0x02, 0xc5, 0x50, 0x17, 0xf9, 0x50,
-	0x10, 0x52, 0x6d, 0x9a, 0x0a, 0x51, 0xb5, 0x2a, 0x22, 0x41, 0xa2, 0x42, 0x42, 0x55, 0x88, 0xa0,
-	0x07, 0x38, 0x44, 0x1b, 0x67, 0x71, 0x2d, 0x39, 0x5e, 0xd7, 0xde, 0x04, 0x42, 0x94, 0x0b, 0x4f,
-	0x80, 0xc4, 0x2b, 0x70, 0xe7, 0x01, 0x38, 0xc2, 0xa1, 0xdc, 0x2a, 0x71, 0xe9, 0x09, 0xa1, 0x84,
-	0x33, 0xcf, 0x80, 0xb2, 0xbb, 0x56, 0x36, 0x7f, 0x80, 0x38, 0xc9, 0xcd, 0xbb, 0x33, 0xf3, 0xcd,
-	0xf7, 0xcd, 0xec, 0x8c, 0xe1, 0x65, 0xcc, 0x18, 0x89, 0x18, 0x66, 0x2e, 0xf5, 0xad, 0x93, 0x1a,
-	0x09, 0x1b, 0x66, 0x10, 0x52, 0x46, 0xd1, 0x46, 0x48, 0x6b, 0x8c, 0x84, 0xfc, 0x60, 0x53, 0xcf,
-	0x14, 0x47, 0xfb, 0x18, 0xbb, 0xbe, 0xa9, 0xc4, 0x68, 0x2b, 0x0e, 0x75, 0x28, 0xf7, 0xb2, 0xba,
-	0x5f, 0x22, 0x5a, 0xbb, 0xe6, 0x50, 0xea, 0x78, 0xc4, 0xc2, 0x81, 0x6b, 0x61, 0xdf, 0xa7, 0xc2,
-	0x39, 0x92, 0xd6, 0x5b, 0x36, 0x8d, 0xaa, 0x34, 0xb2, 0xca, 0x38, 0x22, 0x22, 0xa9, 0x55, 0xdf,
-	0x2a, 0x13, 0x86, 0xb7, 0xac, 0x00, 0x3b, 0xae, 0xcf, 0x9d, 0xa5, 0xef, 0xaa, 0x4a, 0x30, 0xc0,
-	0x21, 0xae, 0x46, 0xa3, 0x2c, 0x75, 0xec, 0x45, 0x84, 0x49, 0xcb, 0x9a, 0x6a, 0x51, 0xbe, 0xa5,
-	0xd9, 0x50, 0xcd, 0xe5, 0xd0, 0xad, 0x38, 0xa4, 0x54, 0xc7, 0x9e, 0x5b, 0xc1, 0x8c, 0x86, 0xc2,
-	0xc7, 0x58, 0x81, 0xe8, 0x49, 0x97, 0x58, 0x81, 0x67, 0x2c, 0x92, 0x93, 0x1a, 0x89, 0x98, 0x61,
-	0xc3, 0x0b, 0x7d, 0xb7, 0x51, 0x40, 0xfd, 0x88, 0xa0, 0xc7, 0x30, 0x2d, 0x98, 0xad, 0x82, 0xeb,
-	0xe0, 0x66, 0x26, 0x6b, 0x9a, 0xe3, 0x15, 0xcf, 0x14, 0x38, 0xf9, 0x85, 0xd3, 0xef, 0xeb, 0xa9,
-	0xa2, 0xc4, 0x30, 0x36, 0xe1, 0x45, 0x9e, 0xe4, 0x80, 0xb0, 0x23, 0xae, 0x4a, 0x66, 0x47, 0x2b,
-	0x70, 0xd1, 0xa7, 0xbe, 0x4d, 0x78, 0x96, 0x85, 0xa2, 0x38, 0x18, 0x2f, 0xe1, 0xa5, 0x41, 0xf7,
-	0x1e, 0x2d, 0x51, 0x96, 0xa4, 0xb4, 0x04, 0x4e, 0x4c, 0x4b, 0x60, 0x18, 0x25, 0x49, 0x2b, 0xe7,
-	0x79, 0xfd, 0xb4, 0x1e, 0x42, 0xd8, 0xeb, 0x9a, 0x4c, 0xb5, 0x61, 0x8a, 0x16, 0x9b, 0xdd, 0x16,
-	0x9b, 0xe2, 0x5d, 0xc9, 0x16, 0x9b, 0x05, 0xec, 0x10, 0x19, 0x5b, 0x54, 0x22, 0x8d, 0x8f, 0x40,
-	0x2a, 0x51, 0x32, 0x8c, 0x50, 0x32, 0x3f, 0xad, 0x12, 0x74, 0xd0, 0x47, 0x78, 0x8e, 0x13, 0xbe,
-	0xf1, 0x4f, 0xc2, 0x82, 0x4a, 0x1f, 0xe3, 0x57, 0x50, 0x8b, 0x4b, 0x9f, 0xeb, 0x25, 0x8d, 0xeb,
-	0xb2, 0x06, 0x21, 0x27, 0x54, 0x62, 0x8d, 0x20, 0xee, 0xd9, 0x32, 0xbf, 0x79, 0xda, 0x08, 0x08,
-	0xba, 0x02, 0x97, 0x84, 0xd9, 0xad, 0x70, 0x0e, 0xcb, 0xc5, 0xff, 0xf8, 0xf9, 0x51, 0x05, 0xad,
-	0xc3, 0x0c, 0xa9, 0x13, 0x9f, 0x95, 0x44, 0xbb, 0xe7, 0x79, 0x28, 0xe4, 0x57, 0x87, 0xbc, 0xe7,
-	0x6f, 0xe0, 0xd5, 0x91, 0x89, 0x65, 0xb9, 0x5e, 0xc0, 0x8c, 0x52, 0x04, 0xd9, 0x92, 0xed, 0x71,
-	0x6b, 0xa6, 0x20, 0xca, 0xc2, 0xa9, 0x68, 0x46, 0x45, 0x8a, 0xce, 0x79, 0xde, 0x08, 0xd1, 0xb3,
-	0x7a, 0x0c, 0x9f, 0x81, 0x94, 0x38, 0x98, 0xe6, 0x4f, 0x12, 0xe7, 0x67, 0x27, 0x71, 0x66, 0x0f,
-	0x24, 0xfb, 0x61, 0x09, 0x2e, 0x72, 0x15, 0xe8, 0x13, 0x80, 0x69, 0x31, 0xed, 0x68, 0x77, 0x5c,
-	0x96, 0xc3, 0x0b, 0x48, 0xdb, 0x9b, 0x28, 0x56, 0x30, 0x33, 0x76, 0xde, 0x7e, 0xfb, 0xf9, 0x7e,
-	0x2e, 0x8b, 0x6e, 0x5b, 0x22, 0x6a, 0x33, 0x46, 0x89, 0xcf, 0x1c, 0xc6, 0x1a, 0x5e, 0xb8, 0xe8,
-	0x2b, 0x80, 0x69, 0x31, 0x4a, 0x68, 0x3f, 0x11, 0x83, 0xc1, 0x1d, 0xa6, 0xdd, 0x9b, 0x34, 0x5c,
-	0x6a, 0xb8, 0xcf, 0x35, 0xec, 0xa2, 0x9d, 0xf1, 0x35, 0x88, 0xa9, 0xb7, 0x9a, 0x7c, 0x98, 0x5a,
-	0xe8, 0x0b, 0x80, 0xcb, 0x02, 0x34, 0xe7, 0x79, 0x09, 0xe5, 0x0c, 0xee, 0xbe, 0x84, 0x72, 0x86,
-	0x16, 0xdb, 0x24, 0x2d, 0x91, 0x4b, 0xec, 0x17, 0x80, 0x19, 0xe5, 0x19, 0xa3, 0x7c, 0xd2, 0xc2,
-	0x0e, 0x0f, 0xaf, 0xf6, 0x60, 0x2a, 0x0c, 0x29, 0xe9, 0x88, 0x4b, 0x2a, 0xa0, 0xc3, 0xf1, 0x25,
-	0xa9, 0xdf, 0xcd, 0x78, 0x29, 0xb6, 0xac, 0xa6, 0xb2, 0x04, 0x5b, 0xe8, 0x1c, 0xc0, 0xff, 0x95,
-	0x7c, 0xdd, 0xe6, 0xe5, 0x93, 0x56, 0x7f, 0x6a, 0xcd, 0xa3, 0xb7, 0x91, 0xb1, 0xcf, 0x35, 0xdf,
-	0x45, 0x77, 0x26, 0xd2, 0x9c, 0x7f, 0x76, 0xda, 0xd6, 0xc1, 0x59, 0x5b, 0x07, 0x3f, 0xda, 0x3a,
-	0x78, 0xd7, 0xd1, 0x53, 0x67, 0x1d, 0x3d, 0x75, 0xde, 0xd1, 0x53, 0xcf, 0xf7, 0x1c, 0x97, 0x1d,
-	0xd7, 0xca, 0xa6, 0x4d, 0xab, 0x7f, 0x87, 0x7e, 0xdd, 0x07, 0xde, 0xfd, 0xe3, 0x44, 0xe5, 0x34,
-	0x77, 0xdd, 0xfe, 0x1d, 0x00, 0x00, 0xff, 0xff, 0x8e, 0xd4, 0x9c, 0x83, 0xe4, 0x09, 0x00, 0x00,
+	// 1010 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x58, 0x41, 0x6f, 0x1b, 0x45,
+	0x14, 0xf6, 0xc6, 0xad, 0x21, 0xe3, 0x0a, 0xa1, 0x21, 0x85, 0x62, 0xa8, 0x4b, 0x47, 0x22, 0x20,
+	0xa4, 0xee, 0xd2, 0x54, 0x88, 0xaa, 0x55, 0x4a, 0xed, 0x88, 0x56, 0x41, 0xa8, 0x0a, 0x16, 0xed,
+	0x81, 0x0a, 0x59, 0xe3, 0xdd, 0xc9, 0x66, 0x61, 0xbd, 0xb3, 0xdd, 0x1d, 0x1b, 0x82, 0x65, 0x0e,
+	0xfc, 0x82, 0x48, 0x48, 0x48, 0xfc, 0x0a, 0x7e, 0x00, 0x47, 0x72, 0x08, 0xb7, 0x48, 0x5c, 0x72,
+	0x02, 0x94, 0x70, 0xe6, 0x06, 0x67, 0xb4, 0x33, 0xb3, 0xc9, 0xac, 0x77, 0xe3, 0x78, 0x77, 0x1d,
+	0x6e, 0x3b, 0x33, 0x6f, 0xde, 0x7b, 0xdf, 0xf7, 0xbe, 0x99, 0x79, 0x36, 0x78, 0x05, 0x33, 0x46,
+	0x42, 0x86, 0x99, 0x43, 0x3d, 0xe3, 0xd9, 0x80, 0x04, 0xdb, 0xba, 0x1f, 0x50, 0x46, 0xe1, 0x72,
+	0x40, 0x07, 0x8c, 0x04, 0x7c, 0x60, 0x52, 0x57, 0x17, 0x43, 0x73, 0x0b, 0x3b, 0x9e, 0xae, 0xec,
+	0x69, 0x2c, 0xd9, 0xd4, 0xa6, 0xdc, 0xca, 0x88, 0xbe, 0xc4, 0xee, 0xc6, 0xeb, 0x36, 0xa5, 0xb6,
+	0x4b, 0x0c, 0xec, 0x3b, 0x06, 0xf6, 0x3c, 0x2a, 0x8c, 0x43, 0xb9, 0xfa, 0x8e, 0x49, 0xc3, 0x3e,
+	0x0d, 0x8d, 0x1e, 0x0e, 0x89, 0x08, 0x6a, 0x0c, 0x6f, 0xf6, 0x08, 0xc3, 0x37, 0x0d, 0x1f, 0xdb,
+	0x8e, 0xc7, 0x8d, 0xa5, 0xed, 0x15, 0x35, 0x41, 0x1f, 0x07, 0xb8, 0x1f, 0x66, 0xad, 0x0c, 0xb1,
+	0x1b, 0x12, 0x26, 0x57, 0xae, 0xaa, 0x2b, 0xca, 0xb7, 0x5c, 0x7e, 0x33, 0xbd, 0xb1, 0x6b, 0x52,
+	0x6f, 0xd3, 0x09, 0xfa, 0xaa, 0xd9, 0x72, 0x86, 0xd9, 0xc0, 0xb7, 0x30, 0x23, 0x56, 0xd7, 0x74,
+	0xb1, 0xd3, 0x97, 0x76, 0x48, 0xb5, 0xeb, 0x05, 0x8e, 0x65, 0x93, 0xee, 0x10, 0xbb, 0x8e, 0x85,
+	0x19, 0x0d, 0x84, 0x0d, 0x5a, 0x02, 0xf0, 0x93, 0x08, 0xe7, 0x06, 0x07, 0xd0, 0x21, 0xcf, 0x06,
+	0x24, 0x64, 0xc8, 0x04, 0x2f, 0x25, 0x66, 0x43, 0x9f, 0x7a, 0x21, 0x81, 0x1f, 0x83, 0x9a, 0x00,
+	0x7a, 0x45, 0x7b, 0x43, 0x7b, 0xbb, 0xbe, 0xa2, 0xeb, 0xb3, 0xd5, 0x42, 0x17, 0x7e, 0xda, 0x17,
+	0xf6, 0x7e, 0xbf, 0x56, 0xe9, 0x48, 0x1f, 0xe8, 0x06, 0xb8, 0xcc, 0x83, 0x3c, 0x24, 0xec, 0x09,
+	0x07, 0x21, 0xa3, 0xc3, 0x25, 0x70, 0xd1, 0xa3, 0x9e, 0x49, 0x78, 0x94, 0x0b, 0x1d, 0x31, 0x40,
+	0x9b, 0xe0, 0xe5, 0x49, 0xf3, 0x93, 0xb4, 0x04, 0x0b, 0x79, 0xd3, 0x12, 0x7e, 0xe2, 0xb4, 0x84,
+	0x0f, 0xd4, 0x95, 0x69, 0xb5, 0x5c, 0x37, 0x99, 0xd6, 0x03, 0x00, 0x4e, 0x44, 0x20, 0x43, 0x2d,
+	0xeb, 0x42, 0x31, 0x7a, 0xa4, 0x18, 0x5d, 0xc8, 0x54, 0x2a, 0x46, 0xdf, 0xc0, 0x36, 0x91, 0x7b,
+	0x3b, 0xca, 0x4e, 0xf4, 0x93, 0x26, 0x91, 0x28, 0x11, 0x32, 0x90, 0x54, 0xcb, 0x22, 0x81, 0x0f,
+	0x13, 0x09, 0x2f, 0xf0, 0x84, 0xdf, 0x3a, 0x33, 0x61, 0x91, 0x4a, 0x22, 0xe3, 0xaf, 0x40, 0x23,
+	0xa6, 0xbe, 0x75, 0x12, 0x34, 0xe6, 0xe5, 0x2a, 0x00, 0x3c, 0xa1, 0x2e, 0xdb, 0xf6, 0xe3, 0x9a,
+	0x2d, 0xf2, 0x99, 0x4f, 0xb7, 0x7d, 0x02, 0x5f, 0x05, 0xcf, 0x8b, 0x65, 0xc7, 0xe2, 0x39, 0x2c,
+	0x76, 0x9e, 0xe3, 0xe3, 0x75, 0x0b, 0x5e, 0x03, 0x75, 0x32, 0x24, 0x1e, 0xeb, 0x8a, 0x72, 0x57,
+	0xf9, 0x56, 0xc0, 0xa7, 0x1e, 0xf1, 0x9a, 0x7f, 0x03, 0x5e, 0xcb, 0x0c, 0x2c, 0xe9, 0x7a, 0x0a,
+	0xea, 0x0a, 0x09, 0xb2, 0x24, 0xb7, 0x66, 0xe5, 0x4c, 0xf1, 0x28, 0x89, 0x53, 0xbd, 0x21, 0x4b,
+	0x82, 0x6e, 0xb9, 0x6e, 0x06, 0xe8, 0x79, 0x89, 0xe1, 0x17, 0x4d, 0x42, 0x9c, 0x0c, 0x73, 0x1a,
+	0xc4, 0xea, 0xfc, 0x20, 0xce, 0x4f, 0x20, 0x5f, 0x80, 0xeb, 0xc9, 0xb3, 0xb9, 0xa6, 0xdc, 0x5a,
+	0x31, 0x65, 0xd7, 0xc1, 0x25, 0x79, 0x59, 0xa9, 0xa7, 0xbb, 0x2e, 0xe6, 0x78, 0xbd, 0x21, 0x02,
+	0x97, 0x68, 0x60, 0x6e, 0x91, 0x90, 0x05, 0xd1, 0x1d, 0x25, 0xf5, 0x92, 0x98, 0x43, 0x3f, 0x68,
+	0x00, 0x4d, 0x0b, 0x26, 0x89, 0xf3, 0x01, 0x1c, 0xa6, 0x56, 0x65, 0xa1, 0xee, 0xe4, 0x3b, 0x56,
+	0xaa, 0x07, 0x49, 0x63, 0x86, 0x6f, 0xf4, 0xa5, 0x24, 0xe1, 0xf8, 0x58, 0x67, 0x91, 0x30, 0x2f,
+	0xdd, 0xfc, 0x11, 0xb3, 0x70, 0x4a, 0xb4, 0x33, 0x58, 0xa8, 0x9e, 0x17, 0x0b, 0xf3, 0xd3, 0xd4,
+	0xb7, 0x93, 0x9a, 0x7a, 0x2c, 0x9e, 0xb8, 0xb5, 0xe8, 0x85, 0xfb, 0x1f, 0xee, 0x9e, 0xb4, 0xce,
+	0x92, 0x09, 0x4c, 0x32, 0xac, 0xae, 0x16, 0xd3, 0x99, 0xea, 0x21, 0xc9, 0xb0, 0xba, 0x92, 0xd6,
+	0x59, 0x16, 0x31, 0xe7, 0xa7, 0xb3, 0x5c, 0x2c, 0x54, 0xcf, 0x8b, 0x85, 0xb9, 0xe9, 0x6c, 0x65,
+	0xf7, 0x45, 0x70, 0x91, 0x23, 0x84, 0x3f, 0x6b, 0xa0, 0x26, 0x3a, 0x15, 0x38, 0x73, 0xce, 0xe9,
+	0xe6, 0xa9, 0x71, 0xb7, 0xd0, 0x5e, 0x91, 0x19, 0xba, 0xfd, 0xdd, 0x6f, 0x7f, 0x7d, 0xbf, 0xb0,
+	0x02, 0xdf, 0x35, 0xc4, 0xae, 0x1b, 0xb1, 0x97, 0x78, 0xcc, 0xdd, 0x18, 0xe9, 0xde, 0x13, 0xfe,
+	0xaa, 0x81, 0x9a, 0x60, 0x10, 0xae, 0xe6, 0xca, 0x60, 0xb2, 0xff, 0x6a, 0xdc, 0x2b, 0xba, 0x5d,
+	0x62, 0xb8, 0xcf, 0x31, 0xdc, 0x81, 0xb7, 0x67, 0xc7, 0x20, 0x0a, 0x6c, 0x8c, 0xf8, 0x61, 0x1c,
+	0xc3, 0x5d, 0x0d, 0x2c, 0x0a, 0xa7, 0x2d, 0xd7, 0xcd, 0x09, 0x67, 0xb2, 0x6f, 0xcb, 0x09, 0x27,
+	0xd5, 0x94, 0x15, 0x29, 0x89, 0x6c, 0xc0, 0xfe, 0xd6, 0x40, 0x5d, 0x79, 0x82, 0x61, 0x3b, 0x2f,
+	0xb1, 0xe9, 0xc6, 0xa3, 0xb1, 0x56, 0xca, 0x87, 0x84, 0xf4, 0x84, 0x43, 0xda, 0x80, 0x8f, 0x66,
+	0x87, 0xa4, 0x7e, 0x8f, 0xe2, 0x4b, 0x75, 0x6c, 0x8c, 0x94, 0x4b, 0x74, 0x0c, 0x0f, 0x34, 0xf0,
+	0x82, 0x12, 0x2f, 0x2a, 0x5e, 0x3b, 0x2f, 0xfb, 0xa5, 0x31, 0x67, 0x77, 0x52, 0x68, 0x95, 0x63,
+	0x7e, 0x1f, 0xbe, 0x57, 0x08, 0x33, 0xdc, 0x59, 0x00, 0x30, 0xfd, 0x10, 0xc2, 0xf5, 0x62, 0x67,
+	0x25, 0xa3, 0x35, 0x68, 0x7c, 0x34, 0x0f, 0x57, 0x12, 0xac, 0xc9, 0xc1, 0x7e, 0x0e, 0x9f, 0xe6,
+	0xd5, 0x6c, 0xe2, 0xf7, 0xa6, 0x31, 0x52, 0x1b, 0xb6, 0xb1, 0x31, 0x52, 0x1b, 0xb1, 0x31, 0xfc,
+	0x47, 0x03, 0x97, 0xd3, 0x39, 0x44, 0x45, 0x5f, 0x2f, 0x76, 0xe4, 0xca, 0xb3, 0x32, 0xb5, 0x1b,
+	0x42, 0x1f, 0x72, 0x56, 0x3e, 0x80, 0xab, 0xa5, 0x58, 0x81, 0x3f, 0x1e, 0x4b, 0x21, 0xf1, 0x22,
+	0x15, 0x94, 0x42, 0xc6, 0xeb, 0x5d, 0x54, 0x0a, 0x59, 0x4f, 0x33, 0x72, 0x39, 0xe8, 0x4d, 0x68,
+	0xe5, 0x06, 0x9d, 0xf8, 0x4f, 0x21, 0x3e, 0xf4, 0x51, 0xa3, 0x35, 0x3e, 0xfd, 0x06, 0xf8, 0xf7,
+	0x58, 0x13, 0x6a, 0x32, 0x25, 0x34, 0x51, 0x9e, 0x9e, 0xa9, 0x9d, 0x0b, 0x7a, 0xc0, 0xe9, 0xb9,
+	0x0f, 0xef, 0x95, 0xa3, 0xa7, 0xfd, 0x78, 0xef, 0xb0, 0xa9, 0xed, 0x1f, 0x36, 0xb5, 0x3f, 0x0f,
+	0x9b, 0xda, 0xce, 0x51, 0xb3, 0xb2, 0x7f, 0xd4, 0xac, 0x1c, 0x1c, 0x35, 0x2b, 0x9f, 0xdd, 0xb5,
+	0x1d, 0xb6, 0x35, 0xe8, 0xe9, 0x26, 0xed, 0x4f, 0x8f, 0xf1, 0x75, 0x22, 0x4a, 0x44, 0x74, 0xd8,
+	0xab, 0x71, 0xd3, 0x5b, 0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0xf4, 0x7c, 0xb6, 0x8e, 0x0f, 0x13,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -582,6 +1002,14 @@ type QueryClient interface {
 	Attestation(ctx context.Context, in *QueryGetAttestationRequest, opts ...grpc.CallOption) (*QueryGetAttestationResponse, error)
 	// Queries a list of Attestation items.
 	AttestationAll(ctx context.Context, in *QueryAllAttestationRequest, opts ...grpc.CallOption) (*QueryAllAttestationResponse, error)
+	// Queries a ValsetConfirmation by valset nonce.
+	ValsetConfirmation(ctx context.Context, in *QueryGetValsetConfirmationRequest, opts ...grpc.CallOption) (*QueryGetValsetConfirmationResponse, error)
+	// Queries a list of ValsetConfirmation items.
+	ValsetConfirmationAll(ctx context.Context, in *QueryAllValsetConfirmationRequest, opts ...grpc.CallOption) (*QueryAllValsetConfirmationResponse, error)
+	// Queries a ValsetUpdatedClaim by index.
+	ValsetUpdatedClaim(ctx context.Context, in *QueryGetValsetUpdatedClaimRequest, opts ...grpc.CallOption) (*QueryGetValsetUpdatedClaimResponse, error)
+	// Queries a list of ValsetUpdatedClaim items.
+	ValsetUpdatedClaimAll(ctx context.Context, in *QueryAllValsetUpdatedClaimRequest, opts ...grpc.CallOption) (*QueryAllValsetUpdatedClaimResponse, error)
 }
 
 type queryClient struct {
@@ -637,6 +1065,42 @@ func (c *queryClient) AttestationAll(ctx context.Context, in *QueryAllAttestatio
 	return out, nil
 }
 
+func (c *queryClient) ValsetConfirmation(ctx context.Context, in *QueryGetValsetConfirmationRequest, opts ...grpc.CallOption) (*QueryGetValsetConfirmationResponse, error) {
+	out := new(QueryGetValsetConfirmationResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.attestation.Query/ValsetConfirmation", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ValsetConfirmationAll(ctx context.Context, in *QueryAllValsetConfirmationRequest, opts ...grpc.CallOption) (*QueryAllValsetConfirmationResponse, error) {
+	out := new(QueryAllValsetConfirmationResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.attestation.Query/ValsetConfirmationAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ValsetUpdatedClaim(ctx context.Context, in *QueryGetValsetUpdatedClaimRequest, opts ...grpc.CallOption) (*QueryGetValsetUpdatedClaimResponse, error) {
+	out := new(QueryGetValsetUpdatedClaimResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.attestation.Query/ValsetUpdatedClaim", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ValsetUpdatedClaimAll(ctx context.Context, in *QueryAllValsetUpdatedClaimRequest, opts ...grpc.CallOption) (*QueryAllValsetUpdatedClaimResponse, error) {
+	out := new(QueryAllValsetUpdatedClaimResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.attestation.Query/ValsetUpdatedClaimAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -649,6 +1113,14 @@ type QueryServer interface {
 	Attestation(context.Context, *QueryGetAttestationRequest) (*QueryGetAttestationResponse, error)
 	// Queries a list of Attestation items.
 	AttestationAll(context.Context, *QueryAllAttestationRequest) (*QueryAllAttestationResponse, error)
+	// Queries a ValsetConfirmation by valset nonce.
+	ValsetConfirmation(context.Context, *QueryGetValsetConfirmationRequest) (*QueryGetValsetConfirmationResponse, error)
+	// Queries a list of ValsetConfirmation items.
+	ValsetConfirmationAll(context.Context, *QueryAllValsetConfirmationRequest) (*QueryAllValsetConfirmationResponse, error)
+	// Queries a ValsetUpdatedClaim by index.
+	ValsetUpdatedClaim(context.Context, *QueryGetValsetUpdatedClaimRequest) (*QueryGetValsetUpdatedClaimResponse, error)
+	// Queries a list of ValsetUpdatedClaim items.
+	ValsetUpdatedClaimAll(context.Context, *QueryAllValsetUpdatedClaimRequest) (*QueryAllValsetUpdatedClaimResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -669,6 +1141,18 @@ func (*UnimplementedQueryServer) Attestation(ctx context.Context, req *QueryGetA
 }
 func (*UnimplementedQueryServer) AttestationAll(ctx context.Context, req *QueryAllAttestationRequest) (*QueryAllAttestationResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AttestationAll not implemented")
+}
+func (*UnimplementedQueryServer) ValsetConfirmation(ctx context.Context, req *QueryGetValsetConfirmationRequest) (*QueryGetValsetConfirmationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValsetConfirmation not implemented")
+}
+func (*UnimplementedQueryServer) ValsetConfirmationAll(ctx context.Context, req *QueryAllValsetConfirmationRequest) (*QueryAllValsetConfirmationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValsetConfirmationAll not implemented")
+}
+func (*UnimplementedQueryServer) ValsetUpdatedClaim(ctx context.Context, req *QueryGetValsetUpdatedClaimRequest) (*QueryGetValsetUpdatedClaimResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValsetUpdatedClaim not implemented")
+}
+func (*UnimplementedQueryServer) ValsetUpdatedClaimAll(ctx context.Context, req *QueryAllValsetUpdatedClaimRequest) (*QueryAllValsetUpdatedClaimResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ValsetUpdatedClaimAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -765,6 +1249,78 @@ func _Query_AttestationAll_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_ValsetConfirmation_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetValsetConfirmationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValsetConfirmation(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.attestation.Query/ValsetConfirmation",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValsetConfirmation(ctx, req.(*QueryGetValsetConfirmationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ValsetConfirmationAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllValsetConfirmationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValsetConfirmationAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.attestation.Query/ValsetConfirmationAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValsetConfirmationAll(ctx, req.(*QueryAllValsetConfirmationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ValsetUpdatedClaim_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetValsetUpdatedClaimRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValsetUpdatedClaim(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.attestation.Query/ValsetUpdatedClaim",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValsetUpdatedClaim(ctx, req.(*QueryGetValsetUpdatedClaimRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ValsetUpdatedClaimAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllValsetUpdatedClaimRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ValsetUpdatedClaimAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.attestation.Query/ValsetUpdatedClaimAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ValsetUpdatedClaimAll(ctx, req.(*QueryAllValsetUpdatedClaimRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "routerprotocol.routerchain.attestation.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -788,6 +1344,22 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AttestationAll",
 			Handler:    _Query_AttestationAll_Handler,
+		},
+		{
+			MethodName: "ValsetConfirmation",
+			Handler:    _Query_ValsetConfirmation_Handler,
+		},
+		{
+			MethodName: "ValsetConfirmationAll",
+			Handler:    _Query_ValsetConfirmationAll_Handler,
+		},
+		{
+			MethodName: "ValsetUpdatedClaim",
+			Handler:    _Query_ValsetUpdatedClaim_Handler,
+		},
+		{
+			MethodName: "ValsetUpdatedClaimAll",
+			Handler:    _Query_ValsetUpdatedClaimAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1152,6 +1724,315 @@ func (m *QueryAllAttestationResponse) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetValsetConfirmationRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValsetConfirmationRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValsetConfirmationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Orchestrator) > 0 {
+		i -= len(m.Orchestrator)
+		copy(dAtA[i:], m.Orchestrator)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Orchestrator)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.ValsetNonce != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.ValsetNonce))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetValsetConfirmationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValsetConfirmationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValsetConfirmationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.ValsetConfirmation.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValsetConfirmationRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValsetConfirmationRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValsetConfirmationRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValsetConfirmationResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValsetConfirmationResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValsetConfirmationResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ValsetConfirmation) > 0 {
+		for iNdEx := len(m.ValsetConfirmation) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ValsetConfirmation[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.EventNonce != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.ChainType != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.ChainType))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetValsetUpdatedClaimResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetValsetUpdatedClaimResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetValsetUpdatedClaimResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.ValsetUpdatedClaim.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValsetUpdatedClaimRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValsetUpdatedClaimRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValsetUpdatedClaimRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllValsetUpdatedClaimResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllValsetUpdatedClaimResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllValsetUpdatedClaimResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ValsetUpdatedClaim) > 0 {
+		for iNdEx := len(m.ValsetUpdatedClaim) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ValsetUpdatedClaim[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1289,6 +2170,127 @@ func (m *QueryAllAttestationResponse) Size() (n int) {
 	_ = l
 	if len(m.Attestation) > 0 {
 		for _, e := range m.Attestation {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetValsetConfirmationRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ValsetNonce != 0 {
+		n += 1 + sovQuery(uint64(m.ValsetNonce))
+	}
+	l = len(m.Orchestrator)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetValsetConfirmationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.ValsetConfirmation.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllValsetConfirmationRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllValsetConfirmationResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ValsetConfirmation) > 0 {
+		for _, e := range m.ValsetConfirmation {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetValsetUpdatedClaimRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ChainType != 0 {
+		n += 1 + sovQuery(uint64(m.ChainType))
+	}
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovQuery(uint64(m.EventNonce))
+	}
+	return n
+}
+
+func (m *QueryGetValsetUpdatedClaimResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.ValsetUpdatedClaim.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllValsetUpdatedClaimRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllValsetUpdatedClaimResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ValsetUpdatedClaim) > 0 {
+		for _, e := range m.ValsetUpdatedClaim {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -2146,6 +3148,805 @@ func (m *QueryAllAttestationResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.Attestation = append(m.Attestation, Attestation{})
 			if err := m.Attestation[len(m.Attestation)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValsetConfirmationRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValsetConfirmationRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValsetConfirmationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValsetNonce", wireType)
+			}
+			m.ValsetNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ValsetNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Orchestrator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Orchestrator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValsetConfirmationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValsetConfirmationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValsetConfirmationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValsetConfirmation", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.ValsetConfirmation.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValsetConfirmationRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValsetConfirmationRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValsetConfirmationRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValsetConfirmationResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValsetConfirmationResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValsetConfirmationResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValsetConfirmation", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValsetConfirmation = append(m.ValsetConfirmation, ValsetConfirmation{})
+			if err := m.ValsetConfirmation[len(m.ValsetConfirmation)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValsetUpdatedClaimRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValsetUpdatedClaimRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValsetUpdatedClaimRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
+			}
+			m.ChainType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ChainType |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetValsetUpdatedClaimResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetValsetUpdatedClaimResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetValsetUpdatedClaimResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValsetUpdatedClaim", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.ValsetUpdatedClaim.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValsetUpdatedClaimRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValsetUpdatedClaimRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValsetUpdatedClaimRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllValsetUpdatedClaimResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllValsetUpdatedClaimResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllValsetUpdatedClaimResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ValsetUpdatedClaim", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ValsetUpdatedClaim = append(m.ValsetUpdatedClaim, ValsetUpdatedClaim{})
+			if err := m.ValsetUpdatedClaim[len(m.ValsetUpdatedClaim)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
