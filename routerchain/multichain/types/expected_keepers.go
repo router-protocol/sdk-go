@@ -3,7 +3,7 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	oracleTypes "github.com/router-protocol/router-chain/x/oracle/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

@@ -10,12 +10,12 @@ import (
 var _ binary.ByteOrder
 
 const (
-	// OutboundAckKeyPrefix is the prefix to retrieve all OutboundAck
-	OutboundAckKeyPrefix = "OutboundAck/value/"
+	// ValsetUpdatedClaimKeyPrefix is the prefix to retrieve all ValsetUpdatedClaim
+	ValsetUpdatedClaimKeyPrefix = "ValsetUpdatedClaim/value/"
 )
 
-// OutboundAckKey returns the store key to retrieve a OutboundAck from the index fields
-func OutboundAckKey(
+// ValsetUpdatedClaimKey returns the store key to retrieve a ValsetUpdatedClaim from the index fields
+func ValsetUpdatedClaimKey(
 	chainType multichainTypes.ChainType,
 	chainId string,
 	eventNonce uint64,

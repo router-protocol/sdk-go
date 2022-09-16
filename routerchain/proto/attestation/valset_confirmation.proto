@@ -3,8 +3,10 @@ package routerprotocol.routerchain.attestation;
 
 option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
 
-message BridgeValidator {
-  
-  uint64 power = 1; 
-  string ethereumAddress = 2; 
+message ValsetConfirmation {
+  uint64 valsetNonce = 1; 
+  string ethAddress = 2; 
+  string signature = 3; 
+  string orchestrator = 4;
 }
+

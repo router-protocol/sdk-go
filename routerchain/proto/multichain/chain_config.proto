@@ -1,7 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.multichain;
 
-option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
+option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
 
 import "multichain/chain_type.proto"; 
 import "cosmos/base/v1beta1/coin.proto";

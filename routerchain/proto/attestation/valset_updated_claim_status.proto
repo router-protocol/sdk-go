@@ -1,0 +1,16 @@
+syntax = "proto3";
+package routerprotocol.routerchain.attestation;
+
+option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+
+enum ValsetUpdatedClaimStatus {
+    option (gogoproto.goproto_enum_prefix) = false;
+
+  VALSET_UPDATED_CLAIM_CREATED = 0 [(gogoproto.enumvalue_customname) = "VALSET_UPDATED_CLAIM_CREATED"];
+  VALSET_UPDATED_CLAIM_OBSERVED = 1 [(gogoproto.enumvalue_customname) = "VALSET_UPDATED_CLAIM_OBSERVED"];
+}
+

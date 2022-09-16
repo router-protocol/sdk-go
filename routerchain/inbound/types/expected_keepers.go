@@ -3,7 +3,7 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authTypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	attestationTypes "github.com/router-protocol/router-chain/x/attestation/types"
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 )
