@@ -1,7 +1,7 @@
 package types
 
 import (
-	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 func NewIncomingTx(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, routerBridgeContract string, payload []byte) *IncomingTx {

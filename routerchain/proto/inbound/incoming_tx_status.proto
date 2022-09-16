@@ -1,7 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.inbound;
 
-option go_package = "github.com/router-protocol/router-chain/x/inbound/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/inbound/types";
 
 import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";

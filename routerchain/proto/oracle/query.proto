@@ -11,7 +11,7 @@ import "oracle/call_data_record.proto";
 import "oracle/band_oracle_request.proto";
 // this line is used by starport scaffolding # 1
 
-option go_package = "github.com/router-protocol/router-chain/x/oracle/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
 
 // Query defines the gRPC querier service.
 service Query {

@@ -2,7 +2,7 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 // Claim represents a claim on ethereum state

@@ -8,7 +8,7 @@ import "outbound/outgoing_batch_confirm.proto";
 import "outbound/outbound_ack.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
-option go_package = "github.com/router-protocol/router-chain/x/outbound/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
 
 // GenesisState defines the outbound module's genesis state.
 message GenesisState {

@@ -6,7 +6,7 @@ package types
 import (
 	fmt "fmt"
 	proto "github.com/gogo/protobuf/proto"
-	types "github.com/router-protocol/router-chain/x/multichain/types"
+	types "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	io "io"
 	math "math"
 	math_bits "math/bits"

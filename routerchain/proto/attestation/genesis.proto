@@ -9,7 +9,7 @@ import "attestation/valset_confirmation.proto";
 import "attestation/valset_updated_claim.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
-option go_package = "github.com/router-protocol/router-chain/x/attestation/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
 // GenesisState defines the attestation module's genesis state.
 message GenesisState {
