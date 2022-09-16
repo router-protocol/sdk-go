@@ -13,7 +13,7 @@ import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "outbound/outbound_ack.proto";
 
-option go_package = "github.com/router-protocol/router-chain/x/outbound/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
 
 // Query defines the gRPC querier service.
 service Query {

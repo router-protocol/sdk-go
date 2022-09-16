@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/distribution/types"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 type MultichainKeeper interface {

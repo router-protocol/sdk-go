@@ -3,7 +3,7 @@ package types
 import (
 	"encoding/binary"
 
-	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 

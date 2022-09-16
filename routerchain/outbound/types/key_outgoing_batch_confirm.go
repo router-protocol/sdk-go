@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	multichainTypes "github.com/router-protocol/router-chain/x/multichain/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 

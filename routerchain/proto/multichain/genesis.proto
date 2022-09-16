@@ -6,7 +6,7 @@ import "multichain/params.proto";
 import "multichain/chain_config.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
-option go_package = "github.com/router-protocol/router-chain/x/multichain/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
 
 // GenesisState defines the multichain module's genesis state.
 message GenesisState {

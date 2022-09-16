@@ -1,7 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.outbound;
 
-option go_package = "github.com/router-protocol/router-chain/x/outbound/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
 import "outbound/contract_call.proto"; 
 import "outbound/outgoing_tx_status.proto"; 
 import "gogoproto/gogo.proto"; 

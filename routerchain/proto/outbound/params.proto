@@ -3,7 +3,7 @@ package routerprotocol.routerchain.outbound;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/router-protocol/router-chain/x/outbound/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
 
 // Params defines the parameters for the module.
 message Params {
