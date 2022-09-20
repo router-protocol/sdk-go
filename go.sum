@@ -1043,8 +1043,8 @@ github.com/rogpeppe/go-internal v1.3.0/go.mod h1:M8bDsm7K2OlrFYOpmOWEs/qY81heoFR
 github.com/rogpeppe/go-internal v1.6.1/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
 github.com/rogpeppe/go-internal v1.6.2 h1:aIihoIOHCiLZHxyoNQ+ABL4NKhFTgKLBdMLyEAh98m0=
 github.com/rogpeppe/go-internal v1.6.2/go.mod h1:xXDCJY+GAPziupqXw64V24skbSoqbTEfhy4qGm1nDQc=
-github.com/router-protocol/router-gateway-contracts v1.1.1 h1:4OBGRcqT8wxQwe5TIhePs6+O7Y1BKszDKQcUaLsmaho=
-github.com/router-protocol/router-gateway-contracts v1.1.1/go.mod h1:0JXdvCTnrrafzneyphIFxOMBwNIbevVscIfqOtyUY1g=
+github.com/router-protocol/router-gateway-contracts v1.1.4 h1:cc/u6yqpeL+zzJlLp2P32tPybZLbBzrJnSpK8kn+DXE=
+github.com/router-protocol/router-gateway-contracts v1.1.4/go.mod h1:0JXdvCTnrrafzneyphIFxOMBwNIbevVscIfqOtyUY1g=
 github.com/rs/cors v0.0.0-20160617231935-a62a804a8a00/go.mod h1:gFx+x8UowdsKA9AchylcLynDq+nNFfI8FkUZdN/jGCU=
 github.com/rs/cors v1.7.0/go.mod h1:gFx+x8UowdsKA9AchylcLynDq+nNFfI8FkUZdN/jGCU=
 github.com/rs/cors v1.8.2 h1:KCooALfAYGs415Cwu5ABvv9n9509fSiG5SQJn/AQo4U=

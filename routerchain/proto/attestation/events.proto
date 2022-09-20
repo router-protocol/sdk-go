@@ -7,6 +7,7 @@ import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";
 import "attestation/claim_type.proto";
 import "multichain/chain_type.proto"; 
+import "attestation/bridge_validator.proto";
 
 message EventAttestationVote {
   ClaimType attestationType = 1;    
@@ -23,4 +24,35 @@ message EventAttestationObserved {
   routerprotocol.routerchain.multichain.ChainType chainType = 3;
   string chainId = 4; 
   uint64 eventNonce = 5;
+}
+
+message EventSetOrchestratorAddresses {
+  string validator_address = 1;
+  string orchestrator_address = 2;
+  string operator_eth_address = 3;
+}
+
+message EventValsetCreate {
+  uint64 valset_nonce = 1;
+  uint64 valset_height = 2;
+  repeated BridgeValidator valset_members = 3[(gogoproto.nullable) = false];
+}
+
+message EventValsetConfirm {
+  uint64 valset_nonce = 1;
+  string orchestrator_address = 2;
+  string ethSigner = 3; 
+  string signature = 4; 
+}
+
+
+message EventValsetUpdatedClaimCreated {
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3; 
+  uint64 eventNonce = 4;
+  uint64 valset_nonce = 5;  
+  uint64 event_height = 6;
+  string src_tx_hash = 7; 
+  repeated BridgeValidator valset_members = 8[(gogoproto.nullable) = false];  
 }

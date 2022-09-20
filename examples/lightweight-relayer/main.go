@@ -17,9 +17,10 @@ const (
 	ORCHESTRATOR_KEYRING_FROM = "genesis"
 	PASSPHRASE                = "12345678"
 
-	RELAYER_PRIVATE_KEY = "843EE93DA70C08B88C726C43329B8DA92CC26AEFE2A0F3F33832A0540E66EA53"
-	RELAYER_ETH_ADDRESS = "0x46e551558388e670ac58e6C84c0759Ca2dCBe6e3"
-	ETH_RPC             = "https://ropsten.infura.io/v3/74c8b06d2481408c86fe936c11657def"
+	RELAYER_PRIVATE_KEY    = "843EE93DA70C08B88C726C43329B8DA92CC26AEFE2A0F3F33832A0540E66EA53"
+	RELAYER_ETH_ADDRESS    = "0x46e551558388e670ac58e6C84c0759Ca2dCBe6e3"
+	RELAYER_ROUTER_ADDRESS = "0x46e551558388e670ac58e6C84c0759Ca2dCBe6e3"
+	ETH_RPC                = "https://ropsten.infura.io/v3/74c8b06d2481408c86fe936c11657def"
 )
 
 var (
@@ -36,7 +37,7 @@ func main() {
 	// INITIALIZE RELAYER
 	gatewayContractClient := gateway.NewGatewayContractClient(ETH_RPC, GATEWAY_CONTRACT_ADDRESS)
 	routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE)
-	relayer := relayer.NewRelayer(ethClient, gatewayContractClient, routerchainClient, RELAYER_PRIVATE_KEY, RELAYER_ETH_ADDRESS)
+	relayer := relayer.NewRelayer(ethClient, gatewayContractClient, routerchainClient, RELAYER_PRIVATE_KEY, RELAYER_ETH_ADDRESS, RELAYER_ROUTER_ADDRESS)
 
 	// TRIGGER ACTIONS
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)

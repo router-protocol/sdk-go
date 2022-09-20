@@ -32,11 +32,12 @@ type relayer struct {
 	gatewayContractClient *gateway.GatewayContractClient
 	routerChainClient     routerclient.ChainClient
 
-	ethPrivatekey string
-	ethAddress    string
+	ethPrivatekey        string
+	ethAddress           string
+	relayerRouterAddress string
 }
 
-func NewRelayer(ethClient *ethclient.Client, gatewayContractClient *gateway.GatewayContractClient, routerChainClient routerclient.ChainClient, orchestratorEthPrivKey string, orchestratorEthAddress string) *relayer {
+func NewRelayer(ethClient *ethclient.Client, gatewayContractClient *gateway.GatewayContractClient, routerChainClient routerclient.ChainClient, orchestratorEthPrivKey string, orchestratorEthAddress string, relayerRouterAddress string) *relayer {
 
 	return &relayer{
 		ethClient:             ethClient,
@@ -44,6 +45,7 @@ func NewRelayer(ethClient *ethclient.Client, gatewayContractClient *gateway.Gate
 		routerChainClient:     routerChainClient,
 		ethPrivatekey:         orchestratorEthPrivKey,
 		ethAddress:            orchestratorEthAddress,
+		relayerRouterAddress:  relayerRouterAddress,
 	}
 }
 
@@ -54,7 +56,7 @@ func (relayer *relayer) SubmitBatchTxToGateway(ctx context.Context, chainClient 
 
 	for _, outgoingBatchTx := range outgoingBatchTxs.OutgoingBatchTx {
 		signatures := relayer.collectSignatures(ctx, chainClient, outgoingBatchTx)
-		relayer.sendTx(signatures, outgoingBatchTx, valsetResponse.Valset[0])
+		relayer.sendTx(signatures, outgoingBatchTx, valsetResponse.Valset[0], relayer.relayerRouterAddress)
 	}
 }
 
@@ -68,11 +70,11 @@ func (relayer *relayer) collectSignatures(ctx context.Context, chainClient route
 	return signatures
 }
 
-func (relayer *relayer) sendTx(signatures []string, outgoingBatchTx types.OutgoingBatchTx, currentValset attestationTypes.Valset) {
+func (relayer *relayer) sendTx(signatures []string, outgoingBatchTx types.OutgoingBatchTx, currentValset attestationTypes.Valset, relayerRouterAddress string) {
 	// create auth and transaction package for deploying smart contract
 	auth := getAccountAuth(relayer.ethClient, relayer.ethPrivatekey)
 
-	sigs := make([]gatewayWrapper.Signature, len(signatures))
+	sigs := make([]gatewayWrapper.UtilsSignature, len(signatures))
 	for i := 0; i < len(signatures); i++ {
 		v, r, s := sigToVRS(signatures[i])
 		sigs[i].V = v
@@ -89,41 +91,31 @@ func (relayer *relayer) sendTx(signatures []string, outgoingBatchTx types.Outgoi
 		payloads[j] = contractCal.Payload
 	}
 
-	chainType := &big.Int{}
-	chainType.SetUint64(uint64(outgoingBatchTx.DestinationChainType))
-
-	batchNonce := &big.Int{}
-	batchNonce.SetUint64(outgoingBatchTx.Nonce)
-
-	routerRequestPayload := gatewayWrapper.RouterRequestPayload{
-		Sender:        outgoingBatchTx.SourceAddress,
-		ChainId:       outgoingBatchTx.DestinationChainId,
-		ChainType:     chainType,
-		RelayerFee:    outgoingBatchTx.RelayerFee.Amount.BigInt(),
-		OutgoingTxFee: outgoingBatchTx.OutgoingTxFee.Amount.BigInt(),
-		IsAtomic:      outgoingBatchTx.IsAtomic,
-		Handlers:      handlers,
-		Payloads:      payloads,
-		Nonce:         batchNonce,
+	routerRequestPayload := gatewayWrapper.UtilsRouterRequestPayload{
+		RouterBridgeAddress:  outgoingBatchTx.SourceAddress,
+		RelayerRouterAddress: relayerRouterAddress,
+		RelayerFee:           outgoingBatchTx.RelayerFee.Amount.BigInt(),
+		OutgoingTxFee:        outgoingBatchTx.OutgoingTxFee.Amount.BigInt(),
+		IsAtomic:             outgoingBatchTx.IsAtomic,
+		ExpTimestamp:         uint64(outgoingBatchTx.ExpiryTimestamp),
+		Handlers:             handlers,
+		Payloads:             payloads,
+		OutboundTxNonce:      outgoingBatchTx.Nonce,
 	}
 
-	currentValsetArs := gatewayWrapper.ValsetArgs{
+	currentValsetArs := gatewayWrapper.UtilsValsetArgs{
 		Validators:  make([]ethcmn.Address, len(currentValset.Members)),
-		Powers:      make([]*big.Int, len(currentValset.Members)),
-		ValsetNonce: &big.Int{},
+		Powers:      make([]uint64, len(currentValset.Members)),
+		ValsetNonce: currentValset.Nonce,
 	}
 	for i, valsetMember := range currentValset.Members {
 		currentValsetArs.Validators[i] = ethcmn.HexToAddress(valsetMember.EthereumAddress)
-		power := &big.Int{}
-		power.SetUint64(valsetMember.Power)
-		currentValsetArs.Powers[i] = power
+		// power := &big.Int{}
+		// power.SetUint64(valsetMember.Power)
+		currentValsetArs.Powers[i] = valsetMember.Power
 	}
 
-	valsetNonce := &big.Int{}
-	// TODO: change valset nonce
-	valsetNonce.SetUint64(0)
-	// valsetNonce.SetUint64(currentValset.Nonce)
-	currentValsetArs.ValsetNonce = valsetNonce
+	currentValsetArs.ValsetNonce = currentValset.Nonce
 
 	// fmt.Println("currentValsetArgs", currentValsetArs)
 	// fmt.Println("sigs", sigs)
