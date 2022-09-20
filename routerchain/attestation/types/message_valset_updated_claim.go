@@ -5,6 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
@@ -12,12 +13,15 @@ const TypeMsgValsetUpdatedClaim = "valset_updated_claim"
 
 var _ sdk.Msg = &MsgValsetUpdatedClaim{}
 
-func NewMsgValsetUpdatedClaim(orchestrator string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, members []BridgeValidator) *MsgValsetUpdatedClaim {
+func NewMsgValsetUpdatedClaim(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, srcTxHash string, members []BridgeValidator) *MsgValsetUpdatedClaim {
 	return &MsgValsetUpdatedClaim{
 		Orchestrator: orchestrator,
+		ChainType:    chainType,
+		ChainId:      chainId,
 		EventNonce:   eventNonce,
 		ValsetNonce:  valsetNonce,
 		BlockHeight:  blockHeight,
+		SourceTxHash: srcTxHash,
 		Members:      members,
 	}
 }
@@ -72,7 +76,7 @@ func (b *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
 		return nil, sdkerrors.Wrap(err, "invalid members")
 	}
 	internalMembers.Sort()
-	path := fmt.Sprintf("%d/%d/%d/%x/", b.EventNonce, b.ValsetNonce, b.BlockHeight, internalMembers.ToExternal())
+	path := fmt.Sprintf("%d/%s/%d/%d/%d/%s/%x/", b.ChainType, b.ChainId, b.EventNonce, b.ValsetNonce, b.BlockHeight, b.SourceTxHash, internalMembers.ToExternal())
 	return tmhash.Sum([]byte(path)), nil
 }
 

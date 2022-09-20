@@ -14,13 +14,14 @@ func NewValsetConfirmation(valsetNonce uint64, ethSigner string, signature strin
 }
 
 func NewValsetUpdatedClaim(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64,
-	valsetNonce uint64,
+	valsetNonce uint64, sourceTxHash string,
 ) *ValsetUpdatedClaim {
 	return &ValsetUpdatedClaim{
-		ChainType:   chainType,
-		ChainId:     chainId,
-		EventNonce:  eventNonce,
-		BlockHeight: blockHeight,
-		ValsetNonce: valsetNonce,
+		ChainType:    chainType,
+		ChainId:      chainId,
+		EventNonce:   eventNonce,
+		BlockHeight:  blockHeight,
+		ValsetNonce:  valsetNonce,
+		SourceTxHash: sourceTxHash,
 	}
 }

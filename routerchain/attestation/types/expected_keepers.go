@@ -17,6 +17,8 @@ type MultichainKeeper interface {
 	SetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, nonce uint64)
 	GetLastObservedEventBlockHeight(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
 	SetLastObservedEventBlockHeight(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, blockHeight uint64)
+	SetLastObservedValsetNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, nonce uint64)
+	GetLastObservedValsetNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
 	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
 }
 

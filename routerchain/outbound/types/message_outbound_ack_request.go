@@ -76,7 +76,7 @@ func (msg *MsgOutboundAckRequest) GetType() attestationTypes.ClaimType {
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgOutboundAckRequest) ClaimHash() ([]byte, error) {
 	// TODO: @venky check the type for ContractAckResponses
-	path := fmt.Sprintf("%d/%s/%d/%s/%s/%s/%d/%v/%d/%d", msg.ChainType, msg.ChainId, msg.OutboundTxNonce, msg.OutboundTxRequestedBy, msg.RelayerRouterAddress, msg.DestinationTxHash, msg.FeeConsumed, msg.ContractAckResponses, msg.EventNonce, msg.BlockHeight)
+	path := fmt.Sprintf("%d/%s/%d/%s/%s/%s/%d/%x/%d/%d", msg.ChainType, msg.ChainId, msg.OutboundTxNonce, msg.OutboundTxRequestedBy, msg.RelayerRouterAddress, msg.DestinationTxHash, msg.FeeConsumed, msg.ContractAckResponses, msg.EventNonce, msg.BlockHeight)
 	return tmhash.Sum([]byte(path)), nil
 }
 

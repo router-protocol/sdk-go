@@ -12,5 +12,6 @@ message ValsetUpdatedClaim {
   uint64 eventNonce = 3; 
   uint64 valsetNonce = 4; 
   uint64 blockHeight = 5; 
-  ValsetUpdatedClaimStatus status = 6;   
+  string sourceTxHash = 6;
+  ValsetUpdatedClaimStatus status = 7;   
 }

@@ -45,6 +45,7 @@ message MsgValsetUpdatedClaim {
   uint64 valsetNonce = 5;
   uint64 blockHeight = 6;  
   repeated BridgeValidator members = 7 [(gogoproto.nullable) = false];
+  string sourceTxHash = 8;
 }
 
 message MsgValsetUpdatedClaimResponse {

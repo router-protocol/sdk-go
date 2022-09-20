@@ -5,15 +5,15 @@ import (
 	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/wrappers"
 )
 
-func (gatewayContractClient *GatewayContractClient) QueryGatewaySendToRouterEvents(startBlock uint64, endBlock uint64) []*gatewayWrapper.GatewaySendToRouterEvent {
+func (gatewayContractClient *GatewayContractClient) QueryGatewaySendToRouterEvents(startBlock uint64, endBlock uint64) []*gatewayWrapper.GatewayRequestToRouterEvent {
 	// create auth and transaction package for deploying smart contract
 	filterOpts := &bind.FilterOpts{
 		Start: startBlock,
 		End:   &endBlock,
 	}
-	iter, _ := gatewayContractClient.GatewayWrapper.FilterSendToRouterEvent(filterOpts, nil)
+	iter, _ := gatewayContractClient.GatewayWrapper.FilterRequestToRouterEvent(filterOpts, nil)
 
-	var sendToRouterEvents []*gatewayWrapper.GatewaySendToRouterEvent
+	var sendToRouterEvents []*gatewayWrapper.GatewayRequestToRouterEvent
 
 	for iter.Next() {
 		sendToRouterEvents = append(sendToRouterEvents, iter.Event)
