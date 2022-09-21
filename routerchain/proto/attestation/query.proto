@@ -65,6 +65,11 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/attestation/latest_valset_nonce";
 	}
 
+// Queries a list of LatestValset items.
+	rpc LatestValset(QueryLatestValsetRequest) returns (QueryLatestValsetResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/latest_valset";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -159,6 +164,13 @@ message QueryLatestValsetNonceRequest {
 
 message QueryLatestValsetNonceResponse {
   uint64 valsetNonce = 1;
+}
+
+message QueryLatestValsetRequest {
+}
+
+message QueryLatestValsetResponse {
+  Valset valset = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3

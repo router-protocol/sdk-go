@@ -71,7 +71,9 @@ type ChainClient interface {
 	GetAccount(ctx context.Context, address string) (*authtypes.QueryAccountResponse, error)
 
 	// Attestation
+	GetLatestValsetNonce(ctx sdk.Context) uint64
 	GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error)
+	GetLatestValset(ctx context.Context) (out *attestationTypes.Valset)
 
 	// Outbound
 	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
@@ -466,6 +468,16 @@ func (c *chainClient) GetChainConfig(ctx context.Context, chainType uint64, chai
 func (c *chainClient) GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error) {
 	req := &attestationTypes.QueryAllValsetRequest{}
 	return c.attestationQueryClient.ValsetAll(ctx, req)
+}
+
+func (c *chainClient) GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error) {
+	req := &attestationTypes.QueryLatestValsetNonceRequest{}
+	return c.attestationQueryClient.LatestValsetNonce(ctx, req)
+}
+
+func (c *chainClient) GetLatestValset(ctx context.Context) (out *attestationTypes.Valset) {
+	req := &attestationTypes.QueryLa
+	return c.attestationQueryClient.LatestValsetNonce(ctx, req)
 }
 
 /////////////////////////////////
