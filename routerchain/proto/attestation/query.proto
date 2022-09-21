@@ -60,6 +60,11 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_updated_claim";
 	}
 
+// Queries a list of LatestValsetNonce items.
+	rpc LatestValsetNonce(QueryLatestValsetNonceRequest) returns (QueryLatestValsetNonceResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/latest_valset_nonce";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -147,6 +152,13 @@ message QueryAllValsetUpdatedClaimRequest {
 message QueryAllValsetUpdatedClaimResponse {
 	repeated ValsetUpdatedClaim valsetUpdatedClaim = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryLatestValsetNonceRequest {
+}
+
+message QueryLatestValsetNonceResponse {
+  uint64 valsetNonce = 1;
 }
 
 // this line is used by starport scaffolding # 3
