@@ -70,6 +70,11 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/attestation/latest_valset";
 	}
 
+// Queries a list of LastEventNonce items.
+	rpc LastEventNonce(QueryLastEventNonceRequest) returns (QueryLastEventNonceResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/last_event_nonce/{chain_type}/{chain_id}/{validator_address}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -171,6 +176,16 @@ message QueryLatestValsetRequest {
 
 message QueryLatestValsetResponse {
   Valset valset = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryLastEventNonceRequest {
+  	uint64 chain_type =1;
+	string chain_id = 2;
+	string validator_address = 3;
+}
+
+message QueryLastEventNonceResponse {
+  uint64 eventNonce = 1;
 }
 
 // this line is used by starport scaffolding # 3
