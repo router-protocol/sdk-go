@@ -45,5 +45,5 @@ func GetLastEventNonceByValidatorKey(validator sdk.ValAddress, chainType multich
 	if err := sdk.VerifyAddressFormat(validator); err != nil {
 		panic(sdkerrors.Wrap(err, "invalid validator address"))
 	}
-	return util.AppendBytes(LastEventNonceByValidatorKey, validator.Bytes())
+	return util.AppendBytes(LastEventNonceByValidatorKey, util.UInt64Bytes(uint64(chainType)), []byte(chainId), validator.Bytes())
 }
