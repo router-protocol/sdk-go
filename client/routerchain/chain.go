@@ -70,6 +70,10 @@ type ChainClient interface {
 	GetBankBalance(ctx context.Context, address string, denom string) (*banktypes.QueryBalanceResponse, error)
 	GetAccount(ctx context.Context, address string) (*authtypes.QueryAccountResponse, error)
 
+	// MultiChain
+	GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error)
+	GetChainConfig(ctx context.Context, chainType uint64, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error)
+
 	// Attestation
 	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
 	GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error)
