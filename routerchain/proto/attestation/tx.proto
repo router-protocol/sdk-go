@@ -1,11 +1,9 @@
 syntax = "proto3";
 package routerprotocol.routerchain.attestation;
 
-import "attestation/valset_confirmation.proto";
 // this line is used by starport scaffolding # proto/tx/import
 import "attestation/bridge_validator.proto";
 import "gogoproto/gogo.proto";
-import "google/api/annotations.proto";
 import "multichain/chain_type.proto"; 
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";

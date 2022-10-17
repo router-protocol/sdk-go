@@ -8,6 +8,8 @@ import "attestation/params.proto";
 import "attestation/valset.proto";
 import "attestation/attestation.proto";
 import "attestation/valset_confirmation.proto";
+import "attestation/tx.proto";
+
 import "attestation/valset_updated_claim.proto";
 // this line is used by starport scaffolding # 1
 import "attestation/bridge_validator.proto";
@@ -73,6 +75,11 @@ service Query {
 // Queries a list of LastEventNonce items.
 	rpc LastEventNonce(QueryLastEventNonceRequest) returns (QueryLastEventNonceResponse) {
 		option (google.api.http).get = "/router-protocol/router-chain/attestation/last_event_nonce/{chain_type}/{chain_id}/{validator_address}";
+	}
+
+// Queries a list of ListOrchestrators items.
+	rpc ListOrchestrators(QueryListOrchestratorsRequest) returns (QueryListOrchestratorsResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/list_orchestrators";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -186,6 +193,13 @@ message QueryLastEventNonceRequest {
 
 message QueryLastEventNonceResponse {
   uint64 eventNonce = 1;
+}
+
+message QueryListOrchestratorsRequest {  
+}
+
+message QueryListOrchestratorsResponse {
+	repeated routerprotocol.routerchain.attestation.MsgSetOrchestratorAddress orchestrator_set = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3
