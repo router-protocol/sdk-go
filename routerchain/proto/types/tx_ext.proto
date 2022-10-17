@@ -20,3 +20,5 @@ message ExtensionOptionsWeb3Tx {
   // allows to perform fee delegation when using EIP712 Domain.
   bytes feePayerSig       = 3;
 }
+
+

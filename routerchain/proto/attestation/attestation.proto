@@ -3,7 +3,6 @@ package routerprotocol.routerchain.attestation;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
-import "gogoproto/gogo.proto";
 import "google/protobuf/any.proto";
 
 message Attestation {  
