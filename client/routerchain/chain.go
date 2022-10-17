@@ -82,6 +82,9 @@ type ChainClient interface {
 	GetLastEventNonceByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 
+	// Inbound
+	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
+
 	// Outbound
 	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
 	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
@@ -505,6 +508,19 @@ func (c *chainClient) GetLastEventNonceByValidator(ctx context.Context, chainTyp
 func (c *chainClient) GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error) {
 	req := &attestationTypes.QueryListOrchestratorsRequest{}
 	return c.attestationQueryClient.ListOrchestrators(ctx, req)
+}
+
+/////////////////////////////////
+////     Inbound           //////
+////////////////////////////////
+func (c *chainClient) GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error) {
+	req := &inboundTypes.QueryGetIncomingTxRequest{
+		ChainType:  chainType,
+		ChainId:    chainID,
+		EventNonce: eventNonce,
+	}
+
+	return c.inboundQueryClient.IncomingTx(ctx, req)
 }
 
 /////////////////////////////////
