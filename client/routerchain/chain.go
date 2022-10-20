@@ -138,7 +138,7 @@ type chainClient struct {
 	canSign bool
 }
 
-func InitialiseChainClient(networkName string, keyringFrom string, passphrase string) ChainClient {
+func InitialiseChainClient(networkName string, keyringFrom string, passphrase string, privateKey string) ChainClient {
 	network := common.LoadNetwork(networkName, "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
@@ -153,7 +153,7 @@ func InitialiseChainClient(networkName string, keyringFrom string, passphrase st
 		"file",
 		keyringFrom,
 		passphrase,
-		"", // keyring will be used if pk not provided
+		privateKey, // keyring will be used if pk not provided
 		false,
 	)
 

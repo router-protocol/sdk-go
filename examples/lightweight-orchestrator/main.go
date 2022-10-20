@@ -34,7 +34,7 @@ func main() {
 
 	// INITIALIZE ORCHESTRATOR
 	gatewayContractClient := gateway.NewGatewayContractClient(ETH_RPC, GATEWAY_CONTRACT_ADDRESS)
-	routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE)
+	routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE, "")
 	orchestrator := orchestrator.NewOrchestrator(ethClient, gatewayContractClient, routerchainClient, ORCHESTRATOR_PRIVATE_KEY, ORCHESTRATOR_ETH_ADDRESS)
 
 	// TRIGGER ACTIONS
