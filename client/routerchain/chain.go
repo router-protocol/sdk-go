@@ -29,6 +29,9 @@ import (
 
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 
+	"github.com/CosmWasm/wasmd/x/wasm/ioutils"
+	wasmTypes "github.com/CosmWasm/wasmd/x/wasm/types"
+
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
@@ -90,6 +93,10 @@ type ChainClient interface {
 	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
 
+	// Wasm
+	StoreCode(file string, sender sdk.AccAddress) error
+	InstantiateContract(rawCodeID string, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) error
+
 	GetGasFee() (string, error)
 	Close()
 }
@@ -125,6 +132,7 @@ type chainClient struct {
 	inboundQueryClient     inboundTypes.QueryClient
 	outboundQueryClient    outboundTypes.QueryClient
 	oracleQueryClient      oracleTypes.QueryClient
+	wasmQueryClient        wasmTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -454,6 +462,138 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 		Denom:   denom,
 	}
 	return c.bankQueryClient.Balance(ctx, req)
+}
+
+/////////////////////////////////
+////    Wasm           //////////
+////////////////////////////////
+func (c *chainClient) StoreCode(file string, sender sdk.AccAddress) error {
+	wasm, err := os.ReadFile(file)
+	if err != nil {
+		return err
+	}
+
+	// gzip the wasm file
+	if ioutils.IsWasm(wasm) {
+		wasm, err = ioutils.GzipIt(wasm)
+
+		if err != nil {
+			return err
+		}
+	} else if !ioutils.IsGzip(wasm) {
+		return fmt.Errorf("invalid input file. Use wasm binary or gzip")
+	}
+
+	msg := wasmTypes.MsgStoreCode{
+		Sender:       sender.String(),
+		WASMByteCode: wasm,
+	}
+
+	if err := msg.ValidateBasic(); err != nil {
+		return err
+	}
+
+	err = c.QueueBroadcastMsg(&msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	time.Sleep(time.Second * 5)
+	gasFee, err := c.GetGasFee()
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	fmt.Println("gas fee:", gasFee)
+	return nil
+}
+
+func (c *chainClient) InstantiateContract(rawCodeID string, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) error {
+	// get the id of the code to instantiate
+	codeID, err := strconv.ParseUint(rawCodeID, 10, 64)
+	if err != nil {
+		return err
+	}
+
+	if label == "" {
+		return errors.New("label is required on all contracts")
+	}
+
+	amount, err := sdk.ParseCoinsNormalized(amountStr)
+	if err != nil {
+		return fmt.Errorf("amount: %s", err)
+	}
+
+	// ensure sensible admin is set (or explicitly immutable)
+	if adminStr == "" && !noAdmin {
+		return fmt.Errorf("you must set an admin or explicitly pass --no-admin to make it immutible (wasmd issue #719)")
+	}
+	if adminStr != "" && noAdmin {
+		return fmt.Errorf("you set an admin and passed --no-admin, those cannot both be true")
+	}
+
+	// build and sign the transaction, then broadcast to Tendermint
+	msg := wasmTypes.MsgInstantiateContract{
+		Sender: sender.String(),
+		CodeID: codeID,
+		Label:  label,
+		Funds:  amount,
+		Msg:    []byte(initMsg),
+		Admin:  adminStr,
+	}
+
+	if err := msg.ValidateBasic(); err != nil {
+		return err
+	}
+
+	err = c.QueueBroadcastMsg(&msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	time.Sleep(time.Second * 5)
+	gasFee, err := c.GetGasFee()
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	fmt.Println("gas fee:", gasFee)
+	return nil
+}
+
+func (c *chainClient) ExecuteContract(amountStr string, sender sdk.AccAddress, contractAddr string, execMsg string) error {
+	amount, err := sdk.ParseCoinsNormalized(amountStr)
+	if err != nil {
+		return err
+	}
+
+	msg := wasmTypes.MsgExecuteContract{
+		Sender:   sender.String(),
+		Contract: contractAddr,
+		Funds:    amount,
+		Msg:      []byte(execMsg),
+	}
+
+	if err := msg.ValidateBasic(); err != nil {
+		return err
+	}
+
+	err = c.QueueBroadcastMsg(&msg)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	time.Sleep(time.Second * 5)
+	gasFee, err := c.GetGasFee()
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+
+	fmt.Println("gas fee:", gasFee)
+	return nil
 }
 
 /////////////////////////////////
