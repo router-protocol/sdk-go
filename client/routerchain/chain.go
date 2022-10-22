@@ -94,8 +94,10 @@ type ChainClient interface {
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
 
 	// Wasm
-	StoreCode(file string, sender sdk.AccAddress) error
-	InstantiateContract(rawCodeID string, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) error
+	StoreCode(file string, sender sdk.AccAddress) (int64, error)
+	InstantiateContract(codeID uint64, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) (string, error)
+	SmartContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QuerySmartContractStateResponse, error)
+	RawContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QueryRawContractStateResponse, error)
 
 	GetGasFee() (string, error)
 	Close()
@@ -178,7 +180,7 @@ func InitialiseChainClient(networkName string, keyringFrom string, passphrase st
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("100000000000000router"),
+		common.OptionGasPrices("1000000000000000router"),
 	)
 
 	if err != nil {
@@ -467,10 +469,30 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 /////////////////////////////////
 ////    Wasm           //////////
 ////////////////////////////////
-func (c *chainClient) StoreCode(file string, sender sdk.AccAddress) error {
+func (c *chainClient) SmartContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QuerySmartContractStateResponse, error) {
+	return c.wasmQueryClient.SmartContractState(
+		ctx,
+		&wasmTypes.QuerySmartContractStateRequest{
+			Address:   contractAddress,
+			QueryData: queryData,
+		},
+	)
+}
+
+func (c *chainClient) RawContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QueryRawContractStateResponse, error) {
+	return c.wasmQueryClient.RawContractState(
+		ctx,
+		&wasmTypes.QueryRawContractStateRequest{
+			Address:   contractAddress,
+			QueryData: queryData,
+		},
+	)
+}
+
+func (c *chainClient) StoreCode(file string, sender sdk.AccAddress) (codeID int64, err error) {
 	wasm, err := os.ReadFile(file)
 	if err != nil {
-		return err
+		return
 	}
 
 	// gzip the wasm file
@@ -478,10 +500,11 @@ func (c *chainClient) StoreCode(file string, sender sdk.AccAddress) error {
 		wasm, err = ioutils.GzipIt(wasm)
 
 		if err != nil {
-			return err
+			return
 		}
 	} else if !ioutils.IsGzip(wasm) {
-		return fmt.Errorf("invalid input file. Use wasm binary or gzip")
+		err = fmt.Errorf("invalid input file. Use wasm binary or gzip")
+		return
 	}
 
 	msg := wasmTypes.MsgStoreCode{
@@ -489,48 +512,60 @@ func (c *chainClient) StoreCode(file string, sender sdk.AccAddress) error {
 		WASMByteCode: wasm,
 	}
 
-	if err := msg.ValidateBasic(); err != nil {
-		return err
+	if err = msg.ValidateBasic(); err != nil {
+		return
 	}
 
-	err = c.QueueBroadcastMsg(&msg)
+	txResponse, err := c.SyncBroadcastMsg(&msg)
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	for _, event := range txResponse.GetTxResponse().Events {
+		for _, eventAttribute := range event.Attributes {
+			var key, value = string(eventAttribute.Key), eventAttribute.Value
+			// json.Unmarshal(eventAttribute.Value, &value)
+			switch key {
+			case "code_id":
+				fmt.Println("Key: ", key, "Value", value, "StrValue", (string)(value))
+
+				codeID, err = strconv.ParseInt((string)(value), 10, 64)
+				fmt.Println("CodeID", codeID, "err", err)
+			}
+		}
 	}
 
 	time.Sleep(time.Second * 5)
 	gasFee, err := c.GetGasFee()
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return
 	}
 
 	fmt.Println("gas fee:", gasFee)
-	return nil
+	return
 }
 
-func (c *chainClient) InstantiateContract(rawCodeID string, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) error {
-	// get the id of the code to instantiate
-	codeID, err := strconv.ParseUint(rawCodeID, 10, 64)
-	if err != nil {
-		return err
-	}
-
+func (c *chainClient) InstantiateContract(codeID uint64, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) (contractAddress string, err error) {
 	if label == "" {
-		return errors.New("label is required on all contracts")
+		err = errors.New("label is required on all contracts")
+		return
 	}
 
 	amount, err := sdk.ParseCoinsNormalized(amountStr)
 	if err != nil {
-		return fmt.Errorf("amount: %s", err)
+		return
 	}
 
 	// ensure sensible admin is set (or explicitly immutable)
 	if adminStr == "" && !noAdmin {
-		return fmt.Errorf("you must set an admin or explicitly pass --no-admin to make it immutible (wasmd issue #719)")
+		err = fmt.Errorf("you must set an admin or explicitly pass --no-admin to make it immutible (wasmd issue #719)")
+		return
 	}
 	if adminStr != "" && noAdmin {
-		return fmt.Errorf("you set an admin and passed --no-admin, those cannot both be true")
+		err = fmt.Errorf("you set an admin and passed --no-admin, those cannot both be true")
+		return
 	}
 
 	// build and sign the transaction, then broadcast to Tendermint
@@ -543,24 +578,36 @@ func (c *chainClient) InstantiateContract(rawCodeID string, label string, amount
 		Admin:  adminStr,
 	}
 
-	if err := msg.ValidateBasic(); err != nil {
-		return err
+	if err = msg.ValidateBasic(); err != nil {
+		return
 	}
 
-	err = c.QueueBroadcastMsg(&msg)
+	txResponse, err := c.SyncBroadcastMsg(&msg)
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	for _, event := range txResponse.GetTxResponse().Events {
+		for _, eventAttribute := range event.Attributes {
+			var key, value = string(eventAttribute.Key), eventAttribute.Value
+			// json.Unmarshal(eventAttribute.Value, &value)
+			switch key {
+			case "_contract_address":
+				contractAddress = (string)(value)
+			}
+		}
 	}
 
 	time.Sleep(time.Second * 5)
 	gasFee, err := c.GetGasFee()
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return
 	}
 
 	fmt.Println("gas fee:", gasFee)
-	return nil
+	return
 }
 
 func (c *chainClient) ExecuteContract(amountStr string, sender sdk.AccAddress, contractAddr string, execMsg string) error {
