@@ -193,6 +193,7 @@ message QueryLastEventNonceRequest {
 
 message QueryLastEventNonceResponse {
   uint64 eventNonce = 1;
+  uint64 eventHeight = 2;
 }
 
 message QueryListOrchestratorsRequest {  

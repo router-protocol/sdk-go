@@ -37,11 +37,11 @@ func ValsetKey(
 	return util.AppendBytes(util.HashString(ValsetKeyPrefix), util.UInt64Bytes(valsetNonce))
 }
 
-// GetLastEventNonceByValidatorKey indexes latest event nonce by validator
-// GetLastEventNonceByValidatorKey returns the following key format
+// GetLastEventByValidatorKey indexes latest event nonce by validator
+// GetLastEventByValidatorKey returns the following key format
 // prefix              cosmos-validator
 // [0x0][gravity1ahx7f8wyertuus9r20284ej0asrs085ceqtfnm]
-func GetLastEventNonceByValidatorKey(validator sdk.ValAddress, chainType multichainTypes.ChainType, chainId string) []byte {
+func GetLastEventByValidatorKey(validator sdk.ValAddress, chainType multichainTypes.ChainType, chainId string) []byte {
 	if err := sdk.VerifyAddressFormat(validator); err != nil {
 		panic(sdkerrors.Wrap(err, "invalid validator address"))
 	}
