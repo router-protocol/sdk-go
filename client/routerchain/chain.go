@@ -82,7 +82,7 @@ type ChainClient interface {
 	GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error)
 	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
-	GetLastEventNonceByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
+	GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 
 	// Inbound
@@ -683,7 +683,7 @@ func (c *chainClient) GetValsetByNonce(ctx context.Context, valsetNonce uint64) 
 	}
 	return c.attestationQueryClient.Valset(ctx, req)
 }
-func (c *chainClient) GetLastEventNonceByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
+func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
 	req := &attestationTypes.QueryLastEventNonceRequest{
 		ChainType:        uint64(chainType),
 		ChainId:          chainId,

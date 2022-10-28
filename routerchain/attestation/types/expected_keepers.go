@@ -20,6 +20,7 @@ type MultichainKeeper interface {
 	SetLastObservedValsetNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, nonce uint64)
 	GetLastObservedValsetNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
 	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
+	GetChainConfig(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
