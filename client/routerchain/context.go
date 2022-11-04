@@ -14,6 +14,11 @@ import (
 	keyscodec "github.com/router-protocol/sdk-go/routerchain/crypto/codec"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 	chaintypes "github.com/router-protocol/sdk-go/routerchain/types"
 
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
@@ -41,6 +46,11 @@ func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
 	interfaceRegistry := types.NewInterfaceRegistry()
 	keyscodec.RegisterInterfaces(interfaceRegistry)
 	std.RegisterInterfaces(interfaceRegistry)
+	attestationTypes.RegisterInterfaces(interfaceRegistry)
+	inboundTypes.RegisterInterfaces(interfaceRegistry)
+	multichainTypes.RegisterInterfaces(interfaceRegistry)
+	oracleTypes.RegisterInterfaces(interfaceRegistry)
+	outboundTypes.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)
@@ -78,6 +88,11 @@ func NewClientContext(
 	keyscodec.RegisterInterfaces(interfaceRegistry)
 	std.RegisterInterfaces(interfaceRegistry)
 	chaintypes.RegisterInterfaces(interfaceRegistry)
+	attestationTypes.RegisterInterfaces(interfaceRegistry)
+	inboundTypes.RegisterInterfaces(interfaceRegistry)
+	multichainTypes.RegisterInterfaces(interfaceRegistry)
+	oracleTypes.RegisterInterfaces(interfaceRegistry)
+	outboundTypes.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)
