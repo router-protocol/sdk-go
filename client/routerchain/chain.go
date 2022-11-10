@@ -90,6 +90,7 @@ type ChainClient interface {
 
 	// Outbound
 	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
+	GetOutgoingBatchTx(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryGetOutgoingBatchTxResponse, error)
 	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
 
@@ -180,7 +181,7 @@ func InitialiseChainClient(networkName string, keyringFrom string, passphrase st
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("1000000000000000router"),
+		common.OptionGasPrices("500000000router"),
 	)
 
 	if err != nil {
@@ -716,6 +717,16 @@ func (c *chainClient) GetIncomingTx(ctx context.Context, chainType uint64, chain
 func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
 	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{}
 	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
+}
+
+func (c *chainClient) GetOutgoingBatchTx(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryGetOutgoingBatchTxResponse, error) {
+	req := &outboundTypes.QueryGetOutgoingBatchTxRequest{
+		DestinationChainType: destinationChainType,
+		DestinationChainId:   destinationChainId,
+		SourceAddress:        sourceAddress,
+		Nonce:                batchNonce,
+	}
+	return c.outboundQueryClient.OutgoingBatchTx(ctx, req)
 }
 
 func (c *chainClient) GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
