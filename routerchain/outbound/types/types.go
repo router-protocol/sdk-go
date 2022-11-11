@@ -36,7 +36,7 @@ func NewOutgoingBatchConfirm(destinationChainType multichainTypes.ChainType,
 }
 
 func NewOutboundAck(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64,
-	outboundTxNonce uint64, outboundTxRequestedBy string, relayerRouterAddress string, destinationTxHash string, contractAckResponses []*ContractAckResponse, feeConsumed uint64,
+	outboundTxNonce uint64, outboundTxRequestedBy string, relayerRouterAddress string, destinationTxHash string, contractAckResponses []bool, feeConsumed uint64,
 ) *OutboundAck {
 	return &OutboundAck{
 		ChainType:             chainType,

@@ -5,7 +5,6 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/type
 
 import "outbound/outgoing_tx_status.proto"; 
 import "multichain/chain_type.proto"; 
-import "outbound/contract_ack_response.proto";
 
 message OutboundAck {
   routerprotocol.routerchain.multichain.ChainType chainType = 1;  
@@ -16,7 +15,7 @@ message OutboundAck {
   string outboundTxRequestedBy = 6; 
   string relayerRouterAddress = 7; 
   string destinationTxHash = 8; 
-  repeated ContractAckResponse contractAckResponses = 9;
+  repeated bool contractAckResponses = 9;
   uint64 feeConsumed = 10;     
   OutgoingTxStatus status = 11; 
   uint64 executionCode = 12;
