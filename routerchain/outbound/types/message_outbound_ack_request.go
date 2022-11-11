@@ -14,7 +14,7 @@ const TypeMsgOutboundAckRequest = "outbound_ack_request"
 
 var _ sdk.Msg = &MsgOutboundAckRequest{}
 
-func NewMsgOutboundAckRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, outboundTxNonce uint64, outboundTxRequestedBy string, relayerRouterAddress string, destinationTxHash string, feeConsumed uint64, contractAckResponse []*ContractAckResponse, eventNonce uint64, blockHeight uint64, executionCode uint64, executionStatus bool) *MsgOutboundAckRequest {
+func NewMsgOutboundAckRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, outboundTxNonce uint64, outboundTxRequestedBy string, relayerRouterAddress string, destinationTxHash string, feeConsumed uint64, contractAckResponse []bool, eventNonce uint64, blockHeight uint64, executionCode uint64, executionStatus bool) *MsgOutboundAckRequest {
 	return &MsgOutboundAckRequest{
 		Orchestrator:          orchestrator,
 		ChainType:             chainType,

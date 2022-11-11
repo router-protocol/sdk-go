@@ -4,7 +4,6 @@ package routerprotocol.routerchain.outbound;
 import "outbound/outgoing_batch_confirm.proto";
 // this line is used by starport scaffolding # proto/tx/import
 import "outbound/contract_call.proto";
-import "outbound/contract_ack_response.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "multichain/chain_type.proto"; 
@@ -54,7 +53,7 @@ message MsgOutboundAckRequest {
   string relayerRouterAddress = 6;
   string destinationTxHash = 7;
   uint64 feeConsumed = 8;
-  repeated ContractAckResponse ContractAckResponses  = 9;
+  repeated bool ContractAckResponses  = 9;
   uint64 eventNonce = 10;
   uint64 blockHeight = 11;
   uint64 executionCode = 12;

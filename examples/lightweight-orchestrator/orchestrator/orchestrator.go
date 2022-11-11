@@ -129,10 +129,10 @@ func sendValsetUpdateRequest(ctx context.Context, chainClient chainclient.ChainC
 
 func sendOutboundAckRequest(ctx context.Context, chainClient chainclient.ChainClient, outboundAckEvent *gatewayWrapper.GatewayUpgradeableEventOutboundAck) {
 	// prepare tx msg
-	contractAckResponses := make([]*outboundTypes.ContractAckResponse, len(outboundAckEvent.ContractAckResponses))
+	contractAckResponses := make([]bool, len(outboundAckEvent.ContractAckResponses))
 	for i, _ := range outboundAckEvent.ContractAckResponses {
 		// TODO: @harsh Build Contract Ack Responses
-		contractAckResponses[i] = &outboundTypes.ContractAckResponse{}
+		contractAckResponses[i] = true
 	}
 
 	msg := outboundTypes.NewMsgOutboundAckRequest(chainClient.FromAddress().String(),
