@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math/big"
+	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -55,7 +56,14 @@ func (relayer *relayer) SubmitBatchTxToGateway(ctx context.Context, chainClient 
 	outgoingBatchTxs, _ := chainClient.GetAllOutgoingBatchTx(ctx)
 
 	for _, outgoingBatchTx := range outgoingBatchTxs.OutgoingBatchTx {
+		if outgoingBatchTx.Status == types.OUTGOING_TX_ACK_OBSERVED {
+			continue
+		}
+		if outgoingBatchTx.SourceAddress != "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk" {
+			continue
+		}
 		signatures := relayer.collectSignatures(ctx, chainClient, outgoingBatchTx)
+		fmt.Println("Sending tx", "outgoingBatchTx", outgoingBatchTx, "signatures", signatures)
 		relayer.sendTx(signatures, outgoingBatchTx, valsetResponse.Valset[0], relayer.relayerRouterAddress)
 	}
 }
@@ -127,6 +135,7 @@ func (relayer *relayer) sendTx(signatures []string, outgoingBatchTx types.Outgoi
 	}
 
 	fmt.Printf("tx sent: %s", tx.Hash().Hex())
+	time.Sleep(15 * time.Second)
 }
 
 func getAccountAuth(client *ethclient.Client, privateKeyStr string) *bind.TransactOpts {
