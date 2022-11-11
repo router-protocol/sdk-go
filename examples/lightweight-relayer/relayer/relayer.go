@@ -18,7 +18,7 @@ import (
 	"github.com/router-protocol/sdk-go/client/evm/gateway"
 	routerclient "github.com/router-protocol/sdk-go/client/routerchain"
 
-	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/wrappers"
+	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/build/bindings/go/GatewayUpgradeable"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 )
 

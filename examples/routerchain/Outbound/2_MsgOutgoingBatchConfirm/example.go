@@ -20,7 +20,7 @@ import (
 
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 
-	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/wrappers"
+	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/build/bindings/go/GatewayUpgradeable"
 )
 
 const (

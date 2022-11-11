@@ -12,7 +12,7 @@ import (
 	ethcmn "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/wrappers"
+	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/build/bindings/go/GatewayUpgradeable"
 	"github.com/router-protocol/sdk-go/client/evm/gateway"
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	routerclient "github.com/router-protocol/sdk-go/client/routerchain"
@@ -56,7 +56,7 @@ func (orchestrator *orchestrator) FetchAndProcessGatewayEvents(startBlock uint64
 
 }
 
-func sendInboundRequest(ctx context.Context, chainClient chainclient.ChainClient, sendToRouterEvent *gatewayWrapper.GatewayRequestToRouterEvent) {
+func sendInboundRequest(ctx context.Context, chainClient chainclient.ChainClient, sendToRouterEvent *gatewayWrapper.GatewayUpgradeableRequestToRouterEvent) {
 	// prepare tx msg
 	msg := inboundTypes.NewMsgInboundRequest(chainClient.FromAddress().String(),
 		multichainTypes.ChainType(sendToRouterEvent.SrcChainType),
@@ -87,7 +87,7 @@ func sendInboundRequest(ctx context.Context, chainClient chainclient.ChainClient
 
 }
 
-func sendValsetUpdateRequest(ctx context.Context, chainClient chainclient.ChainClient, valsetUpdatedEvent *gatewayWrapper.GatewayValsetUpdatedEvent) {
+func sendValsetUpdateRequest(ctx context.Context, chainClient chainclient.ChainClient, valsetUpdatedEvent *gatewayWrapper.GatewayUpgradeableValsetUpdatedEvent) {
 	// prepare tx msg
 	members := make([]types.BridgeValidator, len(valsetUpdatedEvent.Validators))
 	for i, val := range valsetUpdatedEvent.Validators {
@@ -127,7 +127,7 @@ func sendValsetUpdateRequest(ctx context.Context, chainClient chainclient.ChainC
 
 }
 
-func sendOutboundAckRequest(ctx context.Context, chainClient chainclient.ChainClient, outboundAckEvent *gatewayWrapper.GatewayEventOutboundAck) {
+func sendOutboundAckRequest(ctx context.Context, chainClient chainclient.ChainClient, outboundAckEvent *gatewayWrapper.GatewayUpgradeableEventOutboundAck) {
 	// prepare tx msg
 	contractAckResponses := make([]*outboundTypes.ContractAckResponse, len(outboundAckEvent.ContractAckResponses))
 	for i, _ := range outboundAckEvent.ContractAckResponses {
