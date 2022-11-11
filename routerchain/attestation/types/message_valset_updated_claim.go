@@ -48,9 +48,14 @@ func (msg *MsgValsetUpdatedClaim) GetSignBytes() []byte {
 }
 
 func (msg *MsgValsetUpdatedClaim) ValidateBasic() error {
+	fmt.Println("Validate MsgValsetUpdatedClaim", "chainID", msg.ChainId, "chainTYpe", msg.ChainType, "msg.EventNonce", msg.EventNonce, "msg.ValsetNonce", msg.ValsetNonce)
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+	}
+
+	if msg.ChainId == "" || len(msg.ChainId) == 0 {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidChainID, "invalid chain id (%s)", msg.ChainId)
 	}
 	return nil
 }

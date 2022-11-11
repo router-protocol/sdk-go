@@ -13,11 +13,13 @@ type HandleOutboundAck struct {
 	DestinationChainType  multichainTypes.ChainType `json:"destination_chain_type"`
 	DestinationChainId    string                    `json:"destination_chain_id"`
 	OutboundBatchNonce    uint64                    `json:"outbound_batch_nonce"`
-	ContractAckResponses  []ContractAck             `json:"contract_ack_responses"`
+	ContractAckResponses  []bool                    `json:"contract_ack_responses"`
+	ExecutionCode         uint64                    `json:"execution_code"`
+	ExecutionStatus       bool                      `json:"execution_status"`
 }
 
 type ContractAck struct {
 	DestinationContractAddress []byte `json:"destination_contract_address"`
 	AckStatus                  bool   `json:"ack_status"`
-	ResponsePayload            []byte `json:"response_payload"`
+	// ResponsePayload            []byte `json:"response_payload"`
 }

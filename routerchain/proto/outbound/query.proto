@@ -38,7 +38,7 @@ service Query {
 
 	// Queries a list of OutgoingBatchConfirm items.
 	rpc OutgoingBatchConfirmAll(QueryAllOutgoingBatchConfirmRequest) returns (QueryAllOutgoingBatchConfirmResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/outbound/outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}";
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/all_outgoing_batch_confirm/{destination_chain_type}/{destination_chain_id}/{source_address}/{nonce}";
 	}
 
   // Queries a OutboundAck by index.

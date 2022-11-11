@@ -14,7 +14,7 @@ const TypeMsgOutboundAckRequest = "outbound_ack_request"
 
 var _ sdk.Msg = &MsgOutboundAckRequest{}
 
-func NewMsgOutboundAckRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, outboundTxNonce uint64, outboundTxRequestedBy string, relayerRouterAddress string, destinationTxHash string, feeConsumed uint64, contractAckResponse []*ContractAckResponse, eventNonce uint64, blockHeight uint64) *MsgOutboundAckRequest {
+func NewMsgOutboundAckRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, outboundTxNonce uint64, outboundTxRequestedBy string, relayerRouterAddress string, destinationTxHash string, feeConsumed uint64, contractAckResponse []*ContractAckResponse, eventNonce uint64, blockHeight uint64, executionCode uint64, executionStatus bool) *MsgOutboundAckRequest {
 	return &MsgOutboundAckRequest{
 		Orchestrator:          orchestrator,
 		ChainType:             chainType,
@@ -27,6 +27,8 @@ func NewMsgOutboundAckRequest(orchestrator string, chainType multichainTypes.Cha
 		ContractAckResponses:  contractAckResponse,
 		EventNonce:            eventNonce,
 		BlockHeight:           blockHeight,
+		ExecutionCode:         executionCode,
+		ExecutionStatus:       executionStatus,
 	}
 }
 
@@ -66,7 +68,7 @@ func (msg *MsgOutboundAckRequest) ValidateBasic() error {
 
 // GetType returns the type of the claim
 func (msg *MsgOutboundAckRequest) GetType() attestationTypes.ClaimType {
-	return attestationTypes.CLAIM_TYPE_INBOUND_REQUEST
+	return attestationTypes.CLAIM_TYPE_OUTBOUND_ACK_REQUEST
 }
 
 // Hash implements MsgOutboundAckRequest.Hash
@@ -76,7 +78,7 @@ func (msg *MsgOutboundAckRequest) GetType() attestationTypes.ClaimType {
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgOutboundAckRequest) ClaimHash() ([]byte, error) {
 	// TODO: @venky check the type for ContractAckResponses
-	path := fmt.Sprintf("%d/%s/%d/%s/%s/%s/%d/%x/%d/%d", msg.ChainType, msg.ChainId, msg.OutboundTxNonce, msg.OutboundTxRequestedBy, msg.RelayerRouterAddress, msg.DestinationTxHash, msg.FeeConsumed, msg.ContractAckResponses, msg.EventNonce, msg.BlockHeight)
+	path := fmt.Sprintf("%d/%s/%d/%s/%s/%s/%d/%x/%d/%d/%d/%b", msg.ChainType, msg.ChainId, msg.OutboundTxNonce, msg.OutboundTxRequestedBy, msg.RelayerRouterAddress, msg.DestinationTxHash, msg.FeeConsumed, msg.ContractAckResponses, msg.EventNonce, msg.BlockHeight, msg.ExecutionCode, msg.ExecutionStatus)
 	return tmhash.Sum([]byte(path)), nil
 }
 

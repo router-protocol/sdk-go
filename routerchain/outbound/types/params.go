@@ -19,7 +19,9 @@ func NewParams() Params {
 
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
-	return NewParams()
+	return Params{
+		OutboundExpiryDuration: 600,
+	}
 }
 
 // ParamSetPairs get the params.ParamSet

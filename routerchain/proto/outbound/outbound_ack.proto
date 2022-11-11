@@ -19,5 +19,7 @@ message OutboundAck {
   repeated ContractAckResponse contractAckResponses = 9;
   uint64 feeConsumed = 10;     
   OutgoingTxStatus status = 11; 
+  uint64 executionCode = 12;
+  bool executionStatus = 13;
 }
 
