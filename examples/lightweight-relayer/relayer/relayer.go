@@ -56,10 +56,10 @@ func (relayer *relayer) SubmitBatchTxToGateway(ctx context.Context, chainClient 
 	outgoingBatchTxs, _ := chainClient.GetAllOutgoingBatchTx(ctx)
 
 	for _, outgoingBatchTx := range outgoingBatchTxs.OutgoingBatchTx {
-		if outgoingBatchTx.Status == types.OUTGOING_TX_ACK_OBSERVED {
+		if outgoingBatchTx.Status == types.OUTGOING_TX_ACK_OBSERVED || outgoingBatchTx.Status == types.OUTGOING_TX_ACK_DELEGATED {
 			continue
 		}
-		if outgoingBatchTx.SourceAddress != "router14hj2tavq8fpesdwxxcu44rty3hh90vhujrvcmstl4zr3txmfvw9s00ztvk" {
+		if outgoingBatchTx.SourceAddress != "router17p9rzwnnfxcjp32un9ug7yhhzgtkhvl9jfksztgw5uh69wac2pgsmpev85" {
 			continue
 		}
 		signatures := relayer.collectSignatures(ctx, chainClient, outgoingBatchTx)

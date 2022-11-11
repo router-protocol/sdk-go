@@ -113,7 +113,7 @@ func main() {
 
 	time.Sleep(time.Second * 5)
 
-	gatewayAbi := gatewayWrapper.GatewayABI
+	gatewayAbi := gatewayWrapper.GatewayUpgradeableABI
 	fmt.Println(gatewayAbi)
 
 	gasFee, err := chainClient.GetGasFee()

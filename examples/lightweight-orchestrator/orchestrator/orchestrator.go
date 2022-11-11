@@ -147,6 +147,8 @@ func sendOutboundAckRequest(ctx context.Context, chainClient chainclient.ChainCl
 		contractAckResponses,
 		outboundAckEvent.EventNonce,
 		outboundAckEvent.Raw.BlockNumber,
+		uint64(outboundAckEvent.ExeCode),
+		outboundAckEvent.Status,
 	)
 
 	fmt.Println("Sending Outbound Ack Request", msg)
