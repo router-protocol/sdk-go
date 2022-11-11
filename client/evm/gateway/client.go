@@ -5,12 +5,12 @@ import (
 
 	ethcmn "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/wrappers"
+	gatewayWrapper "github.com/router-protocol/router-gateway-contracts/evm/build/bindings/go/GatewayUpgradeable"
 )
 
 type GatewayContractClient struct {
 	ethClient      *ethclient.Client
-	GatewayWrapper *gatewayWrapper.Gateway
+	GatewayWrapper *gatewayWrapper.GatewayUpgradeable
 
 	gatewayContractAddress ethcmn.Address
 	ethRpc                 string
@@ -23,7 +23,7 @@ func NewGatewayContractClient(ethRpc string, gatewayContractAddress ethcmn.Addre
 		panic(err)
 	}
 
-	gatewayWrapperInstance, err := gatewayWrapper.NewGateway(gatewayContractAddress, client)
+	gatewayWrapperInstance, err := gatewayWrapper.NewGatewayUpgradeable(gatewayContractAddress, client)
 	if err != nil {
 		log.Fatal(err)
 	}
