@@ -50,6 +50,11 @@ service Query {
 	rpc OutboundAckAll(QueryAllOutboundAckRequest) returns (QueryAllOutboundAckResponse) {
 		option (google.api.http).get = "/router-protocol/router-chain/outbound/outbound_ack";
 	}
+// Queries a list of LastOutboundBatchNonce items.
+	rpc LastOutboundBatchNonce(QueryLastOutboundBatchNonceRequest) returns (QueryLastOutboundBatchNonceResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/outbound/last_outbound_batch_nonce/{destination_chain_type}/{destination_chain_id}/{source_address}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -129,5 +134,16 @@ message QueryAllOutboundAckResponse {
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
+
+message QueryLastOutboundBatchNonceRequest {
+  uint64 destination_chain_type =1;
+  string destination_chain_id = 2;
+  string source_address = 3;
+
+}
+
+message QueryLastOutboundBatchNonceResponse {
+  uint64 outboundBatchNonce = 1;
+}
 
 // this line is used by starport scaffolding # 3
