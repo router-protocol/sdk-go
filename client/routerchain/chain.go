@@ -93,10 +93,12 @@ type ChainClient interface {
 	GetOutgoingBatchTx(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryGetOutgoingBatchTxResponse, error)
 	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
+	GetLastOutgoingBatchNonce(ctx context.Context, destinationChainType multichainTypes.ChainType, destinationChainId string, sourceAddress string) (*outboundTypes.QueryLastOutboundBatchNonceResponse, error)
 
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
 	InstantiateContract(codeID uint64, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) (string, error)
+	ExecuteContract(amountStr string, sender sdk.AccAddress, contractAddr string, execMsg string) error
 	SmartContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QuerySmartContractStateResponse, error)
 	RawContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QueryRawContractStateResponse, error)
 
@@ -748,6 +750,15 @@ func (c *chainClient) GetOutgoingBatchTxConfirm(ctx context.Context, destination
 		Orchestrator:         orchestrator,
 	}
 	return c.outboundQueryClient.OutgoingBatchConfirm(ctx, req)
+}
+
+func (c *chainClient) GetLastOutgoingBatchNonce(ctx context.Context, destinationChainType multichainTypes.ChainType, destinationChainId string, sourceAddress string) (*outboundTypes.QueryLastOutboundBatchNonceResponse, error) {
+	req := &outboundTypes.QueryLastOutboundBatchNonceRequest{
+		DestinationChainType: uint64(destinationChainType),
+		DestinationChainId:   destinationChainId,
+		SourceAddress:        sourceAddress,
+	}
+	return c.outboundQueryClient.LastOutboundBatchNonce(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.
