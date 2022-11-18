@@ -63,6 +63,15 @@ func LoadNetwork(name string, node string) Network {
 			Fee_denom:         "router",
 			Name:              "devnet-alpha-nondocker",
 		}
+	} else if name == "devnet" {
+		return Network{
+			ApiEndpoint:       "http://43.205.211.15:1317",
+			TmEndpoint:        "http://43.205.211.15:26657",
+			ChainGrpcEndpoint: "tcp://43.205.211.15:9090",
+			ChainId:           "router-1",
+			Fee_denom:         "router",
+			Name:              "devnet",
+		}
 	}
 	return Network{}
 }
