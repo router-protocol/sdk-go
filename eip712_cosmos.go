@@ -28,12 +28,17 @@ func WrapTxToEIP712(
 	data []byte,
 	feeDelegation *FeeDelegationOptions,
 ) (typeddata.TypedData, error) {
+	fmt.Println("chainID", chainID)
+	fmt.Println("msg", msg)
+	fmt.Println("data", data)
+	fmt.Println("feeDelegation", feeDelegation)
 	txData := make(map[string]interface{})
 	if err := json.Unmarshal(data, &txData); err != nil {
 		err = errors.Wrap(err, "failed to unmarshal data provided into WrapTxToEIP712")
 		return typeddata.TypedData{}, err
 	}
 
+	fmt.Println("Unmarshalled txdata", txData)
 	domain := typeddata.TypedDataDomain{
 		Name:              "Router Web3",
 		Version:           "1.0.0",
@@ -42,6 +47,7 @@ func WrapTxToEIP712(
 		Salt:              "0",
 	}
 
+	fmt.Println("Domain", domain)
 	msgTypes, err := extractMsgTypes(cdc, "MsgValue", msg)
 	if err != nil {
 		return typeddata.TypedData{}, err
@@ -65,6 +71,11 @@ func WrapTxToEIP712(
 		Domain:      domain,
 		Message:     txData,
 	}
+
+	fmt.Println("typedData.Types : ", typedData.Types)
+	fmt.Println("typedData.PrimaryType : ", typedData.PrimaryType)
+	fmt.Println("typedData.Domain : ", typedData.Domain)
+	fmt.Println("typedData.Message : ", typedData.Message)
 
 	return typedData, nil
 }
