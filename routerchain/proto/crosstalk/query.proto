@@ -1,0 +1,60 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosstalk;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "crosstalk/params.proto";
+import "crosstalk/cross_talk_request.proto";
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosstalk/params";
+  }
+  // Queries a CrossTalkRequest by index.
+	rpc CrossTalkRequest(QueryGetCrossTalkRequest) returns (QueryGetCrossTalkRequestResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/cross_talk_request/{chain_type}/{chain_id}/{event_nonce}";
+	}
+
+	// Queries a list of CrossTalkRequest items.
+	rpc CrossTalkRequestAll(QueryAllCrossTalkRequest) returns (QueryAllCrossTalkRequestResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/cross_talk_request";
+	}
+
+// this line is used by starport scaffolding # 2
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetCrossTalkRequest {
+	  uint64 chain_type =1;
+	  string chain_id = 2;
+	  uint64 event_nonce = 3;
+}
+
+message QueryGetCrossTalkRequestResponse {
+	CrossTalkRequest crossTalkRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrossTalkRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCrossTalkRequestResponse {
+	repeated CrossTalkRequest crossTalkRequest = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// this line is used by starport scaffolding # 3

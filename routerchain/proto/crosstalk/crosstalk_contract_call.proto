@@ -1,0 +1,10 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosstalk;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
+
+message CrosstalkContractCall {
+  
+  string destinationContractAddress = 1; 
+  bytes payload = 2; 
+}
