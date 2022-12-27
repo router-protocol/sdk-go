@@ -2,6 +2,7 @@ package types
 
 import (
 	fmt "fmt"
+	"math/big"
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -151,14 +152,43 @@ func (msg MsgCrossTalkRequest) GetCheckpoint(routerIDstring string) []byte {
 
 	// Create the methodName argument which salts the signature
 	methodNameBytes := []uint8("requestFromRouter")
-	var batchMethodName [32]uint8
-	copy(batchMethodName[:], methodNameBytes)
+	var crosstalkMethodName [32]uint8
+	copy(crosstalkMethodName[:], methodNameBytes)
+
+	eventIdentifier := &big.Int{}
+	eventIdentifier.SetUint64(msg.EventNonce)
+
+	crossTalkNonce := &big.Int{}
+	crossTalkNonce.SetUint64(msg.RequestNonce)
+
+	destChainType := &big.Int{}
+	destChainType.SetUint64(uint64(msg.DestinationChainType))
+
+	srcChainType := &big.Int{}
+	srcChainType.SetUint64(uint64(msg.ChainType))
+
+	var caller [32]byte
+	copy(caller[:], []byte(msg.RequestSender))
+
+	expTimestamp := &big.Int{}
+	expTimestamp.SetUint64(uint64(msg.ExpiryTimestamp))
 
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
 	abiEncodedBatch, err := abi.Pack("checkpoint",
-		batchMethodName,
+		crosstalkMethodName,
+		eventIdentifier,
+		crossTalkNonce,
+		destChainType,
+		msg.DestinationChainId,
+		msg.ChainId,
+		srcChainType,
+		caller,
+		msg.IsAtomic,
+		expTimestamp,
+		msg.DestContractAddresses,
+		msg.DestContractPayloads,
 	)
 
 	// this should never happen outside of test since any case that could crash on encoding
