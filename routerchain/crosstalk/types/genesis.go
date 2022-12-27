@@ -6,7 +6,8 @@ const DefaultIndex uint64 = 1
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		CrossTalkRequestList: []CrossTalkRequest{},
+		CrossTalkRequestList:        []CrossTalkRequest{},
+		CrosstalkRequestConfirmList: []CrosstalkRequestConfirm{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -24,6 +25,16 @@ func (gs GenesisState) Validate() error {
 	// 		return fmt.Errorf("duplicated index for crossTalkRequest")
 	// 	}
 	// 	crossTalkRequestIndexMap[index] = struct{}{}
+	// }
+	// Check for duplicated index in crosstalkRequestConfirm
+	// crosstalkRequestConfirmIndexMap := make(map[string]struct{})
+
+	// for _, elem := range gs.CrosstalkRequestConfirmList {
+	// 	index := string(CrosstalkRequestConfirmKey(elem.Index))
+	// 	if _, ok := crosstalkRequestConfirmIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for crosstalkRequestConfirm")
+	// 	}
+	// 	crosstalkRequestConfirmIndexMap[index] = struct{}{}
 	// }
 	// this line is used by starport scaffolding # genesis/types/validate
 

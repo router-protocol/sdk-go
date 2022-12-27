@@ -2,7 +2,6 @@ syntax = "proto3";
 package routerprotocol.routerchain.crosstalk;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
-import "crosstalk/crosstalk_contract_call.proto"; 
 import "crosstalk/crosstalk_request_status.proto"; 
 
 import "multichain/chain_type.proto"; 
@@ -17,15 +16,17 @@ message CrossTalkRequest {
   string sourceTxHash = 5; 
   routerprotocol.routerchain.multichain.ChainType destinationChainType = 6; 
   string destinationChainId = 7; 
-  string requestSender = 8; 
-  uint64 requestNonce = 9;   
-  bool isAtomic = 10; 
-  uint64 gasLimit = 11; 
-  uint64 gasPrice = 12; 
+  uint64 destinationGasLimit = 8;
+  uint64 destinationGasPrice = 9;  
+  string requestSender = 10; 
+  uint64 requestNonce = 11;   
+  bool isAtomic = 12; 
   uint64 expiryTimestamp = 13; 
-  string ethSigner = 14; 
-  string signature = 15; 
-  repeated CrosstalkContractCall contractCalls = 16 [(gogoproto.nullable) = false];
-  CrossTalkRequestStatus status = 17;    
+  repeated bytes destContractAddresses = 14;
+  repeated bytes destContractPayloads = 15;
+  uint64 ackType = 16;
+  uint64 ackGasLimit = 17;
+  uint64 ackGasPrice = 18;
+  CrossTalkRequestStatus status = 19;    
 }
 

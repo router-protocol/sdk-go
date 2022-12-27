@@ -23,14 +23,19 @@ message MsgCrossTalkRequest {
   string sourceTxHash = 6;
   routerprotocol.routerchain.multichain.ChainType destinationChainType = 7;
   string destinationChainId = 8;
-  string requestSender = 9;
-  uint64 requestNonce = 10;
-  bool isAtomic = 11;
-  uint64 gasLimit = 12;
-  uint64 gasPrice = 13;
+  uint64 destinationGasLimit = 9;
+  uint64 destinationGasPrice = 10;
+  string requestSender = 11;
+  uint64 requestNonce = 12;
+  bool isAtomic = 13;  
   uint64 expiryTimestamp = 14;
-  string ethSigner = 15;
-  string signature = 16;
+  repeated bytes destContractAddresses = 15;
+  repeated bytes destContractPayloads = 16;
+  uint64 ackType = 17;
+  uint64 ackGasLimit = 18;
+  uint64 ackGasPrice = 19;
+  string ethSigner = 20;
+  string signature = 21;
 }
 message MsgCrossTalkRequestResponse {}
 
