@@ -14,7 +14,7 @@ import (
 const (
 	// Tx Agrs
 	NETWORK_NAME              = "local"
-	ORCHESTRATOR_KEYRING_FROM = "genesis"
+	ORCHESTRATOR_KEYRING_FROM = "orchestrator"
 	PASSPHRASE                = "12345678"
 
 	RELAYER_PRIVATE_KEY    = "982E38580B1D24D1C7DE91DE112F89F200E09E31395837DFBAF5A62D9FBE44F7"
@@ -24,7 +24,7 @@ const (
 )
 
 var (
-	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0x394B158d121c6140411Ca595b4F7467e782c4553")
+	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0xa64831a4a705a74006a4263e934b0aEF7afFF606")
 )
 
 func main() {
@@ -41,6 +41,7 @@ func main() {
 
 	// TRIGGER ACTIONS
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
-	relayer.SubmitBatchTxToGateway(ctx, routerchainClient)
+	// relayer.SubmitBatchTxToGateway(ctx, routerchainClient)
+	relayer.SubmitCrosstalkTxToGateway(ctx, routerchainClient)
 
 }

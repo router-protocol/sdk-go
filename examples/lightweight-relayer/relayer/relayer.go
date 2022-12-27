@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	"github.com/router-protocol/sdk-go/routerchain/outbound/types"
 
 	ethcmn "github.com/ethereum/go-ethereum/common"
@@ -189,4 +190,99 @@ func sigToVRS(sigHex string) (v uint8, r, s ethcmn.Hash) {
 	s = ethcmn.BytesToHash(signatureBytes[32:64])
 
 	return
+}
+
+func (relayer *relayer) SubmitCrosstalkTxToGateway(ctx context.Context, chainClient routerclient.ChainClient) {
+
+	valsetResponse, _ := chainClient.GetAllValsets(ctx)
+	allCrosstalkRequests, _ := chainClient.GetAllCrossTalkRequest(ctx)
+
+	for _, crosstalkRequest := range allCrosstalkRequests.CrossTalkRequest {
+		if crosstalkRequest.Status == crosstalkTypes.CROSSTALK_REQUEST_CREATED {
+			continue
+		}
+
+		signatures := relayer.collectCrosstalkSignatures(ctx, chainClient, crosstalkRequest)
+		fmt.Println("Sending tx", "crosstalkRequest", crosstalkRequest, "signatures", signatures)
+		relayer.sendCrossTalkTx(signatures, crosstalkRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
+	}
+}
+
+func (relayer *relayer) collectCrosstalkSignatures(ctx context.Context, chainClient routerclient.ChainClient, crosstalkRequest crosstalkTypes.CrossTalkRequest) []string {
+	claimHash, err := crosstalkRequest.ClaimHash()
+	if err != nil {
+		panic(err)
+	}
+
+	crosstalkConfirmations, err := chainClient.GetAllCrosstalkRequestConfirmations(ctx, uint64(crosstalkRequest.SourceChainType), crosstalkRequest.SourceChainId, crosstalkRequest.EventNonce, claimHash)
+	if err != nil {
+		panic(err)
+	}
+	signatures := make([]string, 0)
+	for _, crosstalkConfirmation := range crosstalkConfirmations.CrosstalkRequestConfirm {
+		signatures = append(signatures, crosstalkConfirmation.GetSignature())
+	}
+
+	return signatures
+}
+
+func (relayer *relayer) sendCrossTalkTx(signatures []string, crosstalkRequest crosstalkTypes.CrossTalkRequest, currentValset attestationTypes.Valset, relayerRouterAddress string) {
+	// create auth and transaction package for deploying smart contract
+	auth := getAccountAuth(relayer.ethClient, relayer.ethPrivatekey)
+
+	sigs := make([]gatewayWrapper.UtilsSignature, len(signatures))
+	for i := 0; i < len(signatures); i++ {
+		v, r, s := sigToVRS(signatures[i])
+		sigs[i].V = v
+		sigs[i].R = r
+		sigs[i].S = s
+	}
+
+	// Run through the elements of the crosstalk request and serialize them
+	sourceParams := gatewayWrapper.UtilsSourceParams{
+		Caller:    []byte(crosstalkRequest.RequestSender),
+		ChainType: uint64(crosstalkRequest.SourceChainType),
+		ChainId:   crosstalkRequest.SourceChainId,
+	}
+
+	contractCalls := gatewayWrapper.UtilsContractCalls{
+		DestContractAddresses: crosstalkRequest.DestContractAddresses,
+		Payloads:              crosstalkRequest.DestContractPayloads,
+	}
+
+	crosstalkRequestPayload := gatewayWrapper.UtilsCrossTalkPayload{
+		RelayerRouterAddress: relayerRouterAddress,
+		IsAtomic:             crosstalkRequest.IsAtomic,
+		EventIdentifier:      crosstalkRequest.EventNonce,
+		ExpTimestamp:         uint64(crosstalkRequest.ExpiryTimestamp),
+		CrossTalkNonce:       crosstalkRequest.RequestNonce,
+		SourceParams:         sourceParams,
+		ContractCalls:        contractCalls,
+	}
+
+	currentValsetArs := gatewayWrapper.UtilsValsetArgs{
+		Validators:  make([]ethcmn.Address, len(currentValset.Members)),
+		Powers:      make([]uint64, len(currentValset.Members)),
+		ValsetNonce: currentValset.Nonce,
+	}
+	for i, valsetMember := range currentValset.Members {
+		currentValsetArs.Validators[i] = ethcmn.HexToAddress(valsetMember.EthereumAddress)
+		// power := &big.Int{}
+		// power.SetUint64(valsetMember.Power)
+		currentValsetArs.Powers[i] = valsetMember.Power
+	}
+
+	currentValsetArs.ValsetNonce = currentValset.Nonce
+
+	fmt.Println("currentValsetArgs", currentValsetArs)
+	fmt.Println("sigs", sigs)
+	fmt.Println("crosstalkRequestPayload", crosstalkRequestPayload)
+
+	tx, err := relayer.gatewayContractClient.GatewayWrapper.RequestFromSource(auth, currentValsetArs, sigs, crosstalkRequestPayload)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("tx sent: %s", tx.Hash().Hex())
+	time.Sleep(15 * time.Second)
 }
