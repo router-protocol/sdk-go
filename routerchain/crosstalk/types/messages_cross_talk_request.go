@@ -115,7 +115,7 @@ func (msg *MsgCrossTalkRequest) GetType() attestationTypes.ClaimType {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgCrossTalkRequest) ClaimHash() ([]byte, error) {
-	path := fmt.Sprintf("%d/%d/%d/%s/%s/%d/%s/%d/%d/%s/%d/%t/%d/%s/%s/%d/%d", msg.EventNonce, msg.BlockHeight, msg.ChainType, msg.ChainId, msg.SourceTxHash, msg.DestinationChainType, msg.DestinationChainId, msg.DestinationGasLimit, msg.DestinationGasPrice, msg.RequestSender, msg.RequestNonce, msg.IsAtomic, msg.ExpiryTimestamp, msg.DestContractAddresses, msg.DestContractPayloads, msg.AckType, msg.AckGasLimit, msg.AckGasPrice)
+	path := fmt.Sprintf("%d/%d/%d/%s/%s/%d/%s/%d/%d/%s/%d/%t/%d/%s/%s/%d/%d/%d", msg.EventNonce, msg.BlockHeight, msg.ChainType, msg.ChainId, msg.SourceTxHash, msg.DestinationChainType, msg.DestinationChainId, msg.DestinationGasLimit, msg.DestinationGasPrice, msg.RequestSender, msg.RequestNonce, msg.IsAtomic, msg.ExpiryTimestamp, msg.DestContractAddresses, msg.DestContractPayloads, msg.AckType, msg.AckGasLimit, msg.AckGasPrice)
 	return tmhash.Sum([]byte(path)), nil
 }
 

@@ -2,6 +2,7 @@ package types
 
 import (
 	"encoding/binary"
+	fmt "fmt"
 
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
@@ -21,5 +22,8 @@ func CrossTalkRequestKey(
 	eventNonce uint64,
 	claimHash []byte,
 ) []byte {
-	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), util.UInt64Bytes(eventNonce), claimHash)
+	fmt.Println("crossTalkRequestKey 1")
+	crossTalkRequestKey := util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), util.UInt64Bytes(eventNonce), claimHash)
+	fmt.Println("crossTalkRequestKey", crossTalkRequestKey)
+	return crossTalkRequestKey
 }

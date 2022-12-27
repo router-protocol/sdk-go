@@ -62,5 +62,16 @@ func main() {
 	// prepare query request
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
 	allCrosstalkRequests, err := chainClient.GetAllCrossTalkRequest(ctx)
-	fmt.Println("allCrosstalkRequests", allCrosstalkRequests)
+	for _, crosstalkRequest := range allCrosstalkRequests.CrossTalkRequest {
+		fmt.Println("crosstalk Request", crosstalkRequest)
+		claimHash, err := crosstalkRequest.ClaimHash()
+		if err != nil {
+			panic(err)
+		}
+		crosstalkConfirmations, err := chainClient.GetAllCrosstalkRequestConfirmations(ctx, uint64(crosstalkRequest.SourceChainType), crosstalkRequest.SourceChainId, crosstalkRequest.EventNonce, claimHash)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("crosstalkConfirmations", crosstalkConfirmations)
+	}
 }
