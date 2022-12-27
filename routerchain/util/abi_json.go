@@ -50,7 +50,7 @@ const (
 				{ "internalType": "string", "name": "_chainId","type": "string" },
 				{ "internalType": "string", "name": "_srcChainId","type": "string" },
 				{ "internalType": "uint256","name": "_srcChainType","type": "uint256" },
-				{ "internalType": "bytes32","name": "_caller","type": "bytes32"},
+				{ "internalType": "bytes","name": "_caller","type": "bytes"},
 				{"internalType": "bool","name": "_isAtomic","type": "bool"},	
 				{"internalType": "uint256","name": "_expTimestamp","type": "uint256"},
 				{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
