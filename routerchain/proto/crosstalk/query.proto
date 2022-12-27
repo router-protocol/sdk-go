@@ -6,6 +6,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "crosstalk/params.proto";
 import "crosstalk/cross_talk_request.proto";
+import "crosstalk/crosstalk_request_confirm.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
@@ -24,6 +25,16 @@ service Query {
 	// Queries a list of CrossTalkRequest items.
 	rpc CrossTalkRequestAll(QueryAllCrossTalkRequest) returns (QueryAllCrossTalkRequestResponse) {
 		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/cross_talk_request";
+	}
+
+// Queries a CrosstalkRequestConfirm by index.
+	rpc CrosstalkRequestConfirm(QueryGetCrosstalkRequestConfirmRequest) returns (QueryGetCrosstalkRequestConfirmResponse) { 
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/crosstalk_request_confirm/{sourceChainType}/{sourceChainId}/{eventNonce}/{claimHash}/{orchestrator}";
+	}
+
+	// Queries a list of CrosstalkRequestConfirm items.
+	rpc CrosstalkRequestConfirmAll(QueryAllCrosstalkRequestConfirmRequest) returns (QueryAllCrosstalkRequestConfirmResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/crosstalk_request_confirm/{sourceChainType}/{sourceChainId}/{eventNonce}/{claimHash}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -54,6 +65,31 @@ message QueryAllCrossTalkRequest {
 
 message QueryAllCrossTalkRequestResponse {
 	repeated CrossTalkRequest crossTalkRequest = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCrosstalkRequestConfirmRequest {
+	  uint64 sourceChainType =1;
+	  string sourceChainId = 2;
+	  uint64 eventNonce = 3;   
+  	  bytes claimHash = 4;  	    
+  	  string orchestrator = 5;
+}
+
+message QueryGetCrosstalkRequestConfirmResponse {
+	CrosstalkRequestConfirm crosstalkRequestConfirm = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrosstalkRequestConfirmRequest {
+	uint64 sourceChainType =1;
+	  string sourceChainId = 2;
+	  uint64 eventNonce = 3;   
+  	  bytes claimHash = 4;  
+	cosmos.base.query.v1beta1.PageRequest pagination = 5;
+}
+
+message QueryAllCrosstalkRequestConfirmResponse {
+	repeated CrosstalkRequestConfirm crosstalkRequestConfirm = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

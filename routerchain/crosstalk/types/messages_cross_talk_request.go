@@ -2,13 +2,17 @@ package types
 
 import (
 	fmt "fmt"
+	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
 const (
@@ -19,39 +23,50 @@ var _ sdk.Msg = &MsgCrossTalkRequest{}
 
 func NewMsgCrossTalkRequest(
 	orchestrator string,
-	index string,
 	eventNonce uint64,
 	blockHeight uint64,
 	sourceChainType multichainTypes.ChainType,
 	sourceChainId string,
+	sourceTxHash string,
 	destinationChainType multichainTypes.ChainType,
 	destinationChainId string,
+	destinationGasLimit uint64,
+	destinationGasPrice uint64,
 	requestSender string,
 	requestNonce uint64,
 	isAtomic bool,
-	gasLimit uint64,
-	gasPrice uint64,
 	expiryTimestamp uint64,
+	destContractAddresses [][]byte,
+	destContractPayloads [][]byte,
+	ackType uint64,
+	ackGasLimit uint64,
+	ackGasPrice uint64,
 	ethSigner string,
 	signature string,
 
 ) *MsgCrossTalkRequest {
 	return &MsgCrossTalkRequest{
-		Orchestrator:         orchestrator,
-		EventNonce:           eventNonce,
-		BlockHeight:          blockHeight,
-		ChainType:            sourceChainType,
-		ChainId:              sourceChainId,
-		DestinationChainType: destinationChainType,
-		DestinationChainId:   destinationChainId,
-		RequestSender:        requestSender,
-		RequestNonce:         requestNonce,
-		IsAtomic:             isAtomic,
-		GasLimit:             gasLimit,
-		GasPrice:             gasPrice,
-		ExpiryTimestamp:      expiryTimestamp,
-		EthSigner:            ethSigner,
-		Signature:            signature,
+		Orchestrator:          orchestrator,
+		EventNonce:            eventNonce,
+		BlockHeight:           blockHeight,
+		ChainType:             sourceChainType,
+		ChainId:               sourceChainId,
+		SourceTxHash:          sourceTxHash,
+		DestinationChainType:  destinationChainType,
+		DestinationChainId:    destinationChainId,
+		DestinationGasLimit:   destinationGasLimit,
+		DestinationGasPrice:   destinationGasPrice,
+		RequestSender:         requestSender,
+		RequestNonce:          requestNonce,
+		IsAtomic:              isAtomic,
+		ExpiryTimestamp:       expiryTimestamp,
+		DestContractAddresses: destContractAddresses,
+		DestContractPayloads:  destContractPayloads,
+		AckType:               ackType,
+		AckGasLimit:           ackGasLimit,
+		AckGasPrice:           ackGasPrice,
+		EthSigner:             ethSigner,
+		Signature:             signature,
 	}
 }
 
@@ -99,7 +114,7 @@ func (msg *MsgCrossTalkRequest) GetType() attestationTypes.ClaimType {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgCrossTalkRequest) ClaimHash() ([]byte, error) {
-	path := fmt.Sprintf("%d/%d/%d/%d/%d/%d/%s/%d/%s/%s/%t/%d/%d/%d/%s/%s", msg.EventNonce, msg.BlockHeight, msg.ChainType, msg.ChainId, msg.DestinationChainType, msg.DestinationChainId, msg.RequestSender, msg.RequestNonce, msg.IsAtomic, msg.GasLimit, msg.GasPrice, msg.ExpiryTimestamp, msg.EthSigner, msg.Signature)
+	path := fmt.Sprintf("%d/%d/%d/%s/%s/%d/%s/%d/%d/%s/%d/%t/%d/%s/%s/%d/%d", msg.EventNonce, msg.BlockHeight, msg.ChainType, msg.ChainId, msg.SourceTxHash, msg.DestinationChainType, msg.DestinationChainId, msg.DestinationGasLimit, msg.DestinationGasPrice, msg.RequestSender, msg.RequestNonce, msg.IsAtomic, msg.ExpiryTimestamp, msg.DestContractAddresses, msg.DestContractPayloads, msg.AckType, msg.AckGasLimit, msg.AckGasPrice)
 	return tmhash.Sum([]byte(path)), nil
 }
 
@@ -111,4 +126,49 @@ func (msg MsgCrossTalkRequest) GetClaimer() sdk.AccAddress {
 
 	val, _ := sdk.AccAddressFromBech32(msg.Orchestrator)
 	return val
+}
+
+///////////////////////////////////
+//     Implement Ccheckpoint     //
+///////////////////////////////////
+
+// GetCheckpoint gets the checkpoint signature from the given CrossTalkRequest
+func (msg MsgCrossTalkRequest) GetCheckpoint(routerIDstring string) []byte {
+
+	abi, err := abi.JSON(strings.NewReader(util.CrossTalkRequestCheckpointABIJSON))
+	if err != nil {
+		panic("Bad ABI constant!")
+	}
+
+	// the contract argument is not a arbitrary length array but a fixed length 32 byte
+	// array, therefore we have to utf8 encode the string (the default in this case) and
+	// then copy the variable length encoded data into a fixed length array. This function
+	// will panic if gravityId is too long to fit in 32 bytes
+	// routerID, err := util.StrToFixByteArray(routerIDstring)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// Create the methodName argument which salts the signature
+	methodNameBytes := []uint8("requestFromRouter")
+	var batchMethodName [32]uint8
+	copy(batchMethodName[:], methodNameBytes)
+
+	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
+	// but other than that it's a constant that has no impact on the output. This is because
+	// it gets encoded as a function name which we must then discard.
+	abiEncodedBatch, err := abi.Pack("checkpoint",
+		batchMethodName,
+	)
+
+	// this should never happen outside of test since any case that could crash on encoding
+	// should be filtered above.
+	if err != nil {
+		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+	}
+
+	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
+	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
+	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
 }

@@ -29,22 +29,27 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type MsgCrossTalkRequest struct {
-	Orchestrator         string          `protobuf:"bytes,1,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
-	EventNonce           uint64          `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	BlockHeight          uint64          `protobuf:"varint,3,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	ChainType            types.ChainType `protobuf:"varint,4,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId              string          `protobuf:"bytes,5,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	SourceTxHash         string          `protobuf:"bytes,6,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
-	DestinationChainType types.ChainType `protobuf:"varint,7,opt,name=destinationChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"destinationChainType,omitempty"`
-	DestinationChainId   string          `protobuf:"bytes,8,opt,name=destinationChainId,proto3" json:"destinationChainId,omitempty"`
-	RequestSender        string          `protobuf:"bytes,9,opt,name=requestSender,proto3" json:"requestSender,omitempty"`
-	RequestNonce         uint64          `protobuf:"varint,10,opt,name=requestNonce,proto3" json:"requestNonce,omitempty"`
-	IsAtomic             bool            `protobuf:"varint,11,opt,name=isAtomic,proto3" json:"isAtomic,omitempty"`
-	GasLimit             uint64          `protobuf:"varint,12,opt,name=gasLimit,proto3" json:"gasLimit,omitempty"`
-	GasPrice             uint64          `protobuf:"varint,13,opt,name=gasPrice,proto3" json:"gasPrice,omitempty"`
-	ExpiryTimestamp      uint64          `protobuf:"varint,14,opt,name=expiryTimestamp,proto3" json:"expiryTimestamp,omitempty"`
-	EthSigner            string          `protobuf:"bytes,15,opt,name=ethSigner,proto3" json:"ethSigner,omitempty"`
-	Signature            string          `protobuf:"bytes,16,opt,name=signature,proto3" json:"signature,omitempty"`
+	Orchestrator          string          `protobuf:"bytes,1,opt,name=orchestrator,proto3" json:"orchestrator,omitempty"`
+	EventNonce            uint64          `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight           uint64          `protobuf:"varint,3,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	ChainType             types.ChainType `protobuf:"varint,4,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ChainId               string          `protobuf:"bytes,5,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	SourceTxHash          string          `protobuf:"bytes,6,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
+	DestinationChainType  types.ChainType `protobuf:"varint,7,opt,name=destinationChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"destinationChainType,omitempty"`
+	DestinationChainId    string          `protobuf:"bytes,8,opt,name=destinationChainId,proto3" json:"destinationChainId,omitempty"`
+	DestinationGasLimit   uint64          `protobuf:"varint,9,opt,name=destinationGasLimit,proto3" json:"destinationGasLimit,omitempty"`
+	DestinationGasPrice   uint64          `protobuf:"varint,10,opt,name=destinationGasPrice,proto3" json:"destinationGasPrice,omitempty"`
+	RequestSender         string          `protobuf:"bytes,11,opt,name=requestSender,proto3" json:"requestSender,omitempty"`
+	RequestNonce          uint64          `protobuf:"varint,12,opt,name=requestNonce,proto3" json:"requestNonce,omitempty"`
+	IsAtomic              bool            `protobuf:"varint,13,opt,name=isAtomic,proto3" json:"isAtomic,omitempty"`
+	ExpiryTimestamp       uint64          `protobuf:"varint,14,opt,name=expiryTimestamp,proto3" json:"expiryTimestamp,omitempty"`
+	DestContractAddresses [][]byte        `protobuf:"bytes,15,rep,name=destContractAddresses,proto3" json:"destContractAddresses,omitempty"`
+	DestContractPayloads  [][]byte        `protobuf:"bytes,16,rep,name=destContractPayloads,proto3" json:"destContractPayloads,omitempty"`
+	AckType               uint64          `protobuf:"varint,17,opt,name=ackType,proto3" json:"ackType,omitempty"`
+	AckGasLimit           uint64          `protobuf:"varint,18,opt,name=ackGasLimit,proto3" json:"ackGasLimit,omitempty"`
+	AckGasPrice           uint64          `protobuf:"varint,19,opt,name=ackGasPrice,proto3" json:"ackGasPrice,omitempty"`
+	EthSigner             string          `protobuf:"bytes,20,opt,name=ethSigner,proto3" json:"ethSigner,omitempty"`
+	Signature             string          `protobuf:"bytes,21,opt,name=signature,proto3" json:"signature,omitempty"`
 }
 
 func (m *MsgCrossTalkRequest) Reset()         { *m = MsgCrossTalkRequest{} }
@@ -136,6 +141,20 @@ func (m *MsgCrossTalkRequest) GetDestinationChainId() string {
 	return ""
 }
 
+func (m *MsgCrossTalkRequest) GetDestinationGasLimit() uint64 {
+	if m != nil {
+		return m.DestinationGasLimit
+	}
+	return 0
+}
+
+func (m *MsgCrossTalkRequest) GetDestinationGasPrice() uint64 {
+	if m != nil {
+		return m.DestinationGasPrice
+	}
+	return 0
+}
+
 func (m *MsgCrossTalkRequest) GetRequestSender() string {
 	if m != nil {
 		return m.RequestSender
@@ -157,23 +176,44 @@ func (m *MsgCrossTalkRequest) GetIsAtomic() bool {
 	return false
 }
 
-func (m *MsgCrossTalkRequest) GetGasLimit() uint64 {
-	if m != nil {
-		return m.GasLimit
-	}
-	return 0
-}
-
-func (m *MsgCrossTalkRequest) GetGasPrice() uint64 {
-	if m != nil {
-		return m.GasPrice
-	}
-	return 0
-}
-
 func (m *MsgCrossTalkRequest) GetExpiryTimestamp() uint64 {
 	if m != nil {
 		return m.ExpiryTimestamp
+	}
+	return 0
+}
+
+func (m *MsgCrossTalkRequest) GetDestContractAddresses() [][]byte {
+	if m != nil {
+		return m.DestContractAddresses
+	}
+	return nil
+}
+
+func (m *MsgCrossTalkRequest) GetDestContractPayloads() [][]byte {
+	if m != nil {
+		return m.DestContractPayloads
+	}
+	return nil
+}
+
+func (m *MsgCrossTalkRequest) GetAckType() uint64 {
+	if m != nil {
+		return m.AckType
+	}
+	return 0
+}
+
+func (m *MsgCrossTalkRequest) GetAckGasLimit() uint64 {
+	if m != nil {
+		return m.AckGasLimit
+	}
+	return 0
+}
+
+func (m *MsgCrossTalkRequest) GetAckGasPrice() uint64 {
+	if m != nil {
+		return m.AckGasPrice
 	}
 	return 0
 }
@@ -236,39 +276,44 @@ func init() {
 func init() { proto.RegisterFile("crosstalk/tx.proto", fileDescriptor_e05d1b0bf5470766) }
 
 var fileDescriptor_e05d1b0bf5470766 = []byte{
-	// 506 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0xbd, 0x6e, 0xdb, 0x3c,
-	0x14, 0x35, 0xbf, 0xfc, 0xd9, 0xcc, 0x2f, 0xf8, 0x75, 0x20, 0x9c, 0x56, 0x30, 0x8c, 0x0c, 0x5e,
-	0x2a, 0x17, 0xe9, 0x94, 0x31, 0xcd, 0x92, 0x00, 0x4d, 0x50, 0xc8, 0x9e, 0xba, 0x18, 0x32, 0x75,
-	0x21, 0x11, 0x96, 0x44, 0x95, 0xbc, 0x2a, 0xec, 0xb7, 0xc8, 0xd8, 0xbd, 0x2f, 0xd3, 0x31, 0x63,
-	0xc7, 0xc2, 0x7e, 0x91, 0x42, 0x94, 0x25, 0xdb, 0xa9, 0x51, 0x14, 0x59, 0x0c, 0x9e, 0x73, 0xee,
-	0xb9, 0xbc, 0xc7, 0x24, 0x45, 0x99, 0xd0, 0xca, 0x18, 0xf4, 0xe3, 0x49, 0x1f, 0xa7, 0x6e, 0xa6,
-	0x15, 0x2a, 0x76, 0xa1, 0x55, 0x8e, 0xa0, 0x2d, 0x10, 0x2a, 0x76, 0x4b, 0x28, 0x22, 0x5f, 0xa6,
-	0x6e, 0x5d, 0xde, 0xee, 0xae, 0x9c, 0x76, 0x35, 0x2a, 0x96, 0x23, 0x0d, 0x5f, 0x72, 0x30, 0x58,
-	0x76, 0x6a, 0x9f, 0x27, 0x79, 0x8c, 0xd2, 0x3a, 0xfb, 0xf6, 0x77, 0x84, 0xb3, 0x0c, 0x4a, 0xb1,
-	0xfb, 0x7d, 0x8f, 0xfe, 0x7f, 0x6f, 0xc2, 0x9b, 0xc2, 0x3c, 0xf4, 0xe3, 0x89, 0x57, 0x5a, 0x59,
-	0x97, 0x1e, 0x29, 0x2d, 0x22, 0x30, 0xa8, 0x7d, 0x54, 0x9a, 0x93, 0x0e, 0xe9, 0xb5, 0xbc, 0x0d,
-	0x8e, 0x39, 0x94, 0xc2, 0x57, 0x48, 0xf1, 0x41, 0xa5, 0x02, 0xf8, 0x7f, 0x1d, 0xd2, 0xdb, 0xf5,
-	0xd6, 0x18, 0xd6, 0xa1, 0x87, 0xe3, 0x58, 0x89, 0xc9, 0x2d, 0xc8, 0x30, 0x42, 0xbe, 0x63, 0x0b,
-	0xd6, 0x29, 0xf6, 0x40, 0x5b, 0x76, 0xa2, 0xe1, 0x2c, 0x03, 0xbe, 0xdb, 0x21, 0xbd, 0x93, 0xcb,
-	0x77, 0xee, 0x5f, 0x82, 0xaf, 0x92, 0xb8, 0x37, 0x95, 0xcf, 0x5b, 0xb5, 0x60, 0x9c, 0x1e, 0x58,
-	0x70, 0x17, 0xf0, 0x3d, 0x3b, 0x70, 0x05, 0x8b, 0x3c, 0x46, 0xe5, 0x5a, 0xc0, 0x70, 0x7a, 0xeb,
-	0x9b, 0x88, 0xef, 0x97, 0x79, 0xd6, 0x39, 0x16, 0xd0, 0x57, 0x01, 0x18, 0x94, 0xa9, 0x8f, 0x52,
-	0xa5, 0xf5, 0x06, 0xfc, 0xe0, 0x85, 0x83, 0x6d, 0xed, 0xc6, 0x5c, 0xca, 0x9e, 0xf3, 0x77, 0x01,
-	0x6f, 0xda, 0x79, 0xb6, 0x28, 0xec, 0x82, 0x1e, 0x2f, 0xcf, 0x73, 0x00, 0x69, 0x00, 0x9a, 0xb7,
-	0x6c, 0xe9, 0x26, 0x59, 0xe4, 0x5b, 0x12, 0xe5, 0x69, 0x50, 0xfb, 0x67, 0x6f, 0x70, 0xac, 0x4d,
-	0x9b, 0xd2, 0x5c, 0xa3, 0x4a, 0xa4, 0xe0, 0x87, 0x1d, 0xd2, 0x6b, 0x7a, 0x35, 0x2e, 0xb4, 0xd0,
-	0x37, 0x1f, 0x65, 0x22, 0x91, 0x1f, 0x59, 0x6f, 0x8d, 0x97, 0xda, 0x27, 0x2d, 0x05, 0xf0, 0xe3,
-	0x5a, 0xb3, 0x98, 0xf5, 0xe8, 0x29, 0x4c, 0x33, 0xa9, 0x67, 0x43, 0x99, 0x80, 0x41, 0x3f, 0xc9,
-	0xf8, 0x89, 0x2d, 0x79, 0x4e, 0xb3, 0xd7, 0xb4, 0x05, 0x18, 0x0d, 0x64, 0x98, 0x82, 0xe6, 0xa7,
-	0x36, 0xc3, 0x8a, 0x28, 0x54, 0x23, 0xc3, 0xd4, 0xc7, 0x5c, 0x03, 0x3f, 0x2b, 0xd5, 0x9a, 0xe8,
-	0xbe, 0xa1, 0xe7, 0x5b, 0x2e, 0xa9, 0x07, 0x26, 0x53, 0xa9, 0x81, 0xcb, 0x6f, 0x84, 0xee, 0xdc,
-	0x9b, 0x90, 0x3d, 0x12, 0x7a, 0xf6, 0xc7, 0x4d, 0xbe, 0x72, 0xff, 0xe5, 0x25, 0xb9, 0x5b, 0xfa,
-	0xb7, 0xaf, 0x5f, 0x6c, 0xad, 0x46, 0xfb, 0x30, 0xf8, 0x31, 0x77, 0xc8, 0xd3, 0xdc, 0x21, 0xbf,
-	0xe6, 0x0e, 0x79, 0x5c, 0x38, 0x8d, 0xa7, 0x85, 0xd3, 0xf8, 0xb9, 0x70, 0x1a, 0x9f, 0xaf, 0x42,
-	0x89, 0x51, 0x3e, 0x76, 0x85, 0x4a, 0xfa, 0x65, 0xdf, 0xb7, 0xd5, 0x3e, 0x15, 0x2e, 0xdf, 0xec,
-	0xb4, 0xbf, 0xf6, 0x79, 0x98, 0x65, 0x60, 0xc6, 0xfb, 0xb6, 0xf0, 0xfd, 0xef, 0x00, 0x00, 0x00,
-	0xff, 0xff, 0x40, 0x0e, 0xdf, 0x8b, 0x38, 0x04, 0x00, 0x00,
+	// 583 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x4d, 0x4f, 0xdc, 0x30,
+	0x10, 0x25, 0x85, 0x02, 0x6b, 0x3e, 0x6b, 0x40, 0xb2, 0x96, 0x36, 0x8a, 0x56, 0x1c, 0x72, 0x69,
+	0x16, 0xd1, 0x5e, 0x38, 0x52, 0x0e, 0x05, 0xa9, 0x20, 0x14, 0xf6, 0xd4, 0x0b, 0x32, 0xce, 0x28,
+	0xb1, 0x36, 0x89, 0x53, 0xdb, 0xa9, 0x76, 0xff, 0x05, 0xb7, 0xf6, 0x27, 0xf5, 0xc8, 0xb1, 0xc7,
+	0x8a, 0xfd, 0x23, 0x55, 0x6c, 0xb2, 0x9b, 0x85, 0xa8, 0xaa, 0xb8, 0x44, 0x99, 0xf7, 0xe6, 0x4d,
+	0xde, 0x8c, 0x27, 0x46, 0x98, 0x49, 0xa1, 0x94, 0xa6, 0xe9, 0xb0, 0xaf, 0x47, 0x41, 0x21, 0x85,
+	0x16, 0xf8, 0x40, 0x8a, 0x52, 0x83, 0x34, 0x01, 0x13, 0x69, 0x60, 0x43, 0x96, 0x50, 0x9e, 0x07,
+	0xd3, 0xf4, 0x6e, 0x6f, 0xa6, 0x34, 0x6f, 0x37, 0xd5, 0xeb, 0x8d, 0x84, 0x6f, 0x25, 0x28, 0x6d,
+	0x2b, 0x75, 0xf7, 0xb3, 0x32, 0xd5, 0xdc, 0x28, 0xfb, 0xe6, 0x79, 0xa3, 0xc7, 0x05, 0x58, 0xb2,
+	0xf7, 0x63, 0x05, 0xed, 0x5c, 0xa8, 0xf8, 0xb4, 0x12, 0x0f, 0x68, 0x3a, 0x0c, 0xad, 0x14, 0xf7,
+	0xd0, 0xba, 0x90, 0x2c, 0x01, 0xa5, 0x25, 0xd5, 0x42, 0x12, 0xc7, 0x73, 0xfc, 0x4e, 0x38, 0x87,
+	0x61, 0x17, 0x21, 0xf8, 0x0e, 0xb9, 0xbe, 0x14, 0x39, 0x03, 0xf2, 0xca, 0x73, 0xfc, 0xa5, 0xb0,
+	0x81, 0x60, 0x0f, 0xad, 0xdd, 0xa6, 0x82, 0x0d, 0xcf, 0x80, 0xc7, 0x89, 0x26, 0x8b, 0x26, 0xa1,
+	0x09, 0xe1, 0x4b, 0xd4, 0x31, 0x8e, 0x06, 0xe3, 0x02, 0xc8, 0x92, 0xe7, 0xf8, 0x9b, 0x47, 0x87,
+	0xc1, 0x3f, 0x1a, 0x9f, 0x75, 0x12, 0x9c, 0xd6, 0xba, 0x70, 0x56, 0x02, 0x13, 0xb4, 0x62, 0x82,
+	0xf3, 0x88, 0xbc, 0x36, 0x86, 0xeb, 0xb0, 0xea, 0x47, 0x89, 0x52, 0x32, 0x18, 0x8c, 0xce, 0xa8,
+	0x4a, 0xc8, 0xb2, 0xed, 0xa7, 0x89, 0xe1, 0x08, 0xed, 0x46, 0xa0, 0x34, 0xcf, 0xa9, 0xe6, 0x22,
+	0x9f, 0x7e, 0x80, 0xac, 0xbc, 0xd0, 0x58, 0x6b, 0x35, 0x1c, 0x20, 0xfc, 0x14, 0x3f, 0x8f, 0xc8,
+	0xaa, 0xf1, 0xd3, 0xc2, 0xe0, 0x43, 0xb4, 0xd3, 0x40, 0x3f, 0x53, 0xf5, 0x85, 0x67, 0x5c, 0x93,
+	0x8e, 0x99, 0x66, 0x1b, 0xf5, 0x5c, 0x71, 0x25, 0x39, 0x03, 0x82, 0xda, 0x14, 0x86, 0xc2, 0x07,
+	0x68, 0xe3, 0x71, 0x67, 0xae, 0x21, 0x8f, 0x40, 0x92, 0x35, 0x63, 0x67, 0x1e, 0xac, 0x66, 0xf8,
+	0x08, 0xd8, 0x13, 0x5f, 0x37, 0x05, 0xe7, 0x30, 0xdc, 0x45, 0xab, 0x5c, 0x9d, 0x68, 0x91, 0x71,
+	0x46, 0x36, 0x3c, 0xc7, 0x5f, 0x0d, 0xa7, 0x31, 0xf6, 0xd1, 0x16, 0x8c, 0x0a, 0x2e, 0xc7, 0x03,
+	0x9e, 0x81, 0xd2, 0x34, 0x2b, 0xc8, 0xa6, 0x29, 0xf1, 0x14, 0xc6, 0x1f, 0xd1, 0x5e, 0x65, 0xf3,
+	0x54, 0xe4, 0x5a, 0x52, 0xa6, 0x4f, 0xa2, 0x48, 0x82, 0x52, 0xa0, 0xc8, 0x96, 0xb7, 0xe8, 0xaf,
+	0x87, 0xed, 0x24, 0x3e, 0xb2, 0xe7, 0x57, 0x13, 0x57, 0x74, 0x9c, 0x0a, 0x1a, 0x29, 0xb2, 0x6d,
+	0x44, 0xad, 0x5c, 0xb5, 0x31, 0x94, 0x0d, 0xcd, 0x31, 0xbf, 0x31, 0x5e, 0xea, 0xb0, 0xda, 0x5e,
+	0xca, 0x86, 0xd3, 0x79, 0x63, 0xbb, 0xbd, 0x0d, 0x68, 0x96, 0x61, 0xe7, 0xbb, 0xd3, 0xcc, 0xb0,
+	0x73, 0x7d, 0x8b, 0x3a, 0xa0, 0x93, 0x6b, 0x1e, 0xe7, 0x20, 0xc9, 0xae, 0x99, 0xe9, 0x0c, 0xa8,
+	0x58, 0xc5, 0xe3, 0x9c, 0xea, 0x52, 0x02, 0xd9, 0xb3, 0xec, 0x14, 0xe8, 0xbd, 0x43, 0xfb, 0x2d,
+	0x3f, 0x66, 0x08, 0xaa, 0x10, 0xb9, 0x82, 0xa3, 0x9f, 0x0e, 0x5a, 0xbc, 0x50, 0x31, 0xbe, 0x73,
+	0xd0, 0xf6, 0xb3, 0xbf, 0xf7, 0x38, 0xf8, 0x9f, 0xdb, 0x23, 0x68, 0xa9, 0xdf, 0x3d, 0x79, 0xb1,
+	0xb4, 0xb6, 0xf6, 0xe9, 0xfa, 0xd7, 0x83, 0xeb, 0xdc, 0x3f, 0xb8, 0xce, 0x9f, 0x07, 0xd7, 0xb9,
+	0x9b, 0xb8, 0x0b, 0xf7, 0x13, 0x77, 0xe1, 0xf7, 0xc4, 0x5d, 0xf8, 0x7a, 0x1c, 0x73, 0x9d, 0x94,
+	0xb7, 0x01, 0x13, 0x59, 0xdf, 0xd6, 0x7d, 0x5f, 0x7f, 0xa7, 0x8e, 0xed, 0x3d, 0x35, 0xea, 0x37,
+	0xae, 0xc4, 0x71, 0x01, 0xea, 0x76, 0xd9, 0x24, 0x7e, 0xf8, 0x1b, 0x00, 0x00, 0xff, 0xff, 0x0e,
+	0x6f, 0x33, 0x48, 0x2c, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -378,29 +423,62 @@ func (m *MsgCrossTalkRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x82
+		dAtA[i] = 0xaa
 	}
 	if len(m.EthSigner) > 0 {
 		i -= len(m.EthSigner)
 		copy(dAtA[i:], m.EthSigner)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.EthSigner)))
 		i--
-		dAtA[i] = 0x7a
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0xa2
+	}
+	if m.AckGasPrice != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.AckGasPrice))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x98
+	}
+	if m.AckGasLimit != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.AckGasLimit))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x90
+	}
+	if m.AckType != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.AckType))
+		i--
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x88
+	}
+	if len(m.DestContractPayloads) > 0 {
+		for iNdEx := len(m.DestContractPayloads) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.DestContractPayloads[iNdEx])
+			copy(dAtA[i:], m.DestContractPayloads[iNdEx])
+			i = encodeVarintTx(dAtA, i, uint64(len(m.DestContractPayloads[iNdEx])))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x82
+		}
+	}
+	if len(m.DestContractAddresses) > 0 {
+		for iNdEx := len(m.DestContractAddresses) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.DestContractAddresses[iNdEx])
+			copy(dAtA[i:], m.DestContractAddresses[iNdEx])
+			i = encodeVarintTx(dAtA, i, uint64(len(m.DestContractAddresses[iNdEx])))
+			i--
+			dAtA[i] = 0x7a
+		}
 	}
 	if m.ExpiryTimestamp != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.ExpiryTimestamp))
 		i--
 		dAtA[i] = 0x70
-	}
-	if m.GasPrice != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.GasPrice))
-		i--
-		dAtA[i] = 0x68
-	}
-	if m.GasLimit != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.GasLimit))
-		i--
-		dAtA[i] = 0x60
 	}
 	if m.IsAtomic {
 		i--
@@ -410,19 +488,29 @@ func (m *MsgCrossTalkRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			dAtA[i] = 0
 		}
 		i--
-		dAtA[i] = 0x58
+		dAtA[i] = 0x68
 	}
 	if m.RequestNonce != 0 {
 		i = encodeVarintTx(dAtA, i, uint64(m.RequestNonce))
 		i--
-		dAtA[i] = 0x50
+		dAtA[i] = 0x60
 	}
 	if len(m.RequestSender) > 0 {
 		i -= len(m.RequestSender)
 		copy(dAtA[i:], m.RequestSender)
 		i = encodeVarintTx(dAtA, i, uint64(len(m.RequestSender)))
 		i--
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x5a
+	}
+	if m.DestinationGasPrice != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.DestinationGasPrice))
+		i--
+		dAtA[i] = 0x50
+	}
+	if m.DestinationGasLimit != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.DestinationGasLimit))
+		i--
+		dAtA[i] = 0x48
 	}
 	if len(m.DestinationChainId) > 0 {
 		i -= len(m.DestinationChainId)
@@ -543,6 +631,12 @@ func (m *MsgCrossTalkRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
+	if m.DestinationGasLimit != 0 {
+		n += 1 + sovTx(uint64(m.DestinationGasLimit))
+	}
+	if m.DestinationGasPrice != 0 {
+		n += 1 + sovTx(uint64(m.DestinationGasPrice))
+	}
 	l = len(m.RequestSender)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
@@ -553,18 +647,33 @@ func (m *MsgCrossTalkRequest) Size() (n int) {
 	if m.IsAtomic {
 		n += 2
 	}
-	if m.GasLimit != 0 {
-		n += 1 + sovTx(uint64(m.GasLimit))
-	}
-	if m.GasPrice != 0 {
-		n += 1 + sovTx(uint64(m.GasPrice))
-	}
 	if m.ExpiryTimestamp != 0 {
 		n += 1 + sovTx(uint64(m.ExpiryTimestamp))
 	}
+	if len(m.DestContractAddresses) > 0 {
+		for _, b := range m.DestContractAddresses {
+			l = len(b)
+			n += 1 + l + sovTx(uint64(l))
+		}
+	}
+	if len(m.DestContractPayloads) > 0 {
+		for _, b := range m.DestContractPayloads {
+			l = len(b)
+			n += 2 + l + sovTx(uint64(l))
+		}
+	}
+	if m.AckType != 0 {
+		n += 2 + sovTx(uint64(m.AckType))
+	}
+	if m.AckGasLimit != 0 {
+		n += 2 + sovTx(uint64(m.AckGasLimit))
+	}
+	if m.AckGasPrice != 0 {
+		n += 2 + sovTx(uint64(m.AckGasPrice))
+	}
 	l = len(m.EthSigner)
 	if l > 0 {
-		n += 1 + l + sovTx(uint64(l))
+		n += 2 + l + sovTx(uint64(l))
 	}
 	l = len(m.Signature)
 	if l > 0 {
@@ -822,6 +931,44 @@ func (m *MsgCrossTalkRequest) Unmarshal(dAtA []byte) error {
 			m.DestinationChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 9:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DestinationGasLimit", wireType)
+			}
+			m.DestinationGasLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.DestinationGasLimit |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DestinationGasPrice", wireType)
+			}
+			m.DestinationGasPrice = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.DestinationGasPrice |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestSender", wireType)
 			}
@@ -853,7 +1000,7 @@ func (m *MsgCrossTalkRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.RequestSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 10:
+		case 12:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestNonce", wireType)
 			}
@@ -872,7 +1019,7 @@ func (m *MsgCrossTalkRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 11:
+		case 13:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field IsAtomic", wireType)
 			}
@@ -892,44 +1039,6 @@ func (m *MsgCrossTalkRequest) Unmarshal(dAtA []byte) error {
 				}
 			}
 			m.IsAtomic = bool(v != 0)
-		case 12:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GasLimit", wireType)
-			}
-			m.GasLimit = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.GasLimit |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 13:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GasPrice", wireType)
-			}
-			m.GasPrice = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowTx
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.GasPrice |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
 		case 14:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExpiryTimestamp", wireType)
@@ -950,6 +1059,127 @@ func (m *MsgCrossTalkRequest) Unmarshal(dAtA []byte) error {
 				}
 			}
 		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DestContractAddresses", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DestContractAddresses = append(m.DestContractAddresses, make([]byte, postIndex-iNdEx))
+			copy(m.DestContractAddresses[len(m.DestContractAddresses)-1], dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DestContractPayloads", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DestContractPayloads = append(m.DestContractPayloads, make([]byte, postIndex-iNdEx))
+			copy(m.DestContractPayloads[len(m.DestContractPayloads)-1], dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 17:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AckType", wireType)
+			}
+			m.AckType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.AckType |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 18:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AckGasLimit", wireType)
+			}
+			m.AckGasLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.AckGasLimit |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 19:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AckGasPrice", wireType)
+			}
+			m.AckGasPrice = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.AckGasPrice |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 20:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EthSigner", wireType)
 			}
@@ -981,7 +1211,7 @@ func (m *MsgCrossTalkRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.EthSigner = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 16:
+		case 21:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Signature", wireType)
 			}
