@@ -151,7 +151,7 @@ func (msg MsgCrossTalkRequest) GetCheckpoint(routerIDstring string) []byte {
 	// }
 
 	// Create the methodName argument which salts the signature
-	methodNameBytes := []uint8("requestFromRouter")
+	methodNameBytes := []uint8("requestFromSource")
 	var crosstalkMethodName [32]uint8
 	copy(crosstalkMethodName[:], methodNameBytes)
 
