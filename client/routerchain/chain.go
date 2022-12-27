@@ -33,6 +33,7 @@ import (
 	wasmTypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
@@ -95,6 +96,10 @@ type ChainClient interface {
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
 	GetLastOutgoingBatchNonce(ctx context.Context, destinationChainType multichainTypes.ChainType, destinationChainId string, sourceAddress string) (*outboundTypes.QueryLastOutboundBatchNonceResponse, error)
 
+	// CrossTalk
+	GetAllCrossTalkRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error)
+	GetAllCrosstalkRequestConfirmations(ctx context.Context, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error)
+
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
 	InstantiateContract(codeID uint64, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) (string, error)
@@ -136,6 +141,7 @@ type chainClient struct {
 	attestationQueryClient attestationTypes.QueryClient
 	inboundQueryClient     inboundTypes.QueryClient
 	outboundQueryClient    outboundTypes.QueryClient
+	crosstalkQueryClient   crosstalkTypes.QueryClient
 	oracleQueryClient      oracleTypes.QueryClient
 	wasmQueryClient        wasmTypes.QueryClient
 
@@ -256,6 +262,7 @@ func NewChainClient(
 		attestationQueryClient: attestationTypes.NewQueryClient(conn),
 		inboundQueryClient:     inboundTypes.NewQueryClient(conn),
 		outboundQueryClient:    outboundTypes.NewQueryClient(conn),
+		crosstalkQueryClient:   crosstalkTypes.NewQueryClient(conn),
 		oracleQueryClient:      oracleTypes.NewQueryClient(conn),
 	}
 
@@ -759,6 +766,24 @@ func (c *chainClient) GetLastOutgoingBatchNonce(ctx context.Context, destination
 		SourceAddress:        sourceAddress,
 	}
 	return c.outboundQueryClient.LastOutboundBatchNonce(ctx, req)
+}
+
+/////////////////////////////////
+////     Crosstalk           ////
+////////////////////////////////
+func (c *chainClient) GetAllCrossTalkRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error) {
+	req := &crosstalkTypes.QueryAllCrossTalkRequest{}
+	return c.crosstalkQueryClient.CrossTalkRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error) {
+	req := &crosstalkTypes.QueryAllCrosstalkRequestConfirmRequest{
+		SourceChainType: sourceChainType,
+		SourceChainId:   sourceChainId,
+		EventNonce:      eventNonce,
+		ClaimHash:       claimHash,
+	}
+	return c.crosstalkQueryClient.CrosstalkRequestConfirmAll(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.
