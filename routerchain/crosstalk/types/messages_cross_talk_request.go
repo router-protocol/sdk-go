@@ -167,8 +167,7 @@ func (msg MsgCrossTalkRequest) GetCheckpoint(routerIDstring string) []byte {
 	srcChainType := &big.Int{}
 	srcChainType.SetUint64(uint64(msg.ChainType))
 
-	var caller [32]byte
-	copy(caller[:], []byte(msg.RequestSender))
+	caller := []byte(msg.RequestSender)
 
 	expTimestamp := &big.Int{}
 	expTimestamp.SetUint64(uint64(msg.ExpiryTimestamp))

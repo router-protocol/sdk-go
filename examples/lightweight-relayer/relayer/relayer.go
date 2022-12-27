@@ -3,17 +3,22 @@ package relayer
 import (
 	"context"
 	"crypto/ecdsa"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"math/big"
+	"strings"
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/ethereum/go-ethereum/accounts"
+	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	"github.com/router-protocol/sdk-go/routerchain/outbound/types"
+	"github.com/router-protocol/sdk-go/routerchain/util"
 
 	ethcmn "github.com/ethereum/go-ethereum/common"
 
@@ -202,6 +207,10 @@ func (relayer *relayer) SubmitCrosstalkTxToGateway(ctx context.Context, chainCli
 			continue
 		}
 
+		if crosstalkRequest.RequestNonce != 1 {
+			continue
+		}
+
 		signatures := relayer.collectCrosstalkSignatures(ctx, chainClient, crosstalkRequest)
 		fmt.Println("Sending tx", "crosstalkRequest", crosstalkRequest, "signatures", signatures)
 		relayer.sendCrossTalkTx(signatures, crosstalkRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
@@ -283,6 +292,106 @@ func (relayer *relayer) sendCrossTalkTx(signatures []string, crosstalkRequest cr
 		log.Fatal(err)
 	}
 
+	fmt.Println("crosstalkRequestPayload", crosstalkRequestPayload)
+
 	fmt.Printf("tx sent: %s", tx.Hash().Hex())
+
+	relayer.GetCheckpoint(crosstalkRequest, "")
 	time.Sleep(15 * time.Second)
+}
+
+// GetCheckpoint gets the checkpoint signature from the given CrossTalkRequest
+func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, routerIDstring string) []byte {
+
+	abi, err := abi.JSON(strings.NewReader(util.CrossTalkRequestCheckpointABIJSON))
+	if err != nil {
+		panic("Bad ABI constant!")
+	}
+
+	// the contract argument is not a arbitrary length array but a fixed length 32 byte
+	// array, therefore we have to utf8 encode the string (the default in this case) and
+	// then copy the variable length encoded data into a fixed length array. This function
+	// will panic if gravityId is too long to fit in 32 bytes
+	// routerID, err := util.StrToFixByteArray(routerIDstring)
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// Create the methodName argument which salts the signature
+	methodNameBytes := []uint8("requestFromSource")
+	var crosstalkMethodName [32]uint8
+	copy(crosstalkMethodName[:], methodNameBytes)
+
+	eventIdentifier := &big.Int{}
+	eventIdentifier.SetUint64(msg.EventNonce)
+
+	crossTalkNonce := &big.Int{}
+	crossTalkNonce.SetUint64(msg.RequestNonce)
+
+	destChainType := &big.Int{}
+	if msg.DestinationChainType == 0 {
+		destChainType = big.NewInt(0)
+	} else {
+		destChainType.SetUint64(uint64(msg.DestinationChainType))
+	}
+
+	srcChainType := &big.Int{}
+	srcChainType.SetUint64(uint64(msg.SourceChainType))
+
+	var caller [32]byte
+	copy(caller[:], []byte(msg.RequestSender))
+
+	expTimestamp := &big.Int{}
+	expTimestamp.SetUint64(uint64(msg.ExpiryTimestamp))
+
+	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
+	// but other than that it's a constant that has no impact on the output. This is because
+	// it gets encoded as a function name which we must then discard.
+	abiEncodedCrosstalk, err := abi.Pack("checkpoint",
+		crosstalkMethodName,
+		eventIdentifier,
+		crossTalkNonce,
+		destChainType,
+		msg.DestinationChainId,
+		msg.SourceChainId,
+		srcChainType,
+		caller,
+		msg.IsAtomic,
+		expTimestamp,
+		msg.DestContractAddresses,
+		msg.DestContractPayloads,
+	)
+
+	// DATA
+	fmt.Println("crosstalkMethodName", hex.EncodeToString(crosstalkMethodName[:]))
+	fmt.Println("eventIdentifier", hex.EncodeToString(eventIdentifier.Bytes()))
+	fmt.Println("crossTalkNonce", hex.EncodeToString(crossTalkNonce.Bytes()))
+	fmt.Println("chainType", hex.EncodeToString(destChainType.Bytes()))
+	fmt.Println("chainId", hex.EncodeToString([]byte(msg.DestinationChainId)))
+	fmt.Println("SourceChainId", hex.EncodeToString([]byte(msg.SourceChainId)))
+	fmt.Println("SourceChainType", hex.EncodeToString(srcChainType.Bytes()))
+	fmt.Println("callerbytes32", hex.EncodeToString(caller[:]))
+	fmt.Println("caller", hex.EncodeToString([]byte(msg.RequestSender)))
+	fmt.Println("isAtomic", msg.IsAtomic)
+	fmt.Println("expTimestamp", hex.EncodeToString(expTimestamp.Bytes()))
+	fmt.Println("DestContractAddresses", msg.DestContractAddresses)
+	fmt.Println("payloads", msg.DestContractPayloads)
+
+	// this should never happen outside of test since any case that could crash on encoding
+	// should be filtered above.
+	if err != nil {
+		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+	}
+
+	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
+	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
+	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
+	fmt.Println("abiEncodedCrosstalk", hex.EncodeToString(abiEncodedCrosstalk))
+	fmt.Println("messageHash", crypto.Keccak256Hash(abiEncodedCrosstalk[4:]))
+
+	checkpoint := crypto.Keccak256Hash(abiEncodedCrosstalk[4:]).Bytes()
+	mesageDigest := accounts.TextHash(checkpoint)
+	fmt.Println("mesageDigest", hex.EncodeToString(mesageDigest))
+
+	return crypto.Keccak256Hash(abiEncodedCrosstalk[4:]).Bytes()
 }
