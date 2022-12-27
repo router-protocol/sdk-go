@@ -15,6 +15,7 @@ import (
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
@@ -51,6 +52,7 @@ func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
 	multichainTypes.RegisterInterfaces(interfaceRegistry)
 	oracleTypes.RegisterInterfaces(interfaceRegistry)
 	outboundTypes.RegisterInterfaces(interfaceRegistry)
+	crosstalkTypes.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)
@@ -93,6 +95,7 @@ func NewClientContext(
 	multichainTypes.RegisterInterfaces(interfaceRegistry)
 	oracleTypes.RegisterInterfaces(interfaceRegistry)
 	outboundTypes.RegisterInterfaces(interfaceRegistry)
+	crosstalkTypes.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)
