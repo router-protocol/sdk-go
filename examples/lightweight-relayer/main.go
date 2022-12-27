@@ -24,7 +24,7 @@ const (
 )
 
 var (
-	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0x1CE6482192621df17285B8aC9Fc3eD2fce69cFDE")
+	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0xB08174b8244C4dE3D628C3Fba8a0BF0606213b33")
 )
 
 func main() {

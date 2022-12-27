@@ -338,8 +338,7 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 	srcChainType := &big.Int{}
 	srcChainType.SetUint64(uint64(msg.SourceChainType))
 
-	var caller [32]byte
-	copy(caller[:], []byte(msg.RequestSender))
+	caller := []byte(msg.RequestSender)
 
 	expTimestamp := &big.Int{}
 	expTimestamp.SetUint64(uint64(msg.ExpiryTimestamp))
