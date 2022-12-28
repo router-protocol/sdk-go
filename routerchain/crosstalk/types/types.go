@@ -57,3 +57,47 @@ func NewCrosstalkRequestConfirm(sourceChainType multichainTypes.ChainType, sourc
 		Signature:       signature,
 	}
 }
+
+func NewCrossTalkAckRequest(
+	eventNonce uint64,
+	blockHeight uint64,
+	relayerRouterAddress string,
+	sourceChainType multichainTypes.ChainType,
+	sourceChainId string,
+	chainType multichainTypes.ChainType,
+	chainId string,
+	destinationTxHash string,
+	eventIdentifier uint64,
+	requestSender string,
+	crosstalkNonce uint64,
+	contractAckResponses []byte,
+	exeCode uint64,
+	status bool) *CrossTalkAckRequest {
+	return &CrossTalkAckRequest{
+		EventNonce:           eventNonce,
+		BlockHeight:          blockHeight,
+		RelayerRouterAddress: relayerRouterAddress,
+		SourceChainType:      sourceChainType,
+		SourceChainId:        sourceChainId,
+		ChainType:            chainType,
+		ChainId:              chainId,
+		DestinationTxHash:    destinationTxHash,
+		EventIdentifier:      eventIdentifier,
+		CrosstalkNonce:       crosstalkNonce,
+		ContractAckResponses: contractAckResponses,
+		ExeCode:              exeCode,
+		Status:               status,
+	}
+}
+
+func NewCrosstalkAckRequestConfirm(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosstalkAckRequestConfirm {
+	return &CrosstalkAckRequestConfirm{
+		ChainType:    chainType,
+		ChainId:      chainId,
+		EventNonce:   eventNonce,
+		ClaimHash:    claimHash,
+		Orchestrator: orchestrator,
+		EthSigner:    ethSigner,
+		Signature:    signature,
+	}
+}

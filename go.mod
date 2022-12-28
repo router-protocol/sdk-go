@@ -30,7 +30,7 @@ require (
 	github.com/regen-network/cosmos-proto v0.3.1
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/rogpeppe/go-internal v1.6.2 // indirect
-	github.com/router-protocol/router-gateway-contracts v1.1.23
+	github.com/router-protocol/router-gateway-contracts v1.1.26
 	github.com/rs/zerolog v1.26.1 // indirect
 	github.com/spf13/cobra v1.5.0 // indirect
 	github.com/spf13/viper v1.12.0 // indirect

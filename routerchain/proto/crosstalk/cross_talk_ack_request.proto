@@ -1,0 +1,23 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosstalk;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
+
+import "multichain/chain_type.proto"; 
+
+message CrossTalkAckRequest {  
+  uint64 eventNonce = 1; 
+  uint64 blockHeight = 2; 
+  string relayerRouterAddress = 3;
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 4;
+  string sourceChainId = 5;
+  routerprotocol.routerchain.multichain.ChainType chainType = 6;
+  string chainId = 7;
+  string destinationTxHash = 8; 
+  uint64 eventIdentifier = 9; 
+  string requestSender = 10;
+  uint64 crosstalkNonce = 11; 
+  bytes contractAckResponses = 12;   
+  uint64 exeCode = 13; 
+  bool status = 14; 
+}
