@@ -1,0 +1,73 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosstalk;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
+
+import "crosstalk/crosstalk_request_status.proto"; 
+import "multichain/chain_type.proto"; 
+import "gogoproto/gogo.proto"; 
+
+
+message EventCrossTalkRequestCreated {
+  bytes attestation_id = 1;
+  uint64 eventNonce = 2;
+  uint64 blockHeight = 3;
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 4; 
+  string sourceChainId = 5;  
+  string sourceTxHash = 6;
+  routerprotocol.routerchain.multichain.ChainType destinationChainType = 7;
+  string destinationChainId = 8;
+  uint64 destinationGasLimit = 9;
+  uint64 destinationGasPrice = 10;
+  string requestSender = 11;
+  uint64 requestNonce = 12;
+  bool isAtomic = 13;  
+  uint64 expiryTimestamp = 14;
+  repeated bytes destContractAddresses = 15;
+  repeated bytes destContractPayloads = 16;
+  uint64 ackType = 17;
+  uint64 ackGasLimit = 18;
+  uint64 ackGasPrice = 19;  
+  CrossTalkRequestStatus status = 20; 
+}
+
+message EventCrosstalkRequestConfirm {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;
+  string ethSigner = 5; 
+  string signature = 6;   
+  string orchestrator = 7;
+}
+
+message EventCrossTalkAckRequestCreated {
+  bytes attestation_id = 1;
+  uint64 eventNonce = 2;
+  uint64 blockHeight = 3;
+  string relayerRouterAddress = 4;
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 5;
+  string sourceChainId = 6;
+  routerprotocol.routerchain.multichain.ChainType chainType = 7;
+  string chainId = 8;
+  string destinationTxHash = 9; 
+  uint64 eventIdentifier = 10;
+  bytes crosstalkRequestSender = 11;
+  uint64 crosstalkNonce = 12;
+  bytes contractAckResponses = 13;
+  uint64 exeCode = 14;
+  bool status = 15;
+  repeated bool execFlags = 16;
+  repeated bytes execData = 17;  
+}
+
+message EventCrosstalkAckRequestConfirm {  
+  routerprotocol.routerchain.multichain.ChainType chainType = 1; 
+  string chainId = 2; 
+  uint64 eventNonce = 3; 
+  bytes claimHash = 4; 
+  string ethSigner = 5; 
+  string signature = 6; 
+  string orchestrator = 7;
+}
+
