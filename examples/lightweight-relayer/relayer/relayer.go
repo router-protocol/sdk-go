@@ -207,7 +207,7 @@ func (relayer *relayer) SubmitCrosstalkTxToGateway(ctx context.Context, chainCli
 			continue
 		}
 
-		if crosstalkRequest.RequestNonce != 1 {
+		if crosstalkRequest.EventNonce != 3 {
 			continue
 		}
 
@@ -401,7 +401,7 @@ func (relayer *relayer) SubmitCrosstalkAckTxToGateway(ctx context.Context, chain
 	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx)
 	fmt.Println("allCrosstalkAckRequests", allCrosstalkAckRequests)
 	for _, crosstalkAckRequest := range allCrosstalkAckRequests.CrossTalkAckRequest {
-		if crosstalkAckRequest.CrosstalkNonce != 2 {
+		if crosstalkAckRequest.CrosstalkNonce != 1 {
 			continue
 		}
 
