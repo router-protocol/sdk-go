@@ -396,12 +396,12 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 }
 
 func (relayer *relayer) SubmitCrosstalkAckTxToGateway(ctx context.Context, chainClient routerclient.ChainClient) {
-
+	fmt.Println("SubmitCrosstalkAckTxToGateway")
 	valsetResponse, _ := chainClient.GetAllValsets(ctx)
 	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx)
-
+	fmt.Println("allCrosstalkAckRequests", allCrosstalkAckRequests)
 	for _, crosstalkAckRequest := range allCrosstalkAckRequests.CrossTalkAckRequest {
-		if crosstalkAckRequest.CrosstalkNonce != 1 {
+		if crosstalkAckRequest.CrosstalkNonce != 2 {
 			continue
 		}
 

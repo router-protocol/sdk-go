@@ -162,14 +162,6 @@ func (msg MsgCrossTalkAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	destChainType := &big.Int{}
 	destChainType.SetUint64(uint64(msg.ChainType))
 
-	caller := []byte(msg.CrosstalkRequestSender)
-
-	execFlags := make([]bool, 1)
-	execFlags = append(execFlags, msg.Status)
-
-	execData := make([][]byte, 1)
-	execData = append(execData, msg.ContractAckResponses)
-
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
@@ -181,9 +173,9 @@ func (msg MsgCrossTalkAckRequest) GetCheckpoint(routerIDstring string) []byte {
 		msg.SourceChainId,
 		destChainType,
 		msg.ChainId,
-		caller,
-		execFlags,
-		execData,
+		msg.CrosstalkRequestSender,
+		msg.ExecFlags,
+		msg.ExecData,
 	)
 
 	// this should never happen outside of test since any case that could crash on encoding
