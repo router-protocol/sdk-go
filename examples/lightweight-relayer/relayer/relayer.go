@@ -394,3 +394,91 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 
 	return crypto.Keccak256Hash(abiEncodedCrosstalk[4:]).Bytes()
 }
+
+func (relayer *relayer) SubmitCrosstalkAckTxToGateway(ctx context.Context, chainClient routerclient.ChainClient) {
+
+	valsetResponse, _ := chainClient.GetAllValsets(ctx)
+	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx)
+
+	for _, crosstalkAckRequest := range allCrosstalkAckRequests.CrossTalkAckRequest {
+		if crosstalkAckRequest.CrosstalkNonce != 1 {
+			continue
+		}
+
+		signatures := relayer.collectCrosstalkAckSignatures(ctx, chainClient, crosstalkAckRequest)
+		fmt.Println("Sending tx", "crosstalkAckRequest", crosstalkAckRequest, "signatures", signatures)
+		relayer.sendCrossTalkAckTx(signatures, crosstalkAckRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
+	}
+}
+
+func (relayer *relayer) collectCrosstalkAckSignatures(ctx context.Context, chainClient routerclient.ChainClient, crosstalkAckRequest crosstalkTypes.CrossTalkAckRequest) []string {
+	claimHash, err := crosstalkAckRequest.ClaimHash()
+	if err != nil {
+		panic(err)
+	}
+
+	crosstalkAckConfirmations, err := chainClient.GetAllCrosstalkAckRequestConfirmations(ctx, uint64(crosstalkAckRequest.ChainType), crosstalkAckRequest.ChainId, crosstalkAckRequest.EventNonce, claimHash)
+	if err != nil {
+		panic(err)
+	}
+	signatures := make([]string, 0)
+	for _, crosstalkAckConfirmation := range crosstalkAckConfirmations.CrosstalkAckRequestConfirm {
+		signatures = append(signatures, crosstalkAckConfirmation.GetSignature())
+	}
+
+	return signatures
+}
+
+func (relayer *relayer) sendCrossTalkAckTx(signatures []string, crosstalkAckRequest crosstalkTypes.CrossTalkAckRequest, currentValset attestationTypes.Valset, relayerRouterAddress string) {
+	// create auth and transaction package for deploying smart contract
+	auth := getAccountAuth(relayer.ethClient, relayer.ethPrivatekey)
+
+	sigs := make([]gatewayWrapper.UtilsSignature, len(signatures))
+	for i := 0; i < len(signatures); i++ {
+		v, r, s := sigToVRS(signatures[i])
+		sigs[i].V = v
+		sigs[i].R = r
+		sigs[i].S = s
+	}
+
+	// Run through the elements of the crosstalk request and serialize them
+	crosstalkAckPayload := gatewayWrapper.UtilsCrossTalkAckPayload{
+		CrossTalkNonce:     crosstalkAckRequest.CrosstalkNonce,
+		EventIdentifier:    crosstalkAckRequest.EventIdentifier,
+		DestChainType:      uint64(crosstalkAckRequest.ChainType),
+		DestChainId:        crosstalkAckRequest.ChainId,
+		SrcContractAddress: crosstalkAckRequest.CrosstalkRequestSender,
+		ExecFlags:          crosstalkAckRequest.ExecFlags,
+		ExecData:           crosstalkAckRequest.ExecData,
+	}
+
+	currentValsetArs := gatewayWrapper.UtilsValsetArgs{
+		Validators:  make([]ethcmn.Address, len(currentValset.Members)),
+		Powers:      make([]uint64, len(currentValset.Members)),
+		ValsetNonce: currentValset.Nonce,
+	}
+	for i, valsetMember := range currentValset.Members {
+		currentValsetArs.Validators[i] = ethcmn.HexToAddress(valsetMember.EthereumAddress)
+		// power := &big.Int{}
+		// power.SetUint64(valsetMember.Power)
+		currentValsetArs.Powers[i] = valsetMember.Power
+	}
+
+	currentValsetArs.ValsetNonce = currentValset.Nonce
+
+	fmt.Println("currentValsetArgs", currentValsetArs)
+	fmt.Println("sigs", sigs)
+	fmt.Println("crosstalkAckPayload", crosstalkAckPayload)
+
+	tx, err := relayer.gatewayContractClient.GatewayWrapper.CrossTalkAck(auth, currentValsetArs, sigs, crosstalkAckPayload)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("crosstalkAckPayload", crosstalkAckPayload)
+
+	fmt.Printf("tx sent: %s", tx.Hash().Hex())
+
+	// relayer.GetCrosstalkCheckpoint(crosstalkAckPayload, "")
+	time.Sleep(15 * time.Second)
+}
