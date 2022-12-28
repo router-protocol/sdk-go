@@ -76,7 +76,7 @@ const (
 			{ "internalType": "string", "name": "_destChainId","type": "string" },			
 			{ "internalType": "bytes","name": "_caller","type": "bytes"},
 			{"internalType": "bool[]","name": "_execFlags","type": "bool[]"},				
-			{"internalType": "bytes[]","name": "_execData","type": "bytes[]"},						
+			{"internalType": "bytes[]","name": "_execData","type": "bytes[]"}					
 		],
 		"outputs": [
 			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
