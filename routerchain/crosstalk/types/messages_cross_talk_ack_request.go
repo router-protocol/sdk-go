@@ -147,7 +147,7 @@ func (msg MsgCrossTalkAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	copy(crosstalkMethodName[:], methodNameBytes)
 
 	eventIdentifier := &big.Int{}
-	eventIdentifier.SetUint64(msg.EventNonce)
+	eventIdentifier.SetUint64(msg.EventIdentifier)
 
 	crossTalkNonce := &big.Int{}
 	crossTalkNonce.SetUint64(msg.CrosstalkNonce)
