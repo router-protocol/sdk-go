@@ -61,6 +61,28 @@ const (
 			]
 		}]`
 
+	// CrossTalkAckRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkRequest message
+	CrossTalkAckRequestCheckpointABIJSON = `[{
+		"name": "checkpoint",
+		"stateMutability": "nonpayable",
+		"type": "function",
+		"inputs":  [			
+			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+			{"internalType": "uint256","name": "_eventIdentifier","type": "uint256"},
+			{"internalType": "uint256","name": "_crossTalkNonce","type": "uint256"},
+			{ "internalType": "uint256","name": "_chainType","type": "uint256" },
+			{ "internalType": "string", "name": "_chainId","type": "string" },
+			{ "internalType": "uint256","name": "_destChainType","type": "uint256" },
+			{ "internalType": "string", "name": "_destChainId","type": "string" },			
+			{ "internalType": "bytes","name": "_caller","type": "bytes"},
+			{"internalType": "bool[]","name": "_execFlags","type": "bool[]"},				
+			{"internalType": "bytes[]","name": "_execData","type": "bytes[]"},						
+		],
+		"outputs": [
+			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+		]
+	}]`
+
 	// ValsetCheckpointABIJSON checks the ETH ABI for compatibility of the Valset update message
 	ValsetCheckpointABIJSON = `[{
 		"name": "checkpoint",

@@ -2,6 +2,7 @@ syntax = "proto3";
 package routerprotocol.routerchain.crosstalk;
 
 import "crosstalk/cross_talk_request.proto";
+import "crosstalk/cross_talk_ack_request.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
@@ -11,6 +12,7 @@ import "multichain/chain_type.proto";
 // Msg defines the Msg service.
 service Msg {
       rpc CrossTalkRequest(MsgCrossTalkRequest) returns (MsgCrossTalkRequestResponse);
+      rpc CrossTalkAckRequest(MsgCrossTalkAckRequest) returns (MsgCrossTalkAckRequestResponse);  
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -38,5 +40,26 @@ message MsgCrossTalkRequest {
   string signature = 21;
 }
 message MsgCrossTalkRequestResponse {}
+
+message MsgCrossTalkAckRequest {
+  string orchestrator = 1;
+  uint64 eventNonce = 2;
+  uint64 blockHeight = 3;
+  string relayerRouterAddress = 4;
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 5;
+  string sourceChainId = 6;
+  routerprotocol.routerchain.multichain.ChainType chainType = 7;
+  string chainId = 8;
+  string destinationTxHash = 9; 
+  uint64 eventIdentifier = 10;
+  string requestSender = 11;
+  uint64 crosstalkNonce = 12;
+  bytes contractAckResponses = 13;
+  uint64 exeCode = 14;
+  bool status = 15;
+  string ethSigner = 16;
+  string signature = 17;
+}
+message MsgCrossTalkAckRequestResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

@@ -7,6 +7,8 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "crosstalk/params.proto";
 import "crosstalk/cross_talk_request.proto";
 import "crosstalk/crosstalk_request_confirm.proto";
+import "crosstalk/cross_talk_ack_request.proto";
+import "crosstalk/crosstalk_ack_request_confirm.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
@@ -35,6 +37,26 @@ service Query {
 	// Queries a list of CrosstalkRequestConfirm items.
 	rpc CrosstalkRequestConfirmAll(QueryAllCrosstalkRequestConfirmRequest) returns (QueryAllCrosstalkRequestConfirmResponse) {
 		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/crosstalk_request_confirm/{sourceChainType}/{sourceChainId}/{eventNonce}/{claimHash}";
+	}
+
+// Queries a CrossTalkAckRequest by index.
+	rpc CrossTalkAckRequest(QueryGetCrossTalkAckRequest) returns (QueryGetCrossTalkAckRequestResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/cross_talk_ack_request/{chain_type}/{chain_id}/{event_nonce}";
+	}
+
+	// Queries a list of CrossTalkAckRequest items.
+	rpc CrossTalkAckRequestAll(QueryAllCrossTalkAckRequest) returns (QueryAllCrossTalkAckRequestResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/cross_talk_ack_request";
+	}
+
+// Queries a CrosstalkAckRequestConfirm by index.
+	rpc CrosstalkAckRequestConfirm(QueryGetCrosstalkAckRequestConfirmRequest) returns (QueryGetCrosstalkAckRequestConfirmResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/crosstalk_ack_request_confirm/{chainType}/{chainId}/{eventNonce}/{claimHash}/{orchestrator}";
+	}
+
+	// Queries a list of CrosstalkAckRequestConfirm items.
+	rpc CrosstalkAckRequestConfirmAll(QueryAllCrosstalkAckRequestConfirmRequest) returns (QueryAllCrosstalkAckRequestConfirmResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/crosstalk_ack_request_confirm/{chainType}/{chainId}/{eventNonce}/{claimHash}";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -90,6 +112,51 @@ message QueryAllCrosstalkRequestConfirmRequest {
 
 message QueryAllCrosstalkRequestConfirmResponse {
 	repeated CrosstalkRequestConfirm crosstalkRequestConfirm = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCrossTalkAckRequest {
+	  uint64 chain_type =1;
+	  string chain_id = 2;
+	  uint64 event_nonce = 3;
+
+}
+
+message QueryGetCrossTalkAckRequestResponse {
+	CrossTalkAckRequest crossTalkAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrossTalkAckRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCrossTalkAckRequestResponse {
+	repeated CrossTalkAckRequest crossTalkAckRequest = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCrosstalkAckRequestConfirmRequest {
+	  uint64 chainType =1;
+	  string chainId = 2;
+	  uint64 eventNonce = 3;   
+  	  bytes claimHash = 4;  	    
+  	  string orchestrator = 5;
+}
+
+message QueryGetCrosstalkAckRequestConfirmResponse {
+	CrosstalkAckRequestConfirm crosstalkAckRequestConfirm = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrosstalkAckRequestConfirmRequest {
+	uint64 chainType =1;
+	  string chainId = 2;
+	  uint64 eventNonce = 3;   
+  	  bytes claimHash = 4;  
+	cosmos.base.query.v1beta1.PageRequest pagination = 5;
+}
+
+message QueryAllCrosstalkAckRequestConfirmResponse {
+	repeated CrosstalkAckRequestConfirm crosstalkAckRequestConfirm = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
