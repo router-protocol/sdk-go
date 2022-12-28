@@ -24,7 +24,7 @@ const (
 )
 
 var (
-	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0xbff7aaA42a9D3F45620FB050E16aDF5F9B6967C2")
+	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0x666F4Ea3C0F9aD50058B1EFDBBd3a9d3a902B6CC")
 )
 
 func main() {
@@ -42,6 +42,7 @@ func main() {
 	// TRIGGER ACTIONS
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
 	// relayer.SubmitBatchTxToGateway(ctx, routerchainClient)
-	relayer.SubmitCrosstalkTxToGateway(ctx, routerchainClient)
+	// relayer.SubmitCrosstalkTxToGateway(ctx, routerchainClient)
+	relayer.SubmitCrosstalkAckTxToGateway(ctx, routerchainClient)
 
 }
