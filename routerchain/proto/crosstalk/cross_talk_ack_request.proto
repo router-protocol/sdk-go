@@ -15,9 +15,11 @@ message CrossTalkAckRequest {
   string chainId = 7;
   string destinationTxHash = 8; 
   uint64 eventIdentifier = 9; 
-  string requestSender = 10;
+  bytes crosstalkRequestSender = 10;
   uint64 crosstalkNonce = 11; 
   bytes contractAckResponses = 12;   
   uint64 exeCode = 13; 
   bool status = 14; 
+  repeated bool execFlags = 15;
+  repeated bytes execData = 16;
 }

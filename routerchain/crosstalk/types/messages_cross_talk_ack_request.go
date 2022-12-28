@@ -32,33 +32,37 @@ func NewMsgCrossTalkAckRequest(
 	chainId string,
 	destinationTxHash string,
 	eventIdentifier uint64,
-	requestSender string,
+	crosstalkRequestSender []byte,
 	crosstalkNonce uint64,
 	contractAckResponses []byte,
 	exeCode uint64,
 	status bool,
 	ethSigner string,
 	signature string,
+	execFlags []bool,
+	execData [][]byte,
 
 ) *MsgCrossTalkAckRequest {
 	return &MsgCrossTalkAckRequest{
-		Orchestrator:         orchestrator,
-		EventNonce:           eventNonce,
-		BlockHeight:          blockHeight,
-		RelayerRouterAddress: relayerRouterAddress,
-		SourceChainType:      sourceChainType,
-		SourceChainId:        sourceChainId,
-		ChainType:            chainType,
-		ChainId:              chainId,
-		DestinationTxHash:    destinationTxHash,
-		EventIdentifier:      eventIdentifier,
-		RequestSender:        requestSender,
-		CrosstalkNonce:       crosstalkNonce,
-		ContractAckResponses: contractAckResponses,
-		ExeCode:              exeCode,
-		Status:               status,
-		EthSigner:            ethSigner,
-		Signature:            signature,
+		Orchestrator:           orchestrator,
+		EventNonce:             eventNonce,
+		BlockHeight:            blockHeight,
+		RelayerRouterAddress:   relayerRouterAddress,
+		SourceChainType:        sourceChainType,
+		SourceChainId:          sourceChainId,
+		ChainType:              chainType,
+		ChainId:                chainId,
+		DestinationTxHash:      destinationTxHash,
+		EventIdentifier:        eventIdentifier,
+		CrosstalkRequestSender: crosstalkRequestSender,
+		CrosstalkNonce:         crosstalkNonce,
+		ContractAckResponses:   contractAckResponses,
+		ExeCode:                exeCode,
+		Status:                 status,
+		ExecFlags:              execFlags,
+		ExecData:               execData,
+		EthSigner:              ethSigner,
+		Signature:              signature,
 	}
 }
 
@@ -106,7 +110,7 @@ func (msg *MsgCrossTalkAckRequest) GetType() attestationTypes.ClaimType {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgCrossTalkAckRequest) ClaimHash() ([]byte, error) {
-	path := fmt.Sprintf("%d/%d/%s/%d/%s/%d/%s/%s/%d/%s/%d/%s/%d/%t", msg.EventNonce, msg.BlockHeight, msg.RelayerRouterAddress, msg.SourceChainType, msg.SourceChainId, msg.ChainType, msg.ChainId, msg.DestinationTxHash, msg.EventIdentifier, msg.RequestSender, msg.CrosstalkNonce, msg.ContractAckResponses, msg.ExeCode, msg.Status)
+	path := fmt.Sprintf("%d/%d/%s/%d/%s/%d/%s/%s/%d/%s/%d/%s/%d/%t", msg.EventNonce, msg.BlockHeight, msg.RelayerRouterAddress, msg.SourceChainType, msg.SourceChainId, msg.ChainType, msg.ChainId, msg.DestinationTxHash, msg.EventIdentifier, msg.CrosstalkRequestSender, msg.CrosstalkNonce, msg.ContractAckResponses, msg.ExeCode, msg.Status)
 	return tmhash.Sum([]byte(path)), nil
 }
 
@@ -158,7 +162,7 @@ func (msg MsgCrossTalkAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	destChainType := &big.Int{}
 	destChainType.SetUint64(uint64(msg.ChainType))
 
-	caller := []byte(msg.RequestSender)
+	caller := []byte(msg.CrosstalkRequestSender)
 
 	execFlags := make([]bool, 1)
 	execFlags = append(execFlags, msg.Status)

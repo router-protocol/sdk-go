@@ -52,13 +52,15 @@ message MsgCrossTalkAckRequest {
   string chainId = 8;
   string destinationTxHash = 9; 
   uint64 eventIdentifier = 10;
-  string requestSender = 11;
+  bytes crosstalkRequestSender = 11;
   uint64 crosstalkNonce = 12;
   bytes contractAckResponses = 13;
   uint64 exeCode = 14;
   bool status = 15;
-  string ethSigner = 16;
-  string signature = 17;
+  repeated bool execFlags = 16;
+  repeated bytes execData = 17;
+  string ethSigner = 18;
+  string signature = 19;
 }
 message MsgCrossTalkAckRequestResponse {}
 
