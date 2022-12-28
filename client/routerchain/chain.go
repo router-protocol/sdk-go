@@ -99,6 +99,8 @@ type ChainClient interface {
 	// CrossTalk
 	GetAllCrossTalkRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error)
 	GetAllCrosstalkRequestConfirmations(ctx context.Context, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error)
+	GetAllCrossTalkAckRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error)
+	GetAllCrosstalkAckRequestConfirmations(ctx context.Context, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error)
 
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
@@ -784,6 +786,21 @@ func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, s
 		ClaimHash:       claimHash,
 	}
 	return c.crosstalkQueryClient.CrosstalkRequestConfirmAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrossTalkAckRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error) {
+	req := &crosstalkTypes.QueryAllCrossTalkAckRequest{}
+	return c.crosstalkQueryClient.CrossTalkAckRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrosstalkAckRequestConfirmations(ctx context.Context, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error) {
+	req := &crosstalkTypes.QueryAllCrosstalkAckRequestConfirmRequest{
+		ChainType:  chainType,
+		ChainId:    chainId,
+		EventNonce: eventNonce,
+		ClaimHash:  claimHash,
+	}
+	return c.crosstalkQueryClient.CrosstalkAckRequestConfirmAll(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.
