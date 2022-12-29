@@ -248,7 +248,7 @@ func (relayer *relayer) sendCrossTalkTx(signatures []string, crosstalkRequest cr
 
 	// Run through the elements of the crosstalk request and serialize them
 	sourceParams := gatewayWrapper.UtilsSourceParams{
-		Caller:    []byte(crosstalkRequest.RequestSender),
+		Caller:    crosstalkRequest.RequestSender,
 		ChainType: uint64(crosstalkRequest.SourceChainType),
 		ChainId:   crosstalkRequest.SourceChainId,
 	}
@@ -337,8 +337,6 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 	srcChainType := &big.Int{}
 	srcChainType.SetUint64(uint64(msg.SourceChainType))
 
-	caller := []byte(msg.RequestSender)
-
 	expTimestamp := &big.Int{}
 	expTimestamp.SetUint64(uint64(msg.ExpiryTimestamp))
 
@@ -353,7 +351,7 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 		msg.DestinationChainId,
 		msg.SourceChainId,
 		srcChainType,
-		caller,
+		msg.RequestSender,
 		msg.IsAtomic,
 		expTimestamp,
 		msg.DestContractAddresses,
@@ -368,7 +366,7 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 	fmt.Println("chainId", hex.EncodeToString([]byte(msg.DestinationChainId)))
 	fmt.Println("SourceChainId", hex.EncodeToString([]byte(msg.SourceChainId)))
 	fmt.Println("SourceChainType", hex.EncodeToString(srcChainType.Bytes()))
-	fmt.Println("callerbytes32", hex.EncodeToString(caller[:]))
+	fmt.Println("callerbytes32", hex.EncodeToString(msg.RequestSender))
 	fmt.Println("caller", hex.EncodeToString([]byte(msg.RequestSender)))
 	fmt.Println("isAtomic", msg.IsAtomic)
 	fmt.Println("expTimestamp", hex.EncodeToString(expTimestamp.Bytes()))
