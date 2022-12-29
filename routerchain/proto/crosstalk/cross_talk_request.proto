@@ -18,7 +18,7 @@ message CrossTalkRequest {
   string destinationChainId = 7; 
   uint64 destinationGasLimit = 8;
   uint64 destinationGasPrice = 9;  
-  string requestSender = 10; 
+  bytes requestSender = 10; 
   uint64 requestNonce = 11;   
   bool isAtomic = 12; 
   uint64 expiryTimestamp = 13; 

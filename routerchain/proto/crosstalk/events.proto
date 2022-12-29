@@ -19,7 +19,7 @@ message EventCrossTalkRequestCreated {
   string destinationChainId = 8;
   uint64 destinationGasLimit = 9;
   uint64 destinationGasPrice = 10;
-  string requestSender = 11;
+  bytes requestSender = 11;
   uint64 requestNonce = 12;
   bool isAtomic = 13;  
   uint64 expiryTimestamp = 14;
