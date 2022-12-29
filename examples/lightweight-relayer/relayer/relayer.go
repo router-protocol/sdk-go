@@ -158,6 +158,7 @@ func getAccountAuth(client *ethclient.Client, privateKeyStr string) *bind.Transa
 
 	fromAddress := crypto.PubkeyToAddress(*publicKeyECDSA)
 
+	fmt.Println("FromAddress", fromAddress.Hex())
 	//fetch the last use nonce of account
 	nonce, err := client.PendingNonceAt(context.Background(), fromAddress)
 	if err != nil {
@@ -176,7 +177,7 @@ func getAccountAuth(client *ethclient.Client, privateKeyStr string) *bind.Transa
 	auth.Nonce = big.NewInt(int64(nonce))
 	auth.Value = big.NewInt(0)      // in wei
 	auth.GasLimit = uint64(3000000) // in units
-	auth.GasPrice = big.NewInt(1000000000000)
+	auth.GasPrice = big.NewInt(100000000000)
 
 	return auth
 }
@@ -207,13 +208,12 @@ func (relayer *relayer) SubmitCrosstalkTxToGateway(ctx context.Context, chainCli
 			continue
 		}
 
-		if crosstalkRequest.EventNonce != 3 {
-			continue
+		if crosstalkRequest.DestinationChainId == "80001" && crosstalkRequest.RequestNonce == 3 {
+			signatures := relayer.collectCrosstalkSignatures(ctx, chainClient, crosstalkRequest)
+			fmt.Println("Sending tx", "crosstalkRequest", crosstalkRequest, "signatures", signatures)
+			relayer.sendCrossTalkTx(signatures, crosstalkRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
 		}
 
-		signatures := relayer.collectCrosstalkSignatures(ctx, chainClient, crosstalkRequest)
-		fmt.Println("Sending tx", "crosstalkRequest", crosstalkRequest, "signatures", signatures)
-		relayer.sendCrossTalkTx(signatures, crosstalkRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
 	}
 }
 
@@ -238,7 +238,6 @@ func (relayer *relayer) collectCrosstalkSignatures(ctx context.Context, chainCli
 func (relayer *relayer) sendCrossTalkTx(signatures []string, crosstalkRequest crosstalkTypes.CrossTalkRequest, currentValset attestationTypes.Valset, relayerRouterAddress string) {
 	// create auth and transaction package for deploying smart contract
 	auth := getAccountAuth(relayer.ethClient, relayer.ethPrivatekey)
-
 	sigs := make([]gatewayWrapper.UtilsSignature, len(signatures))
 	for i := 0; i < len(signatures); i++ {
 		v, r, s := sigToVRS(signatures[i])
@@ -401,7 +400,7 @@ func (relayer *relayer) SubmitCrosstalkAckTxToGateway(ctx context.Context, chain
 	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx)
 	fmt.Println("allCrosstalkAckRequests", allCrosstalkAckRequests)
 	for _, crosstalkAckRequest := range allCrosstalkAckRequests.CrossTalkAckRequest {
-		if crosstalkAckRequest.CrosstalkNonce != 1 {
+		if crosstalkAckRequest.CrosstalkNonce != 3 {
 			continue
 		}
 
