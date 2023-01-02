@@ -14,6 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
@@ -183,6 +184,13 @@ func getAccountAuth(client *ethclient.Client, privateKeyStr string) *bind.Transa
 }
 
 func sigToVRS(sigHex string) (v uint8, r, s ethcmn.Hash) {
+	if len(sigHex) == 0 {
+		v = 0
+		r = common.BytesToHash([]byte{})
+		s = common.BytesToHash([]byte{})
+		return
+	}
+
 	signatureBytes := ethcmn.FromHex(sigHex)
 	vParam := signatureBytes[64]
 	if vParam == byte(0) {
@@ -208,16 +216,14 @@ func (relayer *relayer) SubmitCrosstalkTxToGateway(ctx context.Context, chainCli
 			continue
 		}
 
-		if crosstalkRequest.DestinationChainId == "80001" && crosstalkRequest.RequestNonce == 3 {
-			signatures := relayer.collectCrosstalkSignatures(ctx, chainClient, crosstalkRequest)
-			fmt.Println("Sending tx", "crosstalkRequest", crosstalkRequest, "signatures", signatures)
-			relayer.sendCrossTalkTx(signatures, crosstalkRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
+		if crosstalkRequest.DestinationChainId == "43113" && crosstalkRequest.RequestNonce == 1 {
+			crosstalkConfirmations := relayer.collectCrosstalkConfirmations(ctx, chainClient, crosstalkRequest)
+			relayer.sendCrossTalkTx(crosstalkConfirmations, crosstalkRequest, valsetResponse.Valset[2], relayer.relayerRouterAddress)
 		}
-
 	}
 }
 
-func (relayer *relayer) collectCrosstalkSignatures(ctx context.Context, chainClient routerclient.ChainClient, crosstalkRequest crosstalkTypes.CrossTalkRequest) []string {
+func (relayer *relayer) collectCrosstalkConfirmations(ctx context.Context, chainClient routerclient.ChainClient, crosstalkRequest crosstalkTypes.CrossTalkRequest) (crosstalkRequestConfirmations []crosstalkTypes.CrosstalkRequestConfirm) {
 	claimHash, err := crosstalkRequest.ClaimHash()
 	if err != nil {
 		panic(err)
@@ -227,20 +233,32 @@ func (relayer *relayer) collectCrosstalkSignatures(ctx context.Context, chainCli
 	if err != nil {
 		panic(err)
 	}
-	signatures := make([]string, 0)
-	for _, crosstalkConfirmation := range crosstalkConfirmations.CrosstalkRequestConfirm {
-		signatures = append(signatures, crosstalkConfirmation.GetSignature())
-	}
 
-	return signatures
+	return crosstalkConfirmations.CrosstalkRequestConfirm
 }
 
-func (relayer *relayer) sendCrossTalkTx(signatures []string, crosstalkRequest crosstalkTypes.CrossTalkRequest, currentValset attestationTypes.Valset, relayerRouterAddress string) {
+func (relayer *relayer) sendCrossTalkTx(crosstalkRequestConfirmations []crosstalkTypes.CrosstalkRequestConfirm, crosstalkRequest crosstalkTypes.CrossTalkRequest, currentValset attestationTypes.Valset, relayerRouterAddress string) {
 	// create auth and transaction package for deploying smart contract
 	auth := getAccountAuth(relayer.ethClient, relayer.ethPrivatekey)
-	sigs := make([]gatewayWrapper.UtilsSignature, len(signatures))
-	for i := 0; i < len(signatures); i++ {
-		v, r, s := sigToVRS(signatures[i])
+
+	signatureMap := make(map[string]string, len(crosstalkRequestConfirmations))
+	for _, crosstalkRequestConfirmation := range crosstalkRequestConfirmations {
+		signatureMap[crosstalkRequestConfirmation.EthSigner] = crosstalkRequestConfirmation.Signature
+	}
+
+	var filteredSignatures []string
+	for _, currentValsetMember := range currentValset.Members {
+		if signatureMap[currentValsetMember.EthereumAddress] != "" {
+			filteredSignatures = append(filteredSignatures, signatureMap[currentValsetMember.EthereumAddress])
+		} else {
+			filteredSignatures = append(filteredSignatures, "")
+		}
+	}
+
+	sigs := make([]gatewayWrapper.UtilsSignature, len(currentValset.Members))
+
+	for i := 0; i < len(filteredSignatures); i++ {
+		v, r, s := sigToVRS(filteredSignatures[i])
 		sigs[i].V = v
 		sigs[i].R = r
 		sigs[i].S = s
@@ -398,7 +416,7 @@ func (relayer *relayer) SubmitCrosstalkAckTxToGateway(ctx context.Context, chain
 	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx)
 	fmt.Println("allCrosstalkAckRequests", allCrosstalkAckRequests)
 	for _, crosstalkAckRequest := range allCrosstalkAckRequests.CrossTalkAckRequest {
-		if crosstalkAckRequest.CrosstalkNonce != 3 {
+		if crosstalkAckRequest.CrosstalkNonce != 2 {
 			continue
 		}
 
