@@ -74,9 +74,9 @@ func LoadNetwork(name string, node string) Network {
 		}
 	} else if name == "devnet" {
 		return Network{
-			ApiEndpoint:       "http://43.205.211.15:1317",
-			TmEndpoint:        "http://43.205.211.15:26657",
-			ChainGrpcEndpoint: "tcp://43.205.211.15:9090",
+			ApiEndpoint:       "https://devnet.lcd.routerprotocol.com:443",
+			TmEndpoint:        "https://devnet.tm.routerprotocol.com:443",
+			ChainGrpcEndpoint: "tcp://devnet.grpc.routerprotocol.com:9090",
 			ChainId:           "router-1",
 			Fee_denom:         "router",
 			Name:              "devnet",
