@@ -31,8 +31,8 @@ const (
 )
 
 var (
-	RELAYER_FEE     = sdktypes.NewCoin("router", sdktypes.NewIntFromUint64(uint64(100000000)))
-	OUTGOING_TX_FEE = sdktypes.NewCoin("router", sdktypes.NewIntFromUint64(uint64(900000000)))
+	RELAYER_FEE     = sdktypes.NewCoin("route", sdktypes.NewIntFromUint64(uint64(100000000)))
+	OUTGOING_TX_FEE = sdktypes.NewCoin("route", sdktypes.NewIntFromUint64(uint64(900000000)))
 )
 
 func main() {
@@ -75,7 +75,7 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("100000000000000router"),
+		common.OptionGasPrices("100000000000000route"),
 	)
 
 	if err != nil {

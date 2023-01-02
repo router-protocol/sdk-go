@@ -54,7 +54,7 @@ func main() {
 		FromAddress: senderAddress.String(),
 		ToAddress:   "router1mtp76jwymme78xaf0h73cmky8hdy3thhy0xz9a",
 		Amount: []sdktypes.Coin{{
-			Denom: "router", Amount: sdktypes.NewInt(1000000)}, // 1 router
+			Denom: "route", Amount: sdktypes.NewInt(1000000)}, // 1 router
 		},
 	}
 
@@ -62,7 +62,7 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("100000000000000router"),
+		common.OptionGasPrices("100000000000000route"),
 	)
 
 	if err != nil {

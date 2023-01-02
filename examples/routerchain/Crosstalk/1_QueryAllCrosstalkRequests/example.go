@@ -52,7 +52,7 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("100000000000000router"),
+		common.OptionGasPrices("100000000000000route"),
 	)
 
 	if err != nil {
