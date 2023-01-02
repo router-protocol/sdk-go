@@ -191,7 +191,7 @@ func InitialiseChainClient(networkName string, keyringFrom string, passphrase st
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("500000000router"),
+		common.OptionGasPrices("500000000route"),
 	)
 
 	if err != nil {
@@ -1097,7 +1097,7 @@ func (c *chainClient) runBatchBroadcast() {
 }
 
 func (c *chainClient) GetGasFee() (string, error) {
-	gasPrices := strings.Trim(c.opts.GasPrices, "router")
+	gasPrices := strings.Trim(c.opts.GasPrices, "route")
 
 	gas, err := strconv.ParseFloat(gasPrices, 64)
 

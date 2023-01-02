@@ -33,7 +33,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:        "http://localhost:26657",
 			ChainGrpcEndpoint: "tcp://localhost:9090",
 			ChainId:           "router-1",
-			Fee_denom:         "router",
+			Fee_denom:         "route",
 			Name:              "local",
 		}
 	} else if name == "local-docker" {
@@ -42,7 +42,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:        "http://router-chain-container:26657",
 			ChainGrpcEndpoint: "tcp://router-chain-container:9090",
 			ChainId:           "router-1",
-			Fee_denom:         "router",
+			Fee_denom:         "route",
 			Name:              "local-docker",
 		}
 	} else if name == "devnet-alpha" {
@@ -51,7 +51,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:        "https://devnet-alpha.tm.routerprotocol.com:443",
 			ChainGrpcEndpoint: "tcp://devnet-alpha.grpc.routerprotocol.com:9090",
 			ChainId:           "router-1",
-			Fee_denom:         "router",
+			Fee_denom:         "route",
 			Name:              "devnet-alpha",
 		}
 	} else if name == "devnet-internal" {
@@ -60,7 +60,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:        "https://devnet-internal.tm.routerprotocol.com:443",
 			ChainGrpcEndpoint: "tcp://devnet-internal.grpc.routerprotocol.com:9090",
 			ChainId:           "router-1",
-			Fee_denom:         "router",
+			Fee_denom:         "route",
 			Name:              "devnet-internal",
 		}
 	} else if name == "devnet-alpha-nondocker" {
@@ -69,7 +69,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:        "http://3.110.19.140:26657",
 			ChainGrpcEndpoint: "tcp://3.110.19.140:9090",
 			ChainId:           "router-1",
-			Fee_denom:         "router",
+			Fee_denom:         "route",
 			Name:              "devnet-alpha-nondocker",
 		}
 	} else if name == "devnet" {
@@ -78,7 +78,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:        "https://devnet.tm.routerprotocol.com:443",
 			ChainGrpcEndpoint: "tcp://devnet.grpc.routerprotocol.com:9090",
 			ChainId:           "router-1",
-			Fee_denom:         "router",
+			Fee_denom:         "route",
 			Name:              "devnet",
 		}
 	}
