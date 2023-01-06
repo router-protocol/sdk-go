@@ -82,6 +82,11 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/attestation/list_orchestrators";
 	}
 
+// Queries a list of FetchOrchestratorValidator items.
+	rpc FetchOrchestratorValidator(QueryFetchOrchestratorValidatorRequest) returns (QueryFetchOrchestratorValidatorResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/fetch_orchestrator_validator/{orchestrator_address}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -201,6 +206,14 @@ message QueryListOrchestratorsRequest {
 
 message QueryListOrchestratorsResponse {
 	repeated routerprotocol.routerchain.attestation.MsgSetOrchestratorAddress orchestrator_set = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryFetchOrchestratorValidatorRequest {
+  string orchestrator_address = 1;
+}
+
+message QueryFetchOrchestratorValidatorResponse {
+  routerprotocol.routerchain.attestation.MsgSetOrchestratorAddress orchestrator_set = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3
