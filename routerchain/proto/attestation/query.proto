@@ -9,6 +9,7 @@ import "attestation/valset.proto";
 import "attestation/attestation.proto";
 import "attestation/valset_confirmation.proto";
 import "attestation/tx.proto";
+import "cosmos/staking/v1beta1/staking.proto";
 
 import "attestation/valset_updated_claim.proto";
 // this line is used by starport scaffolding # 1
@@ -213,7 +214,7 @@ message QueryFetchOrchestratorValidatorRequest {
 }
 
 message QueryFetchOrchestratorValidatorResponse {
-  routerprotocol.routerchain.attestation.MsgSetOrchestratorAddress orchestrator_set = 1 [(gogoproto.nullable) = false];
+  cosmos.staking.v1beta1.Validator validator = 1 [(gogoproto.nullable) = false];
 }
 
 // this line is used by starport scaffolding # 3
