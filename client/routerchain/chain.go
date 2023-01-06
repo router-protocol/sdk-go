@@ -85,6 +85,7 @@ type ChainClient interface {
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
 	GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
+	GetOrchestratorValidator(ctx context.Context) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 
 	// Inbound
 	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
@@ -707,6 +708,13 @@ func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainType mul
 func (c *chainClient) GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error) {
 	req := &attestationTypes.QueryListOrchestratorsRequest{}
 	return c.attestationQueryClient.ListOrchestrators(ctx, req)
+}
+
+func (c *chainClient) GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error) {
+	req := &attestationTypes.QueryFetchOrchestratorValidatorRequest{
+		OrchestratorAddress: orchestratorAddr.String(),
+	}
+	return c.attestationQueryClient.FetchOrchestratorValidator(ctx, req)
 }
 
 /////////////////////////////////
