@@ -84,8 +84,8 @@ type ChainClient interface {
 	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
 	GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
-	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)	
-	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error) {
+	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
+	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 
 	// Inbound
 	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
