@@ -3,6 +3,7 @@ package chainutils
 import (
 	"encoding/base64"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 
@@ -13,7 +14,9 @@ func DecodeBytesToAddress(txnBytes []byte, chainType multichainTypes.ChainType) 
 	if txnBytes == nil {
 		return "", errors.New("transaction empty")
 	}
-	txnHash := string(txnBytes)
+	txnHash := ""
+	json.Unmarshal(txnBytes, &txnHash)
+
 	if chainType == multichainTypes.CHAIN_TYPE_EVM {
 		base64Data, _ := base64.StdEncoding.DecodeString(txnHash)
 		txnHash = fmt.Sprintf("0x%s", hex.EncodeToString(base64Data))
