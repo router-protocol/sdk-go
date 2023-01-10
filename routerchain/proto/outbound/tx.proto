@@ -53,11 +53,14 @@ message MsgOutboundAckRequest {
   string relayerRouterAddress = 6;
   string destinationTxHash = 7;
   uint64 feeConsumed = 8;
-  repeated bool ContractAckResponses  = 9;
-  uint64 eventNonce = 10;
-  uint64 blockHeight = 11;
-  uint64 executionCode = 12;
-  bool executionStatus = 13;
+  uint64 eventNonce = 9;
+  uint64 blockHeight = 10;  
+  bytes contractAckResponses = 11;
+  uint64 exeCode = 12;
+  bool execStatus = 13;
+  repeated bool execFlags = 14;
+  repeated bytes execData = 15;
+
 }
 
 message MsgOutboundAckRequestResponse {

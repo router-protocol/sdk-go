@@ -44,8 +44,12 @@ message EventOutgoingAckCreated {
   string relayerRouterAddress = 8;
   string destinationTxHash = 9;
   uint64 feeConsumed = 10;
-  repeated bool contractAckResponses  = 11;
-  OutgoingTxStatus status = 12;   
+  bytes contractAckResponses = 11;
+  uint64 exeCode = 12;
+  bool execStatus = 13;
+  repeated bool execFlags = 14;
+  repeated bytes execData = 15;  
+  OutgoingTxStatus status = 16;   
 }
 
 message EventOutgoingAckDelegated {
