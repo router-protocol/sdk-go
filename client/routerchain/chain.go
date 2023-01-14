@@ -17,6 +17,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/tx"
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/query"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	authztypes "github.com/cosmos/cosmos-sdk/x/authz"
@@ -98,10 +99,10 @@ type ChainClient interface {
 	GetLastOutgoingBatchNonce(ctx context.Context, destinationChainType multichainTypes.ChainType, destinationChainId string, sourceAddress string) (*outboundTypes.QueryLastOutboundBatchNonceResponse, error)
 
 	// CrossTalk
-	GetAllCrossTalkRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error)
-	GetAllCrosstalkRequestConfirmations(ctx context.Context, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error)
-	GetAllCrossTalkAckRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error)
-	GetAllCrosstalkAckRequestConfirmations(ctx context.Context, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error)
+	GetAllCrossTalkRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error)
+	GetAllCrosstalkRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error)
+	GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error)
+	GetAllCrosstalkAckRequestConfirmations(ctx context.Context, pagination *query.PageRequest, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error)
 
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
@@ -781,12 +782,12 @@ func (c *chainClient) GetLastOutgoingBatchNonce(ctx context.Context, destination
 /////////////////////////////////
 ////     Crosstalk           ////
 ////////////////////////////////
-func (c *chainClient) GetAllCrossTalkRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error) {
-	req := &crosstalkTypes.QueryAllCrossTalkRequest{}
+func (c *chainClient) GetAllCrossTalkRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error) {
+	req := &crosstalkTypes.QueryAllCrossTalkRequest{Pagination: pagination}
 	return c.crosstalkQueryClient.CrossTalkRequestAll(ctx, req)
 }
 
-func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error) {
+func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error) {
 	req := &crosstalkTypes.QueryAllCrosstalkRequestConfirmRequest{
 		SourceChainType: sourceChainType,
 		SourceChainId:   sourceChainId,
@@ -796,12 +797,12 @@ func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, s
 	return c.crosstalkQueryClient.CrosstalkRequestConfirmAll(ctx, req)
 }
 
-func (c *chainClient) GetAllCrossTalkAckRequest(ctx context.Context) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error) {
+func (c *chainClient) GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error) {
 	req := &crosstalkTypes.QueryAllCrossTalkAckRequest{}
 	return c.crosstalkQueryClient.CrossTalkAckRequestAll(ctx, req)
 }
 
-func (c *chainClient) GetAllCrosstalkAckRequestConfirmations(ctx context.Context, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error) {
+func (c *chainClient) GetAllCrosstalkAckRequestConfirmations(ctx context.Context, pagination *query.PageRequest, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error) {
 	req := &crosstalkTypes.QueryAllCrosstalkAckRequestConfirmRequest{
 		ChainType:  chainType,
 		ChainId:    chainId,
