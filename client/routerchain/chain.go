@@ -798,7 +798,7 @@ func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, p
 }
 
 func (c *chainClient) GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error) {
-	req := &crosstalkTypes.QueryAllCrossTalkAckRequest{}
+	req := &crosstalkTypes.QueryAllCrossTalkAckRequest{Pagination: pagination}
 	return c.crosstalkQueryClient.CrossTalkAckRequestAll(ctx, req)
 }
 
