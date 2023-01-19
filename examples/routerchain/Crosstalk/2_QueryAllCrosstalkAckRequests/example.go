@@ -65,7 +65,7 @@ func main() {
 
 	var nextKey []byte
 	for {
-		crosstalkResponse, err := chainClient.GetAllCrossTalkRequest(ctx, &query.PageRequest{
+		crosstalkAckResponse, err := chainClient.GetAllCrossTalkAckRequest(ctx, &query.PageRequest{
 			Key:   nextKey,
 			Limit: 50,
 		})
@@ -73,9 +73,8 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println("crosstalk length: ", len(crosstalkResponse.CrossTalkRequest))
-		nextKey = crosstalkResponse.Pagination.NextKey
-		fmt.Println("nextKey", nextKey)
+		fmt.Println("crosstalkack length: ", len(crosstalkAckResponse.CrossTalkAckRequest))
+		nextKey = crosstalkAckResponse.Pagination.NextKey
 		if uint64(len(nextKey)) == 0 {
 			break
 		}
