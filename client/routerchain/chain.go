@@ -793,6 +793,7 @@ func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, p
 		SourceChainId:   sourceChainId,
 		EventNonce:      eventNonce,
 		ClaimHash:       claimHash,
+		Pagination:      pagination,
 	}
 	return c.crosstalkQueryClient.CrosstalkRequestConfirmAll(ctx, req)
 }
@@ -808,6 +809,7 @@ func (c *chainClient) GetAllCrosstalkAckRequestConfirmations(ctx context.Context
 		ChainId:    chainId,
 		EventNonce: eventNonce,
 		ClaimHash:  claimHash,
+		Pagination: pagination,
 	}
 	return c.crosstalkQueryClient.CrosstalkAckRequestConfirmAll(ctx, req)
 }
