@@ -4,7 +4,9 @@ package routerprotocol.routerchain.crosstalk;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
 
 import "crosstalk/crosstalk_request_status.proto"; 
+import "crosstalk/crosstalk_ack_request_status.proto"; 
 import "multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto"; 
 
 
@@ -29,6 +31,14 @@ message EventCrossTalkRequestCreated {
   uint64 ackGasLimit = 18;
   uint64 ackGasPrice = 19;  
   CrossTalkRequestStatus status = 20; 
+}
+
+message EventCrosstalkRequestFeeDeducted {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;
+  cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 5 [(gogoproto.nullable) = false];
 }
 
 message EventCrosstalkRequestConfirm {  
@@ -56,9 +66,18 @@ message EventCrossTalkAckRequestCreated {
   uint64 crosstalkNonce = 12;
   bytes contractAckResponses = 13;
   uint64 exeCode = 14;
-  bool status = 15;
+  bool execStatus = 15;
   repeated bool execFlags = 16;
   repeated bytes execData = 17;  
+  CrossTalkAckRequestStatus status = 18; 
+}
+
+message EventCrosstalkRequestFeeSettlement {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;     
+  cosmos.base.v1beta1.Coin relayerFeeInRoute = 4 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
 }
 
 message EventCrosstalkAckRequestConfirm {  

@@ -3,7 +3,10 @@ package routerprotocol.routerchain.crosstalk;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
 
+import "crosstalk/crosstalk_ack_request_status.proto"; 
 import "multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
 
 message CrossTalkAckRequest {  
   uint64 eventNonce = 1; 
@@ -19,7 +22,9 @@ message CrossTalkAckRequest {
   uint64 crosstalkNonce = 11; 
   bytes contractAckResponses = 12;   
   uint64 exeCode = 13; 
-  bool status = 14; 
+  bool execStatus = 14; 
   repeated bool execFlags = 15;
   repeated bytes execData = 16;
+  cosmos.base.v1beta1.Coin feeConsumedInRoute = 17 [(gogoproto.nullable) = false];
+  CrossTalkAckRequestStatus status = 18;    
 }

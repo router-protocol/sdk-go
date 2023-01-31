@@ -72,7 +72,7 @@ func NewCrossTalkAckRequest(
 	crosstalkNonce uint64,
 	contractAckResponses []byte,
 	exeCode uint64,
-	status bool,
+	execStatus bool,
 	execFlags []bool,
 	execData [][]byte,
 ) *CrossTalkAckRequest {
@@ -90,9 +90,10 @@ func NewCrossTalkAckRequest(
 		CrosstalkNonce:         crosstalkNonce,
 		ContractAckResponses:   contractAckResponses,
 		ExeCode:                exeCode,
-		Status:                 status,
+		ExecStatus:             execStatus,
 		ExecFlags:              execFlags,
 		ExecData:               execData,
+		Status:                 CROSSTALK_ACK_REQUEST_CREATED,
 	}
 }
 

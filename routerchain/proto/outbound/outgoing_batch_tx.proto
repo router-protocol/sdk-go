@@ -14,11 +14,13 @@ message OutgoingBatchTx {
   string destinationChainId = 3; 
   repeated ContractCall contractCalls = 4 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin relayerFee = 5 [(gogoproto.nullable) = false]; 
-  cosmos.base.v1beta1.Coin outgoingTxFee = 6 [(gogoproto.nullable) = false]; 
-  int64 expiryTimestamp = 7;
-  bool isAtomic = 8; 
-  string sourceAddress = 9; 
-  OutgoingTxStatus status = 10; 
+  uint64 destinationGasLimit = 6;
+  uint64 destinationGasPrice = 7;
+  cosmos.base.v1beta1.Coin outgoingTxFeeInRoute = 8 [(gogoproto.nullable) = false]; 
+  int64 expiryTimestamp = 9;
+  bool isAtomic = 10; 
+  string sourceAddress = 11; 
+  OutgoingTxStatus status = 12; 
 }
 
 // this line is used by starport scaffolding # genesis/types/import

@@ -51,16 +51,17 @@ message MsgCrossTalkAckRequest {
   routerprotocol.routerchain.multichain.ChainType chainType = 7;
   string chainId = 8;
   string destinationTxHash = 9; 
-  uint64 eventIdentifier = 10;
-  bytes crosstalkRequestSender = 11;
-  uint64 crosstalkNonce = 12;
-  bytes contractAckResponses = 13;
-  uint64 exeCode = 14;
-  bool status = 15;
-  repeated bool execFlags = 16;
-  repeated bytes execData = 17;
-  string ethSigner = 18;
-  string signature = 19;
+  uint64 feeConsumed = 10;
+  uint64 eventIdentifier = 11;
+  bytes crosstalkRequestSender = 12;
+  uint64 crosstalkNonce = 13;
+  bytes contractAckResponses = 14;
+  uint64 exeCode = 15;
+  bool status = 16;
+  repeated bool execFlags = 17;
+  repeated bytes execData = 18;
+  string ethSigner = 19;
+  string signature = 20;
 }
 message MsgCrossTalkAckRequestResponse {}
 

@@ -64,7 +64,7 @@ func main() {
 
 	chainType := uint64(0)
 	chainID := "80001"
-	eventNonce := uint64(32)
+	eventNonce := uint64(1322)
 	crosstalkResponse, err := chainClient.GetCrossTalkRequest(ctx, chainType, chainID, eventNonce)
 	if err != nil {
 		panic(err)
