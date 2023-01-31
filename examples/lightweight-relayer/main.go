@@ -21,12 +21,12 @@ const (
 	RELAYER_ETH_ADDRESS    = "0x33B4A007EcC80Bc99578c18Da07da704c5403236"
 	RELAYER_ROUTER_ADDRESS = "router1fcvd3vcer6h5n37cqtajgwy6uk32w0t0wptqg9"
 	// ETH_RPC                = "https://rc-testnet1.routerprotocol.com"
-	// ETH_RPC = "https://polygon-mumbai.g.alchemy.com/v2/7PDGHtfRIuSxeCJwzBlDLqk_6I20AIvz"
-	ETH_RPC = "https://rpc.ankr.com/avalanche_fuji"
+	ETH_RPC = "https://polygon-mumbai.g.alchemy.com/v2/7PDGHtfRIuSxeCJwzBlDLqk_6I20AIvz"
+	// ETH_RPC = "https://rpc.ankr.com/avalanche_fuji"
 )
 
 var (
-	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0xEF68E2410652413D1d011423B08F6e8A6c2D8B86")
+	GATEWAY_CONTRACT_ADDRESS = ethcmn.HexToAddress("0xF1530419ef623c32c805f3fC61030000C783F98c")
 )
 
 func main() {
