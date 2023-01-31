@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/cosmos/cosmos-sdk/client"
+	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/ethereum/go-ethereum/accounts"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -208,17 +209,27 @@ func sigToVRS(sigHex string) (v uint8, r, s ethcmn.Hash) {
 
 func (relayer *relayer) SubmitCrosstalkTxToGateway(ctx context.Context, chainClient routerclient.ChainClient) {
 
-	valsetResponse, _ := chainClient.GetAllValsets(ctx)
-	allCrosstalkRequests, _ := chainClient.GetAllCrossTalkRequest(ctx)
+	// valsetResponse, _ := chainClient.GetAllValsets(ctx)
+	allCrosstalkRequests, _ := chainClient.GetAllCrossTalkRequest(ctx, &query.PageRequest{
+		Offset: 44,
+		Limit:  200,
+	})
 
 	for _, crosstalkRequest := range allCrosstalkRequests.CrossTalkRequest {
 		if crosstalkRequest.Status == crosstalkTypes.CROSSTALK_REQUEST_CREATED {
 			continue
 		}
 
-		if crosstalkRequest.DestinationChainId == "43113" && crosstalkRequest.RequestNonce == 1 {
-			crosstalkConfirmations := relayer.collectCrosstalkConfirmations(ctx, chainClient, crosstalkRequest)
-			relayer.sendCrossTalkTx(crosstalkConfirmations, crosstalkRequest, valsetResponse.Valset[2], relayer.relayerRouterAddress)
+		if crosstalkRequest.SourceChainId == "80001" {
+			fmt.Println("EventNonce", crosstalkRequest.EventNonce)
+			if crosstalkRequest.EventNonce > 95 {
+				fmt.Println("yo1")
+			}
+			if crosstalkRequest.EventNonce == 113 {
+				fmt.Println("yo2")
+				// crosstalkConfirmations := relayer.collectCrosstalkConfirmations(ctx, chainClient, crosstalkRequest)
+				// relayer.sendCrossTalkTx(crosstalkConfirmations, crosstalkRequest, valsetResponse.Valset[0], relayer.relayerRouterAddress)
+			}
 		}
 	}
 }
@@ -229,7 +240,7 @@ func (relayer *relayer) collectCrosstalkConfirmations(ctx context.Context, chain
 		panic(err)
 	}
 
-	crosstalkConfirmations, err := chainClient.GetAllCrosstalkRequestConfirmations(ctx, uint64(crosstalkRequest.SourceChainType), crosstalkRequest.SourceChainId, crosstalkRequest.EventNonce, claimHash)
+	crosstalkConfirmations, err := chainClient.GetAllCrosstalkRequestConfirmations(ctx, nil, uint64(crosstalkRequest.SourceChainType), crosstalkRequest.SourceChainId, crosstalkRequest.EventNonce, claimHash)
 	if err != nil {
 		panic(err)
 	}
@@ -413,7 +424,7 @@ func (relayer *relayer) GetCheckpoint(msg crosstalkTypes.CrossTalkRequest, route
 func (relayer *relayer) SubmitCrosstalkAckTxToGateway(ctx context.Context, chainClient routerclient.ChainClient) {
 	fmt.Println("SubmitCrosstalkAckTxToGateway")
 	valsetResponse, _ := chainClient.GetAllValsets(ctx)
-	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx)
+	allCrosstalkAckRequests, _ := chainClient.GetAllCrossTalkAckRequest(ctx, nil)
 	fmt.Println("allCrosstalkAckRequests", allCrosstalkAckRequests)
 	for _, crosstalkAckRequest := range allCrosstalkAckRequests.CrossTalkAckRequest {
 		if crosstalkAckRequest.CrosstalkNonce != 2 {
@@ -432,7 +443,7 @@ func (relayer *relayer) collectCrosstalkAckSignatures(ctx context.Context, chain
 		panic(err)
 	}
 
-	crosstalkAckConfirmations, err := chainClient.GetAllCrosstalkAckRequestConfirmations(ctx, uint64(crosstalkAckRequest.ChainType), crosstalkAckRequest.ChainId, crosstalkAckRequest.EventNonce, claimHash)
+	crosstalkAckConfirmations, err := chainClient.GetAllCrosstalkAckRequestConfirmations(ctx, nil, uint64(crosstalkAckRequest.ChainType), crosstalkAckRequest.ChainId, crosstalkAckRequest.EventNonce, claimHash)
 	if err != nil {
 		panic(err)
 	}
