@@ -15,12 +15,14 @@ message EventOutgoingBatchTxCreated {
   routerprotocol.routerchain.multichain.ChainType destinationChainType = 2;
   string destinationChainId = 3; 
   repeated ContractCall contractCalls = 4 [(gogoproto.nullable) = false];
-  cosmos.base.v1beta1.Coin relayerFee = 5 [(gogoproto.nullable) = false]; 
-  cosmos.base.v1beta1.Coin outgoingTxFee = 6 [(gogoproto.nullable) = false]; 
-  bool isAtomic = 7; 
-  string sourceAddress = 8; 
-  int64 expiryTimestamp = 9; 
-  OutgoingTxStatus status = 10; 
+  cosmos.base.v1beta1.Coin relayerFee = 5 [(gogoproto.nullable) = false];
+  uint64 destinationGasLimit = 6;
+  uint64 destinationGasPrice = 7; 
+  cosmos.base.v1beta1.Coin outgoingTxFeeInRoute = 8 [(gogoproto.nullable) = false]; 
+  bool isAtomic = 9; 
+  string sourceAddress = 10; 
+  int64 expiryTimestamp = 11; 
+  OutgoingTxStatus status = 12; 
 }
 
 message EventOutgoingBatchTxConfirm {  
@@ -52,10 +54,30 @@ message EventOutgoingAckCreated {
   OutgoingTxStatus status = 16;   
 }
 
+
+message EventOutgoingTxFeeSettlement {  
+  routerprotocol.routerchain.multichain.ChainType destinationChainType = 1;  
+  string destinationChainId = 2; 
+  string outgoingBatchSender = 3; 
+  uint64 outgoingBatchNonce = 4; 
+  cosmos.base.v1beta1.Coin relayerFeeInRoute = 5 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin refundFeeInRoute = 6 [(gogoproto.nullable) = false];
+}
+
 message EventOutgoingAckDelegated {
   bytes attestation_id = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2;
   string chainId = 3; 
   uint64 eventNonce = 4;
   bytes delegationResponse = 5;
+}
+
+
+
+message EventOutgoingAckDelegationFailed {
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3; 
+  uint64 eventNonce = 4;
+  string delegationErrorResponse = 5;
 }

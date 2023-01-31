@@ -25,12 +25,14 @@ message MsgOutboundBatchRequest {
   repeated ContractCall contractCalls = 4 [(gogoproto.nullable) = false];
   bool isAtomic = 5;
   cosmos.base.v1beta1.Coin relayerFee = 6 [(gogoproto.nullable) = false];
-  cosmos.base.v1beta1.Coin outgoingTxFee = 7 [(gogoproto.nullable) = false];
-  int64 expiryTimestamp = 8;
+  uint64 destinationGasLimit = 7;
+  uint64 destinationGasPrice = 8;
+  int64 expiryTimestamp = 9;
 }
 
 message MsgOutboundBatchRequestResponse {
   uint64 outbound_batch_nonce = 1; 
+  cosmos.base.v1beta1.Coin outgoingTxFeeInRoute = 2 [(gogoproto.nullable) = false]; 
 }
 
 message MsgOutgoingBatchConfirm {

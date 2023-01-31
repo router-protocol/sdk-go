@@ -26,3 +26,11 @@ message EventIncomingTxDelegated {
   uint64 eventNonce = 4;
   bytes delegationResponse = 5;
 }
+
+message EventIncomingTxDelegationFailed {
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3; 
+  uint64 eventNonce = 4;
+  string delegationErrorResponse = 5;
+}

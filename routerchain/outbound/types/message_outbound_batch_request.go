@@ -12,7 +12,7 @@ const TypeMsgOutboundBatchRequest = "outbound_batch_request"
 
 var _ sdk.Msg = &MsgOutboundBatchRequest{}
 
-func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, outgoingTxFee sdk.Coin) *MsgOutboundBatchRequest {
+func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64) *MsgOutboundBatchRequest {
 	return &MsgOutboundBatchRequest{
 		Sender:               sender,
 		DestinationChainType: destinationChainType,
@@ -20,7 +20,8 @@ func NewMsgOutboundBatchRequest(sender string, destinationChainType multichainty
 		ContractCalls:        contractCalls,
 		IsAtomic:             isAtomic,
 		RelayerFee:           relayerFee,
-		OutgoingTxFee:        outgoingTxFee,
+		DestinationGasLimit:  destinationGasLimit,
+		DestinationGasPrice:  destinationGasPrice,
 	}
 }
 
@@ -51,11 +52,11 @@ func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sender address (%s)", err)
 	}
 
-	if msg.OutgoingTxFee.IsNil() || msg.OutgoingTxFee.IsZero() || msg.OutgoingTxFee.IsNegative() {
-		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid outgoung tx fee (%d)", msg.OutgoingTxFee.Amount)
+	if msg.DestinationGasLimit <= 0 {
+		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid outgoung tx gas limit (%d)", msg.DestinationGasLimit)
 	}
-	if msg.OutgoingTxFee.Denom != chaintypes.RouterCoin {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid outgoung tx fee denom (%d)", msg.OutgoingTxFee.Denom)
+	if msg.DestinationGasPrice <= 0 {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid outgoung tx gas price (%d)", msg.DestinationGasPrice)
 	}
 
 	// RelayerFee can be zero or nil.
@@ -63,7 +64,7 @@ func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid relayer fee (%d)", msg.RelayerFee.Amount)
 	}
 	if msg.RelayerFee.Denom != chaintypes.RouterCoin {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid relayer fee denom (%d)", msg.OutgoingTxFee.Denom)
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid relayer fee denom (%d)", msg.RelayerFee.Denom)
 	}
 
 	// Validate contract calls data
