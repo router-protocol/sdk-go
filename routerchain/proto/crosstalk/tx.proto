@@ -28,16 +28,18 @@ message MsgCrossTalkRequest {
   uint64 destinationGasLimit = 9;
   uint64 destinationGasPrice = 10;
   bytes requestSender = 11;
-  uint64 requestNonce = 12;
-  bool isAtomic = 13;  
-  uint64 expiryTimestamp = 14;
-  repeated bytes destContractAddresses = 15;
-  repeated bytes destContractPayloads = 16;
-  uint64 ackType = 17;
-  uint64 ackGasLimit = 18;
-  uint64 ackGasPrice = 19;
-  string ethSigner = 20;
-  string signature = 21;
+  string requestTxOrigin = 12;
+  bool isReadCall = 13;
+  uint64 requestNonce = 14;
+  bool isAtomic = 15;  
+  uint64 expiryTimestamp = 16;
+  repeated bytes destContractAddresses = 17;
+  repeated bytes destContractPayloads = 18;
+  uint64 ackType = 19;
+  uint64 ackGasLimit = 20;
+  uint64 ackGasPrice = 21;
+  string ethSigner = 22;
+  string signature = 23;
 }
 message MsgCrossTalkRequestResponse {}
 

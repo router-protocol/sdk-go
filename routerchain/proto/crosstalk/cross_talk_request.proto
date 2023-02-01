@@ -20,14 +20,16 @@ message CrossTalkRequest {
   uint64 destinationGasPrice = 9;  
   cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 10 [(gogoproto.nullable) = false];
   bytes requestSender = 11; 
-  uint64 requestNonce = 12;   
-  bool isAtomic = 13; 
-  uint64 expiryTimestamp = 14; 
-  repeated bytes destContractAddresses = 15;
-  repeated bytes destContractPayloads = 16;
-  uint64 ackType = 17;
-  uint64 ackGasLimit = 18;
-  uint64 ackGasPrice = 19;
-  CrossTalkRequestStatus status = 20;    
+  string requestTxOrigin = 12;
+  bool isReadCall = 13;
+  uint64 requestNonce = 14;   
+  bool isAtomic = 15; 
+  uint64 expiryTimestamp = 16; 
+  repeated bytes destContractAddresses = 17;
+  repeated bytes destContractPayloads = 18;
+  uint64 ackType = 19;
+  uint64 ackGasLimit = 20;
+  uint64 ackGasPrice = 21;
+  CrossTalkRequestStatus status = 22;    
 }
 
