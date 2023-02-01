@@ -44,7 +44,8 @@ func NewMsgCrossTalkRequest(
 	ackGasPrice uint64,
 	ethSigner string,
 	signature string,
-
+	requestTxOrigin string,
+	isReadCall bool,
 ) *MsgCrossTalkRequest {
 	return &MsgCrossTalkRequest{
 		Orchestrator:          orchestrator,
@@ -58,6 +59,8 @@ func NewMsgCrossTalkRequest(
 		DestinationGasLimit:   destinationGasLimit,
 		DestinationGasPrice:   destinationGasPrice,
 		RequestSender:         requestSender,
+		RequestTxOrigin:       requestTxOrigin,
+		IsReadCall:            isReadCall,
 		RequestNonce:          requestNonce,
 		IsAtomic:              isAtomic,
 		ExpiryTimestamp:       expiryTimestamp,

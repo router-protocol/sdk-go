@@ -22,7 +22,9 @@ func NewCrossTalkRequest(
 	destContractPayloads [][]byte,
 	ackType uint64,
 	ackGasLimit uint64,
-	ackGasPrice uint64) *CrossTalkRequest {
+	ackGasPrice uint64,
+	requestTxOrigin string,
+	isReadCall bool) *CrossTalkRequest {
 	return &CrossTalkRequest{
 		EventNonce:            eventNonce,
 		BlockHeight:           blockHeight,
@@ -34,6 +36,8 @@ func NewCrossTalkRequest(
 		DestinationGasLimit:   destinationGasLimit,
 		DestinationGasPrice:   destinationGasPrice,
 		RequestSender:         requestSender,
+		RequestTxOrigin:       requestTxOrigin,
+		IsReadCall:            isReadCall,
 		RequestNonce:          requestNonce,
 		IsAtomic:              isAtomic,
 		ExpiryTimestamp:       expiryTimestamp,
