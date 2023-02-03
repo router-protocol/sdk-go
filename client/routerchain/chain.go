@@ -92,7 +92,7 @@ type ChainClient interface {
 	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
 
 	// Outbound
-	GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
+	GetAllOutgoingBatchTx(ctx context.Context, pagination *query.PageRequest) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
 	GetOutgoingBatchTx(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryGetOutgoingBatchTxResponse, error)
 	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
 	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
@@ -736,8 +736,8 @@ func (c *chainClient) GetIncomingTx(ctx context.Context, chainType uint64, chain
 /////////////////////////////////
 ////     Outbound           ////
 ////////////////////////////////
-func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
-	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{}
+func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context, pagination *query.PageRequest) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
+	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{Pagination: pagination}
 	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
 }
 
