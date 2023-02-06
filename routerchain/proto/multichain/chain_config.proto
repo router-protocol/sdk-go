@@ -22,4 +22,3 @@ message ChainConfig {
   bool chain_enabled = 12; 
   string creator = 13;
 }
-

@@ -46,6 +46,7 @@ func NewMsgCrossTalkRequest(
 	signature string,
 	requestTxOrigin string,
 	isReadCall bool,
+	feePayer []byte,
 ) *MsgCrossTalkRequest {
 	return &MsgCrossTalkRequest{
 		Orchestrator:          orchestrator,
@@ -71,6 +72,7 @@ func NewMsgCrossTalkRequest(
 		AckGasPrice:           ackGasPrice,
 		EthSigner:             ethSigner,
 		Signature:             signature,
+		FeePayer:              feePayer,
 	}
 }
 

@@ -40,6 +40,7 @@ message MsgCrossTalkRequest {
   uint64 ackGasPrice = 21;
   string ethSigner = 22;
   string signature = 23;
+  bytes feePayer = 24; 
 }
 message MsgCrossTalkRequestResponse {}
 

@@ -14,8 +14,9 @@ message EventCreateChainConfig {
   uint64 gatewayContractHeight = 7; 
   string routerContractAddress = 8; 
   uint64 lastObservedEventNonce = 9;
-  uint64 lastObservedValsetNonce = 10; 
-  bool chain_enabled = 11;
+  uint64 LastObservedEventBlockHeight = 10;
+  uint64 lastObservedValsetNonce = 11; 
+  bool chain_enabled = 12;
 }
 
 message EventUpdatedChainConfig {
@@ -27,9 +28,10 @@ message EventUpdatedChainConfig {
   string gatewayContractAddress = 6; 
   uint64 gatewayContractHeight = 7; 
   string routerContractAddress = 8; 
-  uint64 lastObservedEventNonce = 9; 
-  uint64 lastObservedValsetNonce = 10; 
-  bool chain_enabled = 11;
+  uint64 lastObservedEventNonce = 9;
+  uint64 LastObservedEventBlockHeight = 10;
+  uint64 lastObservedValsetNonce = 11; 
+  bool chain_enabled = 12;
 }
 
 message EventDeletedChainConfig {
