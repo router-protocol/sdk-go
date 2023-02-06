@@ -24,7 +24,8 @@ func NewCrossTalkRequest(
 	ackGasLimit uint64,
 	ackGasPrice uint64,
 	requestTxOrigin string,
-	isReadCall bool) *CrossTalkRequest {
+	isReadCall bool,
+	feePayer []byte) *CrossTalkRequest {
 	return &CrossTalkRequest{
 		EventNonce:            eventNonce,
 		BlockHeight:           blockHeight,
@@ -46,6 +47,7 @@ func NewCrossTalkRequest(
 		AckType:               ackType,
 		AckGasLimit:           ackGasLimit,
 		AckGasPrice:           ackGasPrice,
+		FeePayer:              feePayer,
 		Status:                CROSSTALK_REQUEST_CREATED,
 	}
 }

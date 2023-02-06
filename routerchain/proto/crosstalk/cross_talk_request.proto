@@ -30,6 +30,7 @@ message CrossTalkRequest {
   uint64 ackType = 19;
   uint64 ackGasLimit = 20;
   uint64 ackGasPrice = 21;
-  CrossTalkRequestStatus status = 22;    
+  bytes feePayer = 22; 
+  CrossTalkRequestStatus status = 23;    
 }
 

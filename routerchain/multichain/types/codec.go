@@ -5,12 +5,16 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateChainConfig{}, "multichain/CreateChainConfig", nil)
 	cdc.RegisterConcrete(&MsgUpdateChainConfig{}, "multichain/UpdateChainConfig", nil)
 	cdc.RegisterConcrete(&MsgDeleteChainConfig{}, "multichain/DeleteChainConfig", nil)
+	cdc.RegisterConcrete(&MultichainCreateChainConfigProposal{}, "multichain/MultichainCreateChainConfigProposal", nil)
+	cdc.RegisterConcrete(&MultichainUpdateChainConfigProposal{}, "multichain/MultichainUpdateChainConfigProposal", nil)
+	cdc.RegisterConcrete(&MultichainDeleteChainConfigProposal{}, "multichain/MultichainDeleteChainConfigProposal", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -20,6 +24,14 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgUpdateChainConfig{},
 		&MsgDeleteChainConfig{},
 	)
+
+	registry.RegisterImplementations(
+		(*govtypes.Content)(nil),
+		&MultichainCreateChainConfigProposal{},
+		&MultichainUpdateChainConfigProposal{},
+		&MultichainDeleteChainConfigProposal{},
+	)
+
 	// this line is used by starport scaffolding # 3
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)

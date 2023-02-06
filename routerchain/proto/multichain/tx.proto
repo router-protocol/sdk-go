@@ -34,7 +34,6 @@ message MsgCreateChainConfigResponse {}
 message MsgUpdateChainConfig {
   string creator = 1;
   string chain_id = 2;
-
   string chainName = 3;
   string symbol = 4;
   ChainType chainType = 5;

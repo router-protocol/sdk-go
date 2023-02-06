@@ -1,0 +1,25 @@
+syntax = "proto3";
+package routerprotocol.routerchain.multichain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
+import "multichain/chain_config.proto";
+import "multichain/chain_type.proto";
+
+message MultichainCreateChainConfigProposal {
+    string title = 1;
+    string description = 2;
+    ChainConfig chainConfig = 3;
+}
+
+message MultichainUpdateChainConfigProposal {
+    string title = 1;
+    string description = 2;
+    ChainConfig chainConfig = 3;
+}
+
+message MultichainDeleteChainConfigProposal {
+    string title = 1;
+    string description = 2;
+    string chainId = 3;
+    ChainType chainType = 4;
+}
