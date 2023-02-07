@@ -10,6 +10,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 )
 
 type AttestationKeeper interface {
@@ -28,6 +29,8 @@ type MultichainKeeper interface {
 
 type OracleKeeper interface {
 	// Methods imported from oracle should be defined here
+	GetGasPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, chainID string) *big.Int
+	GetPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

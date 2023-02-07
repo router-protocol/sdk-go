@@ -10,6 +10,7 @@ enum CrossTalkRequestStatus {
   option (gogoproto.goproto_enum_prefix) = false;
 
   CROSSTALK_REQUEST_CREATED = 0 [(gogoproto.enumvalue_customname) = "CROSSTALK_REQUEST_CREATED"];
-  CROSSTALK_REQUEST_OBSERVED = 1 [(gogoproto.enumvalue_customname) = "CROSSTALK_REQUEST_OBSERVED"];
-  
+  CROSSTALK_REQUEST_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "CROSSTALK_REQUEST_VALIDATED"];
+  CROSSTALK_REQUEST_READY_TO_EXECUTE = 2 [(gogoproto.enumvalue_customname) = "CROSSTALK_REQUEST_READY_TO_EXECUTE"];    
+  CROSSTALK_REQUEST_COMPLETED = 3 [(gogoproto.enumvalue_customname) = "CROSSTALK_REQUEST_COMPLETED"];  
 }
