@@ -3,6 +3,7 @@ package routerprotocol.routerchain.crosstalk;
 
 import "crosstalk/cross_talk_request.proto";
 import "crosstalk/cross_talk_ack_request.proto";
+import "crosstalk/crosstalk_request_ack_type.proto"; 
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
@@ -35,7 +36,7 @@ message MsgCrossTalkRequest {
   uint64 expiryTimestamp = 16;
   repeated bytes destContractAddresses = 17;
   repeated bytes destContractPayloads = 18;
-  uint64 ackType = 19;
+  CrossTalkRequestAckType ackType = 19;
   uint64 ackGasLimit = 20;
   uint64 ackGasPrice = 21;
   string ethSigner = 22;

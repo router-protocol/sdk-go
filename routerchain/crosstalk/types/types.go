@@ -20,7 +20,7 @@ func NewCrossTalkRequest(
 	expiryTimestamp uint64,
 	destContractAddresses [][]byte,
 	destContractPayloads [][]byte,
-	ackType uint64,
+	ackType CrossTalkRequestAckType,
 	ackGasLimit uint64,
 	ackGasPrice uint64,
 	requestTxOrigin string,
