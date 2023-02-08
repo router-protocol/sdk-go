@@ -26,5 +26,6 @@ message CrossTalkAckRequest {
   repeated bool execFlags = 15;
   repeated bytes execData = 16;
   cosmos.base.v1beta1.Coin feeConsumedInRoute = 17 [(gogoproto.nullable) = false];
-  CrossTalkAckRequestStatus status = 18;    
+  cosmos.base.v1beta1.Coin feeDeductedInRouteForAck = 18 [(gogoproto.nullable) = false];
+  CrossTalkAckRequestStatus status = 19;    
 }

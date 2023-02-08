@@ -114,3 +114,24 @@ func NewCrosstalkAckRequestConfirm(chainType multichainTypes.ChainType, chainId 
 		Signature:    signature,
 	}
 }
+
+func NewCrossTalkAckReceipt(
+	chainType multichainTypes.ChainType,
+	chainId string,
+	eventNonce uint64,
+	blockHeight uint64,
+	relayerRouterAddress string,
+	txHash string,
+	eventIdentifier uint64,
+) *CrossTalkAckReceipt {
+	return &CrossTalkAckReceipt{
+		ChainType:            chainType,
+		ChainId:              chainId,
+		EventNonce:           eventNonce,
+		BlockHeight:          blockHeight,
+		RelayerRouterAddress: relayerRouterAddress,
+		TxHash:               txHash,
+		EventIdentifier:      eventIdentifier,
+		Status:               CROSSTALK_ACK_RECEIPT_CREATED,
+	}
+}

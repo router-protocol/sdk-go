@@ -1,5 +1,9 @@
 package types
 
+import (
+	fmt "fmt"
+)
+
 // DefaultIndex is the default capability global index
 const DefaultIndex uint64 = 1
 
@@ -10,6 +14,7 @@ func DefaultGenesis() *GenesisState {
 		CrosstalkRequestConfirmList:    []CrosstalkRequestConfirm{},
 		CrossTalkAckRequestList:        []CrossTalkAckRequest{},
 		CrosstalkAckRequestConfirmList: []CrosstalkAckRequestConfirm{},
+		CrossTalkAckReceiptList:        []CrossTalkAckReceipt{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -19,44 +24,25 @@ func DefaultGenesis() *GenesisState {
 // failure.
 func (gs GenesisState) Validate() error {
 	// Check for duplicated index in crossTalkRequest
-	// crossTalkRequestIndexMap := make(map[string]struct{})
+	crossTalkRequestIndexMap := make(map[string]struct{})
 
-	// for _, elem := range gs.CrossTalkRequestList {
-	// 	index := string(CrossTalkRequestKey(elem.Index))
-	// 	if _, ok := crossTalkRequestIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for crossTalkRequest")
-	// 	}
-	// 	crossTalkRequestIndexMap[index] = struct{}{}
-	// }
-	// Check for duplicated index in crosstalkRequestConfirm
-	// crosstalkRequestConfirmIndexMap := make(map[string]struct{})
+	for _, elem := range gs.CrossTalkRequestList {
+		claimHash, _ := elem.ClaimHash()
+		index := string(CrossTalkRequestKey(elem.SourceChainType, elem.SourceChainId, elem.EventNonce, claimHash))
+		if _, ok := crossTalkRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for crossTalkRequest")
+		}
+		crossTalkRequestIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in crossTalkAckReceipt
+	// crossTalkAckReceiptIndexMap := make(map[string]struct{})
 
-	// for _, elem := range gs.CrosstalkRequestConfirmList {
-	// 	index := string(CrosstalkRequestConfirmKey(elem.Index))
-	// 	if _, ok := crosstalkRequestConfirmIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for crosstalkRequestConfirm")
+	// for _, elem := range gs.CrossTalkAckReceiptList {
+	// 	index := string(CrossTalkAckReceiptKey(elem.Index))
+	// 	if _, ok := crossTalkAckReceiptIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for crossTalkAckReceipt")
 	// 	}
-	// 	crosstalkRequestConfirmIndexMap[index] = struct{}{}
-	// }
-	// Check for duplicated index in crossTalkAckRequest
-	// crossTalkAckRequestIndexMap := make(map[string]struct{})
-
-	// for _, elem := range gs.CrossTalkAckRequestList {
-	// 	index := string(CrossTalkAckRequestKey(elem.Index))
-	// 	if _, ok := crossTalkAckRequestIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for crossTalkAckRequest")
-	// 	}
-	// 	crossTalkAckRequestIndexMap[index] = struct{}{}
-	// }
-	// Check for duplicated index in crosstalkAckRequestConfirm
-	// crosstalkAckRequestConfirmIndexMap := make(map[string]struct{})
-
-	// for _, elem := range gs.CrosstalkAckRequestConfirmList {
-	// 	index := string(CrosstalkAckRequestConfirmKey(elem.Index))
-	// 	if _, ok := crosstalkAckRequestConfirmIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for crosstalkAckRequestConfirm")
-	// 	}
-	// 	crosstalkAckRequestConfirmIndexMap[index] = struct{}{}
+	// 	crossTalkAckReceiptIndexMap[index] = struct{}{}
 	// }
 	// this line is used by starport scaffolding # genesis/types/validate
 
