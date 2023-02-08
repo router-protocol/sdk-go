@@ -7,6 +7,7 @@ import "crosstalk/cross_talk_request.proto";
 import "crosstalk/crosstalk_request_confirm.proto";
 import "crosstalk/cross_talk_ack_request.proto";
 import "crosstalk/crosstalk_ack_request_confirm.proto";
+import "crosstalk/cross_talk_ack_receipt.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
@@ -18,5 +19,6 @@ message GenesisState {
   repeated CrosstalkRequestConfirm crosstalkRequestConfirmList = 3 [(gogoproto.nullable) = false];
   repeated CrossTalkAckRequest crossTalkAckRequestList = 4 [(gogoproto.nullable) = false];
   repeated CrosstalkAckRequestConfirm crosstalkAckRequestConfirmList = 5 [(gogoproto.nullable) = false];
+  repeated CrossTalkAckReceipt crossTalkAckReceiptList = 6 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

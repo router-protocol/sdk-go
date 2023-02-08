@@ -139,9 +139,9 @@ func NewMsgDeleteChainConfig(
 	chainId string,
 ) *MsgDeleteChainConfig {
 	return &MsgDeleteChainConfig{
-		Creator: creator,
+		Creator:   creator,
 		ChainType: chainType,
-		ChainId: chainId,
+		ChainId:   chainId,
 	}
 }
 func (msg *MsgDeleteChainConfig) Route() string {

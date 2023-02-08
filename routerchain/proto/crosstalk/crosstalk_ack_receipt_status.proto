@@ -1,0 +1,14 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosstalk;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosstalk/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum CrossTalkAckReceiptStatus {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  CROSSTALK_ACK_RECEIPT_CREATED = 0 [(gogoproto.enumvalue_customname) = "CROSSTALK_ACK_RECEIPT_CREATED"];
+  CROSSTALK_ACK_RECEIPT_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "CROSSTALK_ACK_RECEIPT_VALIDATED"];      
+}
