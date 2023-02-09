@@ -15,5 +15,7 @@ message IncomingTx {
   string sourceSender = 6;   
   string routerBridgeContract = 7; 
   bytes payload = 8; 
-  IncomingTxStatus status = 9;   
+  uint64 gasLimit = 9;
+  bytes feePayer = 10; 
+  IncomingTxStatus status = 11;   
 }

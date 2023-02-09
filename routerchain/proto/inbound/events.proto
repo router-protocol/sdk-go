@@ -16,7 +16,9 @@ message EventIncomingTxCreated {
   string sourceSender = 7;   
   string routerBridgeContract = 8; 
   bytes payload = 9; 
-  IncomingTxStatus status = 10;   
+  uint64 gasLimit = 10;
+  bytes feePayer = 11;
+  IncomingTxStatus status = 12;   
 }
 
 message EventIncomingTxDelegated {

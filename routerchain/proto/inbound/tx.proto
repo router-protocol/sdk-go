@@ -21,8 +21,10 @@ message MsgInboundRequest {
   uint64 blockHeight = 5;
   string sourceTxHash = 6;
   string sourceSender = 7;
-  string routerBridgeContract = 8;
+  string routerBridgeContract = 8;  
   bytes payload = 9;
+  uint64 gasLimit = 10;
+  bytes feePayer = 11; 
 }
 
 message MsgInboundRequestResponse {
