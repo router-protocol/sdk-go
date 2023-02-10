@@ -105,7 +105,7 @@ type ChainClient interface {
 	GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error)
 	GetCrossTalkAckRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkAckRequestResponse, error)
 	GetAllCrosstalkAckRequestConfirmations(ctx context.Context, pagination *query.PageRequest, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error)
-	GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error)
+	GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error)
 	GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error)
 
 	// Wasm
