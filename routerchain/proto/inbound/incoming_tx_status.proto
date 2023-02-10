@@ -10,6 +10,8 @@ enum IncomingTxStatus {
   option (gogoproto.goproto_enum_prefix) = false;
 
   INCOMING_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "INCOMING_TX_CREATED"];
-  INCOMING_TX_OBSERVED = 1 [(gogoproto.enumvalue_customname) = "INCOMING_TX_OBSERVED"];
-  INCOMING_TX_DELEGATED = 2 [(gogoproto.enumvalue_customname) = "INCOMING_TX_DELEGATED"];
+  INCOMING_TX_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "INCOMING_TX_VALIDATED"];
+  INCOMING_TX_READY_TO_EXECUTE = 2 [(gogoproto.enumvalue_customname) = "INCOMING_TX_READY_TO_EXECUTE"];    
+  INCOMING_TX_EXECUTED = 3 [(gogoproto.enumvalue_customname) = "INCOMING_TX_EXECUTED"];
+  INCOMING_TX_EXECUTION_FAILED = 4 [(gogoproto.enumvalue_customname) = "INCOMING_TX_EXECUTION_FAILED"];
 }

@@ -9,4 +9,5 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/inbound/types
 message Params {
   option (gogoproto.goproto_stringer) = false;
   
+  uint64 inboundGasPrice = 1;  
 }
