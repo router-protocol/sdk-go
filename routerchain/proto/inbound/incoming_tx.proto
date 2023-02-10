@@ -5,6 +5,9 @@ package routerprotocol.routerchain.inbound;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/inbound/types";
 import "inbound/incoming_tx_status.proto"; 
 import "multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto"; 
+
 
 message IncomingTx {  
   routerprotocol.routerchain.multichain.ChainType chainType = 1;
@@ -16,6 +19,7 @@ message IncomingTx {
   string routerBridgeContract = 7; 
   bytes payload = 8; 
   uint64 gasLimit = 9;
-  bytes feePayer = 10; 
-  IncomingTxStatus status = 11;   
+  cosmos.base.v1beta1.Coin txFeeInRoute = 10 [(gogoproto.nullable) = false];
+  bytes feePayer = 11; 
+  IncomingTxStatus status = 12;   
 }

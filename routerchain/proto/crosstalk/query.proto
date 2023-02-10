@@ -70,6 +70,16 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/cross_talk_ack_receipt";
 	}
 
+// Queries a list of CrosstalkRequestByStatus items.
+	rpc CrosstalkRequestByStatus(QueryAllCrosstalkRequestByStatusRequest) returns (QueryCrosstalkRequestByStatusResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/crosstalk_request_by_status/{status}";
+	}
+
+// Queries a list of AllCrosstalkAckRequestsByStatus items.
+	rpc AllCrosstalkAckRequestsByStatus(QueryAllCrosstalkAckRequestsByStatusRequest) returns (QueryAllCrosstalkAckRequestsByStatusResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/crosstalk/all_crosstalk_ack_requests_by_status/{status}";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -188,6 +198,26 @@ message QueryAllCrossTalkAckReceiptRequest {
 message QueryAllCrossTalkAckReceiptResponse {
 	repeated CrossTalkAckReceipt crossTalkAckReceipt = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryAllCrosstalkRequestByStatusRequest {
+	uint64 status = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryCrosstalkRequestByStatusResponse {  
+  repeated CrossTalkRequest crossTalkRequest = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryAllCrosstalkAckRequestsByStatusRequest {
+	uint64 status = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
+}
+
+message QueryAllCrosstalkAckRequestsByStatusResponse {
+  repeated CrossTalkAckRequest crossTalkAckRequest = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // this line is used by starport scaffolding # 3

@@ -5,6 +5,8 @@ package routerprotocol.routerchain.inbound;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/inbound/types";
 import "inbound/incoming_tx_status.proto"; 
 import "multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto"; 
 
 message EventIncomingTxCreated {  
   bytes attestation_id = 1;
@@ -21,18 +23,29 @@ message EventIncomingTxCreated {
   IncomingTxStatus status = 12;   
 }
 
-message EventIncomingTxDelegated {
+
+message EventIncomingTxReadyToExecute {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;
+  cosmos.base.v1beta1.Coin txFeeInRoute = 5 [(gogoproto.nullable) = false];
+}
+
+message EventIncomingTxExecuted {
   bytes attestation_id = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2;
   string chainId = 3; 
   uint64 eventNonce = 4;
   bytes delegationResponse = 5;
+  cosmos.base.v1beta1.Coin refundFeeInRoute = 6 [(gogoproto.nullable) = false];
 }
 
-message EventIncomingTxDelegationFailed {
+message EventIncomingTxExecutionFailed {
   bytes attestation_id = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2;
   string chainId = 3; 
   uint64 eventNonce = 4;
   string delegationErrorResponse = 5;
+  cosmos.base.v1beta1.Coin refundFeeInRoute = 6 [(gogoproto.nullable) = false];
 }
