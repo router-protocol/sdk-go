@@ -105,6 +105,8 @@ type ChainClient interface {
 	GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error)
 	GetCrossTalkAckRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkAckRequestResponse, error)
 	GetAllCrosstalkAckRequestConfirmations(ctx context.Context, pagination *query.PageRequest, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error)
+	GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error)
+	GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error)
 
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
@@ -789,6 +791,14 @@ func (c *chainClient) GetAllCrossTalkRequest(ctx context.Context, pagination *qu
 	return c.crosstalkQueryClient.CrossTalkRequestAll(ctx, req)
 }
 
+func (c *chainClient) GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error) {
+	req := &crosstalkTypes.QueryAllCrosstalkRequestByStatusRequest{
+		Status:     uint64(status),
+		Pagination: pagination,
+	}
+	return c.crosstalkQueryClient.CrosstalkRequestByStatus(ctx, req)
+}
+
 func (c *chainClient) GetCrossTalkRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkRequestResponse, error) {
 	req := &crosstalkTypes.QueryGetCrossTalkRequest{ChainType: chainType, ChainId: chainID, EventNonce: eventNonce}
 	return c.crosstalkQueryClient.CrossTalkRequest(ctx, req)
@@ -808,6 +818,14 @@ func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, p
 func (c *chainClient) GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error) {
 	req := &crosstalkTypes.QueryAllCrossTalkAckRequest{Pagination: pagination}
 	return c.crosstalkQueryClient.CrossTalkAckRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error) {
+	req := &crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusRequest{
+		Status:     uint64(status),
+		Pagination: pagination,
+	}
+	return c.crosstalkQueryClient.AllCrosstalkAckRequestsByStatus(ctx, req)
 }
 
 func (c *chainClient) GetCrossTalkAckRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkAckRequestResponse, error) {
