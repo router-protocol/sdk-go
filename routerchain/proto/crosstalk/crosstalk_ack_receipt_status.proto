@@ -11,4 +11,5 @@ enum CrossTalkAckReceiptStatus {
 
   CROSSTALK_ACK_RECEIPT_CREATED = 0 [(gogoproto.enumvalue_customname) = "CROSSTALK_ACK_RECEIPT_CREATED"];
   CROSSTALK_ACK_RECEIPT_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "CROSSTALK_ACK_RECEIPT_VALIDATED"];      
+  CROSSTALK_ACK_RECEIPT_COMPLETED = 2 [(gogoproto.enumvalue_customname) = "CROSSTALK_ACK_RECEIPT_COMPLETED"];      
 }
