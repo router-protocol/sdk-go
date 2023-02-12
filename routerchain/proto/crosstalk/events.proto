@@ -47,6 +47,13 @@ message EventCrosstalkReadyToExecute {
 }
 
 
+message EventCrosstalkCompleted {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;  
+}
+
 message EventCrosstalkRequestConfirm {  
   routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
   string sourceChainId = 2; 
@@ -104,6 +111,15 @@ message EventCrosstalkAckReadyToExecute {
   cosmos.base.v1beta1.Coin txFeeInRoute = 5 [(gogoproto.nullable) = false];
 }
 
+
+message EventCrosstalkAckCompleted {  
+  routerprotocol.routerchain.multichain.ChainType chainType = 1; 
+  string chainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;  
+}
+
+
 message EventCrossTalkAckReceiptCreated {
   bytes attestation_id = 1;
   uint64 eventNonce = 2;
@@ -123,4 +139,12 @@ message EventCrosstalkReceiptFeeSettlement {
   uint64 eventNonce = 3;     
   cosmos.base.v1beta1.Coin relayerFeeInRoute = 4 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
+}
+
+
+message EventCrosstalkReceiptCompleted {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;   
 }
