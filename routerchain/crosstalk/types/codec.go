@@ -12,6 +12,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 
 	cdc.RegisterConcrete(&MsgCrossTalkAckRequest{}, "crosstalk/CrossTalkAckRequest", nil)
 	cdc.RegisterConcrete(&MsgCrossTalkAckReceipt{}, "crosstalk/CrossTalkAckReceipt", nil)
+	cdc.RegisterConcrete(&MsgSetCrosstalkFeePayer{}, "crosstalk/SetCrosstalkFeePayer", nil)
+	cdc.RegisterConcrete(&MsgIncrementCrosstalkDestGas{}, "crosstalk/IncrementCrosstalkDestGas", nil)
+	cdc.RegisterConcrete(&MsgIncrementCrosstalkAckGas{}, "crosstalk/IncrementCrosstalkAckGas", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -24,6 +27,15 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCrossTalkAckReceipt{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgSetCrosstalkFeePayer{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgIncrementCrosstalkDestGas{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgIncrementCrosstalkAckGas{},
 	)
 	// this line is used by starport scaffolding # 3
 
