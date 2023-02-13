@@ -41,6 +41,7 @@ func NewMsgCrossTalkAckRequest(
 	signature string,
 	execFlags []bool,
 	execData [][]byte,
+	feeConsumed uint64,
 
 ) *MsgCrossTalkAckRequest {
 	return &MsgCrossTalkAckRequest{
@@ -63,6 +64,7 @@ func NewMsgCrossTalkAckRequest(
 		ExecData:               execData,
 		EthSigner:              ethSigner,
 		Signature:              signature,
+		FeeConsumed:            feeConsumed,
 	}
 }
 
