@@ -46,6 +46,24 @@ message EventCrosstalkReadyToExecute {
   cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 5 [(gogoproto.nullable) = false];
 }
 
+message EventCrosstalkFeePayerUpdated {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;
+  string feePayer = 5;
+}
+
+message EventCrosstalkDestGasIncremented {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;
+  string feePayer = 5;
+  uint64 destinationGasLimit = 6;
+  uint64 destinationGasPrice = 7;
+}
+
 
 message EventCrosstalkCompleted {  
   routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
@@ -92,6 +110,18 @@ message EventCrosstalkRequestFeeSettlement {
   cosmos.base.v1beta1.Coin relayerFeeInRoute = 4 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
 }
+
+
+message EventCrosstalkAckGasIncremented {  
+  routerprotocol.routerchain.multichain.ChainType sourceChainType = 1; 
+  string sourceChainId = 2; 
+  uint64 eventNonce = 3;   
+  bytes claimHash = 4;
+  string feePayer = 5;
+  uint64 ackGasLimit = 6;
+  uint64 ackGasPrice = 7;
+}
+
 
 message EventCrosstalkAckRequestConfirm {  
   routerprotocol.routerchain.multichain.ChainType chainType = 1; 

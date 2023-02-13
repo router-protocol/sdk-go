@@ -16,6 +16,9 @@ service Msg {
       rpc CrossTalkRequest(MsgCrossTalkRequest) returns (MsgCrossTalkRequestResponse);
       rpc CrossTalkAckRequest(MsgCrossTalkAckRequest) returns (MsgCrossTalkAckRequestResponse);  
       rpc CrossTalkAckReceipt(MsgCrossTalkAckReceipt) returns (MsgCrossTalkAckReceiptResponse);  
+  rpc SetCrosstalkFeePayer(MsgSetCrosstalkFeePayer) returns (MsgSetCrosstalkFeePayerResponse);
+  rpc IncrementCrosstalkDestGas(MsgIncrementCrosstalkDestGas) returns (MsgIncrementCrosstalkDestGasResponse);
+  rpc IncrementCrosstalkAckGas(MsgIncrementCrosstalkAckGas) returns (MsgIncrementCrosstalkAckGasResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -83,5 +86,39 @@ message MsgCrossTalkAckReceipt {
   uint64 eventIdentifier = 9;  
 }
 message MsgCrossTalkAckReceiptResponse {}
+
+message MsgSetCrosstalkFeePayer {
+  string feePayer = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3;
+  uint64 eventNonce = 4;
+}
+
+message MsgSetCrosstalkFeePayerResponse {
+}
+
+message MsgIncrementCrosstalkDestGas {
+  string feePayer = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3;
+  uint64 eventNonce = 4;
+  uint64 destGasLimit = 5;
+  uint64 destGasPrice = 6;
+}
+
+message MsgIncrementCrosstalkDestGasResponse {
+}
+
+message MsgIncrementCrosstalkAckGas {
+  string feePayer = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3;
+  uint64 eventNonce = 4;
+  uint64 ackGasLimit = 5;
+  uint64 ackGasPrice = 6;
+}
+
+message MsgIncrementCrosstalkAckGasResponse {
+}
 
 // this line is used by starport scaffolding # proto/tx/message
