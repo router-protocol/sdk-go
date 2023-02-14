@@ -9,6 +9,7 @@ import "oracle/band_token_prices.proto";
 import "oracle/band_token_price_state.proto";
 import "oracle/call_data_record.proto";
 import "oracle/band_oracle_request.proto";
+import "oracle/gas_price_state.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
@@ -57,6 +58,16 @@ service Query {
 	// Queries a list of BandOracleRequest items.
 	rpc BandOracleRequestAll(QueryAllBandOracleRequestRequest) returns (QueryAllBandOracleRequestResponse) {
 		option (google.api.http).get = "/router-protocol/router-chain/oracle/band_oracle_request";
+	}
+
+// Queries a GasPriceState by index.
+	rpc GasPriceState(QueryGetGasPriceStateRequest) returns (QueryGetGasPriceStateResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/gas_price_state/{chain_type}/{chain_id}";
+	}
+
+	// Queries a list of GasPriceState items.
+	rpc GasPriceStateAll(QueryAllGasPriceStateRequest) returns (QueryAllGasPriceStateResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/oracle/gas_price_state";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -132,6 +143,25 @@ message QueryAllBandOracleRequestRequest {
 
 message QueryAllBandOracleRequestResponse {
 	repeated BandOracleRequest bandOracleRequest = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetGasPriceStateRequest {
+	  uint64 chain_type =1;
+	  string chain_id = 2;
+
+}
+
+message QueryGetGasPriceStateResponse {
+	GasPriceState gasPriceState = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGasPriceStateRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGasPriceStateResponse {
+	repeated GasPriceState gasPriceState = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
