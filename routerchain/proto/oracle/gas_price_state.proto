@@ -1,0 +1,14 @@
+syntax = "proto3";
+package routerprotocol.routerchain.oracle;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
+
+import "multichain/chain_type.proto"; 
+
+message GasPriceState {
+  routerprotocol.routerchain.multichain.ChainType chainType = 1; 
+  string chainId = 2; 
+  uint64 gasPrice = 3; 
+  uint64 decimals = 4;  
+}
+

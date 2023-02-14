@@ -24,13 +24,13 @@ type AttestationKeeper interface {
 type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
 	GetChainConfig(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) (val multichainTypes.ChainConfig, found bool)
-	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, feeConsumed *big.Int) sdk.Coin
 }
 
 type OracleKeeper interface {
 	// Methods imported from oracle should be defined here
 	GetGasPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, chainID string) *big.Int
 	GetPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
+	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, feeConsumed *big.Int) sdk.Coin
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

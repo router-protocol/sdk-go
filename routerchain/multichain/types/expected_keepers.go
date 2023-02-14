@@ -3,7 +3,6 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
@@ -20,5 +19,4 @@ type BankKeeper interface {
 
 type OracleKeeper interface {
 	// Methods imported from oracle should be defined here
-	GetPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
 }
