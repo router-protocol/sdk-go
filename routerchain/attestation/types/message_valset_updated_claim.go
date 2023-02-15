@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	fmt "fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -74,15 +75,19 @@ func (e *MsgValsetUpdatedClaim) GetType() ClaimType {
 // could engineer a hash collision and execute a version of the claim with any unhashed data changed to benefit them.
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
-func (b *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
-	var members BridgeValidators = b.Members
-	internalMembers, err := members.ToInternal()
-	if err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid members")
-	}
-	internalMembers.Sort()
-	path := fmt.Sprintf("%d/%s/%d/%d/%d/%s/%x/", b.ChainType, b.ChainId, b.EventNonce, b.ValsetNonce, b.BlockHeight, b.SourceTxHash, internalMembers.ToExternal())
-	return tmhash.Sum([]byte(path)), nil
+func (msg *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
+	valsetUpdatedClaimHash := NewValsetUpdatedClaimHash(
+		msg.GetChainType(),
+		msg.GetChainId(),
+		msg.GetEventNonce(),
+		msg.GetValsetNonce(),
+		msg.GetBlockHeight(),
+		msg.GetSourceTxHash(),
+		msg.GetMembers(),
+	)
+
+	out, err := json.Marshal(valsetUpdatedClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
 
 func (msg MsgValsetUpdatedClaim) GetClaimer() sdk.AccAddress {

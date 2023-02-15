@@ -84,3 +84,35 @@ func NewOutboundAck(chainType multichainTypes.ChainType,
 		Status:                OUTGOING_TX_ACK_RECEIVED,
 	}
 }
+
+func NewOutboundAckClaimHash(
+	chainType multichainTypes.ChainType,
+	chainId string,
+	eventNonce uint64,
+	blockHeight uint64,
+	outboundTxNonce uint64,
+	outboundTxRequestedBy string,
+	relayerRouterAddress string,
+	destinationTxHash string,
+	contractAckResponses []byte,
+	exeCode uint64,
+	execStatus bool,
+	execFlags []bool,
+	execData [][]byte,
+) *OutboundAckClaimHash {
+	return &OutboundAckClaimHash{
+		ChainType:             chainType,
+		ChainId:               chainId,
+		EventNonce:            eventNonce,
+		BlockHeight:           blockHeight,
+		OutboundTxNonce:       outboundTxNonce,
+		OutboundTxRequestedBy: outboundTxRequestedBy,
+		RelayerRouterAddress:  relayerRouterAddress,
+		DestinationTxHash:     destinationTxHash,
+		ContractAckResponses:  contractAckResponses,
+		ExeCode:               exeCode,
+		ExecStatus:            execStatus,
+		ExecFlags:             execFlags,
+		ExecData:              execData,
+	}
+}

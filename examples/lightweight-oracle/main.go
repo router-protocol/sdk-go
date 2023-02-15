@@ -7,7 +7,7 @@ import (
 
 const (
 	// Tx Agrs
-	NETWORK_NAME             = "local"
+	NETWORK_NAME             = "devnet"
 	ORACLE_PROVIDER_KEY_NAME = "siva"
 	PASSPHRASE               = "12345678"
 )
@@ -20,5 +20,4 @@ func main() {
 
 	// TRIGGER ACTION
 	oracleProvider.SendGasPrices()
-
 }
