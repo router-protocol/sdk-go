@@ -55,9 +55,6 @@ func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
 	if msg.DestinationGasLimit <= 0 {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid outgoung tx gas limit (%d)", msg.DestinationGasLimit)
 	}
-	if msg.DestinationGasPrice <= 0 {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid outgoung tx gas price (%d)", msg.DestinationGasPrice)
-	}
 
 	// RelayerFee can be zero or nil.
 	if msg.RelayerFee.IsNegative() {
