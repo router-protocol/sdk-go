@@ -26,3 +26,19 @@ message OutboundAck {
   repeated bytes execData = 15;
 }
 
+
+message OutboundAckClaimHash {
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;  
+  string chainId = 2; 
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4; 
+  uint64 outboundTxNonce = 5; 
+  string outboundTxRequestedBy = 6; 
+  string relayerRouterAddress = 7; 
+  string destinationTxHash = 8;   
+  bytes contractAckResponses= 9;
+  uint64 exeCode = 10;
+  bool execStatus = 11;
+  repeated bool execFlags = 12;
+  repeated bytes execData = 13;
+}

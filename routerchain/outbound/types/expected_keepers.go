@@ -27,7 +27,8 @@ type AttestationKeeper interface {
 
 type OracleKeeper interface {
 	// Methods imported from oracle should be defined here
-	GetPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
+	GetTokenPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
+	GetGasPrice(ctx sdk.Context, chainType multichainTypes.ChainType, chainID string) oracleTypes.GasPriceState
 	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, feeConsumed *big.Int) sdk.Coin
 }
 

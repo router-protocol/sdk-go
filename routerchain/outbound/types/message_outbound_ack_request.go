@@ -1,7 +1,7 @@
 package types
 
 import (
-	fmt "fmt"
+	"encoding/json"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -94,9 +94,25 @@ func (msg *MsgOutboundAckRequest) GetType() attestationTypes.ClaimType {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgOutboundAckRequest) ClaimHash() ([]byte, error) {
-	// TODO: @venky check the type for ContractAckResponses
-	path := fmt.Sprintf("%d/%s/%d/%s/%s/%s/%d/%x/%d/%d/%d/%b", msg.ChainType, msg.ChainId, msg.OutboundTxNonce, msg.OutboundTxRequestedBy, msg.RelayerRouterAddress, msg.DestinationTxHash, msg.FeeConsumed, msg.ContractAckResponses, msg.EventNonce, msg.BlockHeight, msg.ExeCode, msg.ExecStatus)
-	return tmhash.Sum([]byte(path)), nil
+
+	outboundAckClaimHash := NewOutboundAckClaimHash(
+		msg.GetChainType(),
+		msg.GetChainId(),
+		msg.GetEventNonce(),
+		msg.GetBlockHeight(),
+		msg.GetOutboundTxNonce(),
+		msg.GetOutboundTxRequestedBy(),
+		msg.GetRelayerRouterAddress(),
+		msg.GetDestinationTxHash(),
+		msg.GetContractAckResponses(),
+		msg.GetExeCode(),
+		msg.GetExecStatus(),
+		msg.GetExecFlags(),
+		msg.GetExecData(),
+	)
+
+	out, err := json.Marshal(outboundAckClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
 
 func (msg MsgOutboundAckRequest) GetClaimer() sdk.AccAddress {

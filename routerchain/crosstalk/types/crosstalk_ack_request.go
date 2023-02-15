@@ -1,7 +1,7 @@
 package types
 
 import (
-	fmt "fmt"
+	"encoding/json"
 
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
@@ -19,6 +19,24 @@ func (c CrossTalkAckRequest) ValidateBasic() error {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the c ante-handler for signatures
 func (c *CrossTalkAckRequest) ClaimHash() ([]byte, error) {
-	path := fmt.Sprintf("%d/%d/%s/%d/%s/%d/%s/%s/%d/%s/%d/%s/%d/%t", c.EventNonce, c.BlockHeight, c.RelayerRouterAddress, c.SourceChainType, c.SourceChainId, c.ChainType, c.ChainId, c.DestinationTxHash, c.EventIdentifier, c.CrosstalkRequestSender, c.CrosstalkNonce, c.ContractAckResponses, c.ExeCode, c.ExecStatus)
-	return tmhash.Sum([]byte(path)), nil
+	crosstalkAckRequestClaimHash := NewCrossTalkAckRequestClaimHash(
+		c.EventNonce,
+		c.BlockHeight,
+		c.RelayerRouterAddress,
+		c.SourceChainType,
+		c.SourceChainId,
+		c.ChainType,
+		c.ChainId,
+		c.DestinationTxHash,
+		c.EventIdentifier,
+		c.CrosstalkRequestSender,
+		c.CrosstalkNonce,
+		c.ContractAckResponses,
+		c.ExeCode,
+		c.ExecStatus,
+		c.ExecFlags,
+		c.ExecData)
+
+	out, err := json.Marshal(crosstalkAckRequestClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }

@@ -23,3 +23,15 @@ message IncomingTx {
   bytes feePayer = 11; 
   IncomingTxStatus status = 12;   
 }
+
+message InboundRequestClaimHash {  
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;
+  string chainId = 2; 
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4;
+  string sourceTxHash = 5; 
+  string sourceSender = 6;   
+  string routerBridgeContract = 7; 
+  bytes payload = 8; 
+  uint64 gasLimit = 9;
+}

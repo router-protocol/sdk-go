@@ -21,3 +21,13 @@ message CrossTalkAckReceipt {
   CrossTalkAckReceiptStatus status = 9;     
 }
 
+
+message CrossTalkAckReceiptClaimHash {
+  uint64 eventNonce = 1; 
+  uint64 blockHeight = 2; 
+  string relayerRouterAddress = 3; 
+  routerprotocol.routerchain.multichain.ChainType chainType = 4; 
+  string chainId = 5; 
+  string txHash = 6; 
+  uint64 eventIdentifier = 7;  
+}

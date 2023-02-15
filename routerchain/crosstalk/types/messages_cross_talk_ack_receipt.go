@@ -1,7 +1,7 @@
 package types
 
 import (
-	fmt "fmt"
+	"encoding/json"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -85,8 +85,17 @@ func (msg *MsgCrossTalkAckReceipt) GetType() attestationTypes.ClaimType {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgCrossTalkAckReceipt) ClaimHash() ([]byte, error) {
-	path := fmt.Sprintf("%d/%s/%d/%d/%s/%s/%d/%d", msg.ChainType, msg.ChainId, msg.EventNonce, msg.BlockHeight, msg.RelayerRouterAddress, msg.TxHash, msg.FeeConsumed, msg.EventIdentifier)
-	return tmhash.Sum([]byte(path)), nil
+	crossTalkAckReceiptClaimHash := NewCrossTalkAckReceiptClaimHash(
+		msg.ChainType,
+		msg.ChainId,
+		msg.EventNonce,
+		msg.BlockHeight,
+		msg.RelayerRouterAddress,
+		msg.TxHash,
+		msg.EventIdentifier,
+	)
+	out, err := json.Marshal(crossTalkAckReceiptClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
 
 func (msg MsgCrossTalkAckReceipt) GetClaimer() sdk.AccAddress {

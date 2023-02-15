@@ -213,8 +213,173 @@ func (m *CrossTalkAckRequest) GetStatus() CrossTalkAckRequestStatus {
 	return CROSSTALK_ACK_REQUEST_CREATED
 }
 
+type CrossTalkAckRequestClaimHash struct {
+	EventNonce             uint64          `protobuf:"varint,1,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight            uint64          `protobuf:"varint,2,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	RelayerRouterAddress   string          `protobuf:"bytes,3,opt,name=relayerRouterAddress,proto3" json:"relayerRouterAddress,omitempty"`
+	SourceChainType        types.ChainType `protobuf:"varint,4,opt,name=sourceChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"sourceChainType,omitempty"`
+	SourceChainId          string          `protobuf:"bytes,5,opt,name=sourceChainId,proto3" json:"sourceChainId,omitempty"`
+	ChainType              types.ChainType `protobuf:"varint,6,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ChainId                string          `protobuf:"bytes,7,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	DestinationTxHash      string          `protobuf:"bytes,8,opt,name=destinationTxHash,proto3" json:"destinationTxHash,omitempty"`
+	EventIdentifier        uint64          `protobuf:"varint,9,opt,name=eventIdentifier,proto3" json:"eventIdentifier,omitempty"`
+	CrosstalkRequestSender []byte          `protobuf:"bytes,10,opt,name=crosstalkRequestSender,proto3" json:"crosstalkRequestSender,omitempty"`
+	CrosstalkNonce         uint64          `protobuf:"varint,11,opt,name=crosstalkNonce,proto3" json:"crosstalkNonce,omitempty"`
+	ContractAckResponses   []byte          `protobuf:"bytes,12,opt,name=contractAckResponses,proto3" json:"contractAckResponses,omitempty"`
+	ExeCode                uint64          `protobuf:"varint,13,opt,name=exeCode,proto3" json:"exeCode,omitempty"`
+	ExecStatus             bool            `protobuf:"varint,14,opt,name=execStatus,proto3" json:"execStatus,omitempty"`
+	ExecFlags              []bool          `protobuf:"varint,15,rep,packed,name=execFlags,proto3" json:"execFlags,omitempty"`
+	ExecData               [][]byte        `protobuf:"bytes,16,rep,name=execData,proto3" json:"execData,omitempty"`
+}
+
+func (m *CrossTalkAckRequestClaimHash) Reset()         { *m = CrossTalkAckRequestClaimHash{} }
+func (m *CrossTalkAckRequestClaimHash) String() string { return proto.CompactTextString(m) }
+func (*CrossTalkAckRequestClaimHash) ProtoMessage()    {}
+func (*CrossTalkAckRequestClaimHash) Descriptor() ([]byte, []int) {
+	return fileDescriptor_df49ea829ab32e13, []int{1}
+}
+func (m *CrossTalkAckRequestClaimHash) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *CrossTalkAckRequestClaimHash) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_CrossTalkAckRequestClaimHash.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *CrossTalkAckRequestClaimHash) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CrossTalkAckRequestClaimHash.Merge(m, src)
+}
+func (m *CrossTalkAckRequestClaimHash) XXX_Size() int {
+	return m.Size()
+}
+func (m *CrossTalkAckRequestClaimHash) XXX_DiscardUnknown() {
+	xxx_messageInfo_CrossTalkAckRequestClaimHash.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CrossTalkAckRequestClaimHash proto.InternalMessageInfo
+
+func (m *CrossTalkAckRequestClaimHash) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetBlockHeight() uint64 {
+	if m != nil {
+		return m.BlockHeight
+	}
+	return 0
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetRelayerRouterAddress() string {
+	if m != nil {
+		return m.RelayerRouterAddress
+	}
+	return ""
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetSourceChainType() types.ChainType {
+	if m != nil {
+		return m.SourceChainType
+	}
+	return types.CHAIN_TYPE_EVM
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetSourceChainId() string {
+	if m != nil {
+		return m.SourceChainId
+	}
+	return ""
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetChainType() types.ChainType {
+	if m != nil {
+		return m.ChainType
+	}
+	return types.CHAIN_TYPE_EVM
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetDestinationTxHash() string {
+	if m != nil {
+		return m.DestinationTxHash
+	}
+	return ""
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetEventIdentifier() uint64 {
+	if m != nil {
+		return m.EventIdentifier
+	}
+	return 0
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetCrosstalkRequestSender() []byte {
+	if m != nil {
+		return m.CrosstalkRequestSender
+	}
+	return nil
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetCrosstalkNonce() uint64 {
+	if m != nil {
+		return m.CrosstalkNonce
+	}
+	return 0
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetContractAckResponses() []byte {
+	if m != nil {
+		return m.ContractAckResponses
+	}
+	return nil
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetExeCode() uint64 {
+	if m != nil {
+		return m.ExeCode
+	}
+	return 0
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetExecStatus() bool {
+	if m != nil {
+		return m.ExecStatus
+	}
+	return false
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetExecFlags() []bool {
+	if m != nil {
+		return m.ExecFlags
+	}
+	return nil
+}
+
+func (m *CrossTalkAckRequestClaimHash) GetExecData() [][]byte {
+	if m != nil {
+		return m.ExecData
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*CrossTalkAckRequest)(nil), "routerprotocol.routerchain.crosstalk.CrossTalkAckRequest")
+	proto.RegisterType((*CrossTalkAckRequestClaimHash)(nil), "routerprotocol.routerchain.crosstalk.CrossTalkAckRequestClaimHash")
 }
 
 func init() {
@@ -222,46 +387,48 @@ func init() {
 }
 
 var fileDescriptor_df49ea829ab32e13 = []byte{
-	// 619 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x54, 0x5f, 0x4f, 0xdb, 0x3e,
-	0x14, 0x6d, 0x7e, 0xf0, 0x83, 0xd6, 0xfc, 0x1b, 0x06, 0x4d, 0x1e, 0x9b, 0xb2, 0x68, 0x42, 0x28,
-	0x0f, 0xcc, 0x19, 0x4c, 0x9a, 0xb4, 0xa7, 0x09, 0x8a, 0x10, 0xbc, 0x30, 0x29, 0x20, 0x4d, 0x62,
-	0x0f, 0x95, 0xeb, 0x5c, 0xda, 0x28, 0xa9, 0xdd, 0xd9, 0x0e, 0x2a, 0xdf, 0x62, 0x1f, 0x8b, 0x47,
-	0x1e, 0xf7, 0x84, 0x26, 0xfa, 0x45, 0xa6, 0x38, 0x69, 0xda, 0x75, 0x65, 0x42, 0x7b, 0xa9, 0xee,
-	0x39, 0xd7, 0x39, 0xa7, 0xbe, 0xbe, 0xf7, 0xa2, 0x1d, 0xae, 0xa4, 0xd6, 0x86, 0xa5, 0x49, 0x60,
-	0xa3, 0x56, 0x1e, 0xb6, 0x18, 0x4f, 0x5a, 0x0a, 0xbe, 0x65, 0xa0, 0x0d, 0xed, 0x2b, 0x69, 0x24,
-	0xde, 0x56, 0x32, 0x33, 0xa0, 0x2c, 0xe0, 0x32, 0xa5, 0x05, 0xe4, 0x5d, 0x16, 0x0b, 0x5a, 0x49,
-	0x6c, 0xed, 0x4e, 0xa9, 0x4d, 0x8b, 0xb5, 0xb4, 0x61, 0x26, 0xd3, 0x85, 0xe6, 0xd6, 0xcb, 0x5e,
-	0x96, 0x9a, 0xd8, 0x6a, 0x04, 0xf6, 0xb7, 0x65, 0x6e, 0xfa, 0x50, 0x26, 0x5d, 0x2e, 0x75, 0x4f,
-	0xea, 0xa0, 0xcd, 0x34, 0x04, 0xd7, 0x7b, 0x6d, 0x30, 0x6c, 0x2f, 0xe0, 0x32, 0x16, 0x65, 0x7e,
-	0xb3, 0x23, 0x3b, 0xd2, 0x86, 0x41, 0x1e, 0x15, 0xec, 0x9b, 0xfb, 0x45, 0xb4, 0xd1, 0xcc, 0x9d,
-	0x2f, 0x58, 0x9a, 0x1c, 0xf0, 0x24, 0x2c, 0x7c, 0xb1, 0x8b, 0x10, 0x5c, 0x83, 0x30, 0x67, 0x52,
-	0x70, 0x20, 0x8e, 0xe7, 0xf8, 0xf3, 0xe1, 0x04, 0x83, 0x3d, 0xb4, 0xd4, 0x4e, 0x25, 0x4f, 0x4e,
-	0x20, 0xee, 0x74, 0x0d, 0xf9, 0xcf, 0x1e, 0x98, 0xa4, 0xf0, 0x3e, 0xda, 0x54, 0x90, 0xb2, 0x1b,
-	0x50, 0xa1, 0xbd, 0xfa, 0x41, 0x14, 0x29, 0xd0, 0x9a, 0xcc, 0x79, 0x8e, 0xdf, 0x08, 0x67, 0xe6,
-	0xf0, 0x25, 0x5a, 0xd3, 0x32, 0x53, 0x1c, 0x9a, 0xf9, 0xed, 0x2e, 0x6e, 0xfa, 0x40, 0xe6, 0x3d,
-	0xc7, 0x5f, 0xdd, 0x7f, 0x47, 0xff, 0x52, 0xce, 0x71, 0x55, 0x68, 0xf5, 0x5d, 0x38, 0x2d, 0x84,
-	0xb7, 0xd1, 0xca, 0x04, 0x75, 0x1a, 0x91, 0xff, 0xed, 0x1f, 0xf9, 0x9d, 0xc4, 0x67, 0xa8, 0xc1,
-	0x2b, 0xef, 0x85, 0x7f, 0xf4, 0x1e, 0x4b, 0x60, 0x82, 0x16, 0x79, 0xe9, 0xb7, 0x68, 0xfd, 0x46,
-	0x10, 0xef, 0xa2, 0xf5, 0x08, 0xb4, 0x89, 0x05, 0x33, 0xb1, 0x14, 0x17, 0x83, 0x13, 0xa6, 0xbb,
-	0xa4, 0x6e, 0xcf, 0xfc, 0x99, 0xc0, 0x3e, 0x5a, 0xb3, 0xd5, 0x3f, 0x8d, 0x40, 0x98, 0xf8, 0x2a,
-	0x06, 0x45, 0x1a, 0xb6, 0xe6, 0xd3, 0x34, 0xfe, 0x80, 0x9e, 0x57, 0xad, 0x54, 0xbe, 0xe6, 0x39,
-	0x88, 0x08, 0x14, 0x41, 0x9e, 0xe3, 0x2f, 0x87, 0x8f, 0x64, 0xf1, 0x0e, 0x5a, 0xad, 0x32, 0xc5,
-	0xab, 0x2f, 0x59, 0x83, 0x29, 0x36, 0x7f, 0x57, 0x2e, 0x85, 0x51, 0x8c, 0x1b, 0xdb, 0x2f, 0xba,
-	0x2f, 0x85, 0x06, 0x4d, 0x96, 0xad, 0xfa, 0xcc, 0x5c, 0x5e, 0x05, 0x18, 0x40, 0x53, 0x46, 0x40,
-	0x56, 0xac, 0xe8, 0x08, 0xda, 0x3e, 0x1b, 0x00, 0x3f, 0xb7, 0x6d, 0x4e, 0x56, 0x3d, 0xc7, 0xaf,
-	0x87, 0x13, 0x0c, 0x7e, 0x85, 0x1a, 0x39, 0x3a, 0x4e, 0x59, 0x47, 0x93, 0x35, 0x6f, 0xce, 0xaf,
-	0x87, 0x63, 0x02, 0x6f, 0xa1, 0x7a, 0x0e, 0x8e, 0x98, 0x61, 0xe4, 0x99, 0x37, 0xe7, 0x2f, 0x87,
-	0x15, 0xc6, 0x9f, 0x11, 0xbe, 0x02, 0x68, 0x4a, 0xa1, 0xb3, 0x1e, 0x44, 0xa7, 0xc2, 0x76, 0x1a,
-	0x59, 0xf7, 0x1c, 0x7f, 0x69, 0xff, 0x05, 0x2d, 0x86, 0x85, 0xe6, 0xc3, 0x42, 0xcb, 0x61, 0xa1,
-	0x4d, 0x19, 0x8b, 0xc3, 0xf9, 0xdb, 0xfb, 0xd7, 0xb5, 0x70, 0xc6, 0xa7, 0xf8, 0x2b, 0x22, 0x57,
-	0x00, 0x47, 0x10, 0x65, 0xdc, 0x54, 0xec, 0xb1, 0x54, 0x07, 0x3c, 0x21, 0xf8, 0x69, 0xb2, 0x8f,
-	0x0a, 0xe0, 0x2f, 0x68, 0xa1, 0x18, 0x75, 0xb2, 0x61, 0x9b, 0xee, 0x13, 0x7d, 0xca, 0xfe, 0xa0,
-	0x33, 0x46, 0xb7, 0x28, 0x5c, 0x58, 0xca, 0x1d, 0x9e, 0xdf, 0x3e, 0xb8, 0xce, 0xdd, 0x83, 0xeb,
-	0xfc, 0x7c, 0x70, 0x9d, 0xef, 0x43, 0xb7, 0x76, 0x37, 0x74, 0x6b, 0x3f, 0x86, 0x6e, 0xed, 0xf2,
-	0x63, 0x27, 0x36, 0xdd, 0xac, 0x4d, 0xb9, 0xec, 0x05, 0x85, 0xfa, 0xdb, 0x91, 0xdb, 0x08, 0x17,
-	0xab, 0x66, 0x30, 0xde, 0x4d, 0x41, 0xbe, 0x70, 0x74, 0x7b, 0xc1, 0x1e, 0x7c, 0xff, 0x2b, 0x00,
-	0x00, 0xff, 0xff, 0xfd, 0xea, 0xfa, 0xff, 0x0d, 0x05, 0x00, 0x00,
+	// 643 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0x4d, 0x4f, 0xdb, 0x40,
+	0x10, 0x8d, 0xcb, 0x57, 0xb2, 0x7c, 0x95, 0x05, 0x55, 0x5b, 0x8a, 0x5c, 0x0b, 0x21, 0xe4, 0x03,
+	0x5d, 0x17, 0x2a, 0x55, 0xea, 0xa9, 0x82, 0x20, 0x04, 0x17, 0x2a, 0x19, 0xa4, 0x4a, 0xf4, 0x10,
+	0x6d, 0xd6, 0x43, 0x62, 0xc5, 0xd9, 0x4d, 0x77, 0xd7, 0x28, 0xfc, 0x8b, 0xfe, 0x2c, 0x8e, 0x1c,
+	0x7b, 0x42, 0x88, 0xfc, 0x91, 0xca, 0xeb, 0xc4, 0x49, 0xd3, 0x50, 0xa1, 0xde, 0x2a, 0x71, 0x89,
+	0xf6, 0xbd, 0x19, 0xbf, 0x89, 0x67, 0xe6, 0x79, 0xd1, 0x36, 0x57, 0x52, 0x6b, 0xc3, 0x92, 0x56,
+	0x60, 0x4f, 0xb5, 0xec, 0x58, 0x63, 0xbc, 0x55, 0x53, 0xf0, 0x3d, 0x05, 0x6d, 0x68, 0x47, 0x49,
+	0x23, 0xf1, 0x96, 0x92, 0xa9, 0x01, 0x65, 0x01, 0x97, 0x09, 0xcd, 0x21, 0x6f, 0xb2, 0x58, 0xd0,
+	0x42, 0x62, 0x7d, 0x67, 0x4c, 0x6d, 0x5c, 0xac, 0xa6, 0x0d, 0x33, 0xa9, 0xce, 0x35, 0xd7, 0xdf,
+	0xb4, 0xd3, 0xc4, 0xc4, 0x56, 0x23, 0xb0, 0xbf, 0x35, 0x73, 0xdd, 0x81, 0x7e, 0xd0, 0xe5, 0x52,
+	0xb7, 0xa5, 0x0e, 0xea, 0x4c, 0x43, 0x70, 0xb5, 0x5b, 0x07, 0xc3, 0x76, 0x03, 0x2e, 0x63, 0xd1,
+	0x8f, 0xaf, 0x35, 0x64, 0x43, 0xda, 0x63, 0x90, 0x9d, 0x72, 0x76, 0xf3, 0x6e, 0x0e, 0xad, 0x56,
+	0xb3, 0xca, 0xe7, 0x2c, 0x69, 0xed, 0xf3, 0x56, 0x98, 0xd7, 0xc5, 0x2e, 0x42, 0x70, 0x05, 0xc2,
+	0x9c, 0x4a, 0xc1, 0x81, 0x38, 0x9e, 0xe3, 0x4f, 0x87, 0x23, 0x0c, 0xf6, 0xd0, 0x7c, 0x3d, 0x91,
+	0xbc, 0x75, 0x0c, 0x71, 0xa3, 0x69, 0xc8, 0x0b, 0x9b, 0x30, 0x4a, 0xe1, 0x3d, 0xb4, 0xa6, 0x20,
+	0x61, 0xd7, 0xa0, 0x42, 0xfb, 0xea, 0xfb, 0x51, 0xa4, 0x40, 0x6b, 0x32, 0xe5, 0x39, 0x7e, 0x25,
+	0x9c, 0x18, 0xc3, 0x17, 0x68, 0x59, 0xcb, 0x54, 0x71, 0xa8, 0x66, 0x6f, 0x77, 0x7e, 0xdd, 0x01,
+	0x32, 0xed, 0x39, 0xfe, 0xd2, 0xde, 0x7b, 0xfa, 0x97, 0x76, 0x0e, 0xbb, 0x42, 0x8b, 0xe7, 0xc2,
+	0x71, 0x21, 0xbc, 0x85, 0x16, 0x47, 0xa8, 0x93, 0x88, 0xcc, 0xd8, 0x3f, 0xf2, 0x3b, 0x89, 0x4f,
+	0x51, 0x85, 0x17, 0xb5, 0x67, 0xff, 0xb1, 0xf6, 0x50, 0x02, 0x13, 0x34, 0xc7, 0xfb, 0xf5, 0xe6,
+	0x6c, 0xbd, 0x01, 0xc4, 0x3b, 0x68, 0x25, 0x02, 0x6d, 0x62, 0xc1, 0x4c, 0x2c, 0xc5, 0x79, 0xf7,
+	0x98, 0xe9, 0x26, 0x29, 0xdb, 0x9c, 0x3f, 0x03, 0xd8, 0x47, 0xcb, 0xb6, 0xfb, 0x27, 0x11, 0x08,
+	0x13, 0x5f, 0xc6, 0xa0, 0x48, 0xc5, 0xf6, 0x7c, 0x9c, 0xc6, 0x1f, 0xd1, 0xab, 0x62, 0x95, 0xfa,
+	0xd3, 0x3c, 0x03, 0x11, 0x81, 0x22, 0xc8, 0x73, 0xfc, 0x85, 0xf0, 0x91, 0x28, 0xde, 0x46, 0x4b,
+	0x45, 0x24, 0x9f, 0xfa, 0xbc, 0x2d, 0x30, 0xc6, 0x66, 0x73, 0xe5, 0x52, 0x18, 0xc5, 0xb8, 0xb1,
+	0xfb, 0xa2, 0x3b, 0x52, 0x68, 0xd0, 0x64, 0xc1, 0xaa, 0x4f, 0x8c, 0x65, 0x5d, 0x80, 0x2e, 0x54,
+	0x65, 0x04, 0x64, 0xd1, 0x8a, 0x0e, 0xa0, 0xdd, 0xb3, 0x2e, 0xf0, 0x33, 0xbb, 0xe6, 0x64, 0xc9,
+	0x73, 0xfc, 0x72, 0x38, 0xc2, 0xe0, 0x0d, 0x54, 0xc9, 0xd0, 0x51, 0xc2, 0x1a, 0x9a, 0x2c, 0x7b,
+	0x53, 0x7e, 0x39, 0x1c, 0x12, 0x78, 0x1d, 0x95, 0x33, 0x70, 0xc8, 0x0c, 0x23, 0x2f, 0xbd, 0x29,
+	0x7f, 0x21, 0x2c, 0x30, 0xfe, 0x82, 0xf0, 0x25, 0x40, 0x55, 0x0a, 0x9d, 0xb6, 0x21, 0x3a, 0x11,
+	0x76, 0xd3, 0xc8, 0x8a, 0xe7, 0xf8, 0xf3, 0x7b, 0xaf, 0x69, 0x6e, 0x16, 0x9a, 0x99, 0x85, 0xf6,
+	0xcd, 0x42, 0xab, 0x32, 0x16, 0x07, 0xd3, 0x37, 0x77, 0x6f, 0x4b, 0xe1, 0x84, 0x47, 0xf1, 0x37,
+	0x44, 0x2e, 0x01, 0x0e, 0x21, 0x4a, 0xb9, 0x29, 0xd8, 0x23, 0xa9, 0xf6, 0x79, 0x8b, 0xe0, 0xa7,
+	0xc9, 0x3e, 0x2a, 0x80, 0xbf, 0xa2, 0xd9, 0xdc, 0xea, 0x64, 0xd5, 0x2e, 0xdd, 0x67, 0xfa, 0x94,
+	0xef, 0x07, 0x9d, 0x60, 0xdd, 0xbc, 0x71, 0x61, 0x5f, 0x6e, 0xf3, 0x7e, 0x06, 0x6d, 0x4c, 0xc8,
+	0xaa, 0x26, 0x2c, 0x6e, 0xdb, 0xcd, 0x7a, 0x76, 0xfa, 0xb3, 0xd3, 0xff, 0x6b, 0xa7, 0x1f, 0x9c,
+	0xdd, 0x3c, 0xb8, 0xce, 0xed, 0x83, 0xeb, 0xdc, 0x3f, 0xb8, 0xce, 0x8f, 0x9e, 0x5b, 0xba, 0xed,
+	0xb9, 0xa5, 0x9f, 0x3d, 0xb7, 0x74, 0xf1, 0xa9, 0x11, 0x9b, 0x66, 0x5a, 0xa7, 0x5c, 0xb6, 0x83,
+	0x7c, 0x96, 0xef, 0x06, 0xb3, 0x1d, 0xe0, 0xfc, 0x36, 0xed, 0x0e, 0xaf, 0xdf, 0x20, 0xbb, 0x53,
+	0x75, 0x7d, 0xd6, 0x26, 0x7e, 0xf8, 0x15, 0x00, 0x00, 0xff, 0xff, 0x03, 0x78, 0xb2, 0xd7, 0xf0,
+	0x07, 0x00, 0x00,
 }
 
 func (m *CrossTalkAckRequest) Marshal() (dAtA []byte, err error) {
@@ -315,6 +482,140 @@ func (m *CrossTalkAckRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	dAtA[i] = 0x1
 	i--
 	dAtA[i] = 0x8a
+	if len(m.ExecData) > 0 {
+		for iNdEx := len(m.ExecData) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.ExecData[iNdEx])
+			copy(dAtA[i:], m.ExecData[iNdEx])
+			i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.ExecData[iNdEx])))
+			i--
+			dAtA[i] = 0x1
+			i--
+			dAtA[i] = 0x82
+		}
+	}
+	if len(m.ExecFlags) > 0 {
+		for iNdEx := len(m.ExecFlags) - 1; iNdEx >= 0; iNdEx-- {
+			i--
+			if m.ExecFlags[iNdEx] {
+				dAtA[i] = 1
+			} else {
+				dAtA[i] = 0
+			}
+		}
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.ExecFlags)))
+		i--
+		dAtA[i] = 0x7a
+	}
+	if m.ExecStatus {
+		i--
+		if m.ExecStatus {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x70
+	}
+	if m.ExeCode != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.ExeCode))
+		i--
+		dAtA[i] = 0x68
+	}
+	if len(m.ContractAckResponses) > 0 {
+		i -= len(m.ContractAckResponses)
+		copy(dAtA[i:], m.ContractAckResponses)
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.ContractAckResponses)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if m.CrosstalkNonce != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.CrosstalkNonce))
+		i--
+		dAtA[i] = 0x58
+	}
+	if len(m.CrosstalkRequestSender) > 0 {
+		i -= len(m.CrosstalkRequestSender)
+		copy(dAtA[i:], m.CrosstalkRequestSender)
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.CrosstalkRequestSender)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if m.EventIdentifier != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.EventIdentifier))
+		i--
+		dAtA[i] = 0x48
+	}
+	if len(m.DestinationTxHash) > 0 {
+		i -= len(m.DestinationTxHash)
+		copy(dAtA[i:], m.DestinationTxHash)
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.DestinationTxHash)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if m.ChainType != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.ChainType))
+		i--
+		dAtA[i] = 0x30
+	}
+	if len(m.SourceChainId) > 0 {
+		i -= len(m.SourceChainId)
+		copy(dAtA[i:], m.SourceChainId)
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.SourceChainId)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if m.SourceChainType != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.SourceChainType))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.RelayerRouterAddress) > 0 {
+		i -= len(m.RelayerRouterAddress)
+		copy(dAtA[i:], m.RelayerRouterAddress)
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(len(m.RelayerRouterAddress)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if m.BlockHeight != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.BlockHeight))
+		i--
+		dAtA[i] = 0x10
+	}
+	if m.EventNonce != 0 {
+		i = encodeVarintCrossTalkAckRequest(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CrossTalkAckRequestClaimHash) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CrossTalkAckRequestClaimHash) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CrossTalkAckRequestClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
 	if len(m.ExecData) > 0 {
 		for iNdEx := len(m.ExecData) - 1; iNdEx >= 0; iNdEx-- {
 			i -= len(m.ExecData[iNdEx])
@@ -509,6 +810,72 @@ func (m *CrossTalkAckRequest) Size() (n int) {
 	n += 2 + l + sovCrossTalkAckRequest(uint64(l))
 	if m.Status != 0 {
 		n += 2 + sovCrossTalkAckRequest(uint64(m.Status))
+	}
+	return n
+}
+
+func (m *CrossTalkAckRequestClaimHash) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.EventNonce != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.EventNonce))
+	}
+	if m.BlockHeight != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.BlockHeight))
+	}
+	l = len(m.RelayerRouterAddress)
+	if l > 0 {
+		n += 1 + l + sovCrossTalkAckRequest(uint64(l))
+	}
+	if m.SourceChainType != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.SourceChainType))
+	}
+	l = len(m.SourceChainId)
+	if l > 0 {
+		n += 1 + l + sovCrossTalkAckRequest(uint64(l))
+	}
+	if m.ChainType != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.ChainType))
+	}
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovCrossTalkAckRequest(uint64(l))
+	}
+	l = len(m.DestinationTxHash)
+	if l > 0 {
+		n += 1 + l + sovCrossTalkAckRequest(uint64(l))
+	}
+	if m.EventIdentifier != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.EventIdentifier))
+	}
+	l = len(m.CrosstalkRequestSender)
+	if l > 0 {
+		n += 1 + l + sovCrossTalkAckRequest(uint64(l))
+	}
+	if m.CrosstalkNonce != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.CrosstalkNonce))
+	}
+	l = len(m.ContractAckResponses)
+	if l > 0 {
+		n += 1 + l + sovCrossTalkAckRequest(uint64(l))
+	}
+	if m.ExeCode != 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(m.ExeCode))
+	}
+	if m.ExecStatus {
+		n += 2
+	}
+	if len(m.ExecFlags) > 0 {
+		n += 1 + sovCrossTalkAckRequest(uint64(len(m.ExecFlags))) + len(m.ExecFlags)*1
+	}
+	if len(m.ExecData) > 0 {
+		for _, b := range m.ExecData {
+			l = len(b)
+			n += 2 + l + sovCrossTalkAckRequest(uint64(l))
+		}
 	}
 	return n
 }
@@ -1084,6 +1451,507 @@ func (m *CrossTalkAckRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCrossTalkAckRequest(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CrossTalkAckRequestClaimHash) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCrossTalkAckRequest
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CrossTalkAckRequestClaimHash: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CrossTalkAckRequestClaimHash: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
+			}
+			m.BlockHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BlockHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RelayerRouterAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RelayerRouterAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SourceChainType", wireType)
+			}
+			m.SourceChainType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SourceChainType |= types.ChainType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SourceChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SourceChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
+			}
+			m.ChainType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ChainType |= types.ChainType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DestinationTxHash", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DestinationTxHash = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventIdentifier", wireType)
+			}
+			m.EventIdentifier = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventIdentifier |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CrosstalkRequestSender", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CrosstalkRequestSender = append(m.CrosstalkRequestSender[:0], dAtA[iNdEx:postIndex]...)
+			if m.CrosstalkRequestSender == nil {
+				m.CrosstalkRequestSender = []byte{}
+			}
+			iNdEx = postIndex
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CrosstalkNonce", wireType)
+			}
+			m.CrosstalkNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.CrosstalkNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAckResponses", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAckResponses = append(m.ContractAckResponses[:0], dAtA[iNdEx:postIndex]...)
+			if m.ContractAckResponses == nil {
+				m.ContractAckResponses = []byte{}
+			}
+			iNdEx = postIndex
+		case 13:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExeCode", wireType)
+			}
+			m.ExeCode = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ExeCode |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 14:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecStatus", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.ExecStatus = bool(v != 0)
+		case 15:
+			if wireType == 0 {
+				var v int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowCrossTalkAckRequest
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.ExecFlags = append(m.ExecFlags, bool(v != 0))
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowCrossTalkAckRequest
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthCrossTalkAckRequest
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLengthCrossTalkAckRequest
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				elementCount = packedLen
+				if elementCount != 0 && len(m.ExecFlags) == 0 {
+					m.ExecFlags = make([]bool, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowCrossTalkAckRequest
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.ExecFlags = append(m.ExecFlags, bool(v != 0))
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecFlags", wireType)
+			}
+		case 16:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecData", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrossTalkAckRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrossTalkAckRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExecData = append(m.ExecData, make([]byte, postIndex-iNdEx))
+			copy(m.ExecData[len(m.ExecData)-1], dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipCrossTalkAckRequest(dAtA[iNdEx:])

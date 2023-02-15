@@ -181,48 +181,192 @@ func (m *OutboundAck) GetExecData() [][]byte {
 	return nil
 }
 
+type OutboundAckClaimHash struct {
+	ChainType             types.ChainType `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ChainId               string          `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce            uint64          `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight           uint64          `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	OutboundTxNonce       uint64          `protobuf:"varint,5,opt,name=outboundTxNonce,proto3" json:"outboundTxNonce,omitempty"`
+	OutboundTxRequestedBy string          `protobuf:"bytes,6,opt,name=outboundTxRequestedBy,proto3" json:"outboundTxRequestedBy,omitempty"`
+	RelayerRouterAddress  string          `protobuf:"bytes,7,opt,name=relayerRouterAddress,proto3" json:"relayerRouterAddress,omitempty"`
+	DestinationTxHash     string          `protobuf:"bytes,8,opt,name=destinationTxHash,proto3" json:"destinationTxHash,omitempty"`
+	ContractAckResponses  []byte          `protobuf:"bytes,9,opt,name=contractAckResponses,proto3" json:"contractAckResponses,omitempty"`
+	ExeCode               uint64          `protobuf:"varint,10,opt,name=exeCode,proto3" json:"exeCode,omitempty"`
+	ExecStatus            bool            `protobuf:"varint,11,opt,name=execStatus,proto3" json:"execStatus,omitempty"`
+	ExecFlags             []bool          `protobuf:"varint,12,rep,packed,name=execFlags,proto3" json:"execFlags,omitempty"`
+	ExecData              [][]byte        `protobuf:"bytes,13,rep,name=execData,proto3" json:"execData,omitempty"`
+}
+
+func (m *OutboundAckClaimHash) Reset()         { *m = OutboundAckClaimHash{} }
+func (m *OutboundAckClaimHash) String() string { return proto.CompactTextString(m) }
+func (*OutboundAckClaimHash) ProtoMessage()    {}
+func (*OutboundAckClaimHash) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2a18876d7f6adbe4, []int{1}
+}
+func (m *OutboundAckClaimHash) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *OutboundAckClaimHash) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_OutboundAckClaimHash.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *OutboundAckClaimHash) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_OutboundAckClaimHash.Merge(m, src)
+}
+func (m *OutboundAckClaimHash) XXX_Size() int {
+	return m.Size()
+}
+func (m *OutboundAckClaimHash) XXX_DiscardUnknown() {
+	xxx_messageInfo_OutboundAckClaimHash.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_OutboundAckClaimHash proto.InternalMessageInfo
+
+func (m *OutboundAckClaimHash) GetChainType() types.ChainType {
+	if m != nil {
+		return m.ChainType
+	}
+	return types.CHAIN_TYPE_EVM
+}
+
+func (m *OutboundAckClaimHash) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *OutboundAckClaimHash) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+func (m *OutboundAckClaimHash) GetBlockHeight() uint64 {
+	if m != nil {
+		return m.BlockHeight
+	}
+	return 0
+}
+
+func (m *OutboundAckClaimHash) GetOutboundTxNonce() uint64 {
+	if m != nil {
+		return m.OutboundTxNonce
+	}
+	return 0
+}
+
+func (m *OutboundAckClaimHash) GetOutboundTxRequestedBy() string {
+	if m != nil {
+		return m.OutboundTxRequestedBy
+	}
+	return ""
+}
+
+func (m *OutboundAckClaimHash) GetRelayerRouterAddress() string {
+	if m != nil {
+		return m.RelayerRouterAddress
+	}
+	return ""
+}
+
+func (m *OutboundAckClaimHash) GetDestinationTxHash() string {
+	if m != nil {
+		return m.DestinationTxHash
+	}
+	return ""
+}
+
+func (m *OutboundAckClaimHash) GetContractAckResponses() []byte {
+	if m != nil {
+		return m.ContractAckResponses
+	}
+	return nil
+}
+
+func (m *OutboundAckClaimHash) GetExeCode() uint64 {
+	if m != nil {
+		return m.ExeCode
+	}
+	return 0
+}
+
+func (m *OutboundAckClaimHash) GetExecStatus() bool {
+	if m != nil {
+		return m.ExecStatus
+	}
+	return false
+}
+
+func (m *OutboundAckClaimHash) GetExecFlags() []bool {
+	if m != nil {
+		return m.ExecFlags
+	}
+	return nil
+}
+
+func (m *OutboundAckClaimHash) GetExecData() [][]byte {
+	if m != nil {
+		return m.ExecData
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*OutboundAck)(nil), "routerprotocol.routerchain.outbound.OutboundAck")
+	proto.RegisterType((*OutboundAckClaimHash)(nil), "routerprotocol.routerchain.outbound.OutboundAckClaimHash")
 }
 
 func init() { proto.RegisterFile("outbound/outbound_ack.proto", fileDescriptor_2a18876d7f6adbe4) }
 
 var fileDescriptor_2a18876d7f6adbe4 = []byte{
-	// 535 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0xc1, 0x6f, 0xd3, 0x3e,
-	0x18, 0x5d, 0x7e, 0xdd, 0xba, 0xd6, 0xed, 0x6f, 0x13, 0xd6, 0x90, 0x4c, 0x87, 0xa2, 0x00, 0x97,
-	0x1c, 0xc0, 0x61, 0x05, 0x24, 0xae, 0x5d, 0x11, 0x5a, 0x0f, 0x6c, 0x92, 0xe9, 0x89, 0x4b, 0xe5,
-	0x38, 0x1f, 0x69, 0xd4, 0xd6, 0x2e, 0xb1, 0x33, 0xa5, 0xff, 0x05, 0xff, 0x10, 0x77, 0x8e, 0x3b,
-	0x72, 0x44, 0xed, 0x3f, 0x82, 0xe2, 0x24, 0x6b, 0x05, 0x15, 0xe2, 0x12, 0xf9, 0xbd, 0xef, 0x7b,
-	0x2f, 0xb6, 0x9f, 0x3f, 0x74, 0xae, 0x32, 0x13, 0xaa, 0x4c, 0x46, 0x41, 0xbd, 0x98, 0x70, 0x31,
-	0xa3, 0xcb, 0x54, 0x19, 0x85, 0x9f, 0xa5, 0x2a, 0x33, 0x90, 0x5a, 0x20, 0xd4, 0x9c, 0x96, 0x50,
-	0x4c, 0x79, 0x22, 0x69, 0xdd, 0xde, 0x7b, 0xb2, 0xeb, 0x10, 0xab, 0x44, 0xc6, 0x13, 0x93, 0x4f,
-	0xb4, 0xe1, 0x26, 0xd3, 0xa5, 0x4f, 0xef, 0x7c, 0x91, 0xcd, 0x4d, 0x62, 0x75, 0x81, 0xfd, 0x4e,
-	0xcc, 0x6a, 0x09, 0x55, 0xd1, 0x15, 0x4a, 0x2f, 0x94, 0x0e, 0x42, 0xae, 0x21, 0xb8, 0xbd, 0x08,
-	0xc1, 0xf0, 0x8b, 0x40, 0xa8, 0x44, 0x56, 0xf5, 0xb3, 0x58, 0xc5, 0xca, 0x2e, 0x83, 0x62, 0x55,
-	0xb2, 0x4f, 0xbf, 0x1d, 0xa1, 0xce, 0x4d, 0xf5, 0xe3, 0x81, 0x98, 0xe1, 0x6b, 0xd4, 0xb6, 0xce,
-	0xe3, 0xd5, 0x12, 0x88, 0xe3, 0x39, 0xfe, 0x49, 0xff, 0x25, 0xfd, 0xcb, 0xf6, 0xb7, 0x3b, 0xa2,
-	0xc3, 0x5a, 0xc7, 0xb6, 0x16, 0x98, 0xa0, 0x63, 0x0b, 0x46, 0x11, 0xf9, 0xcf, 0x73, 0xfc, 0x36,
-	0xab, 0x21, 0x76, 0x11, 0x82, 0x5b, 0x90, 0xe6, 0x5a, 0x49, 0x01, 0xa4, 0xe1, 0x39, 0xfe, 0x21,
-	0xdb, 0x61, 0xb0, 0x87, 0x3a, 0xe1, 0x5c, 0x89, 0xd9, 0x15, 0x24, 0xf1, 0xd4, 0x90, 0x43, 0xdb,
-	0xb0, 0x4b, 0x61, 0x1f, 0x9d, 0xd6, 0x77, 0x36, 0xce, 0x4b, 0x9b, 0x23, 0xdb, 0xf5, 0x3b, 0x8d,
-	0x5f, 0xa3, 0x87, 0x5b, 0x8a, 0xc1, 0x97, 0x0c, 0xb4, 0x81, 0xe8, 0x72, 0x45, 0x9a, 0x76, 0x4f,
-	0xfb, 0x8b, 0xb8, 0x8f, 0xce, 0x52, 0x98, 0xf3, 0x15, 0xa4, 0xcc, 0x9e, 0x78, 0x10, 0x45, 0x29,
-	0x68, 0x4d, 0x8e, 0xad, 0x68, 0x6f, 0x0d, 0x3f, 0x47, 0x0f, 0x22, 0xd0, 0x26, 0x91, 0xdc, 0x24,
-	0x4a, 0x8e, 0xf3, 0x2b, 0xae, 0xa7, 0xa4, 0x65, 0x05, 0x7f, 0x16, 0xf0, 0x08, 0xe1, 0xcf, 0x00,
-	0x43, 0x25, 0x75, 0xb6, 0x80, 0x68, 0x24, 0xad, 0x17, 0x69, 0x7b, 0x8e, 0xdf, 0xe9, 0x3f, 0xa2,
-	0x65, 0xa0, 0xb4, 0x08, 0x94, 0x56, 0x81, 0xd2, 0xa1, 0x4a, 0x24, 0xdb, 0x23, 0xc2, 0x1f, 0x50,
-	0xb3, 0x7c, 0x2b, 0x04, 0xd9, 0xd4, 0xde, 0xd0, 0x7f, 0x78, 0x74, 0xf4, 0xa6, 0x7a, 0x6a, 0xe3,
-	0xfc, 0xa3, 0x15, 0xb3, 0xca, 0xa4, 0x38, 0xbb, 0x50, 0xd2, 0xa4, 0x5c, 0x98, 0x81, 0x98, 0x31,
-	0xd0, 0x4b, 0x25, 0x35, 0x68, 0xd2, 0xf1, 0x1c, 0xbf, 0xcb, 0xf6, 0xd6, 0x8a, 0xac, 0x21, 0x87,
-	0xa1, 0x8a, 0x80, 0x74, 0x6d, 0x0e, 0x35, 0xb4, 0x59, 0xe7, 0x20, 0xca, 0x7f, 0x90, 0xff, 0x3d,
-	0xc7, 0x6f, 0xb1, 0x1d, 0x06, 0x3f, 0x46, 0xed, 0x02, 0xbd, 0x9f, 0xf3, 0x58, 0x93, 0x13, 0xaf,
-	0xe1, 0xb7, 0xd8, 0x96, 0xc0, 0x3d, 0xd4, 0x2a, 0xc0, 0x3b, 0x6e, 0x38, 0x39, 0xf5, 0x1a, 0x7e,
-	0x97, 0xdd, 0xe3, 0x4b, 0xf6, 0x7d, 0xed, 0x3a, 0x77, 0x6b, 0xd7, 0xf9, 0xb9, 0x76, 0x9d, 0xaf,
-	0x1b, 0xf7, 0xe0, 0x6e, 0xe3, 0x1e, 0xfc, 0xd8, 0xb8, 0x07, 0x9f, 0xde, 0xc6, 0x89, 0x99, 0x66,
-	0x21, 0x15, 0x6a, 0x11, 0x94, 0x67, 0x7f, 0x51, 0xdf, 0x45, 0x8d, 0xcb, 0x49, 0xca, 0xef, 0x47,
-	0x36, 0x28, 0xc6, 0x49, 0x87, 0x4d, 0xdb, 0xf7, 0xea, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0xda,
-	0x2a, 0xda, 0x94, 0xd4, 0x03, 0x00, 0x00,
+	// 578 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x94, 0xcf, 0x6e, 0xd3, 0x30,
+	0x1c, 0xc7, 0x17, 0xf6, 0xaf, 0x75, 0xbb, 0x4d, 0x58, 0x43, 0x32, 0x1b, 0x8a, 0xc2, 0xb8, 0xe4,
+	0x00, 0x0e, 0x1b, 0x20, 0x71, 0xdd, 0x8a, 0xd0, 0x76, 0x60, 0x93, 0x4c, 0x4f, 0x5c, 0x2a, 0xc7,
+	0xf9, 0x91, 0x46, 0x4d, 0xed, 0x12, 0x3b, 0x53, 0xfa, 0x16, 0x3c, 0x08, 0xaf, 0xc0, 0x9d, 0xe3,
+	0x8e, 0x1c, 0xd1, 0xf6, 0x22, 0x28, 0x4e, 0xb2, 0x16, 0x28, 0xd5, 0x4e, 0x9c, 0xb8, 0x44, 0xfe,
+	0xfe, 0xfe, 0xc5, 0xf6, 0xf7, 0x23, 0xa3, 0x7d, 0x95, 0x9b, 0x50, 0xe5, 0x32, 0x0a, 0x9a, 0xc5,
+	0x80, 0x8b, 0x11, 0x9d, 0x64, 0xca, 0x28, 0xfc, 0x24, 0x53, 0xb9, 0x81, 0xcc, 0x0a, 0xa1, 0x52,
+	0x5a, 0x49, 0x31, 0xe4, 0x89, 0xa4, 0x4d, 0xf9, 0xde, 0xe3, 0xf9, 0x09, 0xb1, 0x4a, 0x64, 0x3c,
+	0x30, 0xc5, 0x40, 0x1b, 0x6e, 0x72, 0x5d, 0xcd, 0xd9, 0xdb, 0x1f, 0xe7, 0xa9, 0x49, 0x6c, 0x5f,
+	0x60, 0xbf, 0x03, 0x33, 0x9d, 0x40, 0x9d, 0x74, 0x85, 0xd2, 0x63, 0xa5, 0x83, 0x90, 0x6b, 0x08,
+	0x2e, 0x0f, 0x43, 0x30, 0xfc, 0x30, 0x10, 0x2a, 0x91, 0x75, 0x7e, 0x37, 0x56, 0xb1, 0xb2, 0xcb,
+	0xa0, 0x5c, 0x55, 0xd1, 0x83, 0xaf, 0xeb, 0xa8, 0x73, 0x51, 0xff, 0xf8, 0x58, 0x8c, 0xf0, 0x39,
+	0x6a, 0xdb, 0xc9, 0xfd, 0xe9, 0x04, 0x88, 0xe3, 0x39, 0xfe, 0xf6, 0xd1, 0x73, 0xba, 0x64, 0xfb,
+	0xb3, 0x1d, 0xd1, 0x5e, 0xd3, 0xc7, 0x66, 0x23, 0x30, 0x41, 0x9b, 0x56, 0x9c, 0x45, 0xe4, 0x9e,
+	0xe7, 0xf8, 0x6d, 0xd6, 0x48, 0xec, 0x22, 0x04, 0x97, 0x20, 0xcd, 0xb9, 0x92, 0x02, 0xc8, 0xaa,
+	0xe7, 0xf8, 0x6b, 0x6c, 0x2e, 0x82, 0x3d, 0xd4, 0x09, 0x53, 0x25, 0x46, 0xa7, 0x90, 0xc4, 0x43,
+	0x43, 0xd6, 0x6c, 0xc1, 0x7c, 0x08, 0xfb, 0x68, 0xa7, 0xb9, 0xb3, 0x7e, 0x51, 0x8d, 0x59, 0xb7,
+	0x55, 0xbf, 0x87, 0xf1, 0x4b, 0xf4, 0x60, 0x16, 0x62, 0xf0, 0x29, 0x07, 0x6d, 0x20, 0x3a, 0x99,
+	0x92, 0x0d, 0xbb, 0xa7, 0xc5, 0x49, 0x7c, 0x84, 0x76, 0x33, 0x48, 0xf9, 0x14, 0x32, 0x66, 0x4f,
+	0x7c, 0x1c, 0x45, 0x19, 0x68, 0x4d, 0x36, 0x6d, 0xd3, 0xc2, 0x1c, 0x7e, 0x8a, 0xee, 0x47, 0xa0,
+	0x4d, 0x22, 0xb9, 0x49, 0x94, 0xec, 0x17, 0xa7, 0x5c, 0x0f, 0x49, 0xcb, 0x36, 0xfc, 0x99, 0xc0,
+	0x67, 0x08, 0x7f, 0x04, 0xe8, 0x29, 0xa9, 0xf3, 0x31, 0x44, 0x67, 0xd2, 0xce, 0x22, 0x6d, 0xcf,
+	0xf1, 0x3b, 0x47, 0x0f, 0x69, 0x65, 0x28, 0x2d, 0x0d, 0xa5, 0xb5, 0xa1, 0xb4, 0xa7, 0x12, 0xc9,
+	0x16, 0x34, 0xe1, 0x77, 0x68, 0xa3, 0x62, 0x85, 0x20, 0xeb, 0xda, 0x2b, 0x7a, 0x07, 0xe8, 0xe8,
+	0x45, 0x8d, 0x5a, 0xbf, 0x78, 0x6f, 0x9b, 0x59, 0x3d, 0xa4, 0x3c, 0xbb, 0x50, 0xd2, 0x64, 0x5c,
+	0x98, 0x63, 0x31, 0x62, 0xa0, 0x27, 0x4a, 0x6a, 0xd0, 0xa4, 0xe3, 0x39, 0x7e, 0x97, 0x2d, 0xcc,
+	0x95, 0x5e, 0x43, 0x01, 0x3d, 0x15, 0x01, 0xe9, 0x5a, 0x1f, 0x1a, 0x69, 0xbd, 0x2e, 0x40, 0x54,
+	0xff, 0x20, 0x5b, 0x9e, 0xe3, 0xb7, 0xd8, 0x5c, 0x04, 0x3f, 0x42, 0xed, 0x52, 0xbd, 0x4d, 0x79,
+	0xac, 0xc9, 0xb6, 0xb7, 0xea, 0xb7, 0xd8, 0x2c, 0x80, 0xf7, 0x50, 0xab, 0x14, 0x6f, 0xb8, 0xe1,
+	0x64, 0xc7, 0x5b, 0xf5, 0xbb, 0xec, 0x56, 0x1f, 0x7c, 0x59, 0x43, 0xbb, 0x73, 0xfc, 0xf6, 0x52,
+	0x9e, 0x8c, 0xed, 0xd5, 0xfe, 0x07, 0xf9, 0x5f, 0x82, 0xfc, 0x37, 0x5c, 0xda, 0x77, 0xc3, 0x05,
+	0x2d, 0xc3, 0xa5, 0xb3, 0x1c, 0x97, 0xee, 0x32, 0x5c, 0xb6, 0x7e, 0xc5, 0xe5, 0x84, 0x7d, 0xbb,
+	0x76, 0x9d, 0xab, 0x6b, 0xd7, 0xf9, 0x71, 0xed, 0x3a, 0x9f, 0x6f, 0xdc, 0x95, 0xab, 0x1b, 0x77,
+	0xe5, 0xfb, 0x8d, 0xbb, 0xf2, 0xe1, 0x75, 0x9c, 0x98, 0x61, 0x1e, 0x52, 0xa1, 0xc6, 0x41, 0xc5,
+	0xc5, 0xb3, 0x86, 0x93, 0x46, 0x57, 0x0f, 0x6f, 0x71, 0xfb, 0xc2, 0x07, 0xe5, 0xeb, 0xab, 0xc3,
+	0x0d, 0x5b, 0xf7, 0xe2, 0x67, 0x00, 0x00, 0x00, 0xff, 0xff, 0xac, 0x91, 0xcd, 0x03, 0x03, 0x06,
+	0x00, 0x00,
 }
 
 func (m *OutboundAck) Marshal() (dAtA []byte, err error) {
@@ -357,6 +501,121 @@ func (m *OutboundAck) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *OutboundAckClaimHash) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *OutboundAckClaimHash) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *OutboundAckClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ExecData) > 0 {
+		for iNdEx := len(m.ExecData) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.ExecData[iNdEx])
+			copy(dAtA[i:], m.ExecData[iNdEx])
+			i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.ExecData[iNdEx])))
+			i--
+			dAtA[i] = 0x6a
+		}
+	}
+	if len(m.ExecFlags) > 0 {
+		for iNdEx := len(m.ExecFlags) - 1; iNdEx >= 0; iNdEx-- {
+			i--
+			if m.ExecFlags[iNdEx] {
+				dAtA[i] = 1
+			} else {
+				dAtA[i] = 0
+			}
+		}
+		i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.ExecFlags)))
+		i--
+		dAtA[i] = 0x62
+	}
+	if m.ExecStatus {
+		i--
+		if m.ExecStatus {
+			dAtA[i] = 1
+		} else {
+			dAtA[i] = 0
+		}
+		i--
+		dAtA[i] = 0x58
+	}
+	if m.ExeCode != 0 {
+		i = encodeVarintOutboundAck(dAtA, i, uint64(m.ExeCode))
+		i--
+		dAtA[i] = 0x50
+	}
+	if len(m.ContractAckResponses) > 0 {
+		i -= len(m.ContractAckResponses)
+		copy(dAtA[i:], m.ContractAckResponses)
+		i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.ContractAckResponses)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if len(m.DestinationTxHash) > 0 {
+		i -= len(m.DestinationTxHash)
+		copy(dAtA[i:], m.DestinationTxHash)
+		i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.DestinationTxHash)))
+		i--
+		dAtA[i] = 0x42
+	}
+	if len(m.RelayerRouterAddress) > 0 {
+		i -= len(m.RelayerRouterAddress)
+		copy(dAtA[i:], m.RelayerRouterAddress)
+		i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.RelayerRouterAddress)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.OutboundTxRequestedBy) > 0 {
+		i -= len(m.OutboundTxRequestedBy)
+		copy(dAtA[i:], m.OutboundTxRequestedBy)
+		i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.OutboundTxRequestedBy)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.OutboundTxNonce != 0 {
+		i = encodeVarintOutboundAck(dAtA, i, uint64(m.OutboundTxNonce))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.BlockHeight != 0 {
+		i = encodeVarintOutboundAck(dAtA, i, uint64(m.BlockHeight))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.EventNonce != 0 {
+		i = encodeVarintOutboundAck(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintOutboundAck(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if m.ChainType != 0 {
+		i = encodeVarintOutboundAck(dAtA, i, uint64(m.ChainType))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintOutboundAck(dAtA []byte, offset int, v uint64) int {
 	offset -= sovOutboundAck(v)
 	base := offset
@@ -408,6 +667,62 @@ func (m *OutboundAck) Size() (n int) {
 	}
 	if m.Status != 0 {
 		n += 1 + sovOutboundAck(uint64(m.Status))
+	}
+	l = len(m.ContractAckResponses)
+	if l > 0 {
+		n += 1 + l + sovOutboundAck(uint64(l))
+	}
+	if m.ExeCode != 0 {
+		n += 1 + sovOutboundAck(uint64(m.ExeCode))
+	}
+	if m.ExecStatus {
+		n += 2
+	}
+	if len(m.ExecFlags) > 0 {
+		n += 1 + sovOutboundAck(uint64(len(m.ExecFlags))) + len(m.ExecFlags)*1
+	}
+	if len(m.ExecData) > 0 {
+		for _, b := range m.ExecData {
+			l = len(b)
+			n += 1 + l + sovOutboundAck(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *OutboundAckClaimHash) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.ChainType != 0 {
+		n += 1 + sovOutboundAck(uint64(m.ChainType))
+	}
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovOutboundAck(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovOutboundAck(uint64(m.EventNonce))
+	}
+	if m.BlockHeight != 0 {
+		n += 1 + sovOutboundAck(uint64(m.BlockHeight))
+	}
+	if m.OutboundTxNonce != 0 {
+		n += 1 + sovOutboundAck(uint64(m.OutboundTxNonce))
+	}
+	l = len(m.OutboundTxRequestedBy)
+	if l > 0 {
+		n += 1 + l + sovOutboundAck(uint64(l))
+	}
+	l = len(m.RelayerRouterAddress)
+	if l > 0 {
+		n += 1 + l + sovOutboundAck(uint64(l))
+	}
+	l = len(m.DestinationTxHash)
+	if l > 0 {
+		n += 1 + l + sovOutboundAck(uint64(l))
 	}
 	l = len(m.ContractAckResponses)
 	if l > 0 {
@@ -869,6 +1184,435 @@ func (m *OutboundAck) Unmarshal(dAtA []byte) error {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecFlags", wireType)
 			}
 		case 15:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecData", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExecData = append(m.ExecData, make([]byte, postIndex-iNdEx))
+			copy(m.ExecData[len(m.ExecData)-1], dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipOutboundAck(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *OutboundAckClaimHash) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowOutboundAck
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: OutboundAckClaimHash: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: OutboundAckClaimHash: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
+			}
+			m.ChainType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ChainType |= types.ChainType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
+			}
+			m.BlockHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BlockHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OutboundTxNonce", wireType)
+			}
+			m.OutboundTxNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.OutboundTxNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field OutboundTxRequestedBy", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.OutboundTxRequestedBy = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RelayerRouterAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RelayerRouterAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 8:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field DestinationTxHash", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.DestinationTxHash = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAckResponses", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthOutboundAck
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAckResponses = append(m.ContractAckResponses[:0], dAtA[iNdEx:postIndex]...)
+			if m.ContractAckResponses == nil {
+				m.ContractAckResponses = []byte{}
+			}
+			iNdEx = postIndex
+		case 10:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExeCode", wireType)
+			}
+			m.ExeCode = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ExeCode |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 11:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecStatus", wireType)
+			}
+			var v int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowOutboundAck
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				v |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			m.ExecStatus = bool(v != 0)
+		case 12:
+			if wireType == 0 {
+				var v int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowOutboundAck
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					v |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				m.ExecFlags = append(m.ExecFlags, bool(v != 0))
+			} else if wireType == 2 {
+				var packedLen int
+				for shift := uint(0); ; shift += 7 {
+					if shift >= 64 {
+						return ErrIntOverflowOutboundAck
+					}
+					if iNdEx >= l {
+						return io.ErrUnexpectedEOF
+					}
+					b := dAtA[iNdEx]
+					iNdEx++
+					packedLen |= int(b&0x7F) << shift
+					if b < 0x80 {
+						break
+					}
+				}
+				if packedLen < 0 {
+					return ErrInvalidLengthOutboundAck
+				}
+				postIndex := iNdEx + packedLen
+				if postIndex < 0 {
+					return ErrInvalidLengthOutboundAck
+				}
+				if postIndex > l {
+					return io.ErrUnexpectedEOF
+				}
+				var elementCount int
+				elementCount = packedLen
+				if elementCount != 0 && len(m.ExecFlags) == 0 {
+					m.ExecFlags = make([]bool, 0, elementCount)
+				}
+				for iNdEx < postIndex {
+					var v int
+					for shift := uint(0); ; shift += 7 {
+						if shift >= 64 {
+							return ErrIntOverflowOutboundAck
+						}
+						if iNdEx >= l {
+							return io.ErrUnexpectedEOF
+						}
+						b := dAtA[iNdEx]
+						iNdEx++
+						v |= int(b&0x7F) << shift
+						if b < 0x80 {
+							break
+						}
+					}
+					m.ExecFlags = append(m.ExecFlags, bool(v != 0))
+				}
+			} else {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecFlags", wireType)
+			}
+		case 13:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecData", wireType)
 			}
