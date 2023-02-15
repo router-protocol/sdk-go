@@ -1,7 +1,7 @@
 package types
 
 import (
-	fmt "fmt"
+	"encoding/json"
 
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
@@ -19,6 +19,17 @@ func (c IncomingTx) ValidateBasic() error {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *IncomingTx) ClaimHash() ([]byte, error) {
-	path := fmt.Sprintf("%d/%s/%d/%d/%s/%s/%s/%s", msg.ChainType, msg.ChainId, msg.EventNonce, msg.BlockHeight, msg.SourceSender, msg.SourceTxHash, msg.RouterBridgeContract, msg.Payload)
-	return tmhash.Sum([]byte(path)), nil
+	inboundRequestClaimHash := NewInboundRequestClaimHash(
+		msg.ChainType,
+		msg.ChainId,
+		msg.EventNonce,
+		msg.BlockHeight,
+		msg.SourceSender,
+		msg.SourceTxHash,
+		msg.RouterBridgeContract,
+		msg.GasLimit,
+		msg.Payload)
+
+	out, err := json.Marshal(inboundRequestClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
