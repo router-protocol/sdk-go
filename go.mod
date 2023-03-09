@@ -19,7 +19,6 @@ require (
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/mattn/go-runewidth v0.0.10 // indirect
 	github.com/pkg/errors v0.9.1
-	github.com/regen-network/cosmos-proto v0.3.1
 	github.com/rivo/uniseg v0.2.0 // indirect
 	github.com/router-protocol/router-gateway-contracts v1.2.2
 	github.com/stretchr/testify v1.8.1
