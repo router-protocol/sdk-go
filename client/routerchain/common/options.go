@@ -1,7 +1,7 @@
 package common
 
 import (
-	ctypes "github.com/router-protocol/sdk-go/routerchain/types"
+	cmdcfg "github.com/router-protocol/sdk-go/client/routerchain/cmd/config"
 	log "github.com/xlab/suplog"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -14,8 +14,9 @@ func init() {
 	config := sdk.GetConfig()
 
 	// This is specific to Router chain
-	ctypes.SetBech32Prefixes(config)
-	ctypes.SetBip44CoinType(config)
+	cmdcfg.SetBech32Prefixes(config)
+	cmdcfg.SetBip44CoinType(config)
+	config.Seal()
 }
 
 type ClientOptions struct {
