@@ -31,7 +31,7 @@ require (
 )
 
 replace (
-	github.com/CosmWasm/wasmd => github.com/router-protocol/wasmd v0.31.0-rc0-router
+	github.com/CosmWasm/wasmd => github.com/notional-labs/wasmd v0.30.1-0.20230130020453-795c06e7bc42
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/keybase/go-keychain => github.com/99designs/go-keychain v0.0.0-20191008050251-8e49817e8af4
 )
