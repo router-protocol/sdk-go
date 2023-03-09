@@ -1,11 +1,20 @@
 package types
 
 import (
+	context "context"
+
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authTypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core"
+	"github.com/ethereum/go-ethereum/core/vm"
+
+	"github.com/evmos/ethermint/x/evm/statedb"
 )
 
 type AttestationKeeper interface {
@@ -18,6 +27,14 @@ type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
 }
 
+// EVMKeeper defines the expected EVM keeper interface used on erc20
+type EVMKeeper interface {
+	GetParams(ctx sdk.Context) evmtypes.Params
+	GetAccountWithoutBalance(ctx sdk.Context, addr common.Address) *statedb.Account
+	EstimateGas(c context.Context, req *evmtypes.EthCallRequest) (*evmtypes.EstimateGasResponse, error)
+	ApplyMessage(ctx sdk.Context, msg core.Message, tracer vm.EVMLogger, commit bool) (*evmtypes.MsgEthereumTxResponse, error)
+}
+
 type WasmKeeper interface {
 	// Methods imported from wasmd should be defined here
 	Sudo(ctx sdk.Context, contractAddress sdk.AccAddress, msg []byte) ([]byte, error)
@@ -26,6 +43,8 @@ type WasmKeeper interface {
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
 type AccountKeeper interface {
 	GetAccount(ctx sdk.Context, addr sdk.AccAddress) authTypes.AccountI
+	GetModuleAddress(moduleName string) sdk.AccAddress
+	GetSequence(sdk.Context, sdk.AccAddress) (uint64, error)
 	// Methods imported from account should be defined here
 }
 

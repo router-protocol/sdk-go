@@ -15,13 +15,16 @@ message IncomingTx {
   uint64 eventNonce = 3; 
   uint64 blockHeight = 4;
   string sourceTxHash = 5; 
-  string sourceSender = 6;   
-  string routerBridgeContract = 7; 
-  bytes payload = 8; 
-  uint64 gasLimit = 9;
-  cosmos.base.v1beta1.Coin txFeeInRoute = 10 [(gogoproto.nullable) = false];
-  bytes feePayer = 11; 
-  IncomingTxStatus status = 12;   
+  uint64 sourceTimestamp = 6;
+  string sourceSender = 7;   
+  string routerBridgeContract = 8; 
+  bytes payload = 9; 
+  uint64 gasLimit = 10;
+  cosmos.base.v1beta1.Coin txFeeInRoute = 11 [(gogoproto.nullable) = false];
+  bytes feePayer = 12; 
+  string routeAmount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes routeRecipient = 14; 
+  IncomingTxStatus status = 15;   
 }
 
 message InboundRequestClaimHash {  
@@ -30,8 +33,11 @@ message InboundRequestClaimHash {
   uint64 eventNonce = 3; 
   uint64 blockHeight = 4;
   string sourceTxHash = 5; 
-  string sourceSender = 6;   
-  string routerBridgeContract = 7; 
-  bytes payload = 8; 
-  uint64 gasLimit = 9;
+  uint64 sourceTimestamp = 6;
+  string sourceSender = 7;   
+  string routerBridgeContract = 8; 
+  bytes payload = 9; 
+  uint64 gasLimit = 10;
+  string routeAmount = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes routeRecipient = 12; 
 }

@@ -3,6 +3,7 @@ package types
 import (
 	"time"
 
+	"cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/cosmos/cosmos-sdk/x/distribution/types"
@@ -34,16 +35,33 @@ type StakingKeeper interface {
 	GetBondedValidatorsByPower(ctx sdk.Context) []stakingtypes.Validator
 	GetLastValidatorPower(ctx sdk.Context, operator sdk.ValAddress) int64
 	GetLastTotalPower(ctx sdk.Context) (power sdk.Int)
-	IterateValidators(sdk.Context, func(index int64, validator stakingtypes.ValidatorI) (stop bool))
 	ValidatorQueueIterator(ctx sdk.Context, endTime time.Time, endHeight int64) sdk.Iterator
 	GetParams(ctx sdk.Context) stakingtypes.Params
 	GetValidator(ctx sdk.Context, addr sdk.ValAddress) (validator stakingtypes.Validator, found bool)
 	IterateBondedValidatorsByPower(sdk.Context, func(index int64, validator stakingtypes.ValidatorI) (stop bool))
 	IterateLastValidators(sdk.Context, func(index int64, validator stakingtypes.ValidatorI) (stop bool))
-	Validator(sdk.Context, sdk.ValAddress) stakingtypes.ValidatorI
-	ValidatorByConsAddr(sdk.Context, sdk.ConsAddress) stakingtypes.ValidatorI
-	Slash(sdk.Context, sdk.ConsAddress, int64, int64, sdk.Dec)
-	Jail(sdk.Context, sdk.ConsAddress)
+
+	// iterate through validators by operator address, execute func for each validator
+	IterateValidators(sdk.Context,
+		func(index int64, validator stakingtypes.ValidatorI) (stop bool))
+
+	Validator(sdk.Context, sdk.ValAddress) stakingtypes.ValidatorI            // get a particular validator by operator address
+	ValidatorByConsAddr(sdk.Context, sdk.ConsAddress) stakingtypes.ValidatorI // get a particular validator by consensus address
+
+	// slash the validator and delegators of the validator, specifying offence height, offence power, and slash fraction
+	Slash(sdk.Context, sdk.ConsAddress, int64, int64, sdk.Dec) math.Int
+	Jail(sdk.Context, sdk.ConsAddress)   // jail a validator
+	Unjail(sdk.Context, sdk.ConsAddress) // unjail a validator
+
+	// Delegation allows for getting a particular delegation for a given validator
+	// and delegator outside the scope of the staking module.
+	Delegation(sdk.Context, sdk.AccAddress, sdk.ValAddress) stakingtypes.DelegationI
+
+	// MaxValidators returns the maximum amount of bonded validators
+	MaxValidators(sdk.Context) uint32
+
+	GetHistoricalInfo(ctx sdk.Context, height int64) (stakingtypes.HistoricalInfo, bool)
+	GetValidatorByConsAddr(ctx sdk.Context, consAddr sdk.ConsAddress) (validator stakingtypes.Validator, found bool)
 }
 
 // BankKeeper defines the expected bank keeper methods

@@ -23,12 +23,15 @@ const (
 			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
 			{ "internalType": "uint256","name": "_chainType","type": "uint256" },
 			{ "internalType": "string", "name": "_chainId","type": "string" },
+			{ "internalType": "uint256","name": "_routeAmount","type": "uint256" },
+			{ "internalType": "bytes", "name": "_routeRecipient","type": "bytes" },
 			{ "internalType": "string", "name": "_sender","type": "string" },
 			{"internalType": "uint256","name": "_nonce","type": "uint256"},			
 			{"internalType": "bool","name": "_isAtomic","type": "bool"},			
 			{"internalType": "uint256","name": "_expTimestamp","type": "uint256"},
 			{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
-			{"internalType": "bytes[]","name": "_payloads","type": "bytes[]"}			
+			{"internalType": "bytes[]","name": "_payloads","type": "bytes[]"}
+
 		],
 		"outputs": [
 			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
@@ -118,4 +121,37 @@ const (
 			{ "internalType": "uint256",   "name": "_invalidationNonce",      "type": "uint256"   }
       ]
     }]`
+
+	// OutboundBatchRequestEventABIJSON checks the ETH ABI for compatibility of the Outbound batch event
+	OutboundBatchRequestEventABIJSON = `[{
+		"name": "OutboundBatchRequest",
+		"type": "event",
+		"anonymous": false,
+		"inputs": [
+			{"indexed": false,"internalType": "uint64","name": "destination_chain_type","type": "uint64"},
+			{"indexed": false,"internalType": "string","name": "destination_chain_id","type": "string"},
+			{"indexed": false,"internalType": "bytes[]","name": "handlers","type": "bytes[]"},
+			{"indexed": false,"internalType": "bytes[]","name": "payloads","type": "bytes[]"},
+			{"indexed": false,"internalType": "uint256","name": "relayerFee","type": "uint256"},
+			{"indexed": false,"internalType": "uint256","name": "gasLimit","type": "uint256"},
+			{"indexed": false,"internalType": "uint256","name": "gasPrice","type": "uint256"},
+			{"indexed": false,"internalType": "bool","name": "is_atomic","type": "bool"},
+			{"indexed": false,"internalType": "uint256","name": "exp_timestamp","type": "uint256"}
+		]
+	}]`
+
+	// InboundSudoRequestABIJSON checks the ETH ABI for compatibility of the Inbound Batch request
+	InboundSudoRequestABIJSON = `[{
+		"inputs": [
+			{"internalType": "bytes","name": "_sender","type": "bytes"},
+			{"internalType": "string","name": "_srcChainId","type": "string"},
+			{"internalType": "uint64","name": "_srcChainType","type": "uint64"},
+			{"internalType": "uint64","name": "_eventNonce","type": "uint64"},
+			{"internalType": "bytes","name": "_payload","type": "bytes"}
+		],
+		"name": "inboundSudo",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}]`
 )

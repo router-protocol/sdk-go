@@ -26,8 +26,11 @@ func (msg *IncomingTx) ClaimHash() ([]byte, error) {
 		msg.BlockHeight,
 		msg.SourceSender,
 		msg.SourceTxHash,
+		msg.SourceTimestamp,
 		msg.RouterBridgeContract,
 		msg.GasLimit,
+		msg.RouteAmount,
+		msg.RouteRecipient,
 		msg.Payload)
 
 	out, err := json.Marshal(inboundRequestClaimHash)
