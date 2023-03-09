@@ -23,6 +23,8 @@ message EventOutgoingBatchTxCreated {
   string sourceAddress = 10; 
   int64 expiryTimestamp = 11; 
   OutgoingTxStatus status = 12; 
+  string route_amount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes route_recipient = 14;
 }
 
 message EventOutgoingBatchTxConfirm {  

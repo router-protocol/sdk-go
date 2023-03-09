@@ -1,6 +1,8 @@
 package types
 
 import (
+	fmt "fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/router-protocol/sdk-go/routerchain/attestation/types"
@@ -12,7 +14,7 @@ const TypeMsgOutboundBatchRequest = "outbound_batch_request"
 
 var _ sdk.Msg = &MsgOutboundBatchRequest{}
 
-func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64) *MsgOutboundBatchRequest {
+func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, routeAmount sdk.Int, routeRecipient []byte) *MsgOutboundBatchRequest {
 	return &MsgOutboundBatchRequest{
 		Sender:               sender,
 		DestinationChainType: destinationChainType,
@@ -22,6 +24,8 @@ func NewMsgOutboundBatchRequest(sender string, destinationChainType multichainty
 		RelayerFee:           relayerFee,
 		DestinationGasLimit:  destinationGasLimit,
 		DestinationGasPrice:  destinationGasPrice,
+		RouteAmount:          routeAmount,
+		RouteRecipient:       routeRecipient,
 	}
 }
 
@@ -47,15 +51,18 @@ func (msg *MsgOutboundBatchRequest) GetSignBytes() []byte {
 }
 
 func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
+	fmt.Println("process outbound batch6")
 	_, err := sdk.AccAddressFromBech32(msg.Sender)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sender address (%s)", err)
 	}
 
+	fmt.Println("process outbound batch7")
 	if msg.DestinationGasLimit <= 0 {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid outgoung tx gas limit (%d)", msg.DestinationGasLimit)
 	}
 
+	fmt.Println("process outbound batch8")
 	// RelayerFee can be zero or nil.
 	if msg.RelayerFee.IsNegative() {
 		return sdkerrors.Wrapf(sdkerrors.ErrInsufficientFee, "invalid relayer fee (%d)", msg.RelayerFee.Amount)
@@ -64,11 +71,13 @@ func (msg *MsgOutboundBatchRequest) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid relayer fee denom (%d)", msg.RelayerFee.Denom)
 	}
 
+	fmt.Println("process outbound batch9")
 	// Validate contract calls data
 	if len(msg.ContractCalls) == 0 {
 		return sdkerrors.Wrap(types.ErrInvalid, "No contract call in outbound request")
 	}
 
+	fmt.Println("process outbound batch10")
 	for _, contractCall := range msg.ContractCalls {
 		if contractCall.DestinationContractAddress == nil {
 			return sdkerrors.Wrap(types.ErrInvalid, "Destination contract address cannot be nil")

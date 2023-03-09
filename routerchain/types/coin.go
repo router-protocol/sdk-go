@@ -1,6 +1,9 @@
 package types
 
 import (
+	"math/big"
+
+	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -18,6 +21,9 @@ const (
 	// 1 photon = 1x10^{BaseDenomUnit} router
 	BaseDenomUnit = 18
 )
+
+// PowerReduction defines the default power reduction value for staking
+var PowerReduction = sdkmath.NewIntFromBigInt(new(big.Int).Exp(big.NewInt(10), big.NewInt(BaseDenomUnit), nil))
 
 // NewRouterCoin is a utility function that returns an "router" coin with the given sdk.Int amount.
 // The function will panic if the provided amount is negative.

@@ -55,7 +55,6 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 	batchNonce.SetUint64(outgoingBatchTx.Nonce)
 
 	expTimestamp := &big.Int{}
-	// TODO: Remove hardcoded values
 	expTimestamp.SetUint64(uint64(outgoingBatchTx.ExpiryTimestamp))
 
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
@@ -65,6 +64,8 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 		batchMethodName,
 		chainType,
 		outgoingBatchTx.DestinationChainId,
+		outgoingBatchTx.RouteAmount.BigInt(),
+		outgoingBatchTx.RouteRecipient,
 		outgoingBatchTx.SourceAddress,
 		batchNonce,
 		// outgoingBatchTx.RelayerFee.Amount.BigInt(),

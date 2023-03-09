@@ -1,7 +1,7 @@
 package types
 
 import (
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
+	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
 const (
@@ -12,11 +12,11 @@ const (
 
 func init() {
 	govtypes.RegisterProposalType(ProposalTypeCreateChainConfig)
-	govtypes.RegisterProposalTypeCodec(&MultichainCreateChainConfigProposal{}, "router/CreateChainConfigProposal")
+	// govtypes.RegisterProposalTypeCodec(&MultichainCreateChainConfigProposal{}, "router/CreateChainConfigProposal")
 	govtypes.RegisterProposalType(ProposalTypeDeleteChainConfig)
-	govtypes.RegisterProposalTypeCodec(&MultichainDeleteChainConfigProposal{}, "router/DeleteChainConfigProposal")
+	// govtypes.RegisterProposalTypeCodec(&MultichainDeleteChainConfigProposal{}, "router/DeleteChainConfigProposal")
 	govtypes.RegisterProposalType(ProposalTypeUpdateChainConfig)
-	govtypes.RegisterProposalTypeCodec(&MultichainUpdateChainConfigProposal{}, "router/UpdateChainConfigProposal")
+	// govtypes.RegisterProposalTypeCodec(&MultichainUpdateChainConfigProposal{}, "router/UpdateChainConfigProposal")
 }
 
 var (

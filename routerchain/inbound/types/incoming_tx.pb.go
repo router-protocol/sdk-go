@@ -5,6 +5,7 @@ package types
 
 import (
 	fmt "fmt"
+	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
 	types1 "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
@@ -26,18 +27,21 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type IncomingTx struct {
-	ChainType            types.ChainType  `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId              string           `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	EventNonce           uint64           `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	BlockHeight          uint64           `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	SourceTxHash         string           `protobuf:"bytes,5,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
-	SourceSender         string           `protobuf:"bytes,6,opt,name=sourceSender,proto3" json:"sourceSender,omitempty"`
-	RouterBridgeContract string           `protobuf:"bytes,7,opt,name=routerBridgeContract,proto3" json:"routerBridgeContract,omitempty"`
-	Payload              []byte           `protobuf:"bytes,8,opt,name=payload,proto3" json:"payload,omitempty"`
-	GasLimit             uint64           `protobuf:"varint,9,opt,name=gasLimit,proto3" json:"gasLimit,omitempty"`
-	TxFeeInRoute         types1.Coin      `protobuf:"bytes,10,opt,name=txFeeInRoute,proto3" json:"txFeeInRoute"`
-	FeePayer             []byte           `protobuf:"bytes,11,opt,name=feePayer,proto3" json:"feePayer,omitempty"`
-	Status               IncomingTxStatus `protobuf:"varint,12,opt,name=status,proto3,enum=routerprotocol.routerchain.inbound.IncomingTxStatus" json:"status,omitempty"`
+	ChainType            types.ChainType                        `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ChainId              string                                 `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce           uint64                                 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight          uint64                                 `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	SourceTxHash         string                                 `protobuf:"bytes,5,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
+	SourceTimestamp      uint64                                 `protobuf:"varint,6,opt,name=sourceTimestamp,proto3" json:"sourceTimestamp,omitempty"`
+	SourceSender         string                                 `protobuf:"bytes,7,opt,name=sourceSender,proto3" json:"sourceSender,omitempty"`
+	RouterBridgeContract string                                 `protobuf:"bytes,8,opt,name=routerBridgeContract,proto3" json:"routerBridgeContract,omitempty"`
+	Payload              []byte                                 `protobuf:"bytes,9,opt,name=payload,proto3" json:"payload,omitempty"`
+	GasLimit             uint64                                 `protobuf:"varint,10,opt,name=gasLimit,proto3" json:"gasLimit,omitempty"`
+	TxFeeInRoute         types1.Coin                            `protobuf:"bytes,11,opt,name=txFeeInRoute,proto3" json:"txFeeInRoute"`
+	FeePayer             []byte                                 `protobuf:"bytes,12,opt,name=feePayer,proto3" json:"feePayer,omitempty"`
+	RouteAmount          github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,13,opt,name=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"routeAmount"`
+	RouteRecipient       []byte                                 `protobuf:"bytes,14,opt,name=routeRecipient,proto3" json:"routeRecipient,omitempty"`
+	Status               IncomingTxStatus                       `protobuf:"varint,15,opt,name=status,proto3,enum=routerprotocol.routerchain.inbound.IncomingTxStatus" json:"status,omitempty"`
 }
 
 func (m *IncomingTx) Reset()         { *m = IncomingTx{} }
@@ -108,6 +112,13 @@ func (m *IncomingTx) GetSourceTxHash() string {
 	return ""
 }
 
+func (m *IncomingTx) GetSourceTimestamp() uint64 {
+	if m != nil {
+		return m.SourceTimestamp
+	}
+	return 0
+}
+
 func (m *IncomingTx) GetSourceSender() string {
 	if m != nil {
 		return m.SourceSender
@@ -150,6 +161,13 @@ func (m *IncomingTx) GetFeePayer() []byte {
 	return nil
 }
 
+func (m *IncomingTx) GetRouteRecipient() []byte {
+	if m != nil {
+		return m.RouteRecipient
+	}
+	return nil
+}
+
 func (m *IncomingTx) GetStatus() IncomingTxStatus {
 	if m != nil {
 		return m.Status
@@ -158,15 +176,18 @@ func (m *IncomingTx) GetStatus() IncomingTxStatus {
 }
 
 type InboundRequestClaimHash struct {
-	ChainType            types.ChainType `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId              string          `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	EventNonce           uint64          `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	BlockHeight          uint64          `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	SourceTxHash         string          `protobuf:"bytes,5,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
-	SourceSender         string          `protobuf:"bytes,6,opt,name=sourceSender,proto3" json:"sourceSender,omitempty"`
-	RouterBridgeContract string          `protobuf:"bytes,7,opt,name=routerBridgeContract,proto3" json:"routerBridgeContract,omitempty"`
-	Payload              []byte          `protobuf:"bytes,8,opt,name=payload,proto3" json:"payload,omitempty"`
-	GasLimit             uint64          `protobuf:"varint,9,opt,name=gasLimit,proto3" json:"gasLimit,omitempty"`
+	ChainType            types.ChainType                        `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ChainId              string                                 `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce           uint64                                 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight          uint64                                 `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	SourceTxHash         string                                 `protobuf:"bytes,5,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
+	SourceTimestamp      uint64                                 `protobuf:"varint,6,opt,name=sourceTimestamp,proto3" json:"sourceTimestamp,omitempty"`
+	SourceSender         string                                 `protobuf:"bytes,7,opt,name=sourceSender,proto3" json:"sourceSender,omitempty"`
+	RouterBridgeContract string                                 `protobuf:"bytes,8,opt,name=routerBridgeContract,proto3" json:"routerBridgeContract,omitempty"`
+	Payload              []byte                                 `protobuf:"bytes,9,opt,name=payload,proto3" json:"payload,omitempty"`
+	GasLimit             uint64                                 `protobuf:"varint,10,opt,name=gasLimit,proto3" json:"gasLimit,omitempty"`
+	RouteAmount          github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,11,opt,name=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"routeAmount"`
+	RouteRecipient       []byte                                 `protobuf:"bytes,12,opt,name=routeRecipient,proto3" json:"routeRecipient,omitempty"`
 }
 
 func (m *InboundRequestClaimHash) Reset()         { *m = InboundRequestClaimHash{} }
@@ -237,6 +258,13 @@ func (m *InboundRequestClaimHash) GetSourceTxHash() string {
 	return ""
 }
 
+func (m *InboundRequestClaimHash) GetSourceTimestamp() uint64 {
+	if m != nil {
+		return m.SourceTimestamp
+	}
+	return 0
+}
+
 func (m *InboundRequestClaimHash) GetSourceSender() string {
 	if m != nil {
 		return m.SourceSender
@@ -265,6 +293,13 @@ func (m *InboundRequestClaimHash) GetGasLimit() uint64 {
 	return 0
 }
 
+func (m *InboundRequestClaimHash) GetRouteRecipient() []byte {
+	if m != nil {
+		return m.RouteRecipient
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*IncomingTx)(nil), "routerprotocol.routerchain.inbound.IncomingTx")
 	proto.RegisterType((*InboundRequestClaimHash)(nil), "routerprotocol.routerchain.inbound.InboundRequestClaimHash")
@@ -273,38 +308,44 @@ func init() {
 func init() { proto.RegisterFile("inbound/incoming_tx.proto", fileDescriptor_a8ee1d07fc6f736f) }
 
 var fileDescriptor_a8ee1d07fc6f736f = []byte{
-	// 494 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x54, 0xb1, 0x6e, 0xdb, 0x3c,
-	0x10, 0xb6, 0xf2, 0xfb, 0x77, 0x62, 0xda, 0xe8, 0x40, 0x04, 0x28, 0xe3, 0x02, 0xaa, 0xe0, 0xc9,
-	0x4b, 0xa9, 0xc6, 0x2d, 0xd0, 0xdd, 0x06, 0x8a, 0x18, 0x08, 0x82, 0x56, 0xf1, 0xd4, 0xc5, 0xa0,
-	0xe8, 0xab, 0x4c, 0x54, 0x22, 0x5d, 0x91, 0x0a, 0xe4, 0xb7, 0xe8, 0xda, 0x37, 0xca, 0x98, 0xb1,
-	0x53, 0x51, 0xd8, 0x0f, 0xd1, 0xb5, 0x10, 0x29, 0xc5, 0x0e, 0x10, 0xb4, 0x53, 0xb7, 0x2e, 0x04,
-	0xbf, 0xbb, 0xef, 0xbb, 0x3b, 0xf2, 0x0e, 0x87, 0xce, 0x84, 0x8c, 0x55, 0x21, 0x97, 0xa1, 0x90,
-	0x5c, 0x65, 0x42, 0x26, 0x0b, 0x53, 0xd2, 0x75, 0xae, 0x8c, 0xc2, 0xc3, 0x5c, 0x15, 0x06, 0x72,
-	0x0b, 0xb8, 0x4a, 0xa9, 0x83, 0x7c, 0xc5, 0x84, 0xa4, 0xb5, 0x6a, 0x10, 0x3c, 0x22, 0x5f, 0x68,
-	0xc3, 0x4c, 0xa1, 0x5d, 0x94, 0xc1, 0xb3, 0xac, 0x48, 0x8d, 0xb0, 0xaa, 0xd0, 0x9e, 0x0b, 0xb3,
-	0x59, 0x43, 0xed, 0xf4, 0xb9, 0xd2, 0x99, 0xd2, 0x61, 0xcc, 0x34, 0x84, 0x37, 0xe7, 0x31, 0x18,
-	0x76, 0x1e, 0x72, 0x25, 0x64, 0xed, 0x3f, 0x4d, 0x54, 0xa2, 0xec, 0x35, 0xac, 0x6e, 0xce, 0x3a,
-	0xfc, 0xda, 0x46, 0x68, 0x56, 0xe7, 0x9b, 0x97, 0xf8, 0x0a, 0x75, 0x6d, 0xe0, 0xf9, 0x66, 0x0d,
-	0xc4, 0x0b, 0xbc, 0xd1, 0x93, 0xf1, 0x4b, 0xfa, 0x9b, 0xda, 0xf7, 0x05, 0xd1, 0x69, 0xa3, 0x8b,
-	0xf6, 0x21, 0x30, 0x41, 0xc7, 0x16, 0xcc, 0x96, 0xe4, 0x28, 0xf0, 0x46, 0xdd, 0xa8, 0x81, 0xd8,
-	0x47, 0x08, 0x6e, 0x40, 0x9a, 0x2b, 0x25, 0x39, 0x90, 0xff, 0x02, 0x6f, 0xd4, 0x8e, 0x0e, 0x2c,
-	0x38, 0x40, 0xbd, 0x38, 0x55, 0xfc, 0xd3, 0x05, 0x88, 0x64, 0x65, 0x48, 0xdb, 0x12, 0x0e, 0x4d,
-	0x78, 0x88, 0xfa, 0x5a, 0x15, 0x39, 0x87, 0x79, 0x79, 0xc1, 0xf4, 0x8a, 0xfc, 0x6f, 0x13, 0x3c,
-	0xb0, 0xed, 0x39, 0xd7, 0x20, 0x97, 0x90, 0x93, 0xce, 0x21, 0xc7, 0xd9, 0xf0, 0x18, 0x9d, 0xba,
-	0x27, 0x4d, 0x72, 0xb1, 0x4c, 0x60, 0xaa, 0xa4, 0xc9, 0x19, 0x37, 0xe4, 0xd8, 0x72, 0x1f, 0xf5,
-	0x55, 0xef, 0x5a, 0xb3, 0x4d, 0xaa, 0xd8, 0x92, 0x9c, 0x04, 0xde, 0xa8, 0x1f, 0x35, 0x10, 0x0f,
-	0xd0, 0x49, 0xc2, 0xf4, 0xa5, 0xc8, 0x84, 0x21, 0x5d, 0x5b, 0xf4, 0x3d, 0xc6, 0x53, 0xd4, 0x37,
-	0xe5, 0x5b, 0x80, 0x99, 0x8c, 0xaa, 0xa0, 0x04, 0x05, 0xde, 0xa8, 0x37, 0x3e, 0xa3, 0xae, 0x73,
-	0xb4, 0xea, 0x1c, 0xad, 0x3b, 0x47, 0xa7, 0x4a, 0xc8, 0x49, 0xfb, 0xf6, 0xfb, 0xf3, 0x56, 0xf4,
-	0x40, 0x54, 0x25, 0xf8, 0x08, 0xf0, 0x8e, 0x6d, 0x20, 0x27, 0x3d, 0x9b, 0xfb, 0x1e, 0xe3, 0x4b,
-	0xd4, 0x71, 0x03, 0x43, 0xfa, 0xb6, 0x77, 0xaf, 0xe9, 0x9f, 0xe7, 0x8e, 0xee, 0xdb, 0x7f, 0x6d,
-	0xb5, 0x51, 0x1d, 0x63, 0xf8, 0xf3, 0x08, 0x3d, 0x9d, 0x39, 0x52, 0x04, 0x9f, 0x0b, 0xd0, 0x66,
-	0x9a, 0x32, 0x91, 0xd9, 0x8f, 0xfd, 0x37, 0x28, 0x7f, 0x71, 0x50, 0x26, 0xef, 0x6f, 0xb7, 0xbe,
-	0x77, 0xb7, 0xf5, 0xbd, 0x1f, 0x5b, 0xdf, 0xfb, 0xb2, 0xf3, 0x5b, 0x77, 0x3b, 0xbf, 0xf5, 0x6d,
-	0xe7, 0xb7, 0x3e, 0xbc, 0x49, 0x84, 0x59, 0x15, 0x31, 0xe5, 0x2a, 0x0b, 0x5d, 0xc2, 0x17, 0xcd,
-	0x7f, 0x37, 0xd8, 0xed, 0x87, 0x32, 0x6c, 0xd6, 0x49, 0xb5, 0x23, 0x74, 0xdc, 0xb1, 0xb4, 0x57,
-	0xbf, 0x02, 0x00, 0x00, 0xff, 0xff, 0x55, 0x05, 0x78, 0x12, 0xa5, 0x04, 0x00, 0x00,
+	// 578 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x54, 0x4f, 0x6b, 0xdb, 0x4e,
+	0x10, 0xb5, 0x7e, 0x3f, 0xe7, 0xdf, 0xda, 0x4d, 0x60, 0x09, 0x74, 0x93, 0x82, 0x22, 0x7c, 0x08,
+	0xba, 0x64, 0xd5, 0xa4, 0x85, 0x9e, 0x6b, 0x43, 0x89, 0x21, 0x84, 0x54, 0xf1, 0xa9, 0x17, 0xb3,
+	0x92, 0xa6, 0xf2, 0x12, 0x6b, 0x57, 0xd5, 0xae, 0x82, 0xfd, 0x2d, 0x7a, 0xef, 0x67, 0xe9, 0x3d,
+	0xc7, 0x1c, 0x4b, 0x0f, 0xa1, 0xd8, 0x5f, 0xa4, 0x68, 0x25, 0xc5, 0x8e, 0x31, 0xed, 0xa9, 0xd0,
+	0x43, 0x2f, 0xd2, 0xbe, 0xb7, 0x33, 0x6f, 0x66, 0x35, 0x4f, 0x8b, 0x0e, 0xb8, 0x08, 0x64, 0x2e,
+	0x22, 0x8f, 0x8b, 0x50, 0x26, 0x5c, 0xc4, 0x43, 0x3d, 0xa1, 0x69, 0x26, 0xb5, 0xc4, 0x9d, 0x4c,
+	0xe6, 0x1a, 0x32, 0x03, 0x42, 0x39, 0xa6, 0x25, 0x0c, 0x47, 0x8c, 0x0b, 0x5a, 0x65, 0x1d, 0x3a,
+	0x6b, 0xd2, 0x87, 0x4a, 0x33, 0x9d, 0xab, 0x52, 0xe5, 0xf0, 0x45, 0x92, 0x8f, 0x35, 0x37, 0x59,
+	0x9e, 0x79, 0x0e, 0xf5, 0x34, 0x85, 0x6a, 0xd3, 0x0e, 0xa5, 0x4a, 0xa4, 0xf2, 0x02, 0xa6, 0xc0,
+	0xbb, 0x3d, 0x0d, 0x40, 0xb3, 0x53, 0x2f, 0x94, 0x5c, 0x54, 0xfb, 0xfb, 0xb1, 0x8c, 0xa5, 0x59,
+	0x7a, 0xc5, 0xaa, 0x64, 0x3b, 0x5f, 0x37, 0x10, 0xea, 0x57, 0xf5, 0x06, 0x13, 0x7c, 0x89, 0x76,
+	0x8c, 0xf0, 0x60, 0x9a, 0x02, 0xb1, 0x1c, 0xcb, 0xdd, 0x3d, 0x7b, 0x49, 0x7f, 0xd1, 0xfb, 0xa2,
+	0x21, 0xda, 0xab, 0xf3, 0xfc, 0x85, 0x04, 0x26, 0x68, 0xcb, 0x80, 0x7e, 0x44, 0xfe, 0x73, 0x2c,
+	0x77, 0xc7, 0xaf, 0x21, 0xb6, 0x11, 0x82, 0x5b, 0x10, 0xfa, 0x52, 0x8a, 0x10, 0xc8, 0xff, 0x8e,
+	0xe5, 0x36, 0xfd, 0x25, 0x06, 0x3b, 0xa8, 0x15, 0x8c, 0x65, 0x78, 0x73, 0x0e, 0x3c, 0x1e, 0x69,
+	0xd2, 0x34, 0x01, 0xcb, 0x14, 0xee, 0xa0, 0xb6, 0x92, 0x79, 0x16, 0xc2, 0x60, 0x72, 0xce, 0xd4,
+	0x88, 0x6c, 0x98, 0x02, 0x4f, 0x38, 0xec, 0xa2, 0xbd, 0x0a, 0xf3, 0x04, 0x94, 0x66, 0x49, 0x4a,
+	0x36, 0x8d, 0xd2, 0x2a, 0xbd, 0x50, 0xbb, 0x06, 0x11, 0x41, 0x46, 0xb6, 0x96, 0xd5, 0x4a, 0x0e,
+	0x9f, 0xa1, 0xfd, 0xf2, 0xf0, 0xdd, 0x8c, 0x47, 0x31, 0xf4, 0xa4, 0xd0, 0x19, 0x0b, 0x35, 0xd9,
+	0x36, 0xb1, 0x6b, 0xf7, 0x8a, 0x2f, 0x90, 0xb2, 0xe9, 0x58, 0xb2, 0x88, 0xec, 0x38, 0x96, 0xdb,
+	0xf6, 0x6b, 0x88, 0x0f, 0xd1, 0x76, 0xcc, 0xd4, 0x05, 0x4f, 0xb8, 0x26, 0xc8, 0x34, 0xf5, 0x88,
+	0x71, 0x0f, 0xb5, 0xf5, 0xe4, 0x1d, 0x40, 0x5f, 0xf8, 0x85, 0x28, 0x69, 0x39, 0x96, 0xdb, 0x3a,
+	0x3b, 0xa0, 0xe5, 0x8c, 0x69, 0x31, 0x63, 0x5a, 0xcd, 0x98, 0xf6, 0x24, 0x17, 0xdd, 0xe6, 0xdd,
+	0xc3, 0x51, 0xc3, 0x7f, 0x92, 0x54, 0x14, 0xf8, 0x08, 0x70, 0xc5, 0xa6, 0x90, 0x91, 0xb6, 0xa9,
+	0xfd, 0x88, 0xf1, 0x15, 0x6a, 0x99, 0x76, 0xdf, 0x26, 0x32, 0x17, 0x9a, 0x3c, 0x2b, 0x4e, 0xd0,
+	0xa5, 0x85, 0xc8, 0xf7, 0x87, 0xa3, 0xe3, 0x98, 0xeb, 0x51, 0x1e, 0xd0, 0x50, 0x26, 0x5e, 0xe5,
+	0xaa, 0xf2, 0x75, 0xa2, 0xa2, 0x1b, 0xaf, 0xf0, 0x9c, 0xa2, 0x7d, 0xa1, 0xfd, 0x65, 0x09, 0x7c,
+	0x8c, 0x76, 0x0d, 0xf4, 0x21, 0xe4, 0x29, 0x07, 0xa1, 0xc9, 0xae, 0xa9, 0xb9, 0xc2, 0xe2, 0x0b,
+	0xb4, 0x59, 0x9a, 0x9a, 0xec, 0x19, 0x7f, 0xbd, 0xa6, 0xbf, 0xff, 0x37, 0xe8, 0xc2, 0xa2, 0xd7,
+	0x26, 0xd7, 0xaf, 0x34, 0x3a, 0x5f, 0x9a, 0xe8, 0x79, 0xbf, 0x0c, 0xf2, 0xe1, 0x53, 0x0e, 0x4a,
+	0xf7, 0xc6, 0x8c, 0x27, 0x66, 0xf8, 0xff, 0xcc, 0xfc, 0x77, 0x98, 0x79, 0xc5, 0x6b, 0xad, 0x3f,
+	0xe1, 0xb5, 0xf6, 0x3a, 0xaf, 0x75, 0xdf, 0xdf, 0xcd, 0x6c, 0xeb, 0x7e, 0x66, 0x5b, 0x3f, 0x66,
+	0xb6, 0xf5, 0x79, 0x6e, 0x37, 0xee, 0xe7, 0x76, 0xe3, 0xdb, 0xdc, 0x6e, 0x7c, 0x78, 0xb3, 0x54,
+	0xb6, 0x3c, 0xea, 0x49, 0xed, 0x89, 0x1a, 0x97, 0xf7, 0xec, 0xc4, 0xab, 0xaf, 0x65, 0xd3, 0x4b,
+	0xb0, 0x69, 0xc2, 0x5e, 0xfd, 0x0c, 0x00, 0x00, 0xff, 0xff, 0xf8, 0x92, 0xa6, 0x6d, 0xed, 0x05,
+	0x00, 0x00,
 }
 
 func (m *IncomingTx) Marshal() (dAtA []byte, err error) {
@@ -330,14 +371,31 @@ func (m *IncomingTx) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.Status != 0 {
 		i = encodeVarintIncomingTx(dAtA, i, uint64(m.Status))
 		i--
-		dAtA[i] = 0x60
+		dAtA[i] = 0x78
 	}
+	if len(m.RouteRecipient) > 0 {
+		i -= len(m.RouteRecipient)
+		copy(dAtA[i:], m.RouteRecipient)
+		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.RouteRecipient)))
+		i--
+		dAtA[i] = 0x72
+	}
+	{
+		size := m.RouteAmount.Size()
+		i -= size
+		if _, err := m.RouteAmount.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintIncomingTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x6a
 	if len(m.FeePayer) > 0 {
 		i -= len(m.FeePayer)
 		copy(dAtA[i:], m.FeePayer)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.FeePayer)))
 		i--
-		dAtA[i] = 0x5a
+		dAtA[i] = 0x62
 	}
 	{
 		size, err := m.TxFeeInRoute.MarshalToSizedBuffer(dAtA[:i])
@@ -348,32 +406,37 @@ func (m *IncomingTx) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintIncomingTx(dAtA, i, uint64(size))
 	}
 	i--
-	dAtA[i] = 0x52
+	dAtA[i] = 0x5a
 	if m.GasLimit != 0 {
 		i = encodeVarintIncomingTx(dAtA, i, uint64(m.GasLimit))
 		i--
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 	}
 	if len(m.Payload) > 0 {
 		i -= len(m.Payload)
 		copy(dAtA[i:], m.Payload)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.Payload)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	if len(m.RouterBridgeContract) > 0 {
 		i -= len(m.RouterBridgeContract)
 		copy(dAtA[i:], m.RouterBridgeContract)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.RouterBridgeContract)))
 		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x42
 	}
 	if len(m.SourceSender) > 0 {
 		i -= len(m.SourceSender)
 		copy(dAtA[i:], m.SourceSender)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.SourceSender)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
+	}
+	if m.SourceTimestamp != 0 {
+		i = encodeVarintIncomingTx(dAtA, i, uint64(m.SourceTimestamp))
+		i--
+		dAtA[i] = 0x30
 	}
 	if len(m.SourceTxHash) > 0 {
 		i -= len(m.SourceTxHash)
@@ -427,31 +490,53 @@ func (m *InboundRequestClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	_ = i
 	var l int
 	_ = l
+	if len(m.RouteRecipient) > 0 {
+		i -= len(m.RouteRecipient)
+		copy(dAtA[i:], m.RouteRecipient)
+		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.RouteRecipient)))
+		i--
+		dAtA[i] = 0x62
+	}
+	{
+		size := m.RouteAmount.Size()
+		i -= size
+		if _, err := m.RouteAmount.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintIncomingTx(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0x5a
 	if m.GasLimit != 0 {
 		i = encodeVarintIncomingTx(dAtA, i, uint64(m.GasLimit))
 		i--
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 	}
 	if len(m.Payload) > 0 {
 		i -= len(m.Payload)
 		copy(dAtA[i:], m.Payload)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.Payload)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	if len(m.RouterBridgeContract) > 0 {
 		i -= len(m.RouterBridgeContract)
 		copy(dAtA[i:], m.RouterBridgeContract)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.RouterBridgeContract)))
 		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x42
 	}
 	if len(m.SourceSender) > 0 {
 		i -= len(m.SourceSender)
 		copy(dAtA[i:], m.SourceSender)
 		i = encodeVarintIncomingTx(dAtA, i, uint64(len(m.SourceSender)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
+	}
+	if m.SourceTimestamp != 0 {
+		i = encodeVarintIncomingTx(dAtA, i, uint64(m.SourceTimestamp))
+		i--
+		dAtA[i] = 0x30
 	}
 	if len(m.SourceTxHash) > 0 {
 		i -= len(m.SourceTxHash)
@@ -519,6 +604,9 @@ func (m *IncomingTx) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovIncomingTx(uint64(l))
 	}
+	if m.SourceTimestamp != 0 {
+		n += 1 + sovIncomingTx(uint64(m.SourceTimestamp))
+	}
 	l = len(m.SourceSender)
 	if l > 0 {
 		n += 1 + l + sovIncomingTx(uint64(l))
@@ -537,6 +625,12 @@ func (m *IncomingTx) Size() (n int) {
 	l = m.TxFeeInRoute.Size()
 	n += 1 + l + sovIncomingTx(uint64(l))
 	l = len(m.FeePayer)
+	if l > 0 {
+		n += 1 + l + sovIncomingTx(uint64(l))
+	}
+	l = m.RouteAmount.Size()
+	n += 1 + l + sovIncomingTx(uint64(l))
+	l = len(m.RouteRecipient)
 	if l > 0 {
 		n += 1 + l + sovIncomingTx(uint64(l))
 	}
@@ -569,6 +663,9 @@ func (m *InboundRequestClaimHash) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovIncomingTx(uint64(l))
 	}
+	if m.SourceTimestamp != 0 {
+		n += 1 + sovIncomingTx(uint64(m.SourceTimestamp))
+	}
 	l = len(m.SourceSender)
 	if l > 0 {
 		n += 1 + l + sovIncomingTx(uint64(l))
@@ -583,6 +680,12 @@ func (m *InboundRequestClaimHash) Size() (n int) {
 	}
 	if m.GasLimit != 0 {
 		n += 1 + sovIncomingTx(uint64(m.GasLimit))
+	}
+	l = m.RouteAmount.Size()
+	n += 1 + l + sovIncomingTx(uint64(l))
+	l = len(m.RouteRecipient)
+	if l > 0 {
+		n += 1 + l + sovIncomingTx(uint64(l))
 	}
 	return n
 }
@@ -744,6 +847,25 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 			m.SourceTxHash = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SourceTimestamp", wireType)
+			}
+			m.SourceTimestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowIncomingTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SourceTimestamp |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SourceSender", wireType)
 			}
@@ -775,7 +897,7 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 			}
 			m.SourceSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouterBridgeContract", wireType)
 			}
@@ -807,7 +929,7 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 			}
 			m.RouterBridgeContract = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Payload", wireType)
 			}
@@ -841,7 +963,7 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 				m.Payload = []byte{}
 			}
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GasLimit", wireType)
 			}
@@ -860,7 +982,7 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 10:
+		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field TxFeeInRoute", wireType)
 			}
@@ -893,7 +1015,7 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 11:
+		case 12:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field FeePayer", wireType)
 			}
@@ -927,7 +1049,75 @@ func (m *IncomingTx) Unmarshal(dAtA []byte) error {
 				m.FeePayer = []byte{}
 			}
 			iNdEx = postIndex
-		case 12:
+		case 13:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RouteAmount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowIncomingTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.RouteAmount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 14:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RouteRecipient", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowIncomingTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RouteRecipient = append(m.RouteRecipient[:0], dAtA[iNdEx:postIndex]...)
+			if m.RouteRecipient == nil {
+				m.RouteRecipient = []byte{}
+			}
+			iNdEx = postIndex
+		case 15:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
@@ -1118,6 +1308,25 @@ func (m *InboundRequestClaimHash) Unmarshal(dAtA []byte) error {
 			m.SourceTxHash = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 6:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SourceTimestamp", wireType)
+			}
+			m.SourceTimestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowIncomingTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SourceTimestamp |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SourceSender", wireType)
 			}
@@ -1149,7 +1358,7 @@ func (m *InboundRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.SourceSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouterBridgeContract", wireType)
 			}
@@ -1181,7 +1390,7 @@ func (m *InboundRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.RouterBridgeContract = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Payload", wireType)
 			}
@@ -1215,7 +1424,7 @@ func (m *InboundRequestClaimHash) Unmarshal(dAtA []byte) error {
 				m.Payload = []byte{}
 			}
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GasLimit", wireType)
 			}
@@ -1234,6 +1443,74 @@ func (m *InboundRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RouteAmount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowIncomingTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.RouteAmount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 12:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RouteRecipient", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowIncomingTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthIncomingTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RouteRecipient = append(m.RouteRecipient[:0], dAtA[iNdEx:postIndex]...)
+			if m.RouteRecipient == nil {
+				m.RouteRecipient = []byte{}
+			}
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipIncomingTx(dAtA[iNdEx:])
