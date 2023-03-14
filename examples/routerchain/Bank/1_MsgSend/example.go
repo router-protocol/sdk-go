@@ -62,19 +62,25 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("100000000000000route"),
+		common.OptionGasPrices("10000000000000route"),
 	)
 
 	if err != nil {
 		fmt.Println(err)
 	}
 
+	if chainClient == nil {
+		panic("chain client is nil")
+	}
+
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
 	err = chainClient.QueueBroadcastMsg(msg)
+	// txResponse, err := chainClient.SyncBroadcastMsg(msg)
+	// if err != nil {
+	// 	fmt.Println(err)
+	// }
 
-	if err != nil {
-		fmt.Println(err)
-	}
+	// fmt.Println("txResponse", txResponse)
 
 	time.Sleep(time.Second * 5)
 

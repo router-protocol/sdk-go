@@ -22,6 +22,8 @@ import (
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 
+	enccodec "github.com/router-protocol/sdk-go/routerchain/encoding/codec"
+
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
 	signingtypes "github.com/cosmos/cosmos-sdk/types/tx/signing"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -52,6 +54,7 @@ func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 	oracleTypes.RegisterInterfaces(interfaceRegistry)
 	outboundTypes.RegisterInterfaces(interfaceRegistry)
 	crosstalkTypes.RegisterInterfaces(interfaceRegistry)
+	enccodec.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)
