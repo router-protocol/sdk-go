@@ -882,7 +882,7 @@ func (c *chainClient) SimulateMsg(clientCtx client.Context, msgs ...sdk.Msg) (*t
 		return nil, err
 	}
 
-	simTxBytes, err := tx.BuildSimTx(txf, msgs...)
+	simTxBytes, err := txf.BuildSimTx(msgs...)
 	if err != nil {
 		err = errors.Wrap(err, "failed to build sim tx bytes")
 		return nil, err
@@ -946,7 +946,7 @@ func (c *chainClient) broadcastTx(
 	fmt.Println("prepare tx factory", "Simulate", clientCtx.Simulate)
 	ctx := context.Background()
 	if clientCtx.Simulate {
-		simTxBytes, err := tx.BuildSimTx(txf, msgs...)
+		simTxBytes, err := txf.BuildSimTx(msgs...)
 		if err != nil {
 			err = errors.Wrap(err, "failed to build sim tx bytes")
 			return nil, err
@@ -966,7 +966,7 @@ func (c *chainClient) broadcastTx(
 	}
 
 	fmt.Println("Build unsigned tx")
-	txn, err := tx.BuildUnsignedTx(txf, msgs...)
+	txn, err := txf.BuildUnsignedTx(msgs...)
 
 	if err != nil {
 		err = errors.Wrap(err, "failed to BuildUnsignedTx")
