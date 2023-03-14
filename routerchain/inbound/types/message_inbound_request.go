@@ -14,7 +14,7 @@ const TypeMsgInboundRequest = "inbound_request"
 
 var _ sdk.Msg = &MsgInboundRequest{}
 
-func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, routerBridgeContract string, gasLimit uint64, feePayer []byte, payload []byte) *MsgInboundRequest {
+func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient []byte, feePayer []byte, payload []byte) *MsgInboundRequest {
 	return &MsgInboundRequest{
 		Orchestrator:         orchestrator,
 		ChainType:            chainType,
@@ -23,8 +23,11 @@ func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainTy
 		BlockHeight:          blockHeight,
 		SourceSender:         sourceSender,
 		SourceTxHash:         sourceTxHash,
+		SourceTimestamp:      sourceTimeStamp,
 		RouterBridgeContract: routerBridgeContract,
 		GasLimit:             gasLimit,
+		RouteAmount:          routeAmount,
+		RouteRecipient:       routeRecipient,
 		FeePayer:             feePayer,
 		Payload:              payload,
 	}
