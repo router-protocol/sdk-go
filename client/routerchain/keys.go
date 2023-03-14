@@ -16,9 +16,9 @@ import (
 	cosmtypes "github.com/cosmos/cosmos-sdk/types"
 	"github.com/pkg/errors"
 
+	"github.com/evmos/ethermint/crypto/ethsecp256k1"
+	"github.com/evmos/ethermint/crypto/hd"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
-	"github.com/router-protocol/sdk-go/routerchain/crypto/ethsecp256k1"
-	"github.com/router-protocol/sdk-go/routerchain/crypto/hd"
 )
 
 const defaultKeyringKeyName = "validator"

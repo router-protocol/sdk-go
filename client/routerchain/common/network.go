@@ -32,7 +32,7 @@ func LoadNetwork(name string, node string) Network {
 			ApiEndpoint:       "https://localhost:1317",
 			TmEndpoint:        "http://localhost:26657",
 			ChainGrpcEndpoint: "tcp://localhost:9090",
-			ChainId:           "router-1",
+			ChainId:           "router_9000-1",
 			Fee_denom:         "route",
 			Name:              "local",
 		}
@@ -41,7 +41,7 @@ func LoadNetwork(name string, node string) Network {
 			ApiEndpoint:       "http://router-chain-container:1317",
 			TmEndpoint:        "http://router-chain-container:26657",
 			ChainGrpcEndpoint: "tcp://router-chain-container:9090",
-			ChainId:           "router-1",
+			ChainId:           "router_9000-1",
 			Fee_denom:         "route",
 			Name:              "local-docker",
 		}
@@ -50,7 +50,7 @@ func LoadNetwork(name string, node string) Network {
 			ApiEndpoint:       "https://devnet-alpha.lcd.routerprotocol.com:443",
 			TmEndpoint:        "https://devnet-alpha.tm.routerprotocol.com:443",
 			ChainGrpcEndpoint: "tcp://devnet-alpha.grpc.routerprotocol.com:9090",
-			ChainId:           "router-1",
+			ChainId:           "router_9000-1",
 			Fee_denom:         "route",
 			Name:              "devnet-alpha",
 		}
@@ -59,7 +59,7 @@ func LoadNetwork(name string, node string) Network {
 			ApiEndpoint:       "https://devnet-internal.lcd.routerprotocol.com:443",
 			TmEndpoint:        "https://devnet-internal.tm.routerprotocol.com:443",
 			ChainGrpcEndpoint: "tcp://devnet-internal.grpc.routerprotocol.com:9090",
-			ChainId:           "router-1",
+			ChainId:           "router_9000-1",
 			Fee_denom:         "route",
 			Name:              "devnet-internal",
 		}
@@ -68,7 +68,7 @@ func LoadNetwork(name string, node string) Network {
 			ApiEndpoint:       "http://3.110.19.140:1317",
 			TmEndpoint:        "http://3.110.19.140:26657",
 			ChainGrpcEndpoint: "tcp://3.110.19.140:9090",
-			ChainId:           "router-1",
+			ChainId:           "router_9000-1",
 			Fee_denom:         "route",
 			Name:              "devnet-alpha-nondocker",
 		}
@@ -77,7 +77,7 @@ func LoadNetwork(name string, node string) Network {
 			ApiEndpoint:       "https://devnet.lcd.routerprotocol.com:443",
 			TmEndpoint:        "https://devnet.tm.routerprotocol.com:443",
 			ChainGrpcEndpoint: "tcp://devnet.grpc.routerprotocol.com:9090",
-			ChainId:           "router-1",
+			ChainId:           "router_9000-1",
 			Fee_denom:         "route",
 			Name:              "devnet",
 		}

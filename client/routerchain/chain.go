@@ -1007,7 +1007,7 @@ func (c *chainClient) broadcastTx(
 	txHash, _ := hex.DecodeString(res.TxResponse.TxHash)
 	t := time.NewTimer(defaultBroadcastStatusPoll)
 
-	fmt.Println("Broadcasted tx", "txHash", txHash)
+	fmt.Println("Broadcasted tx", "txHash", res.TxResponse.TxHash)
 
 	for {
 		select {
@@ -1073,6 +1073,7 @@ func (c *chainClient) runBatchBroadcast() {
 		c.txFactory = c.txFactory.WithSequence(c.accSeq)
 		c.txFactory = c.txFactory.WithAccountNumber(c.accNum)
 		log.Debugln("broadcastTx with nonce", c.accSeq)
+		log.Debugln("txf", "fees", c.txFactory.Fees(), "gas", c.txFactory.Gas(), "gasPrice", c.txFactory.GasPrices())
 		res, err := c.broadcastTx(c.ctx, c.txFactory, true, toSubmit...)
 		if err != nil {
 			fmt.Println("Error broadcasting tx", err)
