@@ -14,13 +14,13 @@ import (
 	keyscodec "github.com/router-protocol/sdk-go/routerchain/crypto/codec"
 
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
-	chaintypes "github.com/router-protocol/sdk-go/routerchain/types"
 
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
 	signingtypes "github.com/cosmos/cosmos-sdk/types/tx/signing"
@@ -31,8 +31,6 @@ import (
 	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
 	distributiontypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
 	evidencetypes "github.com/cosmos/cosmos-sdk/x/evidence/types"
-	feegranttypes "github.com/cosmos/cosmos-sdk/x/feegrant"
-	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	paramproposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
@@ -42,11 +40,12 @@ import (
 	ibccoretypes "github.com/cosmos/ibc-go/v6/modules/core/types"
 )
 
-// NewTxConfig initializes new Cosmos TxConfig with certain signModes enabled.
-func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
+func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
+
 	interfaceRegistry := types.NewInterfaceRegistry()
 	keyscodec.RegisterInterfaces(interfaceRegistry)
 	std.RegisterInterfaces(interfaceRegistry)
+	evmtypes.RegisterInterfaces(interfaceRegistry)
 	attestationTypes.RegisterInterfaces(interfaceRegistry)
 	inboundTypes.RegisterInterfaces(interfaceRegistry)
 	multichainTypes.RegisterInterfaces(interfaceRegistry)
@@ -62,19 +61,23 @@ func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
 	crisistypes.RegisterInterfaces(interfaceRegistry)
 	distributiontypes.RegisterInterfaces(interfaceRegistry)
 	evidencetypes.RegisterInterfaces(interfaceRegistry)
-	govtypes.RegisterInterfaces(interfaceRegistry)
+	// gov.RegisterInterfaces(interfaceRegistry)
 	paramproposaltypes.RegisterInterfaces(interfaceRegistry)
 	ibcapplicationtypes.RegisterInterfaces(interfaceRegistry)
 	ibccoretypes.RegisterInterfaces(interfaceRegistry)
 	slashingtypes.RegisterInterfaces(interfaceRegistry)
 	stakingtypes.RegisterInterfaces(interfaceRegistry)
 	upgradetypes.RegisterInterfaces(interfaceRegistry)
-	feegranttypes.RegisterInterfaces(interfaceRegistry)
 	wasmtypes.RegisterInterfaces(interfaceRegistry)
 	icatypes.RegisterInterfaces(interfaceRegistry)
-	chaintypes.RegisterInterfaces(interfaceRegistry)
 
 	marshaler := codec.NewProtoCodec(interfaceRegistry)
+	return marshaler, interfaceRegistry
+}
+
+// NewTxConfig initializes new Cosmos TxConfig with certain signModes enabled.
+func NewTxConfig(signModes []signingtypes.SignMode) client.TxConfig {
+	marshaler, _ := NewCodec()
 	return tx.NewTxConfig(marshaler, signModes)
 }
 
@@ -85,37 +88,7 @@ func NewClientContext(
 	chainId, fromSpec string, kb keyring.Keyring,
 ) (client.Context, error) {
 	clientCtx := client.Context{}
-
-	interfaceRegistry := types.NewInterfaceRegistry()
-	keyscodec.RegisterInterfaces(interfaceRegistry)
-	std.RegisterInterfaces(interfaceRegistry)
-	chaintypes.RegisterInterfaces(interfaceRegistry)
-	attestationTypes.RegisterInterfaces(interfaceRegistry)
-	inboundTypes.RegisterInterfaces(interfaceRegistry)
-	multichainTypes.RegisterInterfaces(interfaceRegistry)
-	oracleTypes.RegisterInterfaces(interfaceRegistry)
-	outboundTypes.RegisterInterfaces(interfaceRegistry)
-	crosstalkTypes.RegisterInterfaces(interfaceRegistry)
-
-	// more cosmos types
-	authtypes.RegisterInterfaces(interfaceRegistry)
-	authztypes.RegisterInterfaces(interfaceRegistry)
-	vestingtypes.RegisterInterfaces(interfaceRegistry)
-	banktypes.RegisterInterfaces(interfaceRegistry)
-	crisistypes.RegisterInterfaces(interfaceRegistry)
-	distributiontypes.RegisterInterfaces(interfaceRegistry)
-	evidencetypes.RegisterInterfaces(interfaceRegistry)
-	govtypes.RegisterInterfaces(interfaceRegistry)
-	paramproposaltypes.RegisterInterfaces(interfaceRegistry)
-	ibcapplicationtypes.RegisterInterfaces(interfaceRegistry)
-	ibccoretypes.RegisterInterfaces(interfaceRegistry)
-	slashingtypes.RegisterInterfaces(interfaceRegistry)
-	stakingtypes.RegisterInterfaces(interfaceRegistry)
-	upgradetypes.RegisterInterfaces(interfaceRegistry)
-	wasmtypes.RegisterInterfaces(interfaceRegistry)
-	icatypes.RegisterInterfaces(interfaceRegistry)
-
-	marshaler := codec.NewProtoCodec(interfaceRegistry)
+	marshaler, interfaceRegistry := NewCodec()
 	encodingConfig := EncodingConfig{
 		InterfaceRegistry: interfaceRegistry,
 		Marshaler:         marshaler,
@@ -124,7 +97,7 @@ func NewClientContext(
 		}),
 	}
 
-	var keyInfo keyring.Info
+	var keyInfo *keyring.Record
 
 	if kb != nil {
 		addr, err := cosmostypes.AccAddressFromBech32(fromSpec)
@@ -164,13 +137,12 @@ func newContext(
 	chainId string,
 	encodingConfig EncodingConfig,
 	kb keyring.Keyring,
-	keyInfo keyring.Info,
+	keyInfo *keyring.Record,
 
 ) client.Context {
 	clientCtx := client.Context{
 		ChainID:           chainId,
 		Codec:             encodingConfig.Marshaler,
-		JSONCodec:         encodingConfig.Marshaler,
 		InterfaceRegistry: encodingConfig.InterfaceRegistry,
 		Output:            os.Stderr,
 		OutputFormat:      "json",
@@ -186,9 +158,10 @@ func newContext(
 
 	if keyInfo != nil {
 		clientCtx = clientCtx.WithKeyring(kb)
-		clientCtx = clientCtx.WithFromAddress(keyInfo.GetAddress())
-		clientCtx = clientCtx.WithFromName(keyInfo.GetName())
-		clientCtx = clientCtx.WithFrom(keyInfo.GetName())
+		addr, _ := keyInfo.GetAddress()
+		clientCtx = clientCtx.WithFromAddress(addr)
+		clientCtx = clientCtx.WithFromName(keyInfo.Name)
+		clientCtx = clientCtx.WithFrom(keyInfo.Name)
 	}
 
 	return clientCtx
