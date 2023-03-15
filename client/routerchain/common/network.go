@@ -11,14 +11,15 @@ import (
 )
 
 type Network struct {
-	ApiEndpoint       string
-	TmEndpoint        string
-	ChainGrpcEndpoint string
-	ChainTlsCert      credentials.TransportCredentials
-	ExchangeTlsCert   credentials.TransportCredentials
-	ChainId           string
-	Fee_denom         string
-	Name              string
+	ApiEndpoint         string
+	TmEndpoint          string
+	ChainGrpcEndpoint   string
+	ChainEvmRpcEndpoint string
+	ChainTlsCert        credentials.TransportCredentials
+	ExchangeTlsCert     credentials.TransportCredentials
+	ChainId             string
+	Fee_denom           string
+	Name                string
 }
 
 func getFileAbsPath(relativePath string) string {
@@ -29,30 +30,33 @@ func getFileAbsPath(relativePath string) string {
 func LoadNetwork(name string, node string) Network {
 	if name == "local" {
 		return Network{
-			ApiEndpoint:       "https://localhost:1317",
-			TmEndpoint:        "http://localhost:26657",
-			ChainGrpcEndpoint: "tcp://localhost:9090",
-			ChainId:           "router_9000-1",
-			Fee_denom:         "route",
-			Name:              "local",
+			ApiEndpoint:         "https://localhost:1317",
+			TmEndpoint:          "http://localhost:26657",
+			ChainEvmRpcEndpoint: "http://localhost:8545",
+			ChainGrpcEndpoint:   "tcp://localhost:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "local",
 		}
 	} else if name == "local-docker" {
 		return Network{
-			ApiEndpoint:       "http://router-chain-container:1317",
-			TmEndpoint:        "http://router-chain-container:26657",
-			ChainGrpcEndpoint: "tcp://router-chain-container:9090",
-			ChainId:           "router_9000-1",
-			Fee_denom:         "route",
-			Name:              "local-docker",
+			ApiEndpoint:         "http://router-chain-container:1317",
+			TmEndpoint:          "http://router-chain-container:26657",
+			ChainEvmRpcEndpoint: "http://router-chain-container:8545",
+			ChainGrpcEndpoint:   "tcp://router-chain-container:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "local-docker",
 		}
 	} else if name == "devnet-alpha" {
 		return Network{
-			ApiEndpoint:       "https://devnet-alpha.lcd.routerprotocol.com:443",
-			TmEndpoint:        "https://devnet-alpha.tm.routerprotocol.com:443",
-			ChainGrpcEndpoint: "tcp://devnet-alpha.grpc.routerprotocol.com:9090",
-			ChainId:           "router_9000-1",
-			Fee_denom:         "route",
-			Name:              "devnet-alpha",
+			ApiEndpoint:         "https://devnet-alpha.lcd.routerprotocol.com:443",
+			TmEndpoint:          "https://devnet-alpha.tm.routerprotocol.com:443",
+			ChainEvmRpcEndpoint: "https://devnet-alpha.evm.rpc.routerprotocol.com/",
+			ChainGrpcEndpoint:   "tcp://devnet-alpha.grpc.routerprotocol.com:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "devnet-alpha",
 		}
 	} else if name == "devnet-internal" {
 		return Network{
@@ -65,21 +69,23 @@ func LoadNetwork(name string, node string) Network {
 		}
 	} else if name == "devnet-alpha-nondocker" {
 		return Network{
-			ApiEndpoint:       "http://3.110.19.140:1317",
-			TmEndpoint:        "http://3.110.19.140:26657",
-			ChainGrpcEndpoint: "tcp://3.110.19.140:9090",
-			ChainId:           "router_9000-1",
-			Fee_denom:         "route",
-			Name:              "devnet-alpha-nondocker",
+			ApiEndpoint:         "http://3.110.19.140:1317",
+			TmEndpoint:          "http://3.110.19.140:26657",
+			ChainEvmRpcEndpoint: "http://3.110.19.140:8545",
+			ChainGrpcEndpoint:   "tcp://3.110.19.140:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "devnet-alpha-nondocker",
 		}
 	} else if name == "devnet" {
 		return Network{
-			ApiEndpoint:       "https://devnet.lcd.routerprotocol.com:443",
-			TmEndpoint:        "https://devnet.tm.routerprotocol.com:443",
-			ChainGrpcEndpoint: "tcp://devnet.grpc.routerprotocol.com:9090",
-			ChainId:           "router_9000-1",
-			Fee_denom:         "route",
-			Name:              "devnet",
+			ApiEndpoint:         "https://devnet.lcd.routerprotocol.com:443",
+			TmEndpoint:          "https://devnet.tm.routerprotocol.com:443",
+			ChainEvmRpcEndpoint: "https://devnet.evm.rpc.routerprotocol.com/",
+			ChainGrpcEndpoint:   "tcp://devnet.grpc.routerprotocol.com:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "devnet",
 		}
 	}
 	return Network{}
