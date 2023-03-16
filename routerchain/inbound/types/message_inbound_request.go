@@ -14,7 +14,7 @@ const TypeMsgInboundRequest = "inbound_request"
 
 var _ sdk.Msg = &MsgInboundRequest{}
 
-func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient []byte, feePayer []byte, payload []byte) *MsgInboundRequest {
+func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient []byte, feePayer []byte, payload []byte, asmAddress []byte) *MsgInboundRequest {
 	return &MsgInboundRequest{
 		Orchestrator:         orchestrator,
 		ChainType:            chainType,
@@ -30,6 +30,7 @@ func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainTy
 		RouteRecipient:       routeRecipient,
 		FeePayer:             feePayer,
 		Payload:              payload,
+		AsmAddress:           asmAddress,
 	}
 }
 
@@ -89,7 +90,8 @@ func (msg *MsgInboundRequest) ClaimHash() ([]byte, error) {
 		msg.GasLimit,
 		msg.RouteAmount,
 		msg.RouteRecipient,
-		msg.Payload)
+		msg.Payload,
+		msg.AsmAddress)
 
 	out, err := json.Marshal(inboundRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err

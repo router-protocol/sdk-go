@@ -17,12 +17,14 @@ message OutgoingBatchTx {
   uint64 destinationGasLimit = 6;
   uint64 destinationGasPrice = 7;
   cosmos.base.v1beta1.Coin outgoingTxFeeInRoute = 8 [(gogoproto.nullable) = false]; 
-  int64 expiryTimestamp = 9;
-  bool isAtomic = 10; 
-  string sourceAddress = 11; 
-  OutgoingTxStatus status = 12; 
-  string route_amount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes route_recipient = 14;
+  uint64 chainTimestamp = 9;
+  int64 expiryTimestamp = 10;
+  bool isAtomic = 11; 
+  string sourceAddress = 12; 
+  OutgoingTxStatus status = 13; 
+  string route_amount = 14 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes route_recipient = 15;
+  bytes asmAddress = 16;
 }
 
 // this line is used by starport scaffolding # genesis/types/import

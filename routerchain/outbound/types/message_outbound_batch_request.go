@@ -14,7 +14,7 @@ const TypeMsgOutboundBatchRequest = "outbound_batch_request"
 
 var _ sdk.Msg = &MsgOutboundBatchRequest{}
 
-func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, routeAmount sdk.Int, routeRecipient []byte) *MsgOutboundBatchRequest {
+func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte) *MsgOutboundBatchRequest {
 	return &MsgOutboundBatchRequest{
 		Sender:               sender,
 		DestinationChainType: destinationChainType,
@@ -26,6 +26,7 @@ func NewMsgOutboundBatchRequest(sender string, destinationChainType multichainty
 		DestinationGasPrice:  destinationGasPrice,
 		RouteAmount:          routeAmount,
 		RouteRecipient:       routeRecipient,
+		AsmAddress:           asmAddress,
 	}
 }
 

@@ -21,10 +21,12 @@ message EventOutgoingBatchTxCreated {
   cosmos.base.v1beta1.Coin outgoingTxFeeInRoute = 8 [(gogoproto.nullable) = false]; 
   bool isAtomic = 9; 
   string sourceAddress = 10; 
-  int64 expiryTimestamp = 11; 
-  OutgoingTxStatus status = 12; 
-  string route_amount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes route_recipient = 14;
+  uint64 chainTimestamp = 11;
+  int64 expiryTimestamp = 12; 
+  OutgoingTxStatus status = 13; 
+  string route_amount = 14 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes route_recipient = 15;
+  bytes asmAddress = 16;
 }
 
 message EventOutgoingBatchTxConfirm {  

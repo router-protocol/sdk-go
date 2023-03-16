@@ -30,6 +30,7 @@ func NewMsgCrossTalkRequest(
 	sourceChainType multichainTypes.ChainType,
 	sourceChainId string,
 	sourceTxHash string,
+	sourceTimeStamp uint64,
 	destinationChainType multichainTypes.ChainType,
 	destinationChainId string,
 	destinationGasLimit uint64,
@@ -48,6 +49,8 @@ func NewMsgCrossTalkRequest(
 	requestTxOrigin string,
 	isReadCall bool,
 	feePayer []byte,
+	asmAddress []byte,
+
 ) *MsgCrossTalkRequest {
 	return &MsgCrossTalkRequest{
 		Orchestrator:          orchestrator,
@@ -56,6 +59,7 @@ func NewMsgCrossTalkRequest(
 		ChainType:             sourceChainType,
 		ChainId:               sourceChainId,
 		SourceTxHash:          sourceTxHash,
+		SourceTimestamp:       sourceTimeStamp,
 		DestinationChainType:  destinationChainType,
 		DestinationChainId:    destinationChainId,
 		DestinationGasLimit:   destinationGasLimit,
@@ -74,6 +78,7 @@ func NewMsgCrossTalkRequest(
 		EthSigner:             ethSigner,
 		Signature:             signature,
 		FeePayer:              feePayer,
+		AsmAddress:            asmAddress,
 	}
 }
 
@@ -127,6 +132,7 @@ func (msg *MsgCrossTalkRequest) ClaimHash() ([]byte, error) {
 		msg.ChainType,
 		msg.ChainId,
 		msg.SourceTxHash,
+		msg.SourceTimestamp,
 		msg.DestinationChainType,
 		msg.DestinationChainId,
 		msg.DestinationGasLimit,
@@ -142,7 +148,8 @@ func (msg *MsgCrossTalkRequest) ClaimHash() ([]byte, error) {
 		msg.AckGasPrice,
 		msg.RequestTxOrigin,
 		msg.IsReadCall,
-		msg.FeePayer)
+		msg.FeePayer,
+		msg.AsmAddress)
 
 	out, err := json.Marshal(crosstalkRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err
@@ -201,6 +208,9 @@ func (msg MsgCrossTalkRequest) GetCheckpoint(routerIDstring string) []byte {
 	expTimestamp := &big.Int{}
 	expTimestamp.SetUint64(uint64(msg.ExpiryTimestamp))
 
+	chainTimestamp := &big.Int{}
+	chainTimestamp.SetUint64(uint64(msg.SourceTimestamp))
+
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
@@ -214,7 +224,9 @@ func (msg MsgCrossTalkRequest) GetCheckpoint(routerIDstring string) []byte {
 		srcChainType,
 		caller,
 		msg.IsAtomic,
+		chainTimestamp,
 		expTimestamp,
+		msg.AsmAddress,
 		msg.DestContractAddresses,
 		msg.DestContractPayloads,
 	)

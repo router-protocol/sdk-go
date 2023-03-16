@@ -31,7 +31,8 @@ func (msg *IncomingTx) ClaimHash() ([]byte, error) {
 		msg.GasLimit,
 		msg.RouteAmount,
 		msg.RouteRecipient,
-		msg.Payload)
+		msg.Payload,
+		msg.AsmAddress)
 
 	out, err := json.Marshal(inboundRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err

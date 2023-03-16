@@ -30,6 +30,7 @@ message MsgOutboundBatchRequest {
   int64 expiryTimestamp = 9;
   string route_amount = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes route_recipient = 11;
+  bytes asmAddress = 12;
 }
 
 message MsgOutboundBatchRequestResponse {
