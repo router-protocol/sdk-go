@@ -100,7 +100,7 @@ func (msg *MsgInboundRequest) ClaimHash() ([]byte, error) {
 func (msg MsgInboundRequest) GetClaimer() sdk.AccAddress {
 	err := msg.ValidateBasic()
 	if err != nil {
-		panic("MsgInboundRequest failed ValidateBasic! Should have been handled earlier")
+		panic("MsgInboundRequest failed ValidateBasic! Shoulds have been handled earlier")
 	}
 
 	val, _ := sdk.AccAddressFromBech32(msg.Orchestrator)
