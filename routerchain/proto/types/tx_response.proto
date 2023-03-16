@@ -1,7 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.types;
 
-option go_package = "github.com/router-protocol/sdk-go/routerchain/types";
+option go_package = "github.com/router-protocol/router-chain/types";
 
 // base header ak message type, we can cast the bytes into corresponding message response type
 message TxResponseGenericMessage {
