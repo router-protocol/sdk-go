@@ -23,7 +23,8 @@ message EventIncomingTxCreated {
   bytes feePayer = 12;
   string routeAmount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes routeRecipient = 14; 
-  IncomingTxStatus status = 15;   
+  bytes asmAddress = 15;
+  IncomingTxStatus status = 16;   
 }
 
 message EventIncomingTxReadyToExecute {  

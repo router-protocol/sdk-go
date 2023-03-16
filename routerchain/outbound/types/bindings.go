@@ -53,6 +53,7 @@ type OutboundBatchRequest struct {
 	ExpiryTimestamp      uint64              `json:"exp_timestamp"`
 	RouteAmount          sdk.Int             `json:"route_amount"`
 	RouteRecipient       []byte              `json:"route_recipient"`
+	AsmAddress           []byte              `json:"asm_address"`
 }
 
 type OutgoingTxFee struct {

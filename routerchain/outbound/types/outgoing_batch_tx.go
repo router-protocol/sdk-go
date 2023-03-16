@@ -57,6 +57,9 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 	expTimestamp := &big.Int{}
 	expTimestamp.SetUint64(uint64(outgoingBatchTx.ExpiryTimestamp))
 
+	chainTimestamp := &big.Int{}
+	chainTimestamp.SetUint64(uint64(outgoingBatchTx.ChainTimestamp))
+
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
@@ -68,10 +71,10 @@ func (outgoingBatchTx OutgoingBatchTx) GetCheckpoint(routerIDstring string) []by
 		outgoingBatchTx.RouteRecipient,
 		outgoingBatchTx.SourceAddress,
 		batchNonce,
-		// outgoingBatchTx.RelayerFee.Amount.BigInt(),
-		// outgoingBatchTx.OutgoingTxFeeInRoute.Amount.BigInt(),
 		outgoingBatchTx.IsAtomic,
+		chainTimestamp,
 		expTimestamp,
+		outgoingBatchTx.AsmAddress,
 		handlers,
 		payloads,
 	)

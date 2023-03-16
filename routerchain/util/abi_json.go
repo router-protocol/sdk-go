@@ -29,6 +29,7 @@ const (
 			{"internalType": "uint256","name": "_nonce","type": "uint256"},			
 			{"internalType": "bool","name": "_isAtomic","type": "bool"},			
 			{"internalType": "uint256","name": "_expTimestamp","type": "uint256"},
+			{ "internalType": "bytes","name": "_asmAddress","type": "bytes"},
 			{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
 			{"internalType": "bytes[]","name": "_payloads","type": "bytes[]"}
 
@@ -53,7 +54,9 @@ const (
 				{ "internalType": "uint256","name": "_srcChainType","type": "uint256" },
 				{ "internalType": "bytes","name": "_caller","type": "bytes"},
 				{"internalType": "bool","name": "_isAtomic","type": "bool"},	
+				{"internalType": "uint256","name": "_chainTimestamp","type": "uint256"},
 				{"internalType": "uint256","name": "_expTimestamp","type": "uint256"},
+				{ "internalType": "bytes","name": "_asmAddress","type": "bytes"},
 				{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
 				{"internalType": "bytes[]","name": "_payloads","type": "bytes[]"}			
 			],

@@ -25,6 +25,7 @@ func (c *CrossTalkRequest) ClaimHash() ([]byte, error) {
 		c.SourceChainType,
 		c.SourceChainId,
 		c.SourceTxHash,
+		c.SourceTimestamp,
 		c.DestinationChainType,
 		c.DestinationChainId,
 		c.DestinationGasLimit,
@@ -40,7 +41,8 @@ func (c *CrossTalkRequest) ClaimHash() ([]byte, error) {
 		c.AckGasPrice,
 		c.RequestTxOrigin,
 		c.IsReadCall,
-		c.FeePayer)
+		c.FeePayer,
+		c.AsmAddress)
 
 	out, err := json.Marshal(crosstalkRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err

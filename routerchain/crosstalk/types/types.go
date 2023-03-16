@@ -10,6 +10,7 @@ func NewCrossTalkRequest(
 	sourceChainType multichainTypes.ChainType,
 	sourceChainId string,
 	sourceTxHash string,
+	sourceTimeStamp uint64,
 	destinationChainType multichainTypes.ChainType,
 	destinationChainId string,
 	destinationGasLimit uint64,
@@ -25,13 +26,16 @@ func NewCrossTalkRequest(
 	ackGasPrice uint64,
 	requestTxOrigin string,
 	isReadCall bool,
-	feePayer []byte) *CrossTalkRequest {
+	feePayer []byte,
+	asmAddress []byte,
+) *CrossTalkRequest {
 	return &CrossTalkRequest{
 		EventNonce:            eventNonce,
 		BlockHeight:           blockHeight,
 		SourceChainType:       sourceChainType,
 		SourceChainId:         sourceChainId,
 		SourceTxHash:          sourceTxHash,
+		SourceTimestamp:       sourceTimeStamp,
 		DestinationChainType:  destinationChainType,
 		DestinationChainId:    destinationChainId,
 		DestinationGasLimit:   destinationGasLimit,
@@ -48,6 +52,7 @@ func NewCrossTalkRequest(
 		AckGasLimit:           ackGasLimit,
 		AckGasPrice:           ackGasPrice,
 		FeePayer:              feePayer,
+		AsmAddress:            asmAddress,
 		Status:                CROSSTALK_REQUEST_CREATED,
 	}
 }
@@ -58,6 +63,7 @@ func NewCrossTalkRequestClaimHash(
 	sourceChainType multichainTypes.ChainType,
 	sourceChainId string,
 	sourceTxHash string,
+	sourceTimeStamp uint64,
 	destinationChainType multichainTypes.ChainType,
 	destinationChainId string,
 	destinationGasLimit uint64,
@@ -73,13 +79,16 @@ func NewCrossTalkRequestClaimHash(
 	ackGasPrice uint64,
 	requestTxOrigin string,
 	isReadCall bool,
-	feePayer []byte) *CrossTalkRequestClaimHash {
+	feePayer []byte,
+	asmAddress []byte,
+) *CrossTalkRequestClaimHash {
 	return &CrossTalkRequestClaimHash{
 		EventNonce:            eventNonce,
 		BlockHeight:           blockHeight,
 		SourceChainType:       sourceChainType,
 		SourceChainId:         sourceChainId,
 		SourceTxHash:          sourceTxHash,
+		SourceTimestamp:       sourceTimeStamp,
 		DestinationChainType:  destinationChainType,
 		DestinationChainId:    destinationChainId,
 		DestinationGasLimit:   destinationGasLimit,
@@ -95,6 +104,7 @@ func NewCrossTalkRequestClaimHash(
 		AckType:               ackType,
 		AckGasLimit:           ackGasLimit,
 		AckGasPrice:           ackGasPrice,
+		AsmAddress:            asmAddress,
 		FeePayer:              feePayer,
 	}
 }
