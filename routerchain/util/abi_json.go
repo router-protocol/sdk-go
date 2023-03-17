@@ -28,6 +28,7 @@ const (
 			{ "internalType": "string", "name": "_sender","type": "string" },
 			{"internalType": "uint256","name": "_nonce","type": "uint256"},			
 			{"internalType": "bool","name": "_isAtomic","type": "bool"},			
+			{"internalType": "uint256","name": "_chainTimestamp","type": "uint256"},
 			{"internalType": "uint256","name": "_expTimestamp","type": "uint256"},
 			{ "internalType": "bytes","name": "_asmAddress","type": "bytes"},
 			{"internalType": "bytes[]","name": "_handlers","type": "bytes[]"},			
