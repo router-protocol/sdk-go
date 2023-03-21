@@ -16,6 +16,11 @@ copy-chain-types:
 	cp ../router-chain/x/outbound/types/*.go routerchain/outbound/types
 	rm -rf routerchain/outbound/types/*test.go  rm -rf routerchain/outbound/types/*gw.go
 
+
+	cp ../router-chain/x/metastore/types/*.go routerchain/metastore/types
+	rm -rf routerchain/metastore/types/*test.go  rm -rf routerchain/metastore/types/*gw.go
+
+
 	cp ../router-chain/x/oracle/types/*.go routerchain/oracle/types
 	rm -rf routerchain/oracle/types/*test.go  rm -rf routerchain/oracle/types/*gw.go
 
