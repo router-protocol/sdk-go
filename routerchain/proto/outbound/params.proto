@@ -9,4 +9,5 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/type
 message Params {
   option (gogoproto.goproto_stringer) = false;
   int64 outbound_expiry_duration = 1; 
+  uint64 outbound_ack_gas_price = 2;  
 }

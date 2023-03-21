@@ -1,11 +1,11 @@
 package types
 
 import (
-	"encoding/json"
 	fmt "fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	proto "github.com/gogo/protobuf/proto"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
@@ -86,7 +86,7 @@ func (msg *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
 		msg.GetMembers(),
 	)
 
-	out, err := json.Marshal(valsetUpdatedClaimHash)
+	out, err := proto.Marshal(valsetUpdatedClaimHash)
 	return tmhash.Sum([]byte(out)), err
 }
 

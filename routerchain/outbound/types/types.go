@@ -21,7 +21,7 @@ const (
 
 func NewOutgoingBatchTx(destinationChainType multichainTypes.ChainType,
 	destinationChainId string, sourceAddress sdk.AccAddress, batchNonce uint64, isAtomic bool,
-	contractCalls []ContractCall, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, outgoingTxFeeInRoute sdk.Coin, chainTimeStamp int64, expiryTimestamp int64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte) *OutgoingBatchTx {
+	contractCalls []ContractCall, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, outgoingTxFeeInRoute sdk.Coin, chainTimeStamp int64, expiryTimestamp int64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte, outboundAckGasLimit uint64) *OutgoingBatchTx {
 	return &OutgoingBatchTx{
 		DestinationChainType: destinationChainType,
 		DestinationChainId:   destinationChainId,
@@ -33,6 +33,7 @@ func NewOutgoingBatchTx(destinationChainType multichainTypes.ChainType,
 		DestinationGasLimit:  destinationGasLimit,
 		DestinationGasPrice:  destinationGasPrice,
 		OutgoingTxFeeInRoute: outgoingTxFeeInRoute,
+		OutboundAckGasLimit:  outboundAckGasLimit,
 		ChainTimestamp:       uint64(chainTimeStamp),
 		ExpiryTimestamp:      expiryTimestamp,
 		RouteAmount:          routeAmount,

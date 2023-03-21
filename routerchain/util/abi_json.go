@@ -154,11 +154,32 @@ const (
 			{"internalType": "string","name": "_srcChainId","type": "string"},
 			{"internalType": "uint64","name": "_srcChainType","type": "uint64"},
 			{"internalType": "uint64","name": "_eventNonce","type": "uint64"},
-			{"internalType": "bytes","name": "_payload","type": "bytes"}
+			{"internalType": "bytes","name": "_payload","type": "bytes"},
+			{"internalType": "bytes","name": "_asmAddress","type": "bytes"}
+			
 		],
 		"name": "inboundSudo",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	}]`
+
+	// OutboundAckSudoRequestABIJSON checks the ETH ABI for compatibility of the Outbound Ack request
+	OutboundAckSudoRequestABIJSON = `[{
+		"inputs": [
+		  {"internalType": "bytes","name": "outboundTxRequestedBy","type": "bytes"},
+		  {"internalType": "string","name": "destChainId","type": "string"},
+		  {"internalType": "uint64","name": "destChainType","type": "uint64"},
+		  {"internalType": "uint64","name": "outboundBatchNonce","type": "uint64"},
+		  {"internalType": "uint64","name": "execCode","type": "uint64"},
+		  {"internalType": "bool","name": "execStatus","type": "bool"},
+		  {"internalType": "bool[]","name": "execFlags","type": "bool[]"},
+		  {"internalType": "bytes[]","name": "execData","type": "bytes[]"},
+		  {"internalType": "uint256","name": "refund_amount","type": "uint256"}
+		],
+		"name": "outboundAckSudo",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	  }]`
 )

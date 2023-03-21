@@ -11,6 +11,8 @@ enum OutgoingTxStatus {
   OUTGOING_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_CREATED"];
   OUTGOING_TX_CONFIRMED = 1 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_CONFIRMED"];
   OUTGOING_TX_ACK_RECEIVED = 2 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_RECEIVED"];
-  OUTGOING_TX_ACK_OBSERVED = 3 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_OBSERVED"];
-  OUTGOING_TX_ACK_DELEGATED = 4 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_DELEGATED"];
+  OUTGOING_TX_ACK_VALIDATED = 3 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_VALIDATED"];
+  OUTGOING_TX_ACK_READY_TO_EXECUTE = 4 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_READY_TO_EXECUTE"];    
+  OUTGOING_TX_ACK_EXECUTED = 5 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_EXECUTED"];
+  OUTGOING_TX_ACK_EXECUTION_FAILED = 6 [(gogoproto.enumvalue_customname) = "OUTGOING_TX_ACK_EXECUTION_FAILED"];  
 }

@@ -1,8 +1,7 @@
 package types
 
 import (
-	"encoding/json"
-
+	proto "github.com/gogo/protobuf/proto"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
@@ -44,6 +43,6 @@ func (c *CrossTalkRequest) ClaimHash() ([]byte, error) {
 		c.FeePayer,
 		c.AsmAddress)
 
-	out, err := json.Marshal(crosstalkRequestClaimHash)
+	out, err := proto.Marshal(crosstalkRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err
 }

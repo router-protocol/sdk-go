@@ -10,6 +10,7 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
@@ -25,6 +26,7 @@ type AttestationKeeper interface {
 }
 
 type MultichainKeeper interface {
+	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
 	// Methods imported from multichain should be defined here
 }
 

@@ -1,7 +1,6 @@
 package types
 
 import (
-	"encoding/json"
 	fmt "fmt"
 	"math/big"
 	"strings"
@@ -10,6 +9,7 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/crypto"
+	proto "github.com/gogo/protobuf/proto"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
@@ -151,7 +151,7 @@ func (msg *MsgCrossTalkRequest) ClaimHash() ([]byte, error) {
 		msg.FeePayer,
 		msg.AsmAddress)
 
-	out, err := json.Marshal(crosstalkRequestClaimHash)
+	out, err := proto.Marshal(crosstalkRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err
 }
 

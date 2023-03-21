@@ -18,12 +18,13 @@ message OutboundAck {
   string relayerRouterAddress = 7; 
   string destinationTxHash = 8; 
   cosmos.base.v1beta1.Coin feeConsumedInRoute = 9;
-  OutgoingTxStatus status = 10;   
-  bytes contractAckResponses= 11;
-  uint64 exeCode = 12;
-  bool execStatus = 13;
-  repeated bool execFlags = 14;
-  repeated bytes execData = 15;
+  cosmos.base.v1beta1.Coin refundAmountInRoute = 10;
+  OutgoingTxStatus status = 11;   
+  bytes contractAckResponses= 12;
+  uint64 exeCode = 13;
+  bool execStatus = 14;
+  repeated bool execFlags = 15;
+  repeated bytes execData = 16;
 }
 
 

@@ -1,10 +1,9 @@
 package types
 
 import (
-	"encoding/json"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	proto "github.com/gogo/protobuf/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
@@ -94,7 +93,7 @@ func (msg *MsgCrossTalkAckReceipt) ClaimHash() ([]byte, error) {
 		msg.TxHash,
 		msg.EventIdentifier,
 	)
-	out, err := json.Marshal(crossTalkAckReceiptClaimHash)
+	out, err := proto.Marshal(crossTalkAckReceiptClaimHash)
 	return tmhash.Sum([]byte(out)), err
 }
 
