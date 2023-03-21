@@ -1,12 +1,19 @@
 package types
 
 import (
+	context "context"
 	"math/big"
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	authTypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core"
+	ethtypes "github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/core/vm"
+	"github.com/evmos/ethermint/x/evm/statedb"
+	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
@@ -14,6 +21,7 @@ import (
 
 type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
+	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
 	GetChainConfig(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) (val multichainTypes.ChainConfig, found bool)
 }
 
@@ -32,9 +40,21 @@ type OracleKeeper interface {
 	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, feeConsumed *big.Int) sdk.Coin
 }
 
+// EVMKeeper defines the expected EVM keeper interface used on erc20
+type EVMKeeper interface {
+	GetParams(ctx sdk.Context) evmtypes.Params
+	GetAccountWithoutBalance(ctx sdk.Context, addr common.Address) *statedb.Account
+	EstimateGas(c context.Context, req *evmtypes.EthCallRequest) (*evmtypes.EstimateGasResponse, error)
+	ApplyMessage(ctx sdk.Context, msg core.Message, tracer vm.EVMLogger, commit bool) (*evmtypes.MsgEthereumTxResponse, error)
+	ApplyTransaction(ctx sdk.Context, tx *ethtypes.Transaction) (*evmtypes.MsgEthereumTxResponse, error)
+	ApplyInternalMessage(ctx sdk.Context, msg core.Message, tracer vm.EVMLogger) (*evmtypes.MsgEthereumTxResponse, error)
+}
+
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
 type AccountKeeper interface {
-	GetAccount(ctx sdk.Context, addr sdk.AccAddress) types.AccountI
+	GetAccount(ctx sdk.Context, addr sdk.AccAddress) authTypes.AccountI
+	GetModuleAddress(moduleName string) sdk.AccAddress
+	GetSequence(sdk.Context, sdk.AccAddress) (uint64, error)
 	// Methods imported from account should be defined here
 }
 

@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.metastore;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
+
+import "multichain/chain_type.proto"; 
+
+// Msg defines the Msg service.
+service Msg {
+  rpc CreateMetadataRequest (MsgCreateMetadataRequest) returns (MsgCreateMetadataRequestResponse);
+}
+message MsgCreateMetadataRequest {
+  string orchestrator = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2; 
+  string chainId      = 3;
+  uint64 eventNonce   = 4;
+  uint64 blockHeight  = 5;
+  string daapAddress  = 6;
+  string feePayer     = 7;  
+}
+
+message MsgCreateMetadataRequestResponse {}
+

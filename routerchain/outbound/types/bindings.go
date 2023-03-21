@@ -49,6 +49,7 @@ type OutboundBatchRequest struct {
 	ContractCalls        []SmartContractCall `json:"contract_calls"`
 	RelayerFee           sdk.Coin            `json:"relayer_fee"`
 	OutgoingTxFee        OutgoingTxFee       `json:"outgoing_tx_fee"`
+	OutboundAckGasLimit  uint64              `json:"outbound_ack_gas_limit"`
 	IsAtomic             bool                `json:"is_atomic"`
 	ExpiryTimestamp      uint64              `json:"exp_timestamp"`
 	RouteAmount          sdk.Int             `json:"route_amount"`
