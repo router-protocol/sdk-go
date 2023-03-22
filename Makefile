@@ -16,7 +16,7 @@ copy-chain-types:
 	cp ../router-chain/x/outbound/types/*.go routerchain/outbound/types
 	rm -rf routerchain/outbound/types/*test.go  rm -rf routerchain/outbound/types/*gw.go
 
-
+	
 	cp ../router-chain/x/metastore/types/*.go routerchain/metastore/types
 	rm -rf routerchain/metastore/types/*test.go  rm -rf routerchain/metastore/types/*gw.go
 
@@ -24,7 +24,7 @@ copy-chain-types:
 	cp ../router-chain/x/oracle/types/*.go routerchain/oracle/types
 	rm -rf routerchain/oracle/types/*test.go  rm -rf routerchain/oracle/types/*gw.go
 
-	cp -r ../sdk-go/routerchain/types/*.go routerchain/types
+	cp -r ../router-chain/types/*.go routerchain/types
 	rm -rf routerchain/types/*test.go
 
 	cp ../router-chain/util/*.go routerchain/util
@@ -32,4 +32,4 @@ copy-chain-types:
 
 	echo "👉 Replace router-chain/util with sdk-go/routerchain/util"
 	echo "👉 Replace router-chain/x with sdk-go/routerchain"
-	echo "👉 Replace sdk-go/routerchain/types with sdk-go/routerchain/types"
+	echo "👉 Replace router-chain/types with sdk-go/routerchain/types"
