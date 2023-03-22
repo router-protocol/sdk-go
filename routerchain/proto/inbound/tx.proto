@@ -23,13 +23,13 @@ message MsgInboundRequest {
   uint64 blockHeight = 5;
   string sourceTxHash = 6;
   uint64 sourceTimestamp = 7;
-  string sourceSender = 8;
+  bytes sourceSender = 8;
   string routerBridgeContract = 9;  
   bytes payload = 10;
   uint64 gasLimit = 11;
   string routeAmount = 12 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string routeRecipient = 13;   
-  string asmAddress = 14;
+  bytes asmAddress = 14;
 }
 
 message MsgInboundRequestResponse {

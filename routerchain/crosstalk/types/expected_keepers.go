@@ -29,7 +29,7 @@ type MultichainKeeper interface {
 }
 
 type MetastoreKeeper interface {
-	GetMetaInfo(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, dappAddress string) (val metastoreTypes.MetaInfo, found bool)
+	GetMetaInfo(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, dappAddress []byte) (val metastoreTypes.MetaInfo, found bool)
 }
 
 type OracleKeeper interface {

@@ -15,6 +15,6 @@ message EventMetadataRequestCreated {
   string chainId = 3; 
   uint64 eventNonce = 4; 
   uint64 blockHeight = 5;
-  string daapAddress  = 6;
+  bytes daapAddress  = 6;
   string feePayer     = 7;  
 }

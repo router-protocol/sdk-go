@@ -34,7 +34,7 @@ message MsgCrossTalkRequest {
   string destinationChainId = 9;
   uint64 destinationGasLimit = 10;
   uint64 destinationGasPrice = 11;
-  string requestSender = 12;
+  bytes requestSender = 12;
   string requestTxOrigin = 13;
   bool isReadCall = 14;
   uint64 requestNonce = 15;
@@ -47,7 +47,7 @@ message MsgCrossTalkRequest {
   uint64 ackGasPrice = 22;
   string ethSigner = 23;
   string signature = 24;
-  string asmAddress = 25;  
+  bytes asmAddress = 25;  
 }
 message MsgCrossTalkRequestResponse {}
 

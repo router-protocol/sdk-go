@@ -35,7 +35,7 @@ func NewMsgCrossTalkRequest(
 	destinationChainId string,
 	destinationGasLimit uint64,
 	destinationGasPrice uint64,
-	requestSender string,
+	requestSender []byte,
 	requestNonce uint64,
 	isAtomic bool,
 	expiryTimestamp uint64,
@@ -48,7 +48,7 @@ func NewMsgCrossTalkRequest(
 	signature string,
 	requestTxOrigin string,
 	isReadCall bool,
-	asmAddress string,
+	asmAddress []byte,
 
 ) *MsgCrossTalkRequest {
 	return &MsgCrossTalkRequest{
