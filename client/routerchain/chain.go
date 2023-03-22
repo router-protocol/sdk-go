@@ -36,6 +36,7 @@ import (
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
+	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
@@ -152,6 +153,7 @@ type chainClient struct {
 	crosstalkQueryClient   crosstalkTypes.QueryClient
 	oracleQueryClient      oracleTypes.QueryClient
 	wasmQueryClient        wasmTypes.QueryClient
+	metastoreQueryClient   metastoreTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -272,6 +274,7 @@ func NewChainClient(
 		outboundQueryClient:    outboundTypes.NewQueryClient(conn),
 		crosstalkQueryClient:   crosstalkTypes.NewQueryClient(conn),
 		oracleQueryClient:      oracleTypes.NewQueryClient(conn),
+		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 	}
 
 	if cc.canSign {

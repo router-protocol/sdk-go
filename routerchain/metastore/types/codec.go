@@ -8,7 +8,7 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateMetadataRequest{}, "metastore/SetMetadataRequest", nil)
+	cdc.RegisterConcrete(&MsgCreateMetadataRequest{}, "metastore/CreateMetadataRequest", nil)
 	cdc.RegisterConcrete(&MsgApproveFeepayerRequest{}, "metastore/ApproveFeepayerRequest", nil)
 	// this line is used by starport scaffolding # 2
 }
