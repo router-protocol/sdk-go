@@ -109,6 +109,10 @@ type ChainClient interface {
 	GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error)
 	GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error)
 
+	// MetaStore
+	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
+	GetMetaInfo(ctx context.Context, chainType uint64, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error)
+
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
 	InstantiateContract(codeID uint64, label string, amountStr string, initMsg string, adminStr string, noAdmin bool, sender sdk.AccAddress) (string, error)
@@ -678,6 +682,46 @@ func (c *chainClient) GetChainConfig(ctx context.Context, chainType uint64, chai
 		ChainId:   chainId,
 	}
 	return c.multichainQueryClient.ChainConfig(ctx, req)
+}
+
+/////////////////////////////////
+////    MetaStore           ////
+////////////////////////////////
+
+func (c *chainClient) GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error) {
+	req := &metastoreTypes.QueryAllMetaInfoRequest{}
+	return c.metastoreQueryClient.MetaInfoAll(ctx, req)
+}
+
+func (c *chainClient) GetMetaInfo(ctx context.Context, chainType uint64, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error) {
+	req := &metastoreTypes.QueryGetMetaInfoRequest{
+		ChainType:   chainType,
+		ChainId:     chainId,
+		DappAddress: string(dappAddress),
+	}
+	return c.metastoreQueryClient.MetaInfo(ctx, req)
+}
+
+func (c *chainClient) FeePayerApproval(chainType multichainTypes.ChainType, chainID string, dappAddress []byte) (err error) {
+	msg := metastoreTypes.MsgApproveFeepayerRequest{
+		ChainType:   chainType,
+		ChainId:     chainID,
+		DaapAddress: dappAddress,
+		Feepayer:    c.FromAddress().String(),
+	}
+
+	if err = msg.ValidateBasic(); err != nil {
+		return
+	}
+
+	txResponse, err := c.SyncBroadcastMsg(&msg)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Println("txHash:", txResponse.TxResponse.TxHash)
+	return
 }
 
 /////////////////////////////////
