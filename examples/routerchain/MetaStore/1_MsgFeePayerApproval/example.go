@@ -27,7 +27,7 @@ func main() {
 		"file",
 		"gaurav",
 		"12345678",
-		"", // keyring will be used if pk not provided
+		"35F804E20869F9150029FC2A70AAB602B5E4606251420083B3D36200A9B10C52", // keyring will be used if pk not provided
 		false,
 	)
 
