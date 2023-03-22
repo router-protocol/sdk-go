@@ -9,6 +9,7 @@ import "multichain/chain_type.proto";
 // Msg defines the Msg service.
 service Msg {
   rpc CreateMetadataRequest (MsgCreateMetadataRequest) returns (MsgCreateMetadataRequestResponse);
+  rpc ApproveFeepayerRequest (MsgApproveFeepayerRequest) returns (MsgApproveFeepayerRequestResponse);
 }
 message MsgCreateMetadataRequest {
   string orchestrator = 1;
@@ -22,3 +23,11 @@ message MsgCreateMetadataRequest {
 
 message MsgCreateMetadataRequestResponse {}
 
+message MsgApproveFeepayerRequest {
+  string feepayer    = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2; 
+  string chainId     = 3;
+  bytes daapAddress = 4;
+}
+
+message MsgApproveFeepayerRequestResponse {}
