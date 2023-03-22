@@ -35,7 +35,7 @@ func NewMsgCrossTalkRequest(
 	destinationChainId string,
 	destinationGasLimit uint64,
 	destinationGasPrice uint64,
-	requestSender []byte,
+	requestSender string,
 	requestNonce uint64,
 	isAtomic bool,
 	expiryTimestamp uint64,
@@ -48,7 +48,6 @@ func NewMsgCrossTalkRequest(
 	signature string,
 	requestTxOrigin string,
 	isReadCall bool,
-	feePayer []byte,
 	asmAddress []byte,
 
 ) *MsgCrossTalkRequest {
@@ -77,7 +76,6 @@ func NewMsgCrossTalkRequest(
 		AckGasPrice:           ackGasPrice,
 		EthSigner:             ethSigner,
 		Signature:             signature,
-		FeePayer:              feePayer,
 		AsmAddress:            asmAddress,
 	}
 }
@@ -148,7 +146,6 @@ func (msg *MsgCrossTalkRequest) ClaimHash() ([]byte, error) {
 		msg.AckGasPrice,
 		msg.RequestTxOrigin,
 		msg.IsReadCall,
-		msg.FeePayer,
 		msg.AsmAddress)
 
 	out, err := proto.Marshal(crosstalkRequestClaimHash)

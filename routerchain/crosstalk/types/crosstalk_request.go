@@ -40,7 +40,6 @@ func (c *CrossTalkRequest) ClaimHash() ([]byte, error) {
 		c.AckGasPrice,
 		c.RequestTxOrigin,
 		c.IsReadCall,
-		c.FeePayer,
 		c.AsmAddress)
 
 	out, err := proto.Marshal(crosstalkRequestClaimHash)

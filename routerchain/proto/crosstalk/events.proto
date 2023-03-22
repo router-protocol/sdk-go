@@ -34,10 +34,9 @@ message EventCrossTalkRequestCreated {
   repeated bytes destContractPayloads = 19;
   CrossTalkRequestAckType ackType = 20;
   uint64 ackGasLimit = 21;
-  uint64 ackGasPrice = 22;  
-  bytes feePayer = 23; 
-  bytes asmAddress = 24;
-  CrossTalkRequestStatus status = 25; 
+  uint64 ackGasPrice = 22;    
+  bytes asmAddress = 23;
+  CrossTalkRequestStatus status = 24; 
 }
 
 message EventCrosstalkReadyToExecute {  
@@ -45,7 +44,8 @@ message EventCrosstalkReadyToExecute {
   string sourceChainId = 2; 
   uint64 eventNonce = 3;   
   bytes claimHash = 4;
-  cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 5 [(gogoproto.nullable) = false];
+  string feePayer = 5;
+  cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 6 [(gogoproto.nullable) = false];
 }
 
 message EventCrosstalkFeePayerUpdated {  
@@ -140,7 +140,8 @@ message EventCrosstalkAckReadyToExecute {
   string chainId = 2; 
   uint64 eventNonce = 3;   
   bytes claimHash = 4;
-  cosmos.base.v1beta1.Coin txFeeInRoute = 5 [(gogoproto.nullable) = false];
+  string feePayer = 5;
+  cosmos.base.v1beta1.Coin txFeeInRoute = 6 [(gogoproto.nullable) = false];
 }
 
 
