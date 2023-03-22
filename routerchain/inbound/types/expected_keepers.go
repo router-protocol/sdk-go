@@ -55,7 +55,7 @@ type AccountKeeper interface {
 }
 
 type MetastoreKeeper interface {
-	GetMetaInfo(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, dappAddress string) (val metastoreTypes.MetaInfo, found bool)
+	GetMetaInfo(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, dappAddress []byte) (val metastoreTypes.MetaInfo, found bool)
 }
 
 // BankKeeper defines the expected interface needed to retrieve account balances.

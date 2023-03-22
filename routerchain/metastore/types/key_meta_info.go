@@ -18,8 +18,8 @@ const (
 func MetaInfoKey(
 	chainType multichainTypes.ChainType,
 	chainId string,
-	dappAddress string,
+	dappAddress []byte,
 ) []byte {
 
-	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), []byte(dappAddress))
+	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), dappAddress)
 }
