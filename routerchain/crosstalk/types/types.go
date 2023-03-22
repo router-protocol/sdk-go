@@ -15,7 +15,7 @@ func NewCrossTalkRequest(
 	destinationChainId string,
 	destinationGasLimit uint64,
 	destinationGasPrice uint64,
-	requestSender []byte,
+	requestSender string,
 	requestNonce uint64,
 	isAtomic bool,
 	expiryTimestamp uint64,
@@ -26,7 +26,6 @@ func NewCrossTalkRequest(
 	ackGasPrice uint64,
 	requestTxOrigin string,
 	isReadCall bool,
-	feePayer []byte,
 	asmAddress []byte,
 ) *CrossTalkRequest {
 	return &CrossTalkRequest{
@@ -51,7 +50,6 @@ func NewCrossTalkRequest(
 		AckType:               ackType,
 		AckGasLimit:           ackGasLimit,
 		AckGasPrice:           ackGasPrice,
-		FeePayer:              feePayer,
 		AsmAddress:            asmAddress,
 		Status:                CROSSTALK_REQUEST_CREATED,
 	}
@@ -68,7 +66,7 @@ func NewCrossTalkRequestClaimHash(
 	destinationChainId string,
 	destinationGasLimit uint64,
 	destinationGasPrice uint64,
-	requestSender []byte,
+	requestSender string,
 	requestNonce uint64,
 	isAtomic bool,
 	expiryTimestamp uint64,
@@ -79,7 +77,6 @@ func NewCrossTalkRequestClaimHash(
 	ackGasPrice uint64,
 	requestTxOrigin string,
 	isReadCall bool,
-	feePayer []byte,
 	asmAddress []byte,
 ) *CrossTalkRequestClaimHash {
 	return &CrossTalkRequestClaimHash{
@@ -105,7 +102,6 @@ func NewCrossTalkRequestClaimHash(
 		AckGasLimit:           ackGasLimit,
 		AckGasPrice:           ackGasPrice,
 		AsmAddress:            asmAddress,
-		FeePayer:              feePayer,
 	}
 }
 

@@ -32,7 +32,8 @@ message EventIncomingTxReadyToExecute {
   string sourceChainId = 2; 
   uint64 eventNonce = 3;   
   bytes claimHash = 4;
-  cosmos.base.v1beta1.Coin txFeeInRoute = 5 [(gogoproto.nullable) = false];
+  string feePayer = 5;
+  cosmos.base.v1beta1.Coin txFeeInRoute = 6 [(gogoproto.nullable) = false];
 }
 
 message EventIncomingTxExecuted {

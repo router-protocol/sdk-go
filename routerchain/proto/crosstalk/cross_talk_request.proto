@@ -21,7 +21,7 @@ message CrossTalkRequest {
   uint64 destinationGasLimit = 9;
   uint64 destinationGasPrice = 10;  
   cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 11 [(gogoproto.nullable) = false];
-  bytes requestSender = 12; 
+  string requestSender = 12; 
   string requestTxOrigin = 13;
   bool isReadCall = 14;
   uint64 requestNonce = 15;   
@@ -49,7 +49,7 @@ message CrossTalkRequestClaimHash {
   string destinationChainId = 8; 
   uint64 destinationGasLimit = 9;
   uint64 destinationGasPrice = 10;   
-  bytes requestSender = 11; 
+  string requestSender = 11; 
   string requestTxOrigin = 12;
   bool isReadCall = 13;
   uint64 requestNonce = 14;   
@@ -60,7 +60,6 @@ message CrossTalkRequestClaimHash {
   CrossTalkRequestAckType ackType = 19;
   uint64 ackGasLimit = 20;
   uint64 ackGasPrice = 21;
-  bytes asmAddress = 22;  
-  bytes feePayer = 23; 
+  bytes asmAddress = 22;    
 }
 

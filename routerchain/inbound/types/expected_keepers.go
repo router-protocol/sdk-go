@@ -10,6 +10,7 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 
 	"github.com/ethereum/go-ethereum/common"
@@ -51,6 +52,10 @@ type AccountKeeper interface {
 	GetModuleAddress(moduleName string) sdk.AccAddress
 	GetSequence(sdk.Context, sdk.AccAddress) (uint64, error)
 	// Methods imported from account should be defined here
+}
+
+type MetastoreKeeper interface {
+	GetMetaInfo(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, dappAddress string) (val metastoreTypes.MetaInfo, found bool)
 }
 
 // BankKeeper defines the expected interface needed to retrieve account balances.

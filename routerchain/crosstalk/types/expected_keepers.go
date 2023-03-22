@@ -9,6 +9,7 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 )
@@ -25,6 +26,10 @@ type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
 	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
 	GetChainConfig(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
+}
+
+type MetastoreKeeper interface {
+	GetMetaInfo(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string, dappAddress string) (val metastoreTypes.MetaInfo, found bool)
 }
 
 type OracleKeeper interface {

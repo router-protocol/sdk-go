@@ -21,7 +21,7 @@ message IncomingTx {
   bytes payload = 9; 
   uint64 gasLimit = 10;
   cosmos.base.v1beta1.Coin txFeeInRoute = 11 [(gogoproto.nullable) = false];
-  bytes feePayer = 12; 
+  string feePayer = 12; 
   string routeAmount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes routeRecipient = 14; 
   bytes asmAddress = 15;
