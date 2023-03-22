@@ -27,7 +27,7 @@ message MsgApproveFeepayerRequest {
   string feepayer    = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2; 
   string chainId     = 3;
-  bytes daapAddress = 4;
+  repeated bytes daapAddresses = 4;
 }
 
 message MsgApproveFeepayerRequestResponse {}
