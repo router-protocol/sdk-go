@@ -18,3 +18,18 @@ message EventMetadataRequestCreated {
   bytes daapAddress  = 6;
   string feePayer     = 7;  
 }
+
+
+message EventMetaInfoCreated {    
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;
+  string chainId = 2; 
+  bytes daapAddress  = 3;
+  string feePayer = 4; 
+}
+
+message EventFeePayerApproved {    
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;
+  string chainId = 2; 
+  bytes daapAddress  = 3;
+  string feePayer = 4; 
+}

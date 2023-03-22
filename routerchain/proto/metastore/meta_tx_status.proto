@@ -11,4 +11,5 @@ enum MetaTxStatus {
 
   META_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "META_TX_CREATED"];
   META_TX_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "META_TX_VALIDATED"];
+  META_TX_COMPLETED = 2 [(gogoproto.enumvalue_customname) = "META_TX_COMPLETED"];
 }
