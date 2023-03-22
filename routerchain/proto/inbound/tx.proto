@@ -28,8 +28,8 @@ message MsgInboundRequest {
   bytes payload = 10;
   uint64 gasLimit = 11;
   string routeAmount = 12 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes routeRecipient = 13;   
-  bytes asmAddress = 14;
+  string routeRecipient = 13;   
+  string asmAddress = 14;
 }
 
 message MsgInboundRequestResponse {

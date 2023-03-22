@@ -44,8 +44,8 @@ type MsgInboundRequest struct {
 	Payload              []byte                                 `protobuf:"bytes,10,opt,name=payload,proto3" json:"payload,omitempty"`
 	GasLimit             uint64                                 `protobuf:"varint,11,opt,name=gasLimit,proto3" json:"gasLimit,omitempty"`
 	RouteAmount          github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,12,opt,name=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"routeAmount"`
-	RouteRecipient       []byte                                 `protobuf:"bytes,13,opt,name=routeRecipient,proto3" json:"routeRecipient,omitempty"`
-	AsmAddress           []byte                                 `protobuf:"bytes,14,opt,name=asmAddress,proto3" json:"asmAddress,omitempty"`
+	RouteRecipient       string                                 `protobuf:"bytes,13,opt,name=routeRecipient,proto3" json:"routeRecipient,omitempty"`
+	AsmAddress           string                                 `protobuf:"bytes,14,opt,name=asmAddress,proto3" json:"asmAddress,omitempty"`
 }
 
 func (m *MsgInboundRequest) Reset()         { *m = MsgInboundRequest{} }
@@ -158,18 +158,18 @@ func (m *MsgInboundRequest) GetGasLimit() uint64 {
 	return 0
 }
 
-func (m *MsgInboundRequest) GetRouteRecipient() []byte {
+func (m *MsgInboundRequest) GetRouteRecipient() string {
 	if m != nil {
 		return m.RouteRecipient
 	}
-	return nil
+	return ""
 }
 
-func (m *MsgInboundRequest) GetAsmAddress() []byte {
+func (m *MsgInboundRequest) GetAsmAddress() string {
 	if m != nil {
 		return m.AsmAddress
 	}
-	return nil
+	return ""
 }
 
 type MsgInboundRequestResponse struct {
@@ -242,14 +242,14 @@ var fileDescriptor_e828bdc3262cd782 = []byte{
 	0xe3, 0xb7, 0xa8, 0x65, 0xd5, 0x8e, 0x53, 0x99, 0x0b, 0x43, 0xda, 0x45, 0x82, 0x91, 0x77, 0x7d,
 	0xbb, 0xdf, 0xf8, 0x71, 0xbb, 0x7f, 0x10, 0x73, 0x93, 0xe4, 0xa1, 0xc7, 0x64, 0xea, 0x2f, 0xe7,
 	0xa3, 0xfc, 0x3b, 0xd4, 0xd1, 0xa5, 0x5f, 0x4c, 0x8f, 0xf6, 0xc6, 0xc2, 0x04, 0x75, 0x09, 0x7c,
-	0x80, 0x3a, 0x16, 0x06, 0xc0, 0x78, 0xc6, 0x41, 0x18, 0xf2, 0xc8, 0xda, 0x59, 0x63, 0x8b, 0xef,
+	0x80, 0x3a, 0x16, 0x06, 0xc0, 0x78, 0xc6, 0x41, 0x18, 0xf2, 0xc8, 0xba, 0x5e, 0x63, 0x8b, 0xef,
 	0x42, 0x75, 0x7a, 0x1c, 0x45, 0x0a, 0xb4, 0x26, 0x1d, 0x1b, 0x53, 0x63, 0xfa, 0x7b, 0xe8, 0xd9,
 	0xbd, 0xd1, 0x0a, 0x40, 0x67, 0x52, 0x68, 0x18, 0x7e, 0x71, 0xd0, 0xc6, 0x99, 0x8e, 0xf1, 0x67,
 	0x07, 0x75, 0xd6, 0xa6, 0xef, 0xa5, 0xf7, 0xef, 0x5d, 0xf0, 0xee, 0x29, 0x77, 0x5f, 0xff, 0xd7,
 	0xb3, 0xca, 0xd0, 0xe8, 0xdd, 0xf5, 0xdc, 0x75, 0x6e, 0xe6, 0xae, 0xf3, 0x73, 0xee, 0x3a, 0x5f,
 	0x17, 0x6e, 0xe3, 0x66, 0xe1, 0x36, 0xbe, 0x2d, 0xdc, 0xc6, 0x87, 0x57, 0xb5, 0x26, 0x96, 0x9a,
 	0x87, 0x55, 0x8e, 0x0a, 0x97, 0x3b, 0x39, 0xf5, 0xef, 0xd6, 0xba, 0xe8, 0x6c, 0xb8, 0x65, 0xc3,
-	0x5e, 0xfc, 0x0a, 0x00, 0x00, 0xff, 0xff, 0xa5, 0xcf, 0xf7, 0xb9, 0xee, 0x03, 0x00, 0x00,
+	0x5e, 0xfc, 0x0a, 0x00, 0x00, 0xff, 0xff, 0xc8, 0x55, 0xcb, 0x23, 0xee, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -909,7 +909,7 @@ func (m *MsgInboundRequest) Unmarshal(dAtA []byte) error {
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouteRecipient", wireType)
 			}
-			var byteLen int
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -919,31 +919,29 @@ func (m *MsgInboundRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				byteLen |= int(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if byteLen < 0 {
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
 				return ErrInvalidLengthTx
 			}
-			postIndex := iNdEx + byteLen
+			postIndex := iNdEx + intStringLen
 			if postIndex < 0 {
 				return ErrInvalidLengthTx
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.RouteRecipient = append(m.RouteRecipient[:0], dAtA[iNdEx:postIndex]...)
-			if m.RouteRecipient == nil {
-				m.RouteRecipient = []byte{}
-			}
+			m.RouteRecipient = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 14:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field AsmAddress", wireType)
 			}
-			var byteLen int
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -953,25 +951,23 @@ func (m *MsgInboundRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				byteLen |= int(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
-			if byteLen < 0 {
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
 				return ErrInvalidLengthTx
 			}
-			postIndex := iNdEx + byteLen
+			postIndex := iNdEx + intStringLen
 			if postIndex < 0 {
 				return ErrInvalidLengthTx
 			}
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.AsmAddress = append(m.AsmAddress[:0], dAtA[iNdEx:postIndex]...)
-			if m.AsmAddress == nil {
-				m.AsmAddress = []byte{}
-			}
+			m.AsmAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

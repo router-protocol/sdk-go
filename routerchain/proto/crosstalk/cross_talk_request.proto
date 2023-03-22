@@ -33,7 +33,7 @@ message CrossTalkRequest {
   uint64 ackGasLimit = 21;
   uint64 ackGasPrice = 22;
   bytes feePayer = 23; 
-  bytes asmAddress = 24;  
+  string asmAddress = 24;  
   CrossTalkRequestStatus status = 25;    
 }
 
@@ -60,6 +60,6 @@ message CrossTalkRequestClaimHash {
   CrossTalkRequestAckType ackType = 19;
   uint64 ackGasLimit = 20;
   uint64 ackGasPrice = 21;
-  bytes asmAddress = 22;    
+  string asmAddress = 22;    
 }
 
