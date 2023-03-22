@@ -7,7 +7,7 @@ import "cosmos/tx/v1beta1/tx.proto";
 import "gogoproto/gogo.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 
-option go_package = "github.com/router-protocol/router-chain/types";
+option go_package = "github.com/router-protocol/sdk-go/routerchain/types";
 
 // RouterTxRpc defines gRPC API of a Router Tx service.
 service RouterTxRpc {
