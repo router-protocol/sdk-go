@@ -35,7 +35,7 @@ message EventCrossTalkRequestCreated {
   CrossTalkRequestAckType ackType = 20;
   uint64 ackGasLimit = 21;
   uint64 ackGasPrice = 22;    
-  bytes asmAddress = 23;
+  string asmAddress = 23;
   CrossTalkRequestStatus status = 24; 
 }
 

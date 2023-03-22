@@ -48,7 +48,7 @@ func NewMsgCrossTalkRequest(
 	signature string,
 	requestTxOrigin string,
 	isReadCall bool,
-	asmAddress []byte,
+	asmAddress string,
 
 ) *MsgCrossTalkRequest {
 	return &MsgCrossTalkRequest{

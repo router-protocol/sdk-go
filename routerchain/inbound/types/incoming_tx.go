@@ -30,8 +30,8 @@ func (msg *IncomingTx) ClaimHash() ([]byte, error) {
 		msg.GasLimit,
 		msg.RouteAmount,
 		msg.RouteRecipient,
-		msg.Payload,
-		msg.AsmAddress)
+		msg.AsmAddress,
+		msg.Payload)
 
 	out, err := proto.Marshal(inboundRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err

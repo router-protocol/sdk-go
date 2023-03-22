@@ -26,7 +26,7 @@ func NewCrossTalkRequest(
 	ackGasPrice uint64,
 	requestTxOrigin string,
 	isReadCall bool,
-	asmAddress []byte,
+	asmAddress string,
 ) *CrossTalkRequest {
 	return &CrossTalkRequest{
 		EventNonce:            eventNonce,
@@ -77,7 +77,7 @@ func NewCrossTalkRequestClaimHash(
 	ackGasPrice uint64,
 	requestTxOrigin string,
 	isReadCall bool,
-	asmAddress []byte,
+	asmAddress string,
 ) *CrossTalkRequestClaimHash {
 	return &CrossTalkRequestClaimHash{
 		EventNonce:            eventNonce,

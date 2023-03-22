@@ -5,7 +5,7 @@ import (
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
-func NewIncomingTx(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient []byte, payload []byte, asmAddress []byte) *IncomingTx {
+func NewIncomingTx(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient string, payload []byte, asmAddress string) *IncomingTx {
 	return &IncomingTx{
 		ChainType:            chainType,
 		ChainId:              chainId,
@@ -35,8 +35,8 @@ func NewInboundRequestClaimHash(
 	routerBridgeContract string,
 	gasLimit uint64,
 	routeAmount sdk.Int,
-	routeRecipient []byte,
-	asmAddress []byte,
+	routeRecipient string,
+	asmAddress string,
 	payload []byte) *InboundRequestClaimHash {
 	return &InboundRequestClaimHash{
 		ChainType:            chainType,

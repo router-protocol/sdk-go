@@ -23,8 +23,8 @@ message IncomingTx {
   cosmos.base.v1beta1.Coin txFeeInRoute = 11 [(gogoproto.nullable) = false];
   string feePayer = 12; 
   string routeAmount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes routeRecipient = 14; 
-  bytes asmAddress = 15;
+  string routeRecipient = 14; 
+  string asmAddress = 15;
   IncomingTxStatus status = 16;   
 }
 
@@ -40,6 +40,6 @@ message InboundRequestClaimHash {
   bytes payload = 9; 
   uint64 gasLimit = 10;
   string routeAmount = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes routeRecipient = 12; 
-  bytes asmAddress = 13;
+  string routeRecipient = 12; 
+  string asmAddress = 13;
 }

@@ -13,7 +13,7 @@ const TypeMsgInboundRequest = "inbound_request"
 
 var _ sdk.Msg = &MsgInboundRequest{}
 
-func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient []byte, payload []byte, asmAddress []byte) *MsgInboundRequest {
+func NewMsgInboundRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient string, payload []byte, asmAddress string) *MsgInboundRequest {
 	return &MsgInboundRequest{
 		Orchestrator:         orchestrator,
 		ChainType:            chainType,
@@ -88,8 +88,8 @@ func (msg *MsgInboundRequest) ClaimHash() ([]byte, error) {
 		msg.GasLimit,
 		msg.RouteAmount,
 		msg.RouteRecipient,
-		msg.Payload,
-		msg.AsmAddress)
+		msg.AsmAddress,
+		msg.Payload)
 
 	out, err := proto.Marshal(inboundRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err
