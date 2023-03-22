@@ -8,5 +8,7 @@ import (
 
 // x/metastore module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrMetaInfoNotFound        = sdkerrors.Register(ModuleName, 1100, "meta info not found")
+	ErrFeePayerAlreadyApproved = sdkerrors.Register(ModuleName, 1101, "fee payer already approved")
+	ErrFeePayerMismatch        = sdkerrors.Register(ModuleName, 1102, "fee payer mismatch")
 )
