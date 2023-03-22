@@ -702,27 +702,27 @@ func (c *chainClient) GetMetaInfo(ctx context.Context, chainType uint64, chainId
 	return c.metastoreQueryClient.MetaInfo(ctx, req)
 }
 
-func (c *chainClient) FeePayerApproval(chainType multichainTypes.ChainType, chainID string, dappAddress []byte) (err error) {
-	msg := metastoreTypes.MsgApproveFeepayerRequest{
-		ChainType:   chainType,
-		ChainId:     chainID,
-		DaapAddress: dappAddress,
-		Feepayer:    c.FromAddress().String(),
-	}
+// func (c *chainClient) FeePayerApproval(chainType multichainTypes.ChainType, chainID string, dappAddress []byte) (err error) {
+// 	msg := metastoreTypes.MsgApproveFeepayerRequest{
+// 		ChainType:   chainType,
+// 		ChainId:     chainID,
+// 		DaapAddress: dappAddress,
+// 		Feepayer:    c.FromAddress().String(),
+// 	}
 
-	if err = msg.ValidateBasic(); err != nil {
-		return
-	}
+// 	if err = msg.ValidateBasic(); err != nil {
+// 		return
+// 	}
 
-	txResponse, err := c.SyncBroadcastMsg(&msg)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
+// 	txResponse, err := c.SyncBroadcastMsg(&msg)
+// 	if err != nil {
+// 		fmt.Println(err)
+// 		return
+// 	}
 
-	fmt.Println("txHash:", txResponse.TxResponse.TxHash)
-	return
-}
+// 	fmt.Println("txHash:", txResponse.TxResponse.TxHash)
+// 	return
+// }
 
 /////////////////////////////////
 ////     Attestation           ////
