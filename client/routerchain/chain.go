@@ -82,12 +82,13 @@ type ChainClient interface {
 
 	// Attestation
 	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
-	GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error)
+	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
 	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
 	GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
+	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
 
 	// Inbound
 	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
@@ -727,8 +728,8 @@ func (c *chainClient) GetMetaInfo(ctx context.Context, chainType uint64, chainId
 /////////////////////////////////
 ////     Attestation           ////
 ////////////////////////////////
-func (c *chainClient) GetAllValsets(ctx context.Context) (*attestationTypes.QueryAllValsetResponse, error) {
-	req := &attestationTypes.QueryAllValsetRequest{}
+func (c *chainClient) GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error) {
+	req := &attestationTypes.QueryAllValsetRequest{Pagination: pagination}
 	return c.attestationQueryClient.ValsetAll(ctx, req)
 }
 
@@ -755,6 +756,14 @@ func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainType mul
 		ValidatorAddress: validator.String(),
 	}
 	return c.attestationQueryClient.LastEventNonce(ctx, req)
+}
+
+func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error) {
+	req := &attestationTypes.QueryGetValsetConfirmationRequest{
+		ValsetNonce:  valsetNonce,
+		Orchestrator: orchestrator,
+	}
+	return c.attestationQueryClient.ValsetConfirmation(ctx, req)
 }
 
 func (c *chainClient) GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error) {
