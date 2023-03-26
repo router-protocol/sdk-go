@@ -89,6 +89,7 @@ type ChainClient interface {
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
+	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
 
 	// Inbound
 	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
@@ -764,6 +765,11 @@ func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, 
 		Orchestrator: orchestrator,
 	}
 	return c.attestationQueryClient.ValsetConfirmation(ctx, req)
+}
+
+func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
+	req := &attestationTypes.QueryAllValsetConfirmationRequest{}
+	return c.attestationQueryClient.ValsetConfirmationAll(ctx, req)
 }
 
 func (c *chainClient) GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error) {
