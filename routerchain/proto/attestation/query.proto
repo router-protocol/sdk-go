@@ -50,7 +50,7 @@ service Query {
 
 	// Queries a list of ValsetConfirmation items.
 	rpc ValsetConfirmationAll(QueryAllValsetConfirmationRequest) returns (QueryAllValsetConfirmationResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_confirmation";
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_confirmation/{valset_nonce}";
 	}
 
 // Queries a ValsetUpdatedClaim by index.
@@ -149,7 +149,8 @@ message QueryGetValsetConfirmationResponse {
 }
 
 message QueryAllValsetConfirmationRequest {
-	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+	uint64 valset_nonce = 1;
+	cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
 message QueryAllValsetConfirmationResponse {

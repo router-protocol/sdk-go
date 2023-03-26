@@ -768,7 +768,7 @@ func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, 
 }
 
 func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
-	req := &attestationTypes.QueryAllValsetConfirmationRequest{}
+	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce}
 	return c.attestationQueryClient.ValsetConfirmationAll(ctx, req)
 }
 
