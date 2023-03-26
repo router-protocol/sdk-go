@@ -11,6 +11,6 @@ enum ValsetUpdatedClaimStatus {
     option (gogoproto.goproto_enum_prefix) = false;
 
   VALSET_UPDATED_CLAIM_CREATED = 0 [(gogoproto.enumvalue_customname) = "VALSET_UPDATED_CLAIM_CREATED"];
-  VALSET_UPDATED_CLAIM_OBSERVED = 1 [(gogoproto.enumvalue_customname) = "VALSET_UPDATED_CLAIM_OBSERVED"];
+  VALSET_UPDATED_CLAIM_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "VALSET_UPDATED_CLAIM_VALIDATED"];
 }
 

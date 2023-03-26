@@ -127,25 +127,28 @@ const (
     }]`
 
 	// OutboundBatchRequestEventABIJSON checks the ETH ABI for compatibility of the Outbound batch event
-	OutboundBatchRequestEventABIJSON = `[{
-		"name": "OutboundBatchRequest",
-		"type": "event",
-		"anonymous": false,
-		"inputs": [
-			{"indexed": false,"internalType": "uint64","name": "destinationChainType","type": "uint64"},
-			{"indexed": false, "internalType": "string","name": "destinationChainId","type": "string"},
-			{"indexed": false, "internalType": "bytes[]","name": "handlers","type": "bytes[]"},
-			{"indexed": false, "internalType": "bytes[]","name": "payloads","type": "bytes[]"},
-			{"indexed": false, "internalType": "uint256","name": "relayerFee","type": "uint256"},
-			{"indexed": false, "internalType": "uint256","name": "gasLimit","type": "uint256"},
-			{"indexed": false, "internalType": "uint256",  "name": "gasPrice","type": "uint256"},
-			{"indexed": false, "internalType": "bool","name": "isAtomic","type": "bool"},
-			{"indexed": false, "internalType": "uint256","name": "expTimestamp","type": "uint256"},
-			{"indexed": false, "internalType": "uint256","name": "routeAmount","type": "uint256"},
-			{"indexed": false, "internalType": "bytes","name": "routeRecipient","type": "bytes"},
-			{"indexed": false, "internalType": "bytes","name": "asmAddress","type": "bytes"}
-    	]
-	}]`
+	OutboundBatchRequestEventABIJSON = `[
+		{
+			"anonymous": false,
+	"inputs": [
+			  {"indexed": false,"internalType": "uint64","name": "destinationChainType","type": "uint64"},
+			  {"indexed": false,"internalType": "string","name": "destinationChainId","type": "string"},
+			  {"indexed": false,"internalType": "bytes[]","name": "handlers","type": "bytes[]"},
+			  {"indexed": false,"internalType": "bytes[]","name": "payloads","type": "bytes[]"},
+			  {"indexed": false,"internalType": "uint256","name": "relayerFee","type": "uint256"},
+			  {"indexed": false,"internalType": "uint256","name": "gasLimit","type": "uint256"},
+			  {"indexed": false,"internalType": "uint256","name": "gasPrice","type": "uint256"},
+			  {"indexed": false,"internalType": "uint64","name": "outbound_ack_gas_limit","type": "uint64"},
+			  {"indexed": false,"internalType": "bool","name": "isAtomic","type": "bool"},
+			  {"indexed": false,"internalType": "uint256","name": "expTimestamp","type": "uint256"},
+			  {"indexed": false,"internalType": "uint256","name": "routeAmount","type": "uint256"},
+			  {"indexed": false,"internalType": "bytes","name": "routeRecipient","type": "bytes"},
+			  {"indexed": false,"internalType": "bytes","name": "asmAddress","type": "bytes"}
+			],
+			"name": "OutboundBatchRequest",
+			"type": "event"
+		  }
+	]`
 
 	// InboundSudoRequestABIJSON checks the ETH ABI for compatibility of the Inbound Batch request
 	InboundSudoRequestABIJSON = `[{
