@@ -230,10 +230,10 @@ func (v Valset) GetCheckpoint(routerIdString string) []byte {
 	// array, therefore we have to utf8 encode the string (the default in this case) and
 	// then copy the variable length encoded data into a fixed length array. This function
 	// will panic if routerIDstring is too long to fit in 32 bytes
-	routerId, err := util.StrToFixByteArray(routerIdString)
-	if err != nil {
-		panic(err)
-	}
+	// routerId, err := util.StrToFixByteArray(routerIdString)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
 	checkpointBytes := []uint8("checkpoint")
 	var checkpoint [32]uint8
@@ -248,7 +248,12 @@ func (v Valset) GetCheckpoint(routerIdString string) []byte {
 	// the word 'checkpoint' needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
 	// it gets encoded as a function name which we must then discard.
-	bytes, packErr := contractAbi.Pack("checkpoint", routerId, checkpoint, big.NewInt(int64(v.Nonce)), memberAddresses, convertedPowers)
+	bytes, packErr := contractAbi.Pack("checkpoint",
+		checkpoint,
+		big.NewInt(int64(v.Nonce)),
+		memberAddresses,
+		convertedPowers,
+	)
 
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.

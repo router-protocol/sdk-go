@@ -93,9 +93,8 @@ const (
 		"name": "checkpoint",
 		"stateMutability": "pure",
 		"type": "function",
-		"inputs": [
-			{ "internalType": "bytes32",   "name": "_routerId",   "type": "bytes32"   },
-			{ "internalType": "bytes32",   "name": "_checkpoint",  "type": "bytes32"   },
+		"inputs": [			
+			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},			
 			{ "internalType": "uint256",   "name": "_valsetNonce", "type": "uint256"   },
 			{ "internalType": "address[]", "name": "_validators",  "type": "address[]" },
 			{ "internalType": "uint256[]", "name": "_powers",      "type": "uint256[]" }			
