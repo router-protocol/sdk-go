@@ -26,6 +26,8 @@ const (
 var (
 	// PortKey defines the key to store the port ID in store
 	PortKey = KeyPrefix("oracle-port-")
+
+	LatestClientIDKey = KeyPrefix("latest-client-id-")
 )
 
 func KeyPrefix(p string) []byte {

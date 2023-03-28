@@ -8,6 +8,7 @@ import "outbound/contract_call.proto";
 import "multichain/chain_type.proto"; 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
+import "types/middleware_contract_type.proto";
 
 
 message EventOutgoingBatchTxCreated {
@@ -28,6 +29,7 @@ message EventOutgoingBatchTxCreated {
   string route_amount = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes route_recipient = 16;
   bytes asmAddress = 17;
+  routerprotocol.routerchain.types.MiddlewareContractType middlewareContractType = 18;  
 }
 
 message EventOutgoingBatchTxConfirm {  

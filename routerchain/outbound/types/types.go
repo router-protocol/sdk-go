@@ -3,6 +3,7 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	routerchaintypes "github.com/router-protocol/sdk-go/routerchain/types"
 )
 
 const (
@@ -21,25 +22,26 @@ const (
 
 func NewOutgoingBatchTx(destinationChainType multichainTypes.ChainType,
 	destinationChainId string, sourceAddress sdk.AccAddress, batchNonce uint64, isAtomic bool,
-	contractCalls []ContractCall, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, outgoingTxFeeInRoute sdk.Coin, chainTimeStamp int64, expiryTimestamp int64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte, outboundAckGasLimit uint64) *OutgoingBatchTx {
+	contractCalls []ContractCall, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, outgoingTxFeeInRoute sdk.Coin, chainTimeStamp int64, expiryTimestamp int64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte, outboundAckGasLimit uint64, middlewareContractType routerchaintypes.MiddlewareContractType) *OutgoingBatchTx {
 	return &OutgoingBatchTx{
-		DestinationChainType: destinationChainType,
-		DestinationChainId:   destinationChainId,
-		SourceAddress:        sourceAddress.String(),
-		Nonce:                batchNonce,
-		IsAtomic:             isAtomic,
-		ContractCalls:        contractCalls,
-		RelayerFee:           relayerFee,
-		DestinationGasLimit:  destinationGasLimit,
-		DestinationGasPrice:  destinationGasPrice,
-		OutgoingTxFeeInRoute: outgoingTxFeeInRoute,
-		OutboundAckGasLimit:  outboundAckGasLimit,
-		ChainTimestamp:       uint64(chainTimeStamp),
-		ExpiryTimestamp:      expiryTimestamp,
-		RouteAmount:          routeAmount,
-		RouteRecipient:       routeRecipient,
-		AsmAddress:           asmAddress,
-		Status:               OUTGOING_TX_CREATED,
+		DestinationChainType:   destinationChainType,
+		DestinationChainId:     destinationChainId,
+		SourceAddress:          sourceAddress.String(),
+		Nonce:                  batchNonce,
+		IsAtomic:               isAtomic,
+		ContractCalls:          contractCalls,
+		RelayerFee:             relayerFee,
+		DestinationGasLimit:    destinationGasLimit,
+		DestinationGasPrice:    destinationGasPrice,
+		OutgoingTxFeeInRoute:   outgoingTxFeeInRoute,
+		OutboundAckGasLimit:    outboundAckGasLimit,
+		ChainTimestamp:         uint64(chainTimeStamp),
+		ExpiryTimestamp:        expiryTimestamp,
+		RouteAmount:            routeAmount,
+		RouteRecipient:         routeRecipient,
+		AsmAddress:             asmAddress,
+		Status:                 OUTGOING_TX_CREATED,
+		MiddlewareContractType: middlewareContractType,
 	}
 }
 

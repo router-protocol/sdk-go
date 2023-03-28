@@ -8,26 +8,28 @@ import (
 	"github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichaintypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	chaintypes "github.com/router-protocol/sdk-go/routerchain/types"
+	routerchainTypes "github.com/router-protocol/sdk-go/routerchain/types"
 )
 
 const TypeMsgOutboundBatchRequest = "outbound_batch_request"
 
 var _ sdk.Msg = &MsgOutboundBatchRequest{}
 
-func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte, outboundAckGasLimit uint64) *MsgOutboundBatchRequest {
+func NewMsgOutboundBatchRequest(sender string, destinationChainType multichaintypes.ChainType, destinationChainId string, contractCalls []ContractCall, isAtomic bool, relayerFee sdk.Coin, destinationGasLimit uint64, destinationGasPrice uint64, routeAmount sdk.Int, routeRecipient []byte, asmAddress []byte, outboundAckGasLimit uint64, middlewareContractType routerchainTypes.MiddlewareContractType) *MsgOutboundBatchRequest {
 	return &MsgOutboundBatchRequest{
-		Sender:               sender,
-		DestinationChainType: destinationChainType,
-		DestinationChainId:   destinationChainId,
-		ContractCalls:        contractCalls,
-		IsAtomic:             isAtomic,
-		RelayerFee:           relayerFee,
-		DestinationGasLimit:  destinationGasLimit,
-		DestinationGasPrice:  destinationGasPrice,
-		RouteAmount:          routeAmount,
-		RouteRecipient:       routeRecipient,
-		AsmAddress:           asmAddress,
-		OutboundAckGasLimit:  outboundAckGasLimit,
+		Sender:                 sender,
+		DestinationChainType:   destinationChainType,
+		DestinationChainId:     destinationChainId,
+		ContractCalls:          contractCalls,
+		IsAtomic:               isAtomic,
+		RelayerFee:             relayerFee,
+		DestinationGasLimit:    destinationGasLimit,
+		DestinationGasPrice:    destinationGasPrice,
+		RouteAmount:            routeAmount,
+		RouteRecipient:         routeRecipient,
+		AsmAddress:             asmAddress,
+		OutboundAckGasLimit:    outboundAckGasLimit,
+		MiddlewareContractType: middlewareContractType,
 	}
 }
 

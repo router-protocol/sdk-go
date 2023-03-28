@@ -7,6 +7,7 @@ import "oracle/band_token_price_state.proto";
 import "oracle/call_data_record.proto";
 import "oracle/band_oracle_request.proto";
 import "oracle/gas_price_state.proto";
+import "oracle/token_price.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types";
@@ -19,5 +20,6 @@ message GenesisState {
   repeated CallDataRecord callDataRecordList = 4 [(gogoproto.nullable) = false];
   repeated BandOracleRequest bandOracleRequestList = 5 [(gogoproto.nullable) = false];
   repeated GasPriceState gasPriceStateList = 6 [(gogoproto.nullable) = false];
+  repeated TokenPrice tokenPriceList = 7 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

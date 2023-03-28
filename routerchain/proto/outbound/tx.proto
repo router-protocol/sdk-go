@@ -7,6 +7,7 @@ import "outbound/contract_call.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 import "multichain/chain_type.proto"; 
+import "types/middleware_contract_type.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
 
@@ -32,6 +33,7 @@ message MsgOutboundBatchRequest {
   string route_amount = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes route_recipient = 12;
   bytes asmAddress = 13;
+  routerprotocol.routerchain.types.MiddlewareContractType middlewareContractType = 14;  
 }
 
 message MsgOutboundBatchRequestResponse {

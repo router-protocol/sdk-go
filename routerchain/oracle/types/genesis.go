@@ -17,6 +17,7 @@ func DefaultGenesis() *GenesisState {
 		CallDataRecordList:      []CallDataRecord{},
 		BandOracleRequestList:   []BandOracleRequest{},
 		GasPriceStateList:       []GasPriceState{},
+		TokenPriceList:          []TokenPrice{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -67,6 +68,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for gasPriceState")
 		}
 		gasPriceStateIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in tokenPrice
+	tokenPriceIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.TokenPriceList {
+		index := string(TokenPriceKey(elem.Symbol))
+		if _, ok := tokenPriceIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for tokenPrice")
+		}
+		tokenPriceIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 
