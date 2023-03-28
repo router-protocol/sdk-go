@@ -5,6 +5,7 @@ go 1.16
 require (
 	cosmossdk.io/math v1.0.0-beta.4
 	github.com/CosmWasm/wasmd v0.27.0
+	github.com/bandprotocol/bandchain-packet v0.0.3
 	github.com/cosmos/cosmos-sdk v0.46.8
 	github.com/cosmos/gogoproto v1.4.4 // indirect
 	github.com/cosmos/ibc-go/v6 v6.1.0
