@@ -5,13 +5,14 @@ import (
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
-func NewIncomingTx(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender []byte, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient string, payload []byte, asmAddress []byte) *IncomingTx {
+func NewIncomingTx(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, sourceSender []byte, txOrigin string, sourceTxHash string, sourceTimeStamp uint64, routerBridgeContract string, gasLimit uint64, routeAmount sdk.Int, routeRecipient string, payload []byte, asmAddress []byte) *IncomingTx {
 	return &IncomingTx{
 		ChainType:            chainType,
 		ChainId:              chainId,
 		EventNonce:           eventNonce,
 		BlockHeight:          blockHeight,
 		SourceSender:         sourceSender,
+		TxOrigin:             txOrigin,
 		SourceTimestamp:      sourceTimeStamp,
 		SourceTxHash:         sourceTxHash,
 		RouterBridgeContract: routerBridgeContract,
@@ -30,6 +31,7 @@ func NewInboundRequestClaimHash(
 	eventNonce uint64,
 	blockHeight uint64,
 	sourceSender []byte,
+	txOrigin string,
 	sourceTxHash string,
 	sourceTimeStamp uint64,
 	routerBridgeContract string,
@@ -44,6 +46,7 @@ func NewInboundRequestClaimHash(
 		EventNonce:           eventNonce,
 		BlockHeight:          blockHeight,
 		SourceSender:         sourceSender,
+		TxOrigin:             txOrigin,
 		SourceTxHash:         sourceTxHash,
 		SourceTimestamp:      sourceTimeStamp,
 		RouteRecipient:       routeRecipient,

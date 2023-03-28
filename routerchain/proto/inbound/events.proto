@@ -17,14 +17,15 @@ message EventIncomingTxCreated {
   string sourceTxHash = 6; 
   uint64 sourceTimestamp = 7;
   bytes sourceSender = 8;   
-  string routerBridgeContract = 9; 
-  bytes payload = 10; 
-  uint64 gasLimit = 11;
-  string feePayer = 12;
-  string routeAmount = 13 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  string routeRecipient = 14; 
-  bytes asmAddress = 15;
-  IncomingTxStatus status = 16;   
+  string txOrigin = 9;
+  string routerBridgeContract = 10; 
+  bytes payload = 11; 
+  uint64 gasLimit = 12;
+  string feePayer = 13;
+  string routeAmount = 14 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string routeRecipient = 15; 
+  bytes asmAddress = 16;
+  IncomingTxStatus status = 17;   
 }
 
 message EventIncomingTxReadyToExecute {  
