@@ -24,6 +24,7 @@ func (msg *IncomingTx) ClaimHash() ([]byte, error) {
 		msg.EventNonce,
 		msg.BlockHeight,
 		msg.SourceSender,
+		msg.TxOrigin,
 		msg.SourceTxHash,
 		msg.SourceTimestamp,
 		msg.RouterBridgeContract,

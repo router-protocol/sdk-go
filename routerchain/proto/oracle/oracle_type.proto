@@ -11,4 +11,5 @@ enum OracleType  {
 
   ORACLE_TYPE_BAND = 0 [(gogoproto.enumvalue_customname) = "ORACLE_TYPE_BAND"];
   ORACLE_TYPE_CHAINLINK = 1 [(gogoproto.enumvalue_customname) = "ORACLE_TYPE_CHAINLINK"];
+  ORACLE_TYPE_ROUTER = 2 [(gogoproto.enumvalue_customname) = "ORACLE_TYPE_ROUTER"];
 }
