@@ -1,0 +1,13 @@
+syntax = "proto3";
+package routerprotocol.routerchain.types;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/types";
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum MiddlewareContractType {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  MIDDLEWARE_COSMWASM = 0 [(gogoproto.enumvalue_customname) = "MIDDLEWARE_COSMWASM"];
+  MIDDLEWARE_SOLIDITY = 1 [(gogoproto.enumvalue_customname) = "MIDDLEWARE_SOLIDITY"];  
+}

@@ -7,6 +7,7 @@ import "outbound/outgoing_tx_status.proto";
 import "gogoproto/gogo.proto"; 
 import "cosmos/base/v1beta1/coin.proto"; 
 import "multichain/chain_type.proto"; 
+import "types/middleware_contract_type.proto";
 
 message OutgoingBatchTx {
   uint64 nonce = 1; 
@@ -26,6 +27,7 @@ message OutgoingBatchTx {
   string route_amount = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes route_recipient = 16;
   bytes asmAddress = 17;
+  routerprotocol.routerchain.types.MiddlewareContractType middlewareContractType = 18;
 }
 
 // this line is used by starport scaffolding # genesis/types/import

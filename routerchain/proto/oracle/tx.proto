@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "oracle/band_token_prices.proto";
 import "oracle/gas_price_state.proto";
+import "oracle/token_price.proto";
 import "oracle/band_oracle_request.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
@@ -17,6 +18,7 @@ service Msg {
   rpc UpdateBandOracleRequest(MsgUpdateBandOracleRequest) returns (MsgUpdateBandOracleRequestResponse);
   rpc DeleteBandOracleRequest(MsgDeleteBandOracleRequest) returns (MsgDeleteBandOracleRequestResponse);
   rpc GasPrices(MsgGasPrices) returns (MsgGasPricesResponse);
+  rpc TokenPrices (MsgTokenPrices) returns (MsgTokenPricesResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -84,5 +86,16 @@ message MsgGasPrices {
 
 message MsgGasPricesResponse {
 }
+
+message MsgTokenPrices {
+  string tokenOracleProvider = 1;
+  repeated TokenPrice  tokenPrices = 2 [
+    (gogoproto.nullable) = false
+  ];
+}
+
+message MsgTokenPricesResponse {}
+
+
 
 // this line is used by starport scaffolding # proto/tx/message

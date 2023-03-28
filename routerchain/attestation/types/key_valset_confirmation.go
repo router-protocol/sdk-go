@@ -19,5 +19,5 @@ func ValsetConfirmationKey(
 	valsetNonce uint64,
 	orchestrator sdk.AccAddress,
 ) []byte {
-	return util.AppendBytes(util.HashString(ValsetConfirmationKeyPrefix), util.UInt64Bytes(valsetNonce), orchestrator.Bytes())
+	return util.AppendBytes(util.UInt64Bytes(valsetNonce), orchestrator.Bytes())
 }
