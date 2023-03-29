@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	network := common.LoadNetwork("devnet-alpha", "k8s")
+	network := common.LoadNetwork("devnet", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 	if err != nil {
 		fmt.Println(err)
@@ -48,7 +48,8 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("100000000000000route"),
+		// common.OptionGasPrices("1000000000000000route"),
+		common.OptionGasPrices("500000000route"),
 	)
 	if err != nil {
 		fmt.Println(err)
@@ -67,14 +68,18 @@ func main() {
 		if metaInfo.FeePayerApproved {
 			continue
 		}
+
+		fmt.Println("metaInfo.FeePayer", metaInfo.FeePayer, "sender", senderAddress.String())
 		// prepare tx msg
 		msg := metastoreTypes.NewMsgApproveFeepayerRequest(senderAddress.String(), metaInfo.ChainType, metaInfo.ChainId, metaInfo.DappAddress)
 
 		//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
-		err = routerChainClient.QueueBroadcastMsg(msg)
+		res, err := routerChainClient.SyncBroadcastMsg(msg)
 		if err != nil {
 			fmt.Println(err)
 		}
+
+		fmt.Println(res.TxResponse.TxHash)
 
 		time.Sleep(time.Second * 5)
 		gasFee, err := routerChainClient.GetGasFee()

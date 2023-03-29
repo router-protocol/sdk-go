@@ -14,7 +14,7 @@ import (
 )
 
 func main() {
-	network := common.LoadNetwork("local", "k8s")
+	network := common.LoadNetwork("devnet", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {
@@ -26,7 +26,7 @@ func main() {
 		os.Getenv("HOME")+"/.routerd",
 		"routerd",
 		"file",
-		"genesis",
+		"gaurav",
 		"12345678",
 		"", // keyring will be used if pk not provided
 		false,
@@ -62,7 +62,8 @@ func main() {
 		clientCtx,
 		network.ChainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
-		common.OptionGasPrices("10000000000000route"),
+		// common.OptionGasPrices("10000000000000route"),
+		common.OptionGasPrices("500000000route"),
 	)
 
 	if err != nil {
