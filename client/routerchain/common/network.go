@@ -87,6 +87,16 @@ func LoadNetwork(name string, node string) Network {
 			Fee_denom:           "route",
 			Name:                "devnet",
 		}
+	} else if name == "testnet" {
+		return Network{
+			ApiEndpoint:         "https://lcd.testnet.routerchain.dev:443",
+			TmEndpoint:          "https://tm.rpc.testnet.routerchain.dev:443",
+			ChainEvmRpcEndpoint: "https://evm.rpc.testnet.routerprotocol.com/",
+			ChainGrpcEndpoint:   "tcp://grpc.testnet.routerchain.dev:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "testnet",
+		}
 	}
 	return Network{}
 }
