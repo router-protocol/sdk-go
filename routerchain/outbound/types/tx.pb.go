@@ -93,7 +93,7 @@ func (m *MsgOutboundBatchRequest) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgOutboundBatchRequest) GetDestinationChainId() string {
@@ -279,7 +279,7 @@ func (m *MsgOutgoingBatchConfirm) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgOutgoingBatchConfirm) GetDestinationChainId() string {
@@ -415,7 +415,7 @@ func (m *MsgOutboundAckRequest) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgOutboundAckRequest) GetChainId() string {

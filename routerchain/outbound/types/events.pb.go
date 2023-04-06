@@ -92,7 +92,7 @@ func (m *EventOutgoingBatchTxCreated) GetDestinationChainType() types.ChainType 
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingBatchTxCreated) GetDestinationChainId() string {
@@ -247,7 +247,7 @@ func (m *EventOutgoingBatchTxConfirm) GetDestinationChainType() types.ChainType 
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingBatchTxConfirm) GetDestinationChainId() string {
@@ -355,7 +355,7 @@ func (m *EventOutgoingAckCreated) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingAckCreated) GetDestinationChainId() string {
@@ -502,7 +502,7 @@ func (m *EventOutgoingTxFeeSettlement) GetDestinationChainType() types.ChainType
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingTxFeeSettlement) GetDestinationChainId() string {
@@ -585,7 +585,7 @@ func (m *EventOutgoingAckReadyToExecute) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingAckReadyToExecute) GetChainId() string {
@@ -668,7 +668,7 @@ func (m *EventOutgoingAckExecuted) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingAckExecuted) GetChainId() string {
@@ -744,7 +744,7 @@ func (m *EventOutgoingAckExecutionFailed) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventOutgoingAckExecutionFailed) GetChainId() string {

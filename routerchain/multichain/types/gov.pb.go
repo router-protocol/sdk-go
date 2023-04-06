@@ -207,7 +207,7 @@ func (m *MultichainDeleteChainConfigProposal) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_EVM
+	return CHAIN_TYPE_NONE
 }
 
 func init() {

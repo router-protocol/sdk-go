@@ -79,7 +79,7 @@ func (m *EventMetadataRequestCreated) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventMetadataRequestCreated) GetChainId() string {
@@ -161,7 +161,7 @@ func (m *EventMetaInfoCreated) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventMetaInfoCreated) GetChainId() string {
@@ -229,7 +229,7 @@ func (m *EventFeePayerApproved) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventFeePayerApproved) GetChainId() string {

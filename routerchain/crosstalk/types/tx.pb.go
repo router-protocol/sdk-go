@@ -114,7 +114,7 @@ func (m *MsgCrossTalkRequest) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgCrossTalkRequest) GetChainId() string {
@@ -142,7 +142,7 @@ func (m *MsgCrossTalkRequest) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgCrossTalkRequest) GetDestinationChainId() string {
@@ -388,7 +388,7 @@ func (m *MsgCrossTalkAckRequest) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgCrossTalkAckRequest) GetSourceChainId() string {
@@ -402,7 +402,7 @@ func (m *MsgCrossTalkAckRequest) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgCrossTalkAckRequest) GetChainId() string {
@@ -609,7 +609,7 @@ func (m *MsgCrossTalkAckReceipt) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgCrossTalkAckReceipt) GetChainId() string {
@@ -727,7 +727,7 @@ func (m *MsgSetCrosstalkFeePayer) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgSetCrosstalkFeePayer) GetChainId() string {
@@ -833,7 +833,7 @@ func (m *MsgIncrementCrosstalkDestGas) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgIncrementCrosstalkDestGas) GetChainId() string {
@@ -953,7 +953,7 @@ func (m *MsgIncrementCrosstalkAckGas) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgIncrementCrosstalkAckGas) GetChainId() string {
