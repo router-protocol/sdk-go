@@ -24,10 +24,10 @@ message MsgCreateMetadataRequest {
 message MsgCreateMetadataRequestResponse {}
 
 message MsgApproveFeepayerRequest {
-  string feepayer    = 1;
-  routerprotocol.routerchain.multichain.ChainType chainType = 2; 
-  string chainId     = 3;
-  bytes daapAddresses = 4;
+    string fee_payer    = 1;  
+    uint64 chain_type = 2;
+    string chain_id = 3;
+    string dapp_address    = 4;  
 }
 
 message MsgApproveFeepayerRequestResponse {}

@@ -29,6 +29,11 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info";
   
   }
+
+  rpc MetaInfoAllByFeePayer (QueryAllMetaInfoRequestByFeePayer) returns (QueryAllMetaInfoResponseByFeePayer) {
+    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info/{fee_payer}/{is_approved}";
+  
+  }
   
   // Queries a list of MetadataRequest items.
   rpc MetadataRequest    (QueryGetMetadataRequestRequest) returns (QueryGetMetadataRequestResponse) {
@@ -88,3 +93,13 @@ message QueryAllMetadataRequestResponse {
            cosmos.base.query.v1beta1.PageResponse pagination      = 2;
 }
 
+message QueryAllMetaInfoRequestByFeePayer {
+  string fee_payer = 1;
+  bool is_approved =2;
+  cosmos.base.query.v1beta1.PageRequest pagination = 3;
+}
+
+message QueryAllMetaInfoResponseByFeePayer {
+  repeated MetaInfo                               metaInfo   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

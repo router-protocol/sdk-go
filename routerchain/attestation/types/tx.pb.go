@@ -284,7 +284,7 @@ func (m *MsgValsetUpdatedClaim) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MsgValsetUpdatedClaim) GetChainId() string {

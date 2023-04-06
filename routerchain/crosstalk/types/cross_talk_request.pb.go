@@ -104,7 +104,7 @@ func (m *CrossTalkRequest) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *CrossTalkRequest) GetSourceChainId() string {
@@ -132,7 +132,7 @@ func (m *CrossTalkRequest) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *CrossTalkRequest) GetDestinationChainId() string {
@@ -337,7 +337,7 @@ func (m *CrossTalkRequestClaimHash) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *CrossTalkRequestClaimHash) GetSourceChainId() string {
@@ -365,7 +365,7 @@ func (m *CrossTalkRequestClaimHash) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_EVM
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *CrossTalkRequestClaimHash) GetDestinationChainId() string {

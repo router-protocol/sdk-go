@@ -95,7 +95,7 @@ func (m *EventCreateChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_EVM
+	return CHAIN_TYPE_NONE
 }
 
 func (m *EventCreateChainConfig) GetConfirmationsRequired() uint64 {
@@ -227,7 +227,7 @@ func (m *EventUpdatedChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_EVM
+	return CHAIN_TYPE_NONE
 }
 
 func (m *EventUpdatedChainConfig) GetConfirmationsRequired() uint64 {
@@ -335,7 +335,7 @@ func (m *EventDeletedChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_EVM
+	return CHAIN_TYPE_NONE
 }
 
 func init() {
