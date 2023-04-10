@@ -6,7 +6,10 @@ copy-chain-types:
 	
 	cp ../router-chain/x/attestation/types/*.go routerchain/attestation/types
 	rm -rf routerchain/attestation/types/*test.go  rm -rf routerchain/attestation/types/*gw.go
-	
+
+	cp ../router-chain/x/crosschain/types/*.go routerchain/crosschain/types
+	rm -rf routerchain/crosschain/types/*test.go  rm -rf routerchain/crosschain/types/*gw.go
+
 	cp ../router-chain/x/inbound/types/*.go routerchain/inbound/types
 	rm -rf routerchain/inbound/types/*test.go  rm -rf routerchain/inbound/types/*gw.go
 
