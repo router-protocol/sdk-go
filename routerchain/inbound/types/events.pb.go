@@ -90,7 +90,7 @@ func (m *EventIncomingTxCreated) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventIncomingTxCreated) GetChainId() string {
@@ -237,7 +237,7 @@ func (m *EventIncomingTxReadyToExecute) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventIncomingTxReadyToExecute) GetSourceChainId() string {
@@ -328,7 +328,7 @@ func (m *EventIncomingTxExecuted) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventIncomingTxExecuted) GetChainId() string {
@@ -412,7 +412,7 @@ func (m *EventIncomingTxExecutionFailed) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventIncomingTxExecutionFailed) GetChainId() string {

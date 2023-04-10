@@ -70,7 +70,7 @@ func (m *CrosstalkRequestConfirm) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *CrosstalkRequestConfirm) GetSourceChainId() string {

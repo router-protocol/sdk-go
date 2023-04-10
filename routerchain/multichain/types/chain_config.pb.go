@@ -98,7 +98,7 @@ func (m *ChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_NONE
+	return CHAIN_TYPE_ROUTER
 }
 
 func (m *ChainConfig) GetConfirmationsRequired() uint64 {

@@ -1,0 +1,18 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+
+enum WorkflowType {
+option (gogoproto.goproto_enum_prefix) = false;
+
+  NONE = 0 [(gogoproto.enumvalue_customname) = "NONE"];
+  INBOUND = 1 [(gogoproto.enumvalue_customname) = "INBOUND"];
+  CROSSTALK = 2 [(gogoproto.enumvalue_customname) = "CROSSTALK"];
+  OUTBOUND = 3 [(gogoproto.enumvalue_customname) = "OUTBOUND"];
+}

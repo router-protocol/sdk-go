@@ -106,7 +106,7 @@ func (m *MsgCreateChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_NONE
+	return CHAIN_TYPE_ROUTER
 }
 
 func (m *MsgCreateChainConfig) GetConfirmationsRequired() uint64 {
@@ -266,7 +266,7 @@ func (m *MsgUpdateChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_NONE
+	return CHAIN_TYPE_ROUTER
 }
 
 func (m *MsgUpdateChainConfig) GetConfirmationsRequired() uint64 {
@@ -397,7 +397,7 @@ func (m *MsgDeleteChainConfig) GetChainType() ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return CHAIN_TYPE_NONE
+	return CHAIN_TYPE_ROUTER
 }
 
 func (m *MsgDeleteChainConfig) GetChainId() string {

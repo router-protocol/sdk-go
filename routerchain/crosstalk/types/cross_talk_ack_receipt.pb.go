@@ -95,7 +95,7 @@ func (m *CrossTalkAckReceipt) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *CrossTalkAckReceipt) GetChainId() string {
@@ -201,7 +201,7 @@ func (m *CrossTalkAckReceiptClaimHash) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *CrossTalkAckReceiptClaimHash) GetChainId() string {

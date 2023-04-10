@@ -110,7 +110,7 @@ func (m *EventCrossTalkRequestCreated) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrossTalkRequestCreated) GetSourceChainId() string {
@@ -138,7 +138,7 @@ func (m *EventCrossTalkRequestCreated) GetDestinationChainType() types.ChainType
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrossTalkRequestCreated) GetDestinationChainId() string {
@@ -299,7 +299,7 @@ func (m *EventCrosstalkReadyToExecute) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkReadyToExecute) GetSourceChainId() string {
@@ -382,7 +382,7 @@ func (m *EventCrosstalkFeePayerUpdated) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkFeePayerUpdated) GetSourceChainId() string {
@@ -460,7 +460,7 @@ func (m *EventCrosstalkDestGasIncremented) GetSourceChainType() types.ChainType 
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkDestGasIncremented) GetSourceChainId() string {
@@ -549,7 +549,7 @@ func (m *EventCrosstalkCompleted) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkCompleted) GetSourceChainId() string {
@@ -620,7 +620,7 @@ func (m *EventCrosstalkRequestConfirm) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkRequestConfirm) GetSourceChainId() string {
@@ -751,7 +751,7 @@ func (m *EventCrossTalkAckRequestCreated) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrossTalkAckRequestCreated) GetSourceChainId() string {
@@ -765,7 +765,7 @@ func (m *EventCrossTalkAckRequestCreated) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrossTalkAckRequestCreated) GetChainId() string {
@@ -890,7 +890,7 @@ func (m *EventCrosstalkRequestFeeSettlement) GetSourceChainType() types.ChainTyp
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkRequestFeeSettlement) GetSourceChainId() string {
@@ -968,7 +968,7 @@ func (m *EventCrosstalkAckGasIncremented) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkAckGasIncremented) GetSourceChainId() string {
@@ -1060,7 +1060,7 @@ func (m *EventCrosstalkAckRequestConfirm) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkAckRequestConfirm) GetChainId() string {
@@ -1151,7 +1151,7 @@ func (m *EventCrosstalkAckReadyToExecute) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkAckReadyToExecute) GetChainId() string {
@@ -1233,7 +1233,7 @@ func (m *EventCrosstalkAckCompleted) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkAckCompleted) GetChainId() string {
@@ -1334,7 +1334,7 @@ func (m *EventCrossTalkAckReceiptCreated) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrossTalkAckReceiptCreated) GetChainId() string {
@@ -1410,7 +1410,7 @@ func (m *EventCrosstalkReceiptFeeSettlement) GetSourceChainType() types.ChainTyp
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkReceiptFeeSettlement) GetSourceChainId() string {
@@ -1485,7 +1485,7 @@ func (m *EventCrosstalkReceiptCompleted) GetSourceChainType() types.ChainType {
 	if m != nil {
 		return m.SourceChainType
 	}
-	return types.CHAIN_TYPE_NONE
+	return types.CHAIN_TYPE_ROUTER
 }
 
 func (m *EventCrosstalkReceiptCompleted) GetSourceChainId() string {
