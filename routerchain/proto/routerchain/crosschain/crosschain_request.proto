@@ -1,0 +1,24 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+message CrosschainRequest {
+  string index = 1; 
+  string srcChainId = 2; 
+  uint64 srcEventNonce = 3; 
+  uint64 srcBlockHeight = 4; 
+  string sourceTxHash = 5; 
+  uint64 srcTimestamp = 6; 
+  string srcTxOrigin = 7; 
+  string routeAmount = 8; 
+  string routeRecipient = 9; 
+  string destChainId = 10; 
+  string requestSender = 11; 
+  bytes request_metadata   = 12;
+  bytes request_payload   = 13;
+  string relayerFee = 14; 
+  string status = 15; 
+  
+}
+

@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.crosschain;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "routerchain/crosschain/params.proto";
+import "routerchain/crosschain/crosschain_request.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/params";
+  
+  }
+  
+  // Queries a list of CrosschainRequest items.
+  rpc CrosschainRequest    (QueryGetCrosschainRequestRequest) returns (QueryGetCrosschainRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_request/{index}";
+  
+  }
+  rpc CrosschainRequestAll (QueryAllCrosschainRequestRequest) returns (QueryAllCrosschainRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_request";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetCrosschainRequestRequest {
+  string index = 1;
+}
+
+message QueryGetCrosschainRequestResponse {
+  CrosschainRequest crosschainRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrosschainRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCrosschainRequestResponse {
+  repeated CrosschainRequest                      crosschainRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination        = 2;
+}
+
