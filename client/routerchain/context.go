@@ -16,6 +16,7 @@ import (
 	wasmtypes "github.com/CosmWasm/wasmd/x/wasm/types"
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
 	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	enccodec "github.com/router-protocol/sdk-go/routerchain/encoding/codec"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
@@ -55,6 +56,7 @@ func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 	oracleTypes.RegisterInterfaces(interfaceRegistry)
 	outboundTypes.RegisterInterfaces(interfaceRegistry)
 	crosstalkTypes.RegisterInterfaces(interfaceRegistry)
+	crosschainTypes.RegisterInterfaces(interfaceRegistry)
 	enccodec.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
