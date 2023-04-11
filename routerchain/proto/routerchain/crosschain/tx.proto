@@ -10,19 +10,18 @@ service Msg {
 }
 message MsgCrosschainRequest {
   string orchestrator   =  1;
-  string srcchainId     =  2;
-  uint64 eventNonce     =  3;
-  uint64 blockHeight    =  4;
-  string sourceTxHash   =  5;
-  uint64 srcTimestamp   =  6;
-  string srcTxOrigin    =  7;
-  string routeAmount    =  8;
-  string routeRecipient =  9;
-  string destChainId    = 10;
-  string requestSender  = 11;
+  string src_chain_id     =  2;
+  uint64 event_nonce     =  3;
+  uint64 block_height    =  4;
+  string source_tx_hash   =  5;
+  uint64 src_timestamp   =  6;
+  string src_tx_origin    =  7;
+  uint64 route_amount    =  8;
+  string route_recipient =  9;
+  string dest_chain_id    = 10;
+  string request_sender  = 11;
   bytes request_metadata   = 12;
   bytes request_payload   = 13;
-  string relayerFee     = 14;
 }
 
 message MsgCrosschainRequestResponse {}
