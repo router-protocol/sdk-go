@@ -4,7 +4,7 @@ This repository is a go sdk. It consists of all the router chain types and commo
 
 ## 📚 Getting Started
 
-Clone the repository locally and install needed dependencies
+Clone the repository locally and install needed dependencies ..
 
 ```bash
 $ git clone https://github.com/router-protocol/sdk-go
