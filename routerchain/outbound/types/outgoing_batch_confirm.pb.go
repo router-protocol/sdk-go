@@ -70,7 +70,7 @@ func (m *OutgoingBatchConfirm) GetDestinationChainType() types.ChainType {
 	if m != nil {
 		return m.DestinationChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *OutgoingBatchConfirm) GetDestinationChainId() string {

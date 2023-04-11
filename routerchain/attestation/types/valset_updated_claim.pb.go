@@ -71,7 +71,7 @@ func (m *ValsetUpdatedClaim) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *ValsetUpdatedClaim) GetChainId() string {
@@ -163,7 +163,7 @@ func (m *ValsetUpdatedClaimHash) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *ValsetUpdatedClaimHash) GetChainId() string {

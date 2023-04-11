@@ -83,7 +83,7 @@ func (m *IncomingTx) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *IncomingTx) GetChainId() string {
@@ -245,7 +245,7 @@ func (m *InboundRequestClaimHash) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *InboundRequestClaimHash) GetChainId() string {

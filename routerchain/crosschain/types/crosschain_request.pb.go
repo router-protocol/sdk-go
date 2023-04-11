@@ -158,14 +158,14 @@ func (m *CrosschainRequest) GetSrcChainType() types.ChainType {
 	if m != nil {
 		return m.SrcChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *CrosschainRequest) GetDestChainType() types.ChainType {
 	if m != nil {
 		return m.DestChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *CrosschainRequest) GetStatus() string {

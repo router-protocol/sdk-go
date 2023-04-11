@@ -85,7 +85,7 @@ func (m *EventAttestationVote) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventAttestationVote) GetChainId() string {
@@ -168,7 +168,7 @@ func (m *EventAttestationObserved) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventAttestationObserved) GetChainId() string {
@@ -428,7 +428,7 @@ func (m *EventValsetUpdatedClaimCreated) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *EventValsetUpdatedClaimCreated) GetChainId() string {

@@ -81,7 +81,7 @@ func (m *OutboundAck) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *OutboundAck) GetChainId() string {
@@ -242,7 +242,7 @@ func (m *OutboundAckClaimHash) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *OutboundAckClaimHash) GetChainId() string {

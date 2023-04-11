@@ -70,7 +70,7 @@ func (m *MetadataRequest) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MetadataRequest) GetChainId() string {
@@ -161,7 +161,7 @@ func (m *MetadataRequestClaimHash) GetChainType() types.ChainType {
 	if m != nil {
 		return m.ChainType
 	}
-	return types.CHAIN_TYPE_ROUTER
+	return types.CHAIN_TYPE_NONE
 }
 
 func (m *MetadataRequestClaimHash) GetChainId() string {
