@@ -20,11 +20,11 @@ message MsgCrosschainRequest {
   uint64 src_timestamp   =  6;
   string src_tx_origin    =  7;
   string route_amount = 8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  string route_recipient =  9;
+  bytes route_recipient =  9;
   string dest_chain_id    = 10;
-  string request_sender  = 11;
+  bytes request_sender  = 11;
   bytes request_metadata   = 12;
-  bytes request_payload   = 13;
+  bytes request_packet   = 13;
 }
 
 message MsgCrosschainRequestResponse {}

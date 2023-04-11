@@ -1,6 +1,9 @@
 package types
 
-import sdk "github.com/cosmos/cosmos-sdk/types"
+import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+)
 
 func NewCrosschainRequest(
 	srcChainId string,
@@ -10,11 +13,13 @@ func NewCrosschainRequest(
 	srcTimestamp uint64,
 	srcTxOrigin string,
 	routeAmount sdk.Int,
-	routeRecipient string,
+	routeRecipient []byte,
 	destChainId string,
-	requestSender string,
+	requestSender []byte,
 	requestMetadata []byte,
-	requestPayload []byte,
+	requestPacket []byte,
+	srcChainType multichainTypes.ChainType,
+	destChainType multichainTypes.ChainType,
 ) *CrosschainRequest {
 	return &CrosschainRequest{
 		SrcChainId:      srcChainId,
@@ -28,13 +33,17 @@ func NewCrosschainRequest(
 		DestChainId:     destChainId,
 		RequestSender:   requestSender,
 		RequestMetadata: requestMetadata,
-		RequestPayload:  requestPayload,
+		RequestPacket:   requestPacket,
+		SrcChainType:    srcChainType,
+		DestChainType:   destChainType,
 		Status:          "created",
 	}
 }
 
 func NewCrosschainRequestFromMsg(
 	msg *MsgCrosschainRequest,
+	srcChainType multichainTypes.ChainType,
+	destChainType multichainTypes.ChainType,
 ) *CrosschainRequest {
 	return &CrosschainRequest{
 		SrcChainId:      msg.SrcChainId,
@@ -48,7 +57,9 @@ func NewCrosschainRequestFromMsg(
 		DestChainId:     msg.DestChainId,
 		RequestSender:   msg.RequestSender,
 		RequestMetadata: msg.RequestMetadata,
-		RequestPayload:  msg.RequestPayload,
+		RequestPacket:   msg.RequestPacket,
+		SrcChainType:    srcChainType,
+		DestChainType:   destChainType,
 		Status:          "created",
 	}
 }
