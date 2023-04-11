@@ -4,21 +4,18 @@ package routerprotocol.routerchain.crosschain;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
 message CrosschainRequest {
-  string index = 1; 
-  string srcChainId = 2; 
-  uint64 srcEventNonce = 3; 
-  uint64 srcBlockHeight = 4; 
-  string sourceTxHash = 5; 
-  uint64 srcTimestamp = 6; 
-  string srcTxOrigin = 7; 
-  string routeAmount = 8; 
-  string routeRecipient = 9; 
-  string destChainId = 10; 
-  string requestSender = 11; 
-  bytes request_metadata   = 12;
-  bytes request_payload   = 13;
-  string relayerFee = 14; 
-  string status = 15; 
-  
+  string src_chain_id     =  1;
+  uint64 event_nonce     =  2;
+  uint64 block_height    =  3;
+  string source_tx_hash   =  4;
+  uint64 src_timestamp   =  5;
+  string src_tx_origin    =  6;
+  uint64 route_amount    =  7;
+  string route_recipient =  8;
+  string dest_chain_id    = 9;
+  string request_sender  = 10;
+  bytes request_metadata   = 11;
+  bytes request_payload   = 12;
+  string status = 13; 
 }
 
