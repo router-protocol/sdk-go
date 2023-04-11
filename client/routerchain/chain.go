@@ -34,6 +34,7 @@ import (
 	wasmTypes "github.com/CosmWasm/wasmd/x/wasm/types"
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
 	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
@@ -111,6 +112,10 @@ type ChainClient interface {
 	GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error)
 	GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error)
 
+	// Crosschain
+	GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error)
+	GetAllCrosschainRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainRequestConfirmResponse, error)
+
 	// MetaStore
 	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
 	GetMetaInfo(ctx context.Context, chainType uint64, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error)
@@ -160,6 +165,7 @@ type chainClient struct {
 	oracleQueryClient      oracleTypes.QueryClient
 	wasmQueryClient        wasmTypes.QueryClient
 	metastoreQueryClient   metastoreTypes.QueryClient
+	crosschainQueryClient  crosschainTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -843,6 +849,24 @@ func (c *chainClient) GetLastOutgoingBatchNonce(ctx context.Context, destination
 		SourceAddress:        sourceAddress,
 	}
 	return c.outboundQueryClient.LastOutboundBatchNonce(ctx, req)
+}
+
+/////////////////////////////////
+////     Crosschain           ////
+////////////////////////////////
+func (c *chainClient) GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.CrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrosschainRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainRequestConfirmResponse, error) {
+	req := &crosschainTypes.QueryAllCrosschainRequestConfirmRequest{
+		SourceChainId:     sourceChainId,
+		RequestIdentifier: requestIdentifier,
+		ClaimHash:         claimHash,
+		Pagination:        pagination,
+	}
+	return c.crosschainQueryClient.CrosschainRequestConfirmAll(ctx, req)
 }
 
 /////////////////////////////////

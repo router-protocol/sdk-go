@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "routerchain/crosschain/params.proto";
 import "routerchain/crosschain/crosschain_request.proto";
+import "routerchain/crosschain/crosschain_request_confirm.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
@@ -26,6 +27,16 @@ service Query {
   }
   rpc CrosschainRequestAll (QueryAllCrosschainRequestRequest) returns (QueryAllCrosschainRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_request";
+  
+  }
+  
+  // Queries a list of CrosschainRequestConfirm items.
+  rpc CrosschainRequestConfirm    (QueryGetCrosschainRequestConfirmRequest) returns (QueryGetCrosschainRequestConfirmResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_request_confirm/{sourceChainId}/{requestIdentifier}/{claimHash}/{orchestrator}";
+  
+  }
+  rpc CrosschainRequestConfirmAll (QueryAllCrosschainRequestConfirmRequest) returns (QueryAllCrosschainRequestConfirmResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_request_confirm/{sourceChainId}/{requestIdentifier}/{claimHash}";
   
   }
 }
@@ -54,5 +65,28 @@ message QueryAllCrosschainRequestRequest {
 message QueryAllCrosschainRequestResponse {
   repeated CrosschainRequest                      crosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination        = 2;
+}
+
+message QueryGetCrosschainRequestConfirmRequest {
+	  string sourceChainId = 1;
+	  uint64 requestIdentifier = 2;   
+  	bytes claimHash = 3;  
+	  string orchestrator = 4;
+}
+
+message QueryGetCrosschainRequestConfirmResponse {
+  CrosschainRequestConfirm crosschainRequestConfirm = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrosschainRequestConfirmRequest {
+	  string sourceChainId = 1;
+	  uint64 requestIdentifier = 2;   
+  	  bytes claimHash = 3;  
+  cosmos.base.query.v1beta1.PageRequest pagination = 4;
+}
+
+message QueryAllCrosschainRequestConfirmResponse {
+  repeated CrosschainRequestConfirm               crosschainRequestConfirm = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination               = 2;
 }
 

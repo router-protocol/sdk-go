@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+message CrosschainRequestConfirm {
+  string orchestrator = 1; 
+  string sourceChainId = 2; 
+  uint64 requestIdentifier = 3; 
+  bytes claimHash = 4; 
+  string ethSigner = 5; 
+  string signature = 6; 
+  
+}
+

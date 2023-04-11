@@ -5,12 +5,14 @@ package routerprotocol.routerchain.crosschain;
 import "gogoproto/gogo.proto";
 import "routerchain/crosschain/params.proto";
 import "routerchain/crosschain/crosschain_request.proto";
+import "routerchain/crosschain/crosschain_request_confirm.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
 // GenesisState defines the crosschain module's genesis state.
 message GenesisState {
-           Params            params                = 1 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest crosschainRequestList = 2 [(gogoproto.nullable) = false];
+           Params                   params                       = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest        crosschainRequestList        = 2 [(gogoproto.nullable) = false];
+  repeated CrosschainRequestConfirm crosschainRequestConfirmList = 3 [(gogoproto.nullable) = false];
 }
 

@@ -64,4 +64,13 @@ func NewCrosschainRequestFromMsg(
 	}
 }
 
-type Metadata interface{}
+func NewCrosschainRequestConfirm(sourceChainId string, requestIdentifier uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosschainRequestConfirm {
+	return &CrosschainRequestConfirm{
+		SourceChainId:     sourceChainId,
+		RequestIdentifier: requestIdentifier,
+		ClaimHash:         claimHash,
+		Orchestrator:      orchestrator,
+		EthSigner:         ethSigner,
+		Signature:         signature,
+	}
+}

@@ -25,3 +25,4 @@ message CrosschainRequest {
   string status = 15; 
 }
 
+// this line is used by starport scaffolding # genesis/types/import
