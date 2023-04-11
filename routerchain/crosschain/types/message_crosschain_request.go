@@ -20,7 +20,7 @@ func NewMsgCrosschainRequest(
 	sourceTxHash string,
 	srcTimestamp uint64,
 	srcTxOrigin string,
-	routeAmount uint64,
+	routeAmount sdk.Int,
 	routeRecipient string,
 	destChainId string,
 	requestSender string,

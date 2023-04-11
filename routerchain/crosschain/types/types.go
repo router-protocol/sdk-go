@@ -1,5 +1,7 @@
 package types
 
+import sdk "github.com/cosmos/cosmos-sdk/types"
+
 func NewCrosschainRequest(
 	srcChainId string,
 	srcEventNonce uint64,
@@ -7,7 +9,7 @@ func NewCrosschainRequest(
 	sourceTxHash string,
 	srcTimestamp uint64,
 	srcTxOrigin string,
-	routeAmount uint64,
+	routeAmount sdk.Int,
 	routeRecipient string,
 	destChainId string,
 	requestSender string,
