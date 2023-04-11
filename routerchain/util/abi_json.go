@@ -40,6 +40,47 @@ const (
 		]
 	}]`
 
+	// CrosschainRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkRequest message
+	CrosschainRequestCheckpointABIJSON = `[{
+		"name": "checkpoint",
+		"stateMutability": "nonpayable",
+		"type": "function",
+		"inputs":  [			
+			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+			{"internalType": "uint256","name": "_routeAmount","type": "uint256"},
+			{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+			{"internalType": "uint256","name": "_requestTimestamp","type": "uint256"},			
+			{ "internalType": "address", "name": "_routeRecipient", "type": "address"},
+			{ "internalType": "address", "name": "_asmAddress", "type": "address"},
+			{ "internalType": "string", "name": "_srcChainId","type": "string" },
+			{"internalType": "string","name": "_destChainId","type": "string"},
+			{ "internalType": "bytes","name": "_requestSender","type": "bytes"},
+			{ "internalType": "bytes","name": "_requestPacket","type": "bytes"},
+			{"internalType": "bool","name": "_isReadCall","type": "bool"}			
+		],
+		"outputs": [
+			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+		]
+	}]`
+
+	// CrosschainRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkRequest message
+	CrosschainRequestMetadataABIJSON = `[{
+			"name": "metadata",
+			"stateMutability": "nonpayable",
+			"type": "function",
+			"inputs":  [							
+				{"internalType": "uint256","name": "gasLimit","type": "uint256"},
+				{"internalType": "uint256","name": "gasPrice","type": "uint256"},
+				{"internalType": "uint256","name": "ackGasLimit","type": "uint256"},
+				{"internalType": "uint256","name": "ackGasPrice","type": "uint256"},
+				{"internalType": "uint256","name": "relayerFees","type": "uint256"},
+				{"internalType": "uint8","name": "ackType","type": "uint8"},	
+				{"internalType": "bool","name": "isReadCall","type": "bool"},		
+				{ "internalType": "bytes","name": "asmAddress","type": "bytes"},						
+			],
+			"outputs": []
+		}]`
+
 	// CrossTalkRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkRequest message
 	CrossTalkRequestCheckpointABIJSON = `[{
 			"name": "checkpoint",

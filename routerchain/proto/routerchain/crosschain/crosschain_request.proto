@@ -1,6 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.crosschain;
 
+import "multichain/chain_type.proto"; 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto"; 
 
@@ -14,11 +15,13 @@ message CrosschainRequest {
   uint64 src_timestamp   =  5;
   string src_tx_origin    =  6;
   string route_amount = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  string route_recipient =  8;
+  bytes route_recipient =  8;
   string dest_chain_id    = 9;
-  string request_sender  = 10;
+  bytes request_sender  = 10;
   bytes request_metadata   = 11;
-  bytes request_payload   = 12;
-  string status = 13; 
+  bytes request_packet   = 12;
+  routerprotocol.routerchain.multichain.ChainType src_chain_type = 13; 
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 14; 
+  string status = 15; 
 }
 
