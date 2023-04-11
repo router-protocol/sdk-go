@@ -186,7 +186,7 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
 }
 
-type CrosschainMetadata struct {
+type CrosschainEVMMetadata struct {
 	destGasLimit big.Int
 	destGasPrice big.Int
 	ackGasLimit  big.Int
@@ -197,13 +197,29 @@ type CrosschainMetadata struct {
 	asmAddress   []byte
 }
 
-func (msg MsgCrosschainRequest) DecodeMetadata() CrosschainMetadata {
-	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestCheckpointABIJSON))
+func (msg MsgCrosschainRequest) DecodeMetadata() CrosschainEVMMetadata {
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestMetadataABIJSON))
 	if err != nil {
 		panic("Bad ABI constant!")
 	}
 
-	var crosschainMetadata CrosschainMetadata
+	var crosschainMetadata CrosschainEVMMetadata
+
+	err = abiDef.UnpackIntoInterface(crosschainMetadata, "metadata", msg.RequestMetadata)
+	if err != nil {
+		panic(err)
+	}
+
+	return crosschainMetadata
+}
+
+func (msg CrosschainRequest) DecodeMetadata() CrosschainEVMMetadata {
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestMetadataABIJSON))
+	if err != nil {
+		panic("Bad ABI constant!")
+	}
+
+	var crosschainMetadata CrosschainEVMMetadata
 
 	err = abiDef.UnpackIntoInterface(crosschainMetadata, "metadata", msg.RequestMetadata)
 	if err != nil {
