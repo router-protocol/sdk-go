@@ -103,3 +103,16 @@ func NewCrosschainAckRequestConfirm(destChainId string, ackRequestIdentifier uin
 		Signature:            signature,
 	}
 }
+
+func NewCrosschainAckReceiptFromMsg(
+	msg *MsgCrosschainAckReceipt,
+) *CrosschainAckReceipt {
+	return &CrosschainAckReceipt{
+		ChainId:              msg.ChainId,
+		EventNonce:           msg.EventNonce,
+		BlockHeight:          msg.BlockHeight,
+		TxHash:               msg.TxHash,
+		RelayerRouterAddress: msg.RelayerRouterAddress,
+		RequestIdentifier:    msg.RequestIdentifier,
+	}
+}

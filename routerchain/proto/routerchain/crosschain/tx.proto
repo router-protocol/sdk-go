@@ -14,6 +14,7 @@ service Msg {
   rpc ConfirmCrosschainRequest    (MsgConfirmCrosschainRequest   ) returns (MsgConfirmCrosschainRequestResponse   );
   rpc CrosschainAckRequest        (MsgCrosschainAckRequest       ) returns (MsgCrosschainAckRequestResponse       );
   rpc ConfirmCrosschainAckRequest (MsgConfirmCrosschainAckRequest) returns (MsgConfirmCrosschainAckRequestResponse);
+  rpc CrosschainAckReceipt        (MsgCrosschainAckReceipt       ) returns (MsgCrosschainAckReceiptResponse       );
 }
 message MsgCrosschainRequest {
   string                                          orchestrator     =  1;
@@ -58,8 +59,8 @@ message MsgCrosschainAckRequest {
   string sourceChainId        =  7;
   bytes  request_sender       =  8;
   uint64 requestIdentifier    =  9;
-  bytes execData          = 10;
-  bool   execStatus            = 11;
+  bytes  execData             = 10;
+  bool   execStatus           = 11;
   string ethSigner            = 12;
   string signature            = 13;
 }
@@ -70,10 +71,22 @@ message MsgConfirmCrosschainAckRequest {
   string orchestrator         = 1;
   string destChainId          = 2;
   uint64 ackRequestIdentifier = 3;
-  bytes claimHash            = 4;
+  bytes  claimHash            = 4;
   string ethSigner            = 5;
   string signature            = 6;
 }
 
 message MsgConfirmCrosschainAckRequestResponse {}
+
+message MsgCrosschainAckReceipt {
+  string orchestrator         = 1;
+  string chainId              = 2;
+  uint64 eventNonce           = 3;
+  uint64 blockHeight          = 4;
+  string txHash               = 5;
+  string relayerRouterAddress = 6;
+  uint64 requestIdentifier    = 7;
+}
+
+message MsgCrosschainAckReceiptResponse {}
 

@@ -8,6 +8,7 @@ import "routerchain/crosschain/crosschain_request.proto";
 import "routerchain/crosschain/crosschain_request_confirm.proto";
 import "routerchain/crosschain/crosschain_ack_request.proto";
 import "routerchain/crosschain/crosschain_ack_request_confirm.proto";
+import "routerchain/crosschain/crosschain_ack_receipt.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
@@ -18,5 +19,6 @@ message GenesisState {
   repeated CrosschainRequestConfirm    crosschainRequestConfirmList    = 3 [(gogoproto.nullable) = false];
   repeated CrosschainAckRequest        crosschainAckRequestList        = 4 [(gogoproto.nullable) = false];
   repeated CrosschainAckRequestConfirm crosschainAckRequestConfirmList = 5 [(gogoproto.nullable) = false];
+  repeated CrosschainAckReceipt        crosschainAckReceiptList        = 6 [(gogoproto.nullable) = false];
 }
 

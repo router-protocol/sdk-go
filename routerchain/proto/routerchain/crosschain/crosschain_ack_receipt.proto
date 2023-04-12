@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+message CrosschainAckReceipt {
+  string chainId = 1; 
+  uint64 eventNonce = 2; 
+  uint64 blockHeight = 3; 
+  string txHash = 4; 
+  string relayerRouterAddress = 5; 
+  uint64 requestIdentifier = 6; 
+  
+}
+
