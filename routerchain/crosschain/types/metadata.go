@@ -27,7 +27,10 @@ type EvmMetadata interface {
 }
 
 func DecodeEvmMetadata(msg EvmMetadata) *CrosschainEVMMetadata {
-	metadataAbiStruct, _ := abi.NewType("tuple", "struct thing", []abi.ArgumentMarshaling{
+	fmt.Println("sdk-go GetCheckpoint", "Decode Evm checkpoint")
+
+	// Define the ABI types for the function argument and return value
+	metadataType, _ := abi.NewType("tuple", "", []abi.ArgumentMarshaling{
 		{Name: "destGasLimit", Type: "uint256"},
 		{Name: "destGasPrice", Type: "uint256"},
 		{Name: "ackGasLimit", Type: "uint256"},
@@ -38,28 +41,59 @@ func DecodeEvmMetadata(msg EvmMetadata) *CrosschainEVMMetadata {
 		{Name: "asmAddress", Type: "bytes"},
 	})
 
-	args := abi.Arguments{
-		{Type: metadataAbiStruct, Name: "param_one"},
-	}
+	args := abi.Arguments{{Type: metadataType}}
 
-	// Unpack the packed data
+	fmt.Println("sdk-go GetCheckpoint", "metadataAbiStruct", metadataType)
+	fmt.Println("sdk-go GetCheckpoint", "args", args)
+
+	// Unpack the function argument
 	unpackedData, err := args.Unpack(msg.GetRequestMetadata())
 	if err != nil {
-		fmt.Println("failed to unpack data: ", err)
+		fmt.Println("failed to unpack data:", err)
 		return nil
 	}
 
-	// crosschainEVMMetadata := unpackedData[0].(struct {
-	// 	DestGasLimit *big.Int `json:"destGasLimit"`
-	// 	DestGasPrice *big.Int `json:"destGasPrice"`
-	// 	AckGasLimit  *big.Int `json:"ackGasLimit"`
-	// 	AckGasPrice  *big.Int `json:"ackGasPrice"`
-	// 	RelayerFees  *big.Int `json:"relayerFees"`
-	// 	AckType      uint8    `json:"ackType"`
-	// 	IsReadCall   bool     `json:"isReadCall"`
-	// 	AsmAddress   []byte   `json:"asmAddress"`
-	// })
+	fmt.Println("sdk-go GetCheckpoint", "unpackedData", unpackedData)
 
-	crosschainMetadata := unpackedData[0].(CrosschainEVMMetadata)
-	return &crosschainMetadata
+	crosschainEVMMetadataArgs := unpackedData[0].(struct {
+		DestGasLimit *big.Int `json:"destGasLimit"`
+		DestGasPrice *big.Int `json:"destGasPrice"`
+		AckGasLimit  *big.Int `json:"ackGasLimit"`
+		AckGasPrice  *big.Int `json:"ackGasPrice"`
+		RelayerFees  *big.Int `json:"relayerFees"`
+		AckType      uint8    `json:"ackType"`
+		IsReadCall   bool     `json:"isReadCall"`
+		AsmAddress   []byte   `json:"asmAddress"`
+	})
+
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "DestGasLimit", crosschainEVMMetadataArgs.DestGasLimit)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "DestGasPrice", crosschainEVMMetadataArgs.DestGasPrice)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "DestGasLimit", crosschainEVMMetadataArgs.DestGasLimit)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AckGasLimit", crosschainEVMMetadataArgs.AckGasLimit)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AckGasPrice", crosschainEVMMetadataArgs.AckGasPrice)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "RelayerFees", crosschainEVMMetadataArgs.RelayerFees)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AckType", crosschainEVMMetadataArgs.AckType)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "IsReadCall", crosschainEVMMetadataArgs.IsReadCall)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AsmAddress", crosschainEVMMetadataArgs.AsmAddress)
+
+	// Cast the unpacked data to the Metadata struct
+	// metadata, ok := unpackedData[0].(Metadata)
+	// if !ok {
+	// 	fmt.Println("failed to cast data to Metadata struct")
+	// 	return nil
+	// }
+
+	metadata := CrosschainEVMMetadata{
+		DestGasLimit: crosschainEVMMetadataArgs.DestGasLimit,
+		DestGasPrice: crosschainEVMMetadataArgs.DestGasPrice,
+		AckGasLimit:  crosschainEVMMetadataArgs.AckGasLimit,
+		AckGasPrice:  crosschainEVMMetadataArgs.AckGasPrice,
+		RelayerFees:  crosschainEVMMetadataArgs.RelayerFees,
+		AckType:      crosschainEVMMetadataArgs.AckType,
+		IsReadCall:   crosschainEVMMetadataArgs.IsReadCall,
+		AsmAddress:   crosschainEVMMetadataArgs.AsmAddress,
+	}
+
+	fmt.Println("sdk-go GetCheckpoint", "crosschainMetadata", "metadata", metadata)
+	return &metadata
 }
