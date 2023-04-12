@@ -64,8 +64,8 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		requestIdentifier,
 		msg.ChainId,
 		msg.RequestSender,
-		msg.AckResponse,
-		msg.AckStatus,
+		msg.ExecData,
+		msg.ExecStatus,
 	)
 
 	// this should never happen outside of test since any case that could crash on encoding
