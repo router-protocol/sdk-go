@@ -19,7 +19,6 @@ import (
 
 // GetCheckpoint gets the checkpoint signature from the given CrossTalkRequest
 func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
-
 	/**
 	     Always get checkpoint from crosschain request only.
 	 	Crosschain request is dynamic while msg is static.
