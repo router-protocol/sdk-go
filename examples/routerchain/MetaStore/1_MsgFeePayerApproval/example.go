@@ -71,7 +71,7 @@ func main() {
 
 		fmt.Println("metaInfo.FeePayer", metaInfo.FeePayer, "sender", senderAddress.String())
 		// prepare tx msg
-		msg := metastoreTypes.NewMsgApproveFeepayerRequest(senderAddress.String(), metaInfo.ChainType, metaInfo.ChainId, metaInfo.DappAddress)
+		msg := metastoreTypes.NewMsgApproveFeepayerRequest(senderAddress.String(), metaInfo.ChainId, metaInfo.DappAddress)
 
 		//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
 		res, err := routerChainClient.SyncBroadcastMsg(msg)

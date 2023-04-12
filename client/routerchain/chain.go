@@ -35,12 +35,9 @@ import (
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
-	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
-	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
-	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 )
 
 const (
@@ -79,38 +76,18 @@ type ChainClient interface {
 
 	// MultiChain
 	GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error)
-	GetChainConfig(ctx context.Context, chainType uint64, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error)
+	GetChainConfig(ctx context.Context, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error)
 
 	// Attestation
 	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
 	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
 	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
-	GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
+	GetLastEventByValidator(ctx context.Context, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
 	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
-
-	// Inbound
-	GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error)
-
-	// Outbound
-	GetAllOutgoingBatchTx(ctx context.Context, pagination *query.PageRequest) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error)
-	GetOutgoingBatchTx(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryGetOutgoingBatchTxResponse, error)
-	GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error)
-	GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error)
-	GetLastOutgoingBatchNonce(ctx context.Context, destinationChainType multichainTypes.ChainType, destinationChainId string, sourceAddress string) (*outboundTypes.QueryLastOutboundBatchNonceResponse, error)
-
-	// CrossTalk
-	GetCrossTalkRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkRequestResponse, error)
-	GetAllCrossTalkRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error)
-	GetAllCrosstalkRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error)
-	GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error)
-	GetCrossTalkAckRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkAckRequestResponse, error)
-	GetAllCrosstalkAckRequestConfirmations(ctx context.Context, pagination *query.PageRequest, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error)
-	GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error)
-	GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error)
 
 	// Crosschain
 	GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error)
@@ -118,7 +95,7 @@ type ChainClient interface {
 
 	// MetaStore
 	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
-	GetMetaInfo(ctx context.Context, chainType uint64, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error)
+	GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error)
 
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
@@ -159,9 +136,6 @@ type chainClient struct {
 	// Custom Query clients
 	multichainQueryClient  multichainTypes.QueryClient
 	attestationQueryClient attestationTypes.QueryClient
-	inboundQueryClient     inboundTypes.QueryClient
-	outboundQueryClient    outboundTypes.QueryClient
-	crosstalkQueryClient   crosstalkTypes.QueryClient
 	oracleQueryClient      oracleTypes.QueryClient
 	wasmQueryClient        wasmTypes.QueryClient
 	metastoreQueryClient   metastoreTypes.QueryClient
@@ -282,9 +256,6 @@ func NewChainClient(
 
 		multichainQueryClient:  multichainTypes.NewQueryClient(conn),
 		attestationQueryClient: attestationTypes.NewQueryClient(conn),
-		inboundQueryClient:     inboundTypes.NewQueryClient(conn),
-		outboundQueryClient:    outboundTypes.NewQueryClient(conn),
-		crosstalkQueryClient:   crosstalkTypes.NewQueryClient(conn),
 		oracleQueryClient:      oracleTypes.NewQueryClient(conn),
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 	}
@@ -684,10 +655,9 @@ func (c *chainClient) GetAllChainConfig(ctx context.Context) (*multichainTypes.Q
 	return c.multichainQueryClient.ChainConfigAll(ctx, req)
 }
 
-func (c *chainClient) GetChainConfig(ctx context.Context, chainType uint64, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error) {
+func (c *chainClient) GetChainConfig(ctx context.Context, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error) {
 	req := &multichainTypes.QueryGetChainConfigRequest{
-		ChainType: chainType,
-		ChainId:   chainId,
+		ChainId: chainId,
 	}
 	return c.multichainQueryClient.ChainConfig(ctx, req)
 }
@@ -701,9 +671,8 @@ func (c *chainClient) GetAllMetaInfo(ctx context.Context) (*metastoreTypes.Query
 	return c.metastoreQueryClient.MetaInfoAll(ctx, req)
 }
 
-func (c *chainClient) GetMetaInfo(ctx context.Context, chainType uint64, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error) {
+func (c *chainClient) GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error) {
 	req := &metastoreTypes.QueryGetMetaInfoRequest{
-		ChainType:   chainType,
 		ChainId:     chainId,
 		DappAddress: string(dappAddress),
 	}
@@ -756,9 +725,8 @@ func (c *chainClient) GetValsetByNonce(ctx context.Context, valsetNonce uint64) 
 	}
 	return c.attestationQueryClient.Valset(ctx, req)
 }
-func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainType multichainTypes.ChainType, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
+func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
 	req := &attestationTypes.QueryLastEventNonceRequest{
-		ChainType:        uint64(chainType),
 		ChainId:          chainId,
 		ValidatorAddress: validator.String(),
 	}
@@ -791,67 +759,6 @@ func (c *chainClient) GetOrchestratorValidator(ctx context.Context, orchestrator
 }
 
 /////////////////////////////////
-////     Inbound           //////
-////////////////////////////////
-func (c *chainClient) GetIncomingTx(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*inboundTypes.QueryGetIncomingTxResponse, error) {
-	req := &inboundTypes.QueryGetIncomingTxRequest{
-		ChainType:  chainType,
-		ChainId:    chainID,
-		EventNonce: eventNonce,
-	}
-
-	return c.inboundQueryClient.IncomingTx(ctx, req)
-}
-
-/////////////////////////////////
-////     Outbound           ////
-////////////////////////////////
-func (c *chainClient) GetAllOutgoingBatchTx(ctx context.Context, pagination *query.PageRequest) (*outboundTypes.QueryAllOutgoingBatchTxResponse, error) {
-	req := &outboundTypes.QueryAllOutgoingBatchTxRequest{Pagination: pagination}
-	return c.outboundQueryClient.OutgoingBatchTxAll(ctx, req)
-}
-
-func (c *chainClient) GetOutgoingBatchTx(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryGetOutgoingBatchTxResponse, error) {
-	req := &outboundTypes.QueryGetOutgoingBatchTxRequest{
-		DestinationChainType: destinationChainType,
-		DestinationChainId:   destinationChainId,
-		SourceAddress:        sourceAddress,
-		Nonce:                batchNonce,
-	}
-	return c.outboundQueryClient.OutgoingBatchTx(ctx, req)
-}
-
-func (c *chainClient) GetAllOutgoingBatchTxConfirms(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64) (*outboundTypes.QueryAllOutgoingBatchConfirmResponse, error) {
-	req := &outboundTypes.QueryAllOutgoingBatchConfirmRequest{
-		DestinationChainType: destinationChainType,
-		DestinationChainId:   destinationChainId,
-		SourceAddress:        sourceAddress,
-		Nonce:                batchNonce,
-	}
-	return c.outboundQueryClient.OutgoingBatchConfirmAll(ctx, req)
-}
-
-func (c *chainClient) GetOutgoingBatchTxConfirm(ctx context.Context, destinationChainType uint64, destinationChainId string, sourceAddress string, batchNonce uint64, orchestrator string) (*outboundTypes.QueryGetOutgoingBatchConfirmResponse, error) {
-	req := &outboundTypes.QueryGetOutgoingBatchConfirmRequest{
-		DestinationChainType: destinationChainType,
-		DestinationChainId:   destinationChainId,
-		SourceAddress:        sourceAddress,
-		Nonce:                batchNonce,
-		Orchestrator:         orchestrator,
-	}
-	return c.outboundQueryClient.OutgoingBatchConfirm(ctx, req)
-}
-
-func (c *chainClient) GetLastOutgoingBatchNonce(ctx context.Context, destinationChainType multichainTypes.ChainType, destinationChainId string, sourceAddress string) (*outboundTypes.QueryLastOutboundBatchNonceResponse, error) {
-	req := &outboundTypes.QueryLastOutboundBatchNonceRequest{
-		DestinationChainType: uint64(destinationChainType),
-		DestinationChainId:   destinationChainId,
-		SourceAddress:        sourceAddress,
-	}
-	return c.outboundQueryClient.LastOutboundBatchNonce(ctx, req)
-}
-
-/////////////////////////////////
 ////     Crosschain           ////
 ////////////////////////////////
 func (c *chainClient) GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error) {
@@ -867,67 +774,6 @@ func (c *chainClient) GetAllCrosschainRequestConfirmations(ctx context.Context, 
 		Pagination:        pagination,
 	}
 	return c.crosschainQueryClient.CrosschainRequestConfirmAll(ctx, req)
-}
-
-/////////////////////////////////
-////     Crosstalk           ////
-////////////////////////////////
-func (c *chainClient) GetAllCrossTalkRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkRequestResponse, error) {
-	req := &crosstalkTypes.QueryAllCrossTalkRequest{Pagination: pagination}
-	return c.crosstalkQueryClient.CrossTalkRequestAll(ctx, req)
-}
-
-func (c *chainClient) GetAllCrossTalkRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryCrosstalkRequestByStatusResponse, error) {
-	req := &crosstalkTypes.QueryAllCrosstalkRequestByStatusRequest{
-		Status:     uint64(status),
-		Pagination: pagination,
-	}
-	return c.crosstalkQueryClient.CrosstalkRequestByStatus(ctx, req)
-}
-
-func (c *chainClient) GetCrossTalkRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkRequestResponse, error) {
-	req := &crosstalkTypes.QueryGetCrossTalkRequest{ChainType: chainType, ChainId: chainID, EventNonce: eventNonce}
-	return c.crosstalkQueryClient.CrossTalkRequest(ctx, req)
-}
-
-func (c *chainClient) GetAllCrosstalkRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainType uint64, sourceChainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkRequestConfirmResponse, error) {
-	req := &crosstalkTypes.QueryAllCrosstalkRequestConfirmRequest{
-		SourceChainType: sourceChainType,
-		SourceChainId:   sourceChainId,
-		EventNonce:      eventNonce,
-		ClaimHash:       claimHash,
-		Pagination:      pagination,
-	}
-	return c.crosstalkQueryClient.CrosstalkRequestConfirmAll(ctx, req)
-}
-
-func (c *chainClient) GetAllCrossTalkAckRequest(ctx context.Context, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrossTalkAckRequestResponse, error) {
-	req := &crosstalkTypes.QueryAllCrossTalkAckRequest{Pagination: pagination}
-	return c.crosstalkQueryClient.CrossTalkAckRequestAll(ctx, req)
-}
-
-func (c *chainClient) GetAllCrossTalkAckRequestByStatus(ctx context.Context, status crosstalkTypes.CrossTalkAckRequestStatus, pagination *query.PageRequest) (*crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusResponse, error) {
-	req := &crosstalkTypes.QueryAllCrosstalkAckRequestsByStatusRequest{
-		Status:     uint64(status),
-		Pagination: pagination,
-	}
-	return c.crosstalkQueryClient.AllCrosstalkAckRequestsByStatus(ctx, req)
-}
-
-func (c *chainClient) GetCrossTalkAckRequest(ctx context.Context, chainType uint64, chainID string, eventNonce uint64) (*crosstalkTypes.QueryGetCrossTalkAckRequestResponse, error) {
-	req := &crosstalkTypes.QueryGetCrossTalkAckRequest{ChainType: chainType, ChainId: chainID, EventNonce: eventNonce}
-	return c.crosstalkQueryClient.CrossTalkAckRequest(ctx, req)
-}
-
-func (c *chainClient) GetAllCrosstalkAckRequestConfirmations(ctx context.Context, pagination *query.PageRequest, chainType uint64, chainId string, eventNonce uint64, claimHash []byte) (*crosstalkTypes.QueryAllCrosstalkAckRequestConfirmResponse, error) {
-	req := &crosstalkTypes.QueryAllCrosstalkAckRequestConfirmRequest{
-		ChainType:  chainType,
-		ChainId:    chainId,
-		EventNonce: eventNonce,
-		ClaimHash:  claimHash,
-		Pagination: pagination,
-	}
-	return c.crosstalkQueryClient.CrosstalkAckRequestConfirmAll(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.

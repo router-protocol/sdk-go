@@ -16,20 +16,18 @@
 package codec
 
 import (
-	"fmt"
-
 	"github.com/cosmos/cosmos-sdk/codec"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/std"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
 	ethermint "github.com/evmos/ethermint/types"
+
 	cryptocodec "github.com/router-protocol/sdk-go/routerchain/crypto/codec"
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
-	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
-	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
-	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
+	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
+	metastoretypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 )
 
 // RegisterLegacyAminoCodec registers Interfaces from types, crypto, and SDK std.
@@ -41,20 +39,15 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 
 // RegisterInterfaces registers Interfaces from types, crypto, and SDK std.
 func RegisterInterfaces(interfaceRegistry codectypes.InterfaceRegistry) {
-
 	std.RegisterInterfaces(interfaceRegistry)
 	cryptocodec.RegisterInterfaces(interfaceRegistry)
-	fmt.Println("Register encoding config")
 	ethermint.RegisterInterfaces(interfaceRegistry)
 
 	interfaceRegistry.RegisterInterface(
 		"attestation.Claim",
 		(*attestationTypes.Claim)(nil),
-		&inboundTypes.MsgInboundRequest{},
-		&crosstalkTypes.MsgCrossTalkRequest{},
-		&crosstalkTypes.MsgCrossTalkAckRequest{},
-		&crosstalkTypes.MsgCrossTalkAckReceipt{},
 		&attestationTypes.MsgValsetUpdatedClaim{},
-		&outboundTypes.MsgOutboundAckRequest{},
+		&metastoretypes.MsgCreateMetadataRequest{},
+		&crosschainTypes.MsgCrosschainRequest{},
 	)
 }

@@ -17,13 +17,10 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
-	crosstalkTypes "github.com/router-protocol/sdk-go/routerchain/crosstalk/types"
 	enccodec "github.com/router-protocol/sdk-go/routerchain/encoding/codec"
-	inboundTypes "github.com/router-protocol/sdk-go/routerchain/inbound/types"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
-	outboundTypes "github.com/router-protocol/sdk-go/routerchain/outbound/types"
 
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
 	signingtypes "github.com/cosmos/cosmos-sdk/types/tx/signing"
@@ -51,11 +48,8 @@ func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 	evmtypes.RegisterInterfaces(interfaceRegistry)
 	attestationTypes.RegisterInterfaces(interfaceRegistry)
 	metastoreTypes.RegisterInterfaces(interfaceRegistry)
-	inboundTypes.RegisterInterfaces(interfaceRegistry)
 	multichainTypes.RegisterInterfaces(interfaceRegistry)
 	oracleTypes.RegisterInterfaces(interfaceRegistry)
-	outboundTypes.RegisterInterfaces(interfaceRegistry)
-	crosstalkTypes.RegisterInterfaces(interfaceRegistry)
 	crosschainTypes.RegisterInterfaces(interfaceRegistry)
 	enccodec.RegisterInterfaces(interfaceRegistry)
 
