@@ -4,6 +4,7 @@ package routerprotocol.routerchain.crosschain;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
+import "multichain/chain_type.proto"; 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 
@@ -26,8 +27,10 @@ message MsgCrosschainRequest {
   bytes  request_sender   = 11;
   bytes  request_metadata = 12;
   bytes  request_packet   = 13;
-  string ethSigner = 14; 
-  string signature = 15; 
+  routerprotocol.routerchain.multichain.ChainType src_chain_type = 14; 
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 15; 
+  string ethSigner = 16; 
+  string signature = 17; 
 }
 
 message MsgCrosschainRequestResponse {}

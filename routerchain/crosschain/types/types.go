@@ -42,8 +42,6 @@ func NewCrosschainRequest(
 
 func NewCrosschainRequestFromMsg(
 	msg *MsgCrosschainRequest,
-	srcChainType multichainTypes.ChainType,
-	destChainType multichainTypes.ChainType,
 ) *CrosschainRequest {
 	return &CrosschainRequest{
 		SrcChainId:      msg.SrcChainId,
@@ -58,8 +56,8 @@ func NewCrosschainRequestFromMsg(
 		RequestSender:   msg.RequestSender,
 		RequestMetadata: msg.RequestMetadata,
 		RequestPacket:   msg.RequestPacket,
-		SrcChainType:    srcChainType,
-		DestChainType:   destChainType,
+		SrcChainType:    msg.SrcChainType,
+		DestChainType:   msg.DestChainType,
 		Status:          "created",
 	}
 }
