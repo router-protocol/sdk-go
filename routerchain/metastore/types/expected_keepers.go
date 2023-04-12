@@ -6,7 +6,6 @@ import (
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 type AttestationKeeper interface {
@@ -16,7 +15,7 @@ type AttestationKeeper interface {
 }
 
 type MultichainKeeper interface {
-	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
+	GetLastObservedEventNonce(ctx sdk.Context, chainId string) uint64
 	// Methods imported from multichain should be defined here
 }
 

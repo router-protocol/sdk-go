@@ -4,7 +4,6 @@ package routerprotocol.routerchain.metastore;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
 
-import "multichain/chain_type.proto"; 
 
 // Msg defines the Msg service.
 service Msg {
@@ -13,21 +12,19 @@ service Msg {
 }
 message MsgCreateMetadataRequest {
   string orchestrator = 1;
-  routerprotocol.routerchain.multichain.ChainType chainType = 2; 
-  string chainId      = 3;
-  uint64 eventNonce   = 4;
-  uint64 blockHeight  = 5;
-  bytes daapAddress  = 6;
-  string feePayer     = 7;  
+  string chainId      = 2;
+  uint64 eventNonce   = 3;
+  uint64 blockHeight  = 4;
+  bytes daapAddress  = 5;
+  string feePayer     = 6;  
 }
 
 message MsgCreateMetadataRequestResponse {}
 
 message MsgApproveFeepayerRequest {
-    string fee_payer    = 1;  
-    uint64 chain_type = 2;
-    string chain_id = 3;
-    string dapp_address    = 4;  
+    string fee_payer    = 1;      
+    string chain_id = 2;
+    string dapp_address    = 3;  
 }
 
 message MsgApproveFeepayerRequestResponse {}

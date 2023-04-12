@@ -1,12 +1,7 @@
 package types
 
-import (
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-)
-
-func NewMetadataInfo(chainType multichainTypes.ChainType, chainId string, daapAddress []byte, feePayer string) *MetaInfo {
+func NewMetadataInfo(chainId string, daapAddress []byte, feePayer string) *MetaInfo {
 	return &MetaInfo{
-		ChainType:        chainType,
 		ChainId:          chainId,
 		DappAddress:      daapAddress,
 		FeePayer:         feePayer,
@@ -14,9 +9,8 @@ func NewMetadataInfo(chainType multichainTypes.ChainType, chainId string, daapAd
 	}
 }
 
-func NewMetadataRequest(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MetadataRequest {
+func NewMetadataRequest(chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MetadataRequest {
 	return &MetadataRequest{
-		ChainType:   chainType,
 		ChainId:     chainId,
 		EventNonce:  eventNonce,
 		BlockHeight: blockHeight,
@@ -26,9 +20,8 @@ func NewMetadataRequest(chainType multichainTypes.ChainType, chainId string, eve
 	}
 }
 
-func NewMetadataRequestClaimHash(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MetadataRequestClaimHash {
+func NewMetadataRequestClaimHash(chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MetadataRequestClaimHash {
 	return &MetadataRequestClaimHash{
-		ChainType:   chainType,
 		ChainId:     chainId,
 		EventNonce:  eventNonce,
 		BlockHeight: blockHeight,

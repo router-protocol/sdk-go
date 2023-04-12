@@ -17,7 +17,6 @@ var _ sdk.Msg = &MsgValsetUpdatedClaim{}
 func NewMsgValsetUpdatedClaim(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, srcTxHash string, members []BridgeValidator) *MsgValsetUpdatedClaim {
 	return &MsgValsetUpdatedClaim{
 		Orchestrator: orchestrator,
-		ChainType:    chainType,
 		ChainId:      chainId,
 		EventNonce:   eventNonce,
 		ValsetNonce:  valsetNonce,
@@ -49,7 +48,7 @@ func (msg *MsgValsetUpdatedClaim) GetSignBytes() []byte {
 }
 
 func (msg *MsgValsetUpdatedClaim) ValidateBasic() error {
-	fmt.Println("Validate MsgValsetUpdatedClaim", "chainID", msg.ChainId, "chainTYpe", msg.ChainType, "msg.EventNonce", msg.EventNonce, "msg.ValsetNonce", msg.ValsetNonce)
+	fmt.Println("Validate MsgValsetUpdatedClaim", "chainID", msg.ChainId, "msg.EventNonce", msg.EventNonce, "msg.ValsetNonce", msg.ValsetNonce)
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
@@ -77,7 +76,6 @@ func (e *MsgValsetUpdatedClaim) GetType() ClaimType {
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
 	valsetUpdatedClaimHash := NewValsetUpdatedClaimHash(
-		msg.GetChainType(),
 		msg.GetChainId(),
 		msg.GetEventNonce(),
 		msg.GetValsetNonce(),

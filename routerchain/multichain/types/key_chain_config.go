@@ -2,8 +2,6 @@ package types
 
 import (
 	"encoding/binary"
-
-	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
 var _ binary.ByteOrder
@@ -19,16 +17,14 @@ const (
 
 // ChainConfigKey returns the store key to retrieve a ChainConfig from the index fields
 func ChainConfigKey(
-	chainType ChainType,
 	chainId string,
 ) []byte {
-	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId))
+	return []byte(chainId)
 }
 
 // GetLastObservedEventNonceKey returns the store key to retrieve a LastObservedEventNonce from the index fields
 func GetLastObservedEventNonceKey(
-	chainType ChainType,
 	chainId string,
 ) []byte {
-	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId))
+	return []byte(chainId)
 }

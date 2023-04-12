@@ -1,9 +1,5 @@
 package types
 
-import (
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-)
-
 func NewValsetConfirmation(valsetNonce uint64, ethSigner string, signature string, orchestrator string) *ValsetConfirmation {
 	return &ValsetConfirmation{
 		ValsetNonce:  valsetNonce,
@@ -13,11 +9,10 @@ func NewValsetConfirmation(valsetNonce uint64, ethSigner string, signature strin
 	}
 }
 
-func NewValsetUpdatedClaim(chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64,
+func NewValsetUpdatedClaim(chainId string, eventNonce uint64, blockHeight uint64,
 	valsetNonce uint64, sourceTxHash string,
 ) *ValsetUpdatedClaim {
 	return &ValsetUpdatedClaim{
-		ChainType:    chainType,
 		ChainId:      chainId,
 		EventNonce:   eventNonce,
 		BlockHeight:  blockHeight,
@@ -26,7 +21,7 @@ func NewValsetUpdatedClaim(chainType multichainTypes.ChainType, chainId string, 
 	}
 }
 
-func NewValsetUpdatedClaimHash(chainType multichainTypes.ChainType,
+func NewValsetUpdatedClaimHash(
 	chainId string,
 	eventNonce uint64,
 	blockHeight uint64,
@@ -35,7 +30,6 @@ func NewValsetUpdatedClaimHash(chainType multichainTypes.ChainType,
 	members []BridgeValidator,
 ) *ValsetUpdatedClaimHash {
 	return &ValsetUpdatedClaimHash{
-		ChainType:    chainType,
 		ChainId:      chainId,
 		EventNonce:   eventNonce,
 		BlockHeight:  blockHeight,

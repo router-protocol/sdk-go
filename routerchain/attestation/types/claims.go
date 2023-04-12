@@ -2,7 +2,6 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 // Claim represents a claim on ethereum state
@@ -14,8 +13,6 @@ type Claim interface {
 	GetEventNonce() uint64
 
 	GetChainId() string
-
-	GetChainType() multichainTypes.ChainType
 
 	// The block height that the claimed event occurred on. This EventNonce provides sufficient
 	// ordering for the execution of all claims. The block height is used only for batchTimeouts + logicTimeouts

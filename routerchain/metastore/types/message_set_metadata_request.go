@@ -5,7 +5,6 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	proto "github.com/gogo/protobuf/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
@@ -13,10 +12,9 @@ const TypeMsgCreateMetadataRequest = "set_metadata_request"
 
 var _ sdk.Msg = &MsgCreateMetadataRequest{}
 
-func NewMsgCreateMetadataRequest(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MsgCreateMetadataRequest {
+func NewMsgCreateMetadataRequest(orchestrator string, chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MsgCreateMetadataRequest {
 	return &MsgCreateMetadataRequest{
 		Orchestrator: orchestrator,
-		ChainType:    chainType,
 		ChainId:      chainId,
 		EventNonce:   eventNonce,
 		BlockHeight:  blockHeight,
@@ -70,7 +68,6 @@ func (msg *MsgCreateMetadataRequest) GetType() attestationTypes.ClaimType {
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgCreateMetadataRequest) ClaimHash() ([]byte, error) {
 	metadataRequestClaimHash := NewMetadataRequestClaimHash(
-		msg.ChainType,
 		msg.ChainId,
 		msg.EventNonce,
 		msg.BlockHeight,

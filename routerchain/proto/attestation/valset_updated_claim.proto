@@ -9,21 +9,19 @@ import "attestation/valset_updated_claim_status.proto";
 import "gogoproto/gogo.proto";
 
 message ValsetUpdatedClaim {
-  routerprotocol.routerchain.multichain.ChainType chainType = 1;  
-  string chainId = 2; 
-  uint64 eventNonce = 3; 
-  uint64 valsetNonce = 4; 
-  uint64 blockHeight = 5; 
-  string sourceTxHash = 6;
-  ValsetUpdatedClaimStatus status = 7;   
+  string chainId = 1; 
+  uint64 eventNonce = 2; 
+  uint64 valsetNonce = 3; 
+  uint64 blockHeight = 4; 
+  string sourceTxHash = 5;
+  ValsetUpdatedClaimStatus status = 6;   
 }
 
-message ValsetUpdatedClaimHash {
-  routerprotocol.routerchain.multichain.ChainType chainType = 1;  
-  string chainId = 2; 
-  uint64 eventNonce = 3; 
-  uint64 valsetNonce = 4; 
-  uint64 blockHeight = 5; 
-  repeated BridgeValidator members = 6 [(gogoproto.nullable) = false];
-  string sourceTxHash = 7;  
+message ValsetUpdatedClaimHash {  
+  string chainId = 1; 
+  uint64 eventNonce = 2; 
+  uint64 valsetNonce = 3; 
+  uint64 blockHeight = 4; 
+  repeated BridgeValidator members = 5 [(gogoproto.nullable) = false];
+  string sourceTxHash = 6;  
 }

@@ -5,7 +5,6 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
@@ -41,9 +40,9 @@ func ValsetKey(
 // GetLastEventByValidatorKey returns the following key format
 // prefix              cosmos-validator
 // [0x0][gravity1ahx7f8wyertuus9r20284ej0asrs085ceqtfnm]
-func GetLastEventByValidatorKey(validator sdk.ValAddress, chainType multichainTypes.ChainType, chainId string) []byte {
+func GetLastEventByValidatorKey(validator sdk.ValAddress, chainId string) []byte {
 	if err := sdk.VerifyAddressFormat(validator); err != nil {
 		panic(sdkerrors.Wrap(err, "invalid validator address"))
 	}
-	return util.AppendBytes(LastEventNonceByValidatorKey, util.UInt64Bytes(uint64(chainType)), []byte(chainId), validator.Bytes())
+	return util.AppendBytes(LastEventNonceByValidatorKey, []byte(chainId), validator.Bytes())
 }

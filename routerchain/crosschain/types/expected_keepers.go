@@ -18,8 +18,14 @@ type AttestationKeeper interface {
 
 type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
-	GetLastObservedEventNonce(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) uint64
-	GetChainConfig(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) (val multichainTypes.ChainConfig, found bool)
+	GetLastObservedEventNonce(ctx sdk.Context, chainId string) uint64
+	SetLastObservedEventNonce(ctx sdk.Context, chainId string, nonce uint64)
+	GetLastObservedEventBlockHeight(ctx sdk.Context, chainId string) uint64
+	SetLastObservedEventBlockHeight(ctx sdk.Context, chainId string, blockHeight uint64)
+	SetLastObservedValsetNonce(ctx sdk.Context, chainId string, nonce uint64)
+	GetLastObservedValsetNonce(ctx sdk.Context, chainId string) uint64
+	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
+	GetChainConfig(ctx sdk.Context, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
 }
 
 type OracleKeeper interface {

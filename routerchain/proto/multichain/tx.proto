@@ -48,8 +48,7 @@ message MsgUpdateChainConfigResponse {}
 
 message MsgDeleteChainConfig {
   string creator = 1;
-  ChainType chainType = 2;
-  string chain_id = 3;
+  string chain_id = 2;
 }
 message MsgDeleteChainConfigResponse {}
 
