@@ -12,6 +12,7 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgConfirmCrosschainRequest{}, "crosschain/ConfirmCrosschainRequest", nil)
 	cdc.RegisterConcrete(&MsgCrosschainAckRequest{}, "crosschain/CrosschainAckRequest", nil)
 	cdc.RegisterConcrete(&MsgConfirmCrosschainAckRequest{}, "crosschain/ConfirmCrosschainAckRequest", nil)
+	cdc.RegisterConcrete(&MsgCrosschainAckReceipt{}, "crosschain/CrosschainAckReceipt", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -27,6 +28,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgConfirmCrosschainAckRequest{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCrosschainAckReceipt{},
 	)
 	// this line is used by starport scaffolding # 3
 
