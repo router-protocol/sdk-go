@@ -72,3 +72,33 @@ func NewCrosschainRequestConfirm(sourceChainId string, requestIdentifier uint64,
 		Signature:         signature,
 	}
 }
+
+func NewCrosschainAckRequestFromMsg(
+	msg *MsgCrosschainAckRequest,
+) *CrosschainAckRequest {
+	return &CrosschainAckRequest{
+		ChainId:              msg.ChainId,
+		EventNonce:           msg.EventNonce,
+		BlockHeight:          msg.BlockHeight,
+		DestTxHash:           msg.DestTxHash,
+		RelayerRouterAddress: msg.RelayerRouterAddress,
+		SourceChainId:        msg.SourceChainId,
+		RequestIdentifier:    msg.RequestIdentifier,
+		AckResponse:          msg.AckResponse,
+		AckStatus:            msg.AckStatus,
+		EthSigner:            msg.EthSigner,
+		Signature:            msg.Signature,
+		Status:               "ack_created",
+	}
+}
+
+func NewCrosschainAckRequestConfirm(destChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosschainAckRequestConfirm {
+	return &CrosschainAckRequestConfirm{
+		DestChainId:          destChainId,
+		AckRequestIdentifier: ackRequestIdentifier,
+		ClaimHash:            claimHash,
+		Orchestrator:         orchestrator,
+		EthSigner:            ethSigner,
+		Signature:            signature,
+	}
+}

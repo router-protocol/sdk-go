@@ -11,7 +11,9 @@ const DefaultIndex uint64 = 1
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// CrosschainRequestList: []CrosschainRequest{},
-		CrosschainRequestConfirmList: []CrosschainRequestConfirm{},
+		CrosschainRequestConfirmList:    []CrosschainRequestConfirm{},
+		CrosschainAckRequestList:        []CrosschainAckRequest{},
+		CrosschainAckRequestConfirmList: []CrosschainAckRequestConfirm{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -40,6 +42,26 @@ func (gs GenesisState) Validate() error {
 	// 		return fmt.Errorf("duplicated index for crosschainRequestConfirm")
 	// 	}
 	// 	crosschainRequestConfirmIndexMap[index] = struct{}{}
+	// }
+	// Check for duplicated index in crosschainAckRequest
+	// crosschainAckRequestIndexMap := make(map[string]struct{})
+
+	// for _, elem := range gs.CrosschainAckRequestList {
+	// 	index := string(CrosschainAckRequestKey(elem.Index))
+	// 	if _, ok := crosschainAckRequestIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for crosschainAckRequest")
+	// 	}
+	// 	crosschainAckRequestIndexMap[index] = struct{}{}
+	// }
+	// Check for duplicated index in crosschainAckRequestConfirm
+	// crosschainAckRequestConfirmIndexMap := make(map[string]struct{})
+
+	// for _, elem := range gs.CrosschainAckRequestConfirmList {
+	// 	index := string(CrosschainAckRequestConfirmKey(elem.Index))
+	// 	if _, ok := crosschainAckRequestConfirmIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for crosschainAckRequestConfirm")
+	// 	}
+	// 	crosschainAckRequestConfirmIndexMap[index] = struct{}{}
 	// }
 	// this line is used by starport scaffolding # genesis/types/validate
 

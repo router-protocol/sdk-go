@@ -4,33 +4,35 @@ package routerprotocol.routerchain.crosschain;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
-import "multichain/chain_type.proto"; 
+import "multichain/chain_type.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc CrosschainRequest        (MsgCrosschainRequest       ) returns (MsgCrosschainRequestResponse       );
-  rpc ConfirmCrosschainRequest (MsgConfirmCrosschainRequest) returns (MsgConfirmCrosschainRequestResponse);
+  rpc CrosschainRequest           (MsgCrosschainRequest          ) returns (MsgCrosschainRequestResponse          );
+  rpc ConfirmCrosschainRequest    (MsgConfirmCrosschainRequest   ) returns (MsgConfirmCrosschainRequestResponse   );
+  rpc CrosschainAckRequest        (MsgCrosschainAckRequest       ) returns (MsgCrosschainAckRequestResponse       );
+  rpc ConfirmCrosschainAckRequest (MsgConfirmCrosschainAckRequest) returns (MsgConfirmCrosschainAckRequestResponse);
 }
 message MsgCrosschainRequest {
-  string orchestrator     =  1;
-  string src_chain_id     =  2;
-  uint64 event_nonce      =  3;
-  uint64 block_height     =  4;
-  string source_tx_hash   =  5;
-  uint64 src_timestamp    =  6;
-  string src_tx_origin    =  7;
-  string route_amount     =  8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes  route_recipient  =  9;
-  string dest_chain_id    = 10;
-  bytes  request_sender   = 11;
-  bytes  request_metadata = 12;
-  bytes  request_packet   = 13;
-  routerprotocol.routerchain.multichain.ChainType src_chain_type = 14; 
-  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 15; 
-  string ethSigner = 16; 
-  string signature = 17; 
+  string                                          orchestrator     =  1;
+  string                                          src_chain_id     =  2;
+  uint64                                          event_nonce      =  3;
+  uint64                                          block_height     =  4;
+  string                                          source_tx_hash   =  5;
+  uint64                                          src_timestamp    =  6;
+  string                                          src_tx_origin    =  7;
+  string                                          route_amount     =  8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes                                           route_recipient  =  9;
+  string                                          dest_chain_id    = 10;
+  bytes                                           request_sender   = 11;
+  bytes                                           request_metadata = 12;
+  bytes                                           request_packet   = 13;
+  routerprotocol.routerchain.multichain.ChainType src_chain_type   = 14;
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type  = 15;
+  string                                          ethSigner        = 16;
+  string                                          signature        = 17;
 }
 
 message MsgCrosschainRequestResponse {}
@@ -39,10 +41,39 @@ message MsgConfirmCrosschainRequest {
   string orchestrator  = 1;
   string sourceChainId = 2;
   uint64 requestNonce  = 3;
-  bytes claimHash     = 4;
+  bytes  claimHash     = 4;
   string ethSigner     = 5;
   string signature     = 6;
 }
 
 message MsgConfirmCrosschainRequestResponse {}
+
+message MsgCrosschainAckRequest {
+  string orchestrator         =  1;
+  string chainId              =  2;
+  uint64 eventNonce           =  3;
+  uint64 blockHeight          =  4;
+  string destTxHash           =  5;
+  string relayerRouterAddress =  6;
+  string sourceChainId        =  7;
+  bytes  request_sender       =  8;
+  uint64 requestIdentifier    =  9;
+  string ackResponse          = 10;
+  bool   ackStatus            = 11;
+  string ethSigner            = 12;
+  string signature            = 13;
+}
+
+message MsgCrosschainAckRequestResponse {}
+
+message MsgConfirmCrosschainAckRequest {
+  string orchestrator         = 1;
+  string destChainId          = 2;
+  uint64 ackRequestIdentifier = 3;
+  bytes claimHash            = 4;
+  string ethSigner            = 5;
+  string signature            = 6;
+}
+
+message MsgConfirmCrosschainAckRequestResponse {}
 

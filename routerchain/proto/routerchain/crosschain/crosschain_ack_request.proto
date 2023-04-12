@@ -1,0 +1,21 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+message CrosschainAckRequest {
+  string chainId = 1; 
+  uint64 eventNonce = 2; 
+  uint64 blockHeight = 3; 
+  string destTxHash = 4; 
+  string relayerRouterAddress = 5; 
+  string sourceChainId = 6; 
+  bytes request_sender   = 7;
+  uint64 requestIdentifier = 8; 
+  string ackResponse = 9; 
+  bool ackStatus = 10; 
+  string ethSigner = 11; 
+  string signature = 12; 
+  string status = 13; 
+}
+
