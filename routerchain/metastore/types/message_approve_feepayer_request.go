@@ -9,10 +9,9 @@ const TypeMsgApproveFeepayerRequest = "approve_feepayer_request"
 
 var _ sdk.Msg = &MsgApproveFeepayerRequest{}
 
-func NewMsgApproveFeepayerRequest(feepayer string, chainType uint64, chainId string, daapAddress string) *MsgApproveFeepayerRequest {
+func NewMsgApproveFeepayerRequest(feepayer string, chainId string, daapAddress string) *MsgApproveFeepayerRequest {
 	return &MsgApproveFeepayerRequest{
 		FeePayer:    feepayer,
-		ChainType:   chainType,
 		ChainId:     chainId,
 		DappAddress: daapAddress,
 	}

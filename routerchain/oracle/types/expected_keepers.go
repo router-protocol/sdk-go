@@ -7,7 +7,7 @@ import (
 )
 
 type MultichainKeeper interface {
-	GetChainConfig(ctx sdk.Context, chainType multichainTypes.ChainType, chainId string) (val multichainTypes.ChainConfig, found bool)
+	GetChainConfig(ctx sdk.Context, chainId string) (val multichainTypes.ChainConfig, found bool)
 	// Methods imported from multichain should be defined here
 }
 

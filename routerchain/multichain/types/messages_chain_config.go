@@ -135,13 +135,11 @@ var _ sdk.Msg = &MsgDeleteChainConfig{}
 
 func NewMsgDeleteChainConfig(
 	creator string,
-	chainType ChainType,
 	chainId string,
 ) *MsgDeleteChainConfig {
 	return &MsgDeleteChainConfig{
-		Creator:   creator,
-		ChainType: chainType,
-		ChainId:   chainId,
+		Creator: creator,
+		ChainId: chainId,
 	}
 }
 func (msg *MsgDeleteChainConfig) Route() string {

@@ -1,8 +1,0 @@
-syntax = "proto3";
-package routerprotocol.routerchain.outbound;
-
-option go_package = "github.com/router-protocol/sdk-go/routerchain/outbound/types";
-
-message ContractAckResponse {
-  bool ackStatus = 1; 
-}

@@ -6,7 +6,7 @@ package types
 import (
 	fmt "fmt"
 	proto "github.com/gogo/protobuf/proto"
-	types "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	_ "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -24,13 +24,12 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type MetadataRequest struct {
-	ChainType   types.ChainType `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId     string          `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	EventNonce  uint64          `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	BlockHeight uint64          `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	DaapAddress []byte          `protobuf:"bytes,5,opt,name=daapAddress,proto3" json:"daapAddress,omitempty"`
-	FeePayer    string          `protobuf:"bytes,6,opt,name=feePayer,proto3" json:"feePayer,omitempty"`
-	Status      MetaTxStatus    `protobuf:"varint,7,opt,name=status,proto3,enum=routerprotocol.routerchain.metastore.MetaTxStatus" json:"status,omitempty"`
+	ChainId     string       `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce  uint64       `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight uint64       `protobuf:"varint,3,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	DaapAddress []byte       `protobuf:"bytes,4,opt,name=daapAddress,proto3" json:"daapAddress,omitempty"`
+	FeePayer    string       `protobuf:"bytes,5,opt,name=feePayer,proto3" json:"feePayer,omitempty"`
+	Status      MetaTxStatus `protobuf:"varint,6,opt,name=status,proto3,enum=routerprotocol.routerchain.metastore.MetaTxStatus" json:"status,omitempty"`
 }
 
 func (m *MetadataRequest) Reset()         { *m = MetadataRequest{} }
@@ -65,13 +64,6 @@ func (m *MetadataRequest) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_MetadataRequest proto.InternalMessageInfo
-
-func (m *MetadataRequest) GetChainType() types.ChainType {
-	if m != nil {
-		return m.ChainType
-	}
-	return types.CHAIN_TYPE_NONE
-}
 
 func (m *MetadataRequest) GetChainId() string {
 	if m != nil {
@@ -116,12 +108,11 @@ func (m *MetadataRequest) GetStatus() MetaTxStatus {
 }
 
 type MetadataRequestClaimHash struct {
-	ChainType   types.ChainType `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId     string          `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	EventNonce  uint64          `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	BlockHeight uint64          `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	DaapAddress []byte          `protobuf:"bytes,5,opt,name=daapAddress,proto3" json:"daapAddress,omitempty"`
-	FeePayer    string          `protobuf:"bytes,6,opt,name=feePayer,proto3" json:"feePayer,omitempty"`
+	ChainId     string `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce  uint64 `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight uint64 `protobuf:"varint,3,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	DaapAddress []byte `protobuf:"bytes,4,opt,name=daapAddress,proto3" json:"daapAddress,omitempty"`
+	FeePayer    string `protobuf:"bytes,5,opt,name=feePayer,proto3" json:"feePayer,omitempty"`
 }
 
 func (m *MetadataRequestClaimHash) Reset()         { *m = MetadataRequestClaimHash{} }
@@ -156,13 +147,6 @@ func (m *MetadataRequestClaimHash) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_MetadataRequestClaimHash proto.InternalMessageInfo
-
-func (m *MetadataRequestClaimHash) GetChainType() types.ChainType {
-	if m != nil {
-		return m.ChainType
-	}
-	return types.CHAIN_TYPE_NONE
-}
 
 func (m *MetadataRequestClaimHash) GetChainId() string {
 	if m != nil {
@@ -207,30 +191,28 @@ func init() {
 func init() { proto.RegisterFile("metastore/metadata_request.proto", fileDescriptor_0bbf9ea4f3996390) }
 
 var fileDescriptor_0bbf9ea4f3996390 = []byte{
-	// 357 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x52, 0xb1, 0x4e, 0xc3, 0x30,
-	0x10, 0xad, 0x4b, 0x69, 0xa9, 0x41, 0x20, 0x65, 0xb2, 0x8a, 0x64, 0x45, 0x15, 0x43, 0x16, 0x1c,
-	0x54, 0x26, 0x46, 0xe8, 0x52, 0x90, 0xa8, 0x50, 0xda, 0x89, 0x25, 0x72, 0x93, 0xa3, 0x89, 0x48,
-	0xea, 0x10, 0x3b, 0xa8, 0xdd, 0xf9, 0x00, 0xfe, 0x0a, 0xc6, 0x8e, 0x8c, 0xa8, 0xfd, 0x11, 0x14,
-	0xa7, 0x69, 0x0b, 0x03, 0x62, 0x67, 0xb1, 0xfc, 0x9e, 0xef, 0xde, 0xf3, 0x3d, 0x1d, 0x36, 0x63,
-	0x50, 0x5c, 0x2a, 0x91, 0x82, 0x9d, 0xdf, 0x7c, 0xae, 0xb8, 0x9b, 0xc2, 0x53, 0x06, 0x52, 0xb1,
-	0x24, 0x15, 0x4a, 0x18, 0x27, 0xa9, 0xc8, 0x14, 0xa4, 0x1a, 0x78, 0x22, 0x62, 0x05, 0xf4, 0x02,
-	0x1e, 0x4e, 0xd8, 0xba, 0xb9, 0x75, 0x1c, 0x67, 0x91, 0x0a, 0x35, 0x6b, 0xeb, 0xd3, 0x55, 0xb3,
-	0x04, 0x0a, 0x89, 0x16, 0xfd, 0x6e, 0xe2, 0xaa, 0xa9, 0x2b, 0x15, 0x57, 0x99, 0x2c, 0xde, 0xdb,
-	0x6f, 0x55, 0x7c, 0x74, 0xbb, 0x72, 0x77, 0x0a, 0x73, 0xa3, 0x8f, 0x9b, 0x5a, 0x67, 0x38, 0x4b,
-	0x80, 0x20, 0x13, 0x59, 0x87, 0x9d, 0x33, 0xf6, 0xdb, 0x57, 0xd6, 0xfe, 0xac, 0x5b, 0xf6, 0x39,
-	0x1b, 0x09, 0x83, 0xe0, 0x86, 0x06, 0xd7, 0x3e, 0xa9, 0x9a, 0xc8, 0x6a, 0x3a, 0x25, 0x34, 0x28,
-	0xc6, 0xf0, 0x0c, 0x13, 0xd5, 0x17, 0x13, 0x0f, 0xc8, 0x8e, 0x89, 0xac, 0x9a, 0xb3, 0xc5, 0x18,
-	0x26, 0xde, 0x1f, 0x45, 0xc2, 0x7b, 0xec, 0x41, 0x38, 0x0e, 0x14, 0xa9, 0xe9, 0x82, 0x6d, 0x2a,
-	0xaf, 0xf0, 0x39, 0x4f, 0x2e, 0x7d, 0x3f, 0x05, 0x29, 0xc9, 0xae, 0x89, 0xac, 0x03, 0x67, 0x9b,
-	0x32, 0x5a, 0x78, 0xef, 0x01, 0xe0, 0x8e, 0xcf, 0x20, 0x25, 0x75, 0x6d, 0xbf, 0xc6, 0xc6, 0x0d,
-	0xae, 0x17, 0x69, 0x90, 0x86, 0x1e, 0xb3, 0xc3, 0xfe, 0x92, 0x38, 0xcb, 0x03, 0x1b, 0x4e, 0x07,
-	0xba, 0xd3, 0x59, 0x29, 0xb4, 0x5f, 0xaa, 0x98, 0xfc, 0x48, 0xb2, 0x1b, 0xf1, 0x30, 0xee, 0x71,
-	0x19, 0xfc, 0x9f, 0x48, 0xaf, 0x06, 0xef, 0x0b, 0x8a, 0xe6, 0x0b, 0x8a, 0x3e, 0x17, 0x14, 0xbd,
-	0x2e, 0x69, 0x65, 0xbe, 0xa4, 0x95, 0x8f, 0x25, 0xad, 0xdc, 0x5f, 0x8c, 0x43, 0x15, 0x64, 0x23,
-	0xe6, 0x89, 0xd8, 0x2e, 0x66, 0x3d, 0x2d, 0x67, 0x2f, 0x71, 0xb1, 0xc4, 0x53, 0x7b, 0xb3, 0xb4,
-	0xf9, 0x2a, 0xcb, 0x51, 0x5d, 0x17, 0x9e, 0x7f, 0x05, 0x00, 0x00, 0xff, 0xff, 0x23, 0x56, 0xa2,
-	0x5e, 0x33, 0x03, 0x00, 0x00,
+	// 334 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x52, 0x31, 0x4f, 0xf3, 0x30,
+	0x10, 0xad, 0xbf, 0xaf, 0x14, 0x30, 0x08, 0xa4, 0x4c, 0x56, 0x91, 0xac, 0xa8, 0x62, 0xc8, 0x42,
+	0x22, 0x95, 0x89, 0x11, 0x58, 0x0a, 0x12, 0x08, 0xa5, 0x4c, 0x2c, 0x91, 0x9b, 0x1c, 0x4d, 0x44,
+	0x52, 0x17, 0xfb, 0x82, 0xda, 0x7f, 0xc1, 0x8f, 0xe1, 0x47, 0x30, 0x76, 0x64, 0x44, 0xed, 0x8f,
+	0x60, 0x45, 0xb1, 0xdb, 0x12, 0x98, 0x18, 0x59, 0x2c, 0xbf, 0xe7, 0xbb, 0x7b, 0xbe, 0xa7, 0x47,
+	0xdd, 0x02, 0x50, 0x68, 0x94, 0x0a, 0x82, 0xea, 0x96, 0x08, 0x14, 0x91, 0x82, 0xc7, 0x12, 0x34,
+	0xfa, 0x63, 0x25, 0x51, 0x3a, 0x87, 0x4a, 0x96, 0x08, 0xca, 0x80, 0x58, 0xe6, 0xbe, 0x85, 0x71,
+	0x2a, 0xb2, 0x91, 0xbf, 0x6e, 0x6e, 0x1f, 0x14, 0x65, 0x8e, 0x99, 0x61, 0x03, 0x73, 0x46, 0x38,
+	0x1d, 0x83, 0x1d, 0xd1, 0xe6, 0xdf, 0x45, 0x22, 0x9c, 0x44, 0x1a, 0x05, 0x96, 0xda, 0xbe, 0x77,
+	0x3e, 0x08, 0xdd, 0xbf, 0x5a, 0xaa, 0x87, 0x56, 0xdc, 0x61, 0x74, 0xd3, 0xcc, 0xb9, 0x48, 0x18,
+	0x71, 0x89, 0xb7, 0x1d, 0xae, 0xa0, 0xc3, 0x29, 0x85, 0x27, 0x18, 0xe1, 0xb5, 0x1c, 0xc5, 0xc0,
+	0xfe, 0xb9, 0xc4, 0x6b, 0x86, 0x35, 0xc6, 0x71, 0xe9, 0xce, 0x20, 0x97, 0xf1, 0x43, 0x0f, 0xb2,
+	0x61, 0x8a, 0xec, 0xbf, 0x29, 0xa8, 0x53, 0x55, 0x45, 0x22, 0xc4, 0xf8, 0x34, 0x49, 0x14, 0x68,
+	0xcd, 0x9a, 0x2e, 0xf1, 0x76, 0xc3, 0x3a, 0xe5, 0xb4, 0xe9, 0xd6, 0x3d, 0xc0, 0x8d, 0x98, 0x82,
+	0x62, 0x1b, 0x46, 0x7e, 0x8d, 0x9d, 0x4b, 0xda, 0xb2, 0xbf, 0x67, 0x2d, 0x97, 0x78, 0x7b, 0xdd,
+	0xae, 0xff, 0x1b, 0x87, 0xfc, 0x6a, 0xc1, 0xdb, 0x49, 0xdf, 0x74, 0x86, 0xcb, 0x09, 0x9d, 0x17,
+	0x42, 0xd9, 0x8f, 0xcd, 0xcf, 0x73, 0x91, 0x15, 0x3d, 0xa1, 0xd3, 0xbf, 0x6b, 0xc1, 0x59, 0xff,
+	0x75, 0xce, 0xc9, 0x6c, 0xce, 0xc9, 0xfb, 0x9c, 0x93, 0xe7, 0x05, 0x6f, 0xcc, 0x16, 0xbc, 0xf1,
+	0xb6, 0xe0, 0x8d, 0xbb, 0x93, 0x61, 0x86, 0x69, 0x39, 0xf0, 0x63, 0x59, 0x04, 0xd6, 0x87, 0xa3,
+	0x95, 0x2f, 0x2b, 0x6c, 0x43, 0x32, 0x09, 0xbe, 0x42, 0x51, 0x45, 0x45, 0x0f, 0x5a, 0xa6, 0xf0,
+	0xf8, 0x33, 0x00, 0x00, 0xff, 0xff, 0xf1, 0xa8, 0xf8, 0x96, 0x93, 0x02, 0x00, 0x00,
 }
 
 func (m *MetadataRequest) Marshal() (dAtA []byte, err error) {
@@ -256,43 +238,38 @@ func (m *MetadataRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.Status != 0 {
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.Status))
 		i--
-		dAtA[i] = 0x38
+		dAtA[i] = 0x30
 	}
 	if len(m.FeePayer) > 0 {
 		i -= len(m.FeePayer)
 		copy(dAtA[i:], m.FeePayer)
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(len(m.FeePayer)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x2a
 	}
 	if len(m.DaapAddress) > 0 {
 		i -= len(m.DaapAddress)
 		copy(dAtA[i:], m.DaapAddress)
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(len(m.DaapAddress)))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x22
 	}
 	if m.BlockHeight != 0 {
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x20
+		dAtA[i] = 0x18
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x10
 	}
 	if len(m.ChainId) > 0 {
 		i -= len(m.ChainId)
 		copy(dAtA[i:], m.ChainId)
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(len(m.ChainId)))
 		i--
-		dAtA[i] = 0x12
-	}
-	if m.ChainType != 0 {
-		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.ChainType))
-		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -322,36 +299,31 @@ func (m *MetadataRequestClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, error
 		copy(dAtA[i:], m.FeePayer)
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(len(m.FeePayer)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x2a
 	}
 	if len(m.DaapAddress) > 0 {
 		i -= len(m.DaapAddress)
 		copy(dAtA[i:], m.DaapAddress)
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(len(m.DaapAddress)))
 		i--
-		dAtA[i] = 0x2a
+		dAtA[i] = 0x22
 	}
 	if m.BlockHeight != 0 {
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x20
+		dAtA[i] = 0x18
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x10
 	}
 	if len(m.ChainId) > 0 {
 		i -= len(m.ChainId)
 		copy(dAtA[i:], m.ChainId)
 		i = encodeVarintMetadataRequest(dAtA, i, uint64(len(m.ChainId)))
 		i--
-		dAtA[i] = 0x12
-	}
-	if m.ChainType != 0 {
-		i = encodeVarintMetadataRequest(dAtA, i, uint64(m.ChainType))
-		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -373,9 +345,6 @@ func (m *MetadataRequest) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.ChainType != 0 {
-		n += 1 + sovMetadataRequest(uint64(m.ChainType))
-	}
 	l = len(m.ChainId)
 	if l > 0 {
 		n += 1 + l + sovMetadataRequest(uint64(l))
@@ -406,9 +375,6 @@ func (m *MetadataRequestClaimHash) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.ChainType != 0 {
-		n += 1 + sovMetadataRequest(uint64(m.ChainType))
-	}
 	l = len(m.ChainId)
 	if l > 0 {
 		n += 1 + l + sovMetadataRequest(uint64(l))
@@ -466,25 +432,6 @@ func (m *MetadataRequest) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
-			}
-			m.ChainType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMetadataRequest
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.ChainType |= types.ChainType(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
 			}
@@ -516,7 +463,7 @@ func (m *MetadataRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.ChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -535,7 +482,7 @@ func (m *MetadataRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
@@ -554,7 +501,7 @@ func (m *MetadataRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 5:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DaapAddress", wireType)
 			}
@@ -588,7 +535,7 @@ func (m *MetadataRequest) Unmarshal(dAtA []byte) error {
 				m.DaapAddress = []byte{}
 			}
 			iNdEx = postIndex
-		case 6:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field FeePayer", wireType)
 			}
@@ -620,7 +567,7 @@ func (m *MetadataRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.FeePayer = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
@@ -690,25 +637,6 @@ func (m *MetadataRequestClaimHash) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
-			}
-			m.ChainType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowMetadataRequest
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.ChainType |= types.ChainType(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
 			}
@@ -740,7 +668,7 @@ func (m *MetadataRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.ChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -759,7 +687,7 @@ func (m *MetadataRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
@@ -778,7 +706,7 @@ func (m *MetadataRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 5:
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DaapAddress", wireType)
 			}
@@ -812,7 +740,7 @@ func (m *MetadataRequestClaimHash) Unmarshal(dAtA []byte) error {
 				m.DaapAddress = []byte{}
 			}
 			iNdEx = postIndex
-		case 6:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field FeePayer", wireType)
 			}

@@ -7,7 +7,7 @@ import (
 	fmt "fmt"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
-	types "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	_ "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	io "io"
 	math "math"
 	math_bits "math/bits"
@@ -25,13 +25,12 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type ValsetUpdatedClaim struct {
-	ChainType    types.ChainType          `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId      string                   `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	EventNonce   uint64                   `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	ValsetNonce  uint64                   `protobuf:"varint,4,opt,name=valsetNonce,proto3" json:"valsetNonce,omitempty"`
-	BlockHeight  uint64                   `protobuf:"varint,5,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	SourceTxHash string                   `protobuf:"bytes,6,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
-	Status       ValsetUpdatedClaimStatus `protobuf:"varint,7,opt,name=status,proto3,enum=routerprotocol.routerchain.attestation.ValsetUpdatedClaimStatus" json:"status,omitempty"`
+	ChainId      string                   `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce   uint64                   `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ValsetNonce  uint64                   `protobuf:"varint,3,opt,name=valsetNonce,proto3" json:"valsetNonce,omitempty"`
+	BlockHeight  uint64                   `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	SourceTxHash string                   `protobuf:"bytes,5,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
+	Status       ValsetUpdatedClaimStatus `protobuf:"varint,6,opt,name=status,proto3,enum=routerprotocol.routerchain.attestation.ValsetUpdatedClaimStatus" json:"status,omitempty"`
 }
 
 func (m *ValsetUpdatedClaim) Reset()         { *m = ValsetUpdatedClaim{} }
@@ -66,13 +65,6 @@ func (m *ValsetUpdatedClaim) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ValsetUpdatedClaim proto.InternalMessageInfo
-
-func (m *ValsetUpdatedClaim) GetChainType() types.ChainType {
-	if m != nil {
-		return m.ChainType
-	}
-	return types.CHAIN_TYPE_NONE
-}
 
 func (m *ValsetUpdatedClaim) GetChainId() string {
 	if m != nil {
@@ -117,13 +109,12 @@ func (m *ValsetUpdatedClaim) GetStatus() ValsetUpdatedClaimStatus {
 }
 
 type ValsetUpdatedClaimHash struct {
-	ChainType    types.ChainType   `protobuf:"varint,1,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ChainId      string            `protobuf:"bytes,2,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	EventNonce   uint64            `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	ValsetNonce  uint64            `protobuf:"varint,4,opt,name=valsetNonce,proto3" json:"valsetNonce,omitempty"`
-	BlockHeight  uint64            `protobuf:"varint,5,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	Members      []BridgeValidator `protobuf:"bytes,6,rep,name=members,proto3" json:"members"`
-	SourceTxHash string            `protobuf:"bytes,7,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
+	ChainId      string            `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	EventNonce   uint64            `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ValsetNonce  uint64            `protobuf:"varint,3,opt,name=valsetNonce,proto3" json:"valsetNonce,omitempty"`
+	BlockHeight  uint64            `protobuf:"varint,4,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	Members      []BridgeValidator `protobuf:"bytes,5,rep,name=members,proto3" json:"members"`
+	SourceTxHash string            `protobuf:"bytes,6,opt,name=sourceTxHash,proto3" json:"sourceTxHash,omitempty"`
 }
 
 func (m *ValsetUpdatedClaimHash) Reset()         { *m = ValsetUpdatedClaimHash{} }
@@ -158,13 +149,6 @@ func (m *ValsetUpdatedClaimHash) XXX_DiscardUnknown() {
 }
 
 var xxx_messageInfo_ValsetUpdatedClaimHash proto.InternalMessageInfo
-
-func (m *ValsetUpdatedClaimHash) GetChainType() types.ChainType {
-	if m != nil {
-		return m.ChainType
-	}
-	return types.CHAIN_TYPE_NONE
-}
 
 func (m *ValsetUpdatedClaimHash) GetChainId() string {
 	if m != nil {
@@ -218,34 +202,32 @@ func init() {
 }
 
 var fileDescriptor_41356d08e97f1694 = []byte{
-	// 422 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xdc, 0x53, 0x31, 0x8f, 0x9b, 0x30,
-	0x14, 0x86, 0x5c, 0x0a, 0x3a, 0x5f, 0xd5, 0xc1, 0xaa, 0x2a, 0xeb, 0x2a, 0x51, 0xc4, 0x70, 0x62,
-	0x39, 0x53, 0x5d, 0x87, 0x0e, 0x5d, 0xaa, 0xdc, 0x72, 0x5d, 0x32, 0xd0, 0x24, 0xad, 0xba, 0x20,
-	0x03, 0x16, 0x58, 0x05, 0x8c, 0xc0, 0x44, 0xc9, 0xbf, 0xe8, 0xcf, 0xca, 0x98, 0xb1, 0x53, 0x15,
-	0x85, 0x3f, 0x52, 0x61, 0x07, 0x85, 0x0a, 0xa9, 0xcd, 0xdc, 0x05, 0xf9, 0x7d, 0x7c, 0xef, 0xf3,
-	0xf7, 0xde, 0xf3, 0x03, 0x77, 0x44, 0x08, 0x5a, 0x0b, 0x22, 0x18, 0x2f, 0xbc, 0x35, 0xc9, 0x6a,
-	0x2a, 0x82, 0xa6, 0x8c, 0x89, 0xa0, 0x71, 0x10, 0x65, 0x84, 0xe5, 0xb8, 0xac, 0xb8, 0xe0, 0xf0,
-	0xae, 0xe2, 0x8d, 0xa0, 0x95, 0x0c, 0x22, 0x9e, 0x61, 0x15, 0x46, 0x29, 0x61, 0x05, 0x1e, 0x48,
-	0xdc, 0xbe, 0xce, 0x9b, 0x4c, 0x30, 0x89, 0x7b, 0xf2, 0x1b, 0x88, 0x6d, 0x49, 0x95, 0xc8, 0xad,
-	0x33, 0xbc, 0x2c, 0xac, 0x58, 0x9c, 0xd0, 0x60, 0x4d, 0x32, 0x16, 0x13, 0xc1, 0xab, 0x13, 0xe7,
-	0xfe, 0x5f, 0x86, 0x82, 0xee, 0x67, 0x53, 0x9f, 0xe8, 0x2f, 0x13, 0x9e, 0x70, 0x79, 0xf4, 0xba,
-	0x93, 0x42, 0x9d, 0xc3, 0x04, 0xc0, 0x95, 0xcc, 0x5d, 0xaa, 0xd4, 0xc7, 0x2e, 0x13, 0xce, 0xc1,
-	0xb5, 0xf4, 0xb4, 0xd8, 0x96, 0x14, 0xe9, 0xb6, 0xee, 0xbe, 0x78, 0x78, 0x8b, 0xff, 0x52, 0xd8,
-	0xb9, 0x16, 0xfc, 0xd8, 0xe7, 0xf9, 0x67, 0x09, 0x88, 0x80, 0x29, 0x83, 0x4f, 0x31, 0x9a, 0xd8,
-	0xba, 0x7b, 0xed, 0xf7, 0x21, 0xb4, 0x00, 0xa0, 0x6b, 0x5a, 0x88, 0x39, 0x2f, 0x22, 0x8a, 0xae,
-	0x6c, 0xdd, 0x9d, 0xfa, 0x03, 0x04, 0xda, 0xe0, 0x46, 0xd5, 0xa6, 0x08, 0x53, 0x49, 0x18, 0x42,
-	0x1d, 0x23, 0xcc, 0x78, 0xf4, 0xfd, 0x89, 0xb2, 0x24, 0x15, 0xe8, 0x99, 0x62, 0x0c, 0x20, 0xe8,
-	0x80, 0xe7, 0x35, 0x6f, 0xaa, 0x88, 0x2e, 0x36, 0x4f, 0xa4, 0x4e, 0x91, 0x21, 0x2d, 0xfc, 0x81,
-	0xc1, 0xaf, 0xc0, 0x50, 0xed, 0x42, 0xa6, 0x2c, 0xf7, 0x23, 0xbe, 0x6c, 0x8e, 0x78, 0xdc, 0xbd,
-	0xcf, 0x52, 0xc7, 0x3f, 0xe9, 0x39, 0xed, 0x04, 0xbc, 0x1a, 0x93, 0xe4, 0xa5, 0xff, 0x57, 0x9b,
-	0xbf, 0x00, 0x33, 0xa7, 0x79, 0x48, 0xab, 0x1a, 0x19, 0xf6, 0x95, 0x7b, 0xf3, 0xf0, 0xfe, 0xd2,
-	0x1e, 0xce, 0xe4, 0x0b, 0x5f, 0xf5, 0x0f, 0x7c, 0x36, 0xdd, 0xfd, 0x7a, 0xa3, 0xf9, 0xbd, 0xda,
-	0x68, 0x7e, 0xe6, 0x78, 0x7e, 0xb3, 0xe5, 0xee, 0x68, 0xe9, 0xfb, 0xa3, 0xa5, 0x1f, 0x8e, 0x96,
-	0xfe, 0xa3, 0xb5, 0xb4, 0x7d, 0x6b, 0x69, 0x3f, 0x5b, 0x4b, 0xfb, 0xf6, 0x21, 0x61, 0x22, 0x6d,
-	0x42, 0x1c, 0xf1, 0xdc, 0x53, 0x06, 0xee, 0x7b, 0x43, 0x7d, 0xac, 0xb6, 0x70, 0xe3, 0x0d, 0x37,
-	0xaa, 0xdb, 0xc6, 0x3a, 0x34, 0x24, 0xf5, 0xdd, 0xef, 0x00, 0x00, 0x00, 0xff, 0xff, 0x4b, 0x06,
-	0x47, 0xfe, 0xfe, 0x03, 0x00, 0x00,
+	// 394 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x52, 0x3f, 0x6b, 0xbb, 0x40,
+	0x18, 0xd6, 0xfc, 0x31, 0xfc, 0x2e, 0x3f, 0x3a, 0x48, 0x29, 0x92, 0x82, 0x15, 0x87, 0xe0, 0x12,
+	0x85, 0x74, 0xe8, 0xd0, 0xa5, 0xa4, 0x4b, 0xba, 0x74, 0xb0, 0x4d, 0x5a, 0xba, 0xc8, 0xa9, 0x87,
+	0x1e, 0x55, 0x2f, 0x78, 0x67, 0x48, 0xbf, 0x45, 0xa0, 0x5f, 0x2a, 0x63, 0xc6, 0x4e, 0xa5, 0x24,
+	0x5f, 0xa4, 0x78, 0x17, 0xc1, 0xe2, 0xd0, 0x6c, 0x5d, 0xe4, 0xde, 0xc7, 0xe7, 0x7d, 0xde, 0xe7,
+	0x7d, 0x79, 0xc0, 0x10, 0x32, 0x86, 0x28, 0x83, 0x0c, 0x93, 0xcc, 0x59, 0xc2, 0x84, 0x22, 0xe6,
+	0x15, 0x8b, 0x10, 0x32, 0x14, 0x7a, 0x41, 0x02, 0x71, 0x6a, 0x2f, 0x72, 0xc2, 0x88, 0x3a, 0xcc,
+	0x49, 0xc1, 0x50, 0xce, 0x8b, 0x80, 0x24, 0xb6, 0x28, 0x83, 0x18, 0xe2, 0xcc, 0xae, 0x49, 0x0c,
+	0xce, 0xd3, 0x22, 0x61, 0x98, 0xe3, 0x0e, 0xff, 0x7a, 0xec, 0x6d, 0x81, 0x84, 0xc8, 0xc0, 0xac,
+	0x0f, 0xf3, 0x73, 0x1c, 0x46, 0xc8, 0x5b, 0xc2, 0x04, 0x87, 0x90, 0x91, 0xfc, 0xc0, 0x19, 0xfd,
+	0x66, 0xc8, 0x2b, 0x7f, 0x16, 0xf4, 0x40, 0x3f, 0x8d, 0x48, 0x44, 0xf8, 0xd3, 0x29, 0x5f, 0x02,
+	0x35, 0xd7, 0x2d, 0xa0, 0xce, 0x79, 0xef, 0x4c, 0xb4, 0xde, 0x96, 0x9d, 0xaa, 0x06, 0x7a, 0xdc,
+	0xd3, 0x5d, 0xa8, 0xc9, 0x86, 0x6c, 0xfd, 0x73, 0xab, 0x52, 0xd5, 0x01, 0x40, 0x4b, 0x94, 0xb1,
+	0x7b, 0x92, 0x05, 0x48, 0x6b, 0x19, 0xb2, 0xd5, 0x71, 0x6b, 0x88, 0x6a, 0x80, 0xbe, 0xf0, 0x22,
+	0x08, 0x6d, 0x4e, 0xa8, 0x43, 0x25, 0xc3, 0x4f, 0x48, 0xf0, 0x3a, 0x45, 0x38, 0x8a, 0x99, 0xd6,
+	0x11, 0x8c, 0x1a, 0xa4, 0x9a, 0xe0, 0x3f, 0x25, 0x45, 0x1e, 0xa0, 0xc7, 0xd5, 0x14, 0xd2, 0x58,
+	0xeb, 0x72, 0x0b, 0x3f, 0x30, 0xf5, 0x19, 0x28, 0x62, 0x3d, 0x4d, 0x31, 0x64, 0xeb, 0x64, 0x7c,
+	0x63, 0x1f, 0x77, 0x77, 0xbb, 0xb9, 0xed, 0x03, 0xd7, 0x71, 0x0f, 0x7a, 0xe6, 0x7b, 0x0b, 0x9c,
+	0x35, 0x49, 0x7c, 0xe8, 0xdf, 0x9e, 0xe5, 0x09, 0xf4, 0x52, 0x94, 0xfa, 0x28, 0xa7, 0x5a, 0xd7,
+	0x68, 0x5b, 0xfd, 0xf1, 0xd5, 0xb1, 0x3b, 0x4f, 0x78, 0x82, 0xe6, 0x55, 0x80, 0x26, 0x9d, 0xcd,
+	0xe7, 0x85, 0xe4, 0x56, 0x6a, 0x8d, 0x7b, 0x2b, 0xcd, 0x7b, 0x4f, 0x66, 0x9b, 0x9d, 0x2e, 0x6f,
+	0x77, 0xba, 0xfc, 0xb5, 0xd3, 0xe5, 0xf5, 0x5e, 0x97, 0xb6, 0x7b, 0x5d, 0xfa, 0xd8, 0xeb, 0xd2,
+	0xcb, 0x75, 0x84, 0x59, 0x5c, 0xf8, 0x76, 0x40, 0x52, 0x47, 0x18, 0x18, 0x55, 0x86, 0xaa, 0x5a,
+	0xa4, 0x7c, 0xe5, 0xd4, 0x13, 0x5b, 0xa6, 0x9d, 0xfa, 0x0a, 0xa7, 0x5e, 0x7e, 0x07, 0x00, 0x00,
+	0xff, 0xff, 0xcf, 0x36, 0xf9, 0x8e, 0x5e, 0x03, 0x00, 0x00,
 }
 
 func (m *ValsetUpdatedClaim) Marshal() (dAtA []byte, err error) {
@@ -271,41 +253,36 @@ func (m *ValsetUpdatedClaim) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	if m.Status != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.Status))
 		i--
-		dAtA[i] = 0x38
+		dAtA[i] = 0x30
 	}
 	if len(m.SourceTxHash) > 0 {
 		i -= len(m.SourceTxHash)
 		copy(dAtA[i:], m.SourceTxHash)
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(len(m.SourceTxHash)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x2a
 	}
 	if m.BlockHeight != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x20
 	}
 	if m.ValsetNonce != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.ValsetNonce))
 		i--
-		dAtA[i] = 0x20
+		dAtA[i] = 0x18
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x10
 	}
 	if len(m.ChainId) > 0 {
 		i -= len(m.ChainId)
 		copy(dAtA[i:], m.ChainId)
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(len(m.ChainId)))
 		i--
-		dAtA[i] = 0x12
-	}
-	if m.ChainType != 0 {
-		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.ChainType))
-		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -335,7 +312,7 @@ func (m *ValsetUpdatedClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 		copy(dAtA[i:], m.SourceTxHash)
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(len(m.SourceTxHash)))
 		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x32
 	}
 	if len(m.Members) > 0 {
 		for iNdEx := len(m.Members) - 1; iNdEx >= 0; iNdEx-- {
@@ -348,35 +325,30 @@ func (m *ValsetUpdatedClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 				i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(size))
 			}
 			i--
-			dAtA[i] = 0x32
+			dAtA[i] = 0x2a
 		}
 	}
 	if m.BlockHeight != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x20
 	}
 	if m.ValsetNonce != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.ValsetNonce))
 		i--
-		dAtA[i] = 0x20
+		dAtA[i] = 0x18
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x10
 	}
 	if len(m.ChainId) > 0 {
 		i -= len(m.ChainId)
 		copy(dAtA[i:], m.ChainId)
 		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(len(m.ChainId)))
 		i--
-		dAtA[i] = 0x12
-	}
-	if m.ChainType != 0 {
-		i = encodeVarintValsetUpdatedClaim(dAtA, i, uint64(m.ChainType))
-		i--
-		dAtA[i] = 0x8
+		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
@@ -398,9 +370,6 @@ func (m *ValsetUpdatedClaim) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.ChainType != 0 {
-		n += 1 + sovValsetUpdatedClaim(uint64(m.ChainType))
-	}
 	l = len(m.ChainId)
 	if l > 0 {
 		n += 1 + l + sovValsetUpdatedClaim(uint64(l))
@@ -430,9 +399,6 @@ func (m *ValsetUpdatedClaimHash) Size() (n int) {
 	}
 	var l int
 	_ = l
-	if m.ChainType != 0 {
-		n += 1 + sovValsetUpdatedClaim(uint64(m.ChainType))
-	}
 	l = len(m.ChainId)
 	if l > 0 {
 		n += 1 + l + sovValsetUpdatedClaim(uint64(l))
@@ -495,25 +461,6 @@ func (m *ValsetUpdatedClaim) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
-			}
-			m.ChainType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowValsetUpdatedClaim
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.ChainType |= types.ChainType(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
 			}
@@ -545,7 +492,7 @@ func (m *ValsetUpdatedClaim) Unmarshal(dAtA []byte) error {
 			}
 			m.ChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -564,7 +511,7 @@ func (m *ValsetUpdatedClaim) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ValsetNonce", wireType)
 			}
@@ -583,7 +530,7 @@ func (m *ValsetUpdatedClaim) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 5:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
@@ -602,7 +549,7 @@ func (m *ValsetUpdatedClaim) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 6:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SourceTxHash", wireType)
 			}
@@ -634,7 +581,7 @@ func (m *ValsetUpdatedClaim) Unmarshal(dAtA []byte) error {
 			}
 			m.SourceTxHash = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
@@ -704,25 +651,6 @@ func (m *ValsetUpdatedClaimHash) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
-			}
-			m.ChainType = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowValsetUpdatedClaim
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.ChainType |= types.ChainType(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 2:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
 			}
@@ -754,7 +682,7 @@ func (m *ValsetUpdatedClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.ChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -773,7 +701,7 @@ func (m *ValsetUpdatedClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ValsetNonce", wireType)
 			}
@@ -792,7 +720,7 @@ func (m *ValsetUpdatedClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 5:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
@@ -811,7 +739,7 @@ func (m *ValsetUpdatedClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 6:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Members", wireType)
 			}
@@ -845,7 +773,7 @@ func (m *ValsetUpdatedClaimHash) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 7:
+		case 6:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SourceTxHash", wireType)
 			}

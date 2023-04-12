@@ -23,7 +23,7 @@ func (gs GenesisState) Validate() error {
 	chainConfigIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.ChainConfigList {
-		ChainId := string(ChainConfigKey(elem.ChainType, elem.ChainId))
+		ChainId := string(ChainConfigKey(elem.ChainId))
 		if _, ok := chainConfigIndexMap[ChainId]; ok {
 			return fmt.Errorf("duplicated ChainId for chainConfig")
 		}

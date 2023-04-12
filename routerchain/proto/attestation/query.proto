@@ -55,7 +55,7 @@ service Query {
 
 // Queries a ValsetUpdatedClaim by index.
 	rpc ValsetUpdatedClaim(QueryGetValsetUpdatedClaimRequest) returns (QueryGetValsetUpdatedClaimResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_updated_claim/{chain_type}/{chain_id}/{event_nonce}";
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_updated_claim/{chain_id}/{event_nonce}";
 	}
 
 	// Queries a list of ValsetUpdatedClaim items.
@@ -75,7 +75,7 @@ service Query {
 
 // Queries a list of LastEventNonce items.
 	rpc LastEventNonce(QueryLastEventNonceRequest) returns (QueryLastEventNonceResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/attestation/last_event_nonce/{chain_type}/{chain_id}/{validator_address}";
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/last_event_nonce/{chain_id}/{validator_address}";
 	}
 
 // Queries a list of ListOrchestrators items.
@@ -118,10 +118,9 @@ message QueryAllValsetResponse {
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetAttestationRequest {
-	  uint64 chain_type = 1;
-	  string chain_id = 2;
-	  uint64 event_nonce = 3;
+message QueryGetAttestationRequest {	  
+	  string chain_id = 1;
+	  uint64 event_nonce = 2;
 
 }
 
@@ -158,10 +157,9 @@ message QueryAllValsetConfirmationResponse {
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
-message QueryGetValsetUpdatedClaimRequest {
-	  uint64 chain_type =1;
-	  string chain_id = 2;
-	  uint64 event_nonce = 3;
+message QueryGetValsetUpdatedClaimRequest {	  
+	  string chain_id = 1;
+	  uint64 event_nonce = 2;
 
 }
 
@@ -192,10 +190,9 @@ message QueryLatestValsetResponse {
   Valset valset = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryLastEventNonceRequest {
-  	uint64 chain_type =1;
-	string chain_id = 2;
-	string validator_address = 3;
+message QueryLastEventNonceRequest {  	
+	string chain_id = 1;
+	string validator_address = 2;
 }
 
 message QueryLastEventNonceResponse {

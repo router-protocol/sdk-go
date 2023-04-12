@@ -22,7 +22,7 @@ service Query {
   
   // Queries a list of MetaInfo items.
   rpc MetaInfo    (QueryGetMetaInfoRequest) returns (QueryGetMetaInfoResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info/{chain_type}/{chain_id}/{dapp_address}";
+    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info/{chain_id}/{dapp_address}";
   
   }
   rpc MetaInfoAll (QueryAllMetaInfoRequest) returns (QueryAllMetaInfoResponse) {
@@ -37,7 +37,7 @@ service Query {
   
   // Queries a list of MetadataRequest items.
   rpc MetadataRequest    (QueryGetMetadataRequestRequest) returns (QueryGetMetadataRequestResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/metadata_request/{chain_type}/{chain_id}/{event_nonce}";
+    option (google.api.http).get = "/router-protocol/router-chain/metastore/metadata_request/{chain_id}/{event_nonce}";
   }
 
   rpc MetadataRequestAll (QueryAllMetadataRequestRequest) returns (QueryAllMetadataRequestResponse) {
@@ -56,9 +56,8 @@ message QueryParamsResponse {
 }
 
 message QueryGetMetaInfoRequest {
-  uint64 chain_type =1;
-  string chain_id = 2;
-  string dapp_address = 3;
+  string chain_id = 1;
+  string dapp_address = 2;
 }
 
 message QueryGetMetaInfoResponse {
@@ -75,9 +74,8 @@ message QueryAllMetaInfoResponse {
 }
 
 message QueryGetMetadataRequestRequest {
-  uint64 chain_type =1;
-	  string chain_id = 2;
-	  uint64 event_nonce = 3;
+	  string chain_id = 1;
+	  uint64 event_nonce = 2;
 }
 
 message QueryGetMetadataRequestResponse {

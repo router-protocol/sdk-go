@@ -3,7 +3,6 @@ package types
 import (
 	"encoding/binary"
 
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
@@ -16,10 +15,9 @@ const (
 
 // MetaInfoKey returns the store key to retrieve a MetaInfo from the index fields
 func MetaInfoKey(
-	chainType multichainTypes.ChainType,
 	chainId string,
 	dappAddress []byte,
 ) []byte {
 
-	return util.AppendBytes(util.UInt64Bytes(uint64(chainType)), []byte(chainId), dappAddress)
+	return util.AppendBytes([]byte(chainId), dappAddress)
 }
