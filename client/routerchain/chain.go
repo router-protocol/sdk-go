@@ -92,6 +92,8 @@ type ChainClient interface {
 	// Crosschain
 	GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error)
 	GetAllCrosschainRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainRequestConfirmResponse, error)
+	GetAllCrosschainAckRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainAckRequestResponse, error)
+	GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error)
 
 	// MetaStore
 	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
@@ -775,6 +777,21 @@ func (c *chainClient) GetAllCrosschainRequestConfirmations(ctx context.Context, 
 		Pagination:        pagination,
 	}
 	return c.crosschainQueryClient.CrosschainRequestConfirmAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrosschainAckRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainAckRequestResponse, error) {
+	req := &crosschainTypes.QueryAllCrosschainAckRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.CrosschainAckRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error) {
+	req := &crosschainTypes.QueryAllCrosschainAckRequestConfirmRequest{
+		DestChainId:          destChainId,
+		AckRequestIdentifier: ackRequestIdentifier,
+		ClaimHash:            claimHash,
+		Pagination:           pagination,
+	}
+	return c.crosschainQueryClient.CrosschainAckRequestConfirmAll(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.
