@@ -83,6 +83,7 @@ func NewCrosschainAckRequestFromMsg(
 		DestTxHash:           msg.DestTxHash,
 		RelayerRouterAddress: msg.RelayerRouterAddress,
 		SourceChainId:        msg.SourceChainId,
+		RequestSender:        msg.RequestSender,
 		RequestIdentifier:    msg.RequestIdentifier,
 		ExecData:             msg.ExecData,
 		ExecStatus:           msg.ExecStatus,
