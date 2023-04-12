@@ -74,9 +74,9 @@ const (
 				{"internalType": "uint256","name": "ackGasLimit","type": "uint256"},
 				{"internalType": "uint256","name": "ackGasPrice","type": "uint256"},
 				{"internalType": "uint256","name": "relayerFees","type": "uint256"},
-				{"internalType": "uint8","name": "ackType","type": "uint8"},	
-				{"internalType": "bool","name": "isReadCall","type": "bool"},		
-				{ "internalType": "bytes","name": "asmAddress","type": "bytes"},						
+				{"internalType": "uint256","name": "ackType", "type": "uint256"},	
+				{"internalType": "bool","name": "isReadCall", "type": "bool"},		
+				{ "internalType": "bytes","name": "asmAddress", "type": "bytes"}						
 			],
 			"outputs": []
 		}]`
