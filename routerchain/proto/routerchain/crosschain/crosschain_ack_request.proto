@@ -12,8 +12,8 @@ message CrosschainAckRequest {
   string sourceChainId = 6; 
   bytes request_sender   = 7;
   uint64 requestIdentifier = 8; 
-  string ackResponse = 9; 
-  bool ackStatus = 10; 
+  bytes execData = 9; 
+  bool execStatus = 10; 
   string ethSigner = 11; 
   string signature = 12; 
   string status = 13; 

@@ -58,8 +58,8 @@ message MsgCrosschainAckRequest {
   string sourceChainId        =  7;
   bytes  request_sender       =  8;
   uint64 requestIdentifier    =  9;
-  string ackResponse          = 10;
-  bool   ackStatus            = 11;
+  bytes execData          = 10;
+  bool   execStatus            = 11;
   string ethSigner            = 12;
   string signature            = 13;
 }
