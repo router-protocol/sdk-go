@@ -74,7 +74,7 @@ const (
 			{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
 			{ "internalType": "string", "name": "_destChainId","type": "string" },	
 			{ "internalType": "bytes","name": "_requestSender","type": "bytes"},
-			{"internalType": "bytes","name": "_execData","type": "bytes"}	
+			{"internalType": "bytes","name": "_execData","type": "bytes"},	
 			{"internalType": "bool","name": "execFlag", "type": "bool"}				
 		],
 		"outputs": [
