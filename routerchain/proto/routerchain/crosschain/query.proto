@@ -8,6 +8,8 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "routerchain/crosschain/params.proto";
 import "routerchain/crosschain/crosschain_request.proto";
 import "routerchain/crosschain/crosschain_request_confirm.proto";
+import "routerchain/crosschain/crosschain_ack_request.proto";
+import "routerchain/crosschain/crosschain_ack_request_confirm.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
@@ -39,6 +41,26 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_request_confirm/{sourceChainId}/{requestIdentifier}/{claimHash}";
   
   }
+  
+  // Queries a list of CrosschainAckRequest items.
+  rpc CrosschainAckRequest    (QueryGetCrosschainAckRequestRequest) returns (QueryGetCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request/{index}";
+  
+  }
+  rpc CrosschainAckRequestAll (QueryAllCrosschainAckRequestRequest) returns (QueryAllCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request";
+  
+  }
+  
+  // Queries a list of CrosschainAckRequestConfirm items.
+  rpc CrosschainAckRequestConfirm    (QueryGetCrosschainAckRequestConfirmRequest) returns (QueryGetCrosschainAckRequestConfirmResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request_confirm/{destChainId}/{ackRequestIdentifier}/{claimHash}/{orchestrator}";
+  
+  }
+  rpc CrosschainAckRequestConfirmAll (QueryAllCrosschainAckRequestConfirmRequest) returns (QueryAllCrosschainAckRequestConfirmResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request_confirm/{destChainId}/{ackRequestIdentifier}/{claimHash}";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -68,10 +90,10 @@ message QueryAllCrosschainRequestResponse {
 }
 
 message QueryGetCrosschainRequestConfirmRequest {
-	  string sourceChainId = 1;
-	  uint64 requestIdentifier = 2;   
-  	bytes claimHash = 3;  
-	  string orchestrator = 4;
+  string sourceChainId     = 1;
+  uint64 requestIdentifier = 2;
+  bytes  claimHash         = 3;
+  string orchestrator      = 4;
 }
 
 message QueryGetCrosschainRequestConfirmResponse {
@@ -79,10 +101,10 @@ message QueryGetCrosschainRequestConfirmResponse {
 }
 
 message QueryAllCrosschainRequestConfirmRequest {
-	  string sourceChainId = 1;
-	  uint64 requestIdentifier = 2;   
-  	  bytes claimHash = 3;  
-  cosmos.base.query.v1beta1.PageRequest pagination = 4;
+  string                                sourceChainId     = 1;
+  uint64                                requestIdentifier = 2;
+  bytes                                 claimHash         = 3;
+  cosmos.base.query.v1beta1.PageRequest pagination        = 4;
 }
 
 message QueryAllCrosschainRequestConfirmResponse {
@@ -90,3 +112,42 @@ message QueryAllCrosschainRequestConfirmResponse {
            cosmos.base.query.v1beta1.PageResponse pagination               = 2;
 }
 
+message QueryGetCrosschainAckRequestRequest {
+  string index = 1;
+}
+
+message QueryGetCrosschainAckRequestResponse {
+  CrosschainAckRequest crosschainAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCrosschainAckRequestResponse {
+  repeated CrosschainAckRequest                   crosschainAckRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination           = 2;
+}
+
+message QueryGetCrosschainAckRequestConfirmRequest {
+  string destChainId     = 1;
+  uint64 ackRequestIdentifier = 2;
+  bytes  claimHash         = 3;
+  string orchestrator      = 4;
+}
+
+message QueryGetCrosschainAckRequestConfirmResponse {
+  CrosschainAckRequestConfirm crosschainAckRequestConfirm = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCrosschainAckRequestConfirmRequest {
+  string                                destChainId     = 1;
+  uint64                                ackRequestIdentifier = 2;
+  bytes                                 claimHash         = 3;
+  cosmos.base.query.v1beta1.PageRequest pagination        = 4;
+}
+
+message QueryAllCrosschainAckRequestConfirmResponse {
+  repeated CrosschainAckRequestConfirm            crosschainAckRequestConfirm = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                  = 2;
+}
