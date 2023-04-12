@@ -258,6 +258,7 @@ func NewChainClient(
 		attestationQueryClient: attestationTypes.NewQueryClient(conn),
 		oracleQueryClient:      oracleTypes.NewQueryClient(conn),
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
+		crosschainQueryClient:  crosschainTypes.NewQueryClient(conn),
 	}
 
 	if cc.canSign {
