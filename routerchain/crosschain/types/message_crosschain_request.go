@@ -155,7 +155,7 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	requestTimestamp.SetUint64(uint64(msg.SrcTimestamp))
 
 	routeRecipient := common.BytesToAddress(msg.RouteRecipient)
-	asmAddress := common.BytesToAddress(metadata.asmAddress)
+	asmAddress := common.BytesToAddress(metadata.AsmAddress)
 
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
 	// but other than that it's a constant that has no impact on the output. This is because
@@ -171,7 +171,7 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		msg.DestChainId,
 		msg.RequestSender,
 		msg.RequestPacket,
-		metadata.isReadCall,
+		metadata.IsReadCall,
 	)
 
 	// this should never happen outside of test since any case that could crash on encoding
@@ -187,44 +187,88 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 }
 
 type CrosschainEVMMetadata struct {
-	destGasLimit big.Int
-	destGasPrice big.Int
-	ackGasLimit  big.Int
-	ackGasPrice  big.Int
-	relayerFees  big.Int
-	ackType      uint8
-	isReadCall   bool
-	asmAddress   []byte
+	DestGasLimit *big.Int `json:"destGasLimit"`
+	DestGasPrice *big.Int `json:"destGasPrice"`
+	AckGasLimit  *big.Int `json:"ackGasLimit"`
+	AckGasPrice  *big.Int `json:"ackGasPrice"`
+	RelayerFees  *big.Int `json:"relayerFees"`
+	AckType      uint8    `json:"ackType"`
+	IsReadCall   bool     `json:"isReadCall"`
+	AsmAddress   []byte   `json:"asmAddress"`
 }
 
-func (msg MsgCrosschainRequest) DecodeMetadata() CrosschainEVMMetadata {
-	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestMetadataABIJSON))
-	if err != nil {
-		panic("Bad ABI constant!")
+func (msg MsgCrosschainRequest) DecodeMetadata() *CrosschainEVMMetadata {
+	metadataAbiStruct, _ := abi.NewType("tuple", "struct thing", []abi.ArgumentMarshaling{
+		{Name: "destGasLimit", Type: "uint256"},
+		{Name: "destGasPrice", Type: "uint256"},
+		{Name: "ackGasLimit", Type: "uint256"},
+		{Name: "ackGasPrice", Type: "uint256"},
+		{Name: "relayerFees", Type: "uint256"},
+		{Name: "ackType", Type: "uint8"},
+		{Name: "isReadCall", Type: "bool"},
+		{Name: "asmAddress", Type: "bytes"},
+	})
+
+	args := abi.Arguments{
+		{Type: metadataAbiStruct, Name: "param_one"},
 	}
 
-	var crosschainMetadata CrosschainEVMMetadata
-
-	err = abiDef.UnpackIntoInterface(crosschainMetadata, "metadata", msg.RequestMetadata)
+	// Unpack the packed data
+	unpackedData, err := args.Unpack(msg.RequestMetadata)
 	if err != nil {
-		panic(err)
+		fmt.Println("failed to unpack data: ", err)
+		return nil
 	}
 
-	return crosschainMetadata
+	// crosschainEVMMetadata := unpackedData[0].(struct {
+	// 	DestGasLimit *big.Int `json:"destGasLimit"`
+	// 	DestGasPrice *big.Int `json:"destGasPrice"`
+	// 	AckGasLimit  *big.Int `json:"ackGasLimit"`
+	// 	AckGasPrice  *big.Int `json:"ackGasPrice"`
+	// 	RelayerFees  *big.Int `json:"relayerFees"`
+	// 	AckType      uint8    `json:"ackType"`
+	// 	IsReadCall   bool     `json:"isReadCall"`
+	// 	AsmAddress   []byte   `json:"asmAddress"`
+	// })
+
+	crosschainMetadata := unpackedData[0].(CrosschainEVMMetadata)
+	return &crosschainMetadata
 }
 
-func (msg CrosschainRequest) DecodeMetadata() CrosschainEVMMetadata {
-	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestMetadataABIJSON))
-	if err != nil {
-		panic("Bad ABI constant!")
+func (msg CrosschainRequest) DecodeMetadata() *CrosschainEVMMetadata {
+	metadataAbiStruct, _ := abi.NewType("tuple", "struct thing", []abi.ArgumentMarshaling{
+		{Name: "destGasLimit", Type: "uint256"},
+		{Name: "destGasPrice", Type: "uint256"},
+		{Name: "ackGasLimit", Type: "uint256"},
+		{Name: "ackGasPrice", Type: "uint256"},
+		{Name: "relayerFees", Type: "uint256"},
+		{Name: "ackType", Type: "uint8"},
+		{Name: "isReadCall", Type: "bool"},
+		{Name: "asmAddress", Type: "bytes"},
+	})
+
+	args := abi.Arguments{
+		{Type: metadataAbiStruct, Name: "param_one"},
 	}
 
-	var crosschainMetadata CrosschainEVMMetadata
-
-	err = abiDef.UnpackIntoInterface(crosschainMetadata, "metadata", msg.RequestMetadata)
+	// Unpack the packed data
+	unpackedData, err := args.Unpack(msg.RequestMetadata)
 	if err != nil {
-		panic(err)
+		fmt.Println("failed to unpack data: ", err)
+		return nil
 	}
 
-	return crosschainMetadata
+	// crosschainEVMMetadata := unpackedData[0].(struct {
+	// 	DestGasLimit *big.Int `json:"destGasLimit"`
+	// 	DestGasPrice *big.Int `json:"destGasPrice"`
+	// 	AckGasLimit  *big.Int `json:"ackGasLimit"`
+	// 	AckGasPrice  *big.Int `json:"ackGasPrice"`
+	// 	RelayerFees  *big.Int `json:"relayerFees"`
+	// 	AckType      uint8    `json:"ackType"`
+	// 	IsReadCall   bool     `json:"isReadCall"`
+	// 	AsmAddress   []byte   `json:"asmAddress"`
+	// })
+
+	crosschainMetadata := unpackedData[0].(CrosschainEVMMetadata)
+	return &crosschainMetadata
 }
