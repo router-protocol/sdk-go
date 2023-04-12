@@ -9,16 +9,6 @@ copy-chain-types:
 
 	cp ../router-chain/x/crosschain/types/*.go routerchain/crosschain/types
 	rm -rf routerchain/crosschain/types/*test.go  rm -rf routerchain/crosschain/types/*gw.go
-
-	cp ../router-chain/x/inbound/types/*.go routerchain/inbound/types
-	rm -rf routerchain/inbound/types/*test.go  rm -rf routerchain/inbound/types/*gw.go
-
-	cp ../router-chain/x/crosstalk/types/*.go routerchain/crosstalk/types
-	rm -rf routerchain/crosstalk/types/*test.go  rm -rf routerchain/crosstalk/types/*gw.go
-
-	cp ../router-chain/x/outbound/types/*.go routerchain/outbound/types
-	rm -rf routerchain/outbound/types/*test.go  rm -rf routerchain/outbound/types/*gw.go
-
 	
 	cp ../router-chain/x/metastore/types/*.go routerchain/metastore/types
 	rm -rf routerchain/metastore/types/*test.go  rm -rf routerchain/metastore/types/*gw.go
