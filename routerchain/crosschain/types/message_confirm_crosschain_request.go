@@ -9,14 +9,14 @@ const TypeMsgConfirmCrosschainRequest = "confirm_crosschain_request"
 
 var _ sdk.Msg = &MsgConfirmCrosschainRequest{}
 
-func NewMsgConfirmCrosschainRequest(orchestrator string, sourceChainId string, requestNonce uint64, claimHash []byte, ethSigner string, signature string) *MsgConfirmCrosschainRequest {
+func NewMsgConfirmCrosschainRequest(orchestrator string, sourceChainId string, requestIdentifier uint64, claimHash []byte, ethSigner string, signature string) *MsgConfirmCrosschainRequest {
 	return &MsgConfirmCrosschainRequest{
-		Orchestrator:  orchestrator,
-		SourceChainId: sourceChainId,
-		RequestNonce:  requestNonce,
-		ClaimHash:     claimHash,
-		EthSigner:     ethSigner,
-		Signature:     signature,
+		Orchestrator:      orchestrator,
+		SourceChainId:     sourceChainId,
+		RequestIdentifier: requestIdentifier,
+		ClaimHash:         claimHash,
+		EthSigner:         ethSigner,
+		Signature:         signature,
 	}
 }
 
