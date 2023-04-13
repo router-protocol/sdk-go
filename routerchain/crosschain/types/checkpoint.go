@@ -35,6 +35,23 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	}
 }
 
+// GetCheckpoint gets the checkpoint signature from the given CrossTalkRequest
+func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
+	/**
+	     Always get checkpoint from crosschain request only.
+	 	Crosschain request is dynamic while msg is static.
+	**/
+
+	switch msg.DestChainType {
+	case multichainTypes.CHAIN_TYPE_NEAR:
+		return msg.GetNearCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_COSMOS:
+		return nil
+	default:
+		return msg.GetEvmCheckpoint("")
+	}
+}
+
 func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) []byte {
 	return msg.GetEvmCheckpoint(routerIDstring)
 }

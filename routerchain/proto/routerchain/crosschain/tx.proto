@@ -41,7 +41,7 @@ message MsgCrosschainRequestResponse {}
 message MsgConfirmCrosschainRequest {
   string orchestrator  = 1;
   string sourceChainId = 2;
-  uint64 requestNonce  = 3;
+  uint64 request_identifier  = 3;
   bytes  claimHash     = 4;
   string ethSigner     = 5;
   string signature     = 6;
