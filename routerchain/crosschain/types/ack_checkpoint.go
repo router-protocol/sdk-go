@@ -31,6 +31,16 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	}
 }
 
+// GetCheckpoint gets the checkpoint signature from the given MsgCrosschainAckRequest
+func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
+	switch msg.SourceChainId {
+	case "none":
+		return nil
+	default:
+		return msg.GetEvmCheckpoint("")
+	}
+}
+
 func (msg CrosschainAckRequest) GetNearCheckpoint(routerIDstring string) []byte {
 	return msg.GetEvmCheckpoint(routerIDstring)
 }
