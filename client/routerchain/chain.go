@@ -95,6 +95,7 @@ type ChainClient interface {
 	GetAllCrosschainAckRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainAckRequestResponse, error)
 	GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error)
 	GetCrosschainRequestConfirmation(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainRequestConfirmResponse, error)
+	GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error)
 
 	// MetaStore
 	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
@@ -803,6 +804,16 @@ func (c *chainClient) GetAllCrosschainRequestAckConfirmations(ctx context.Contex
 		Pagination:           pagination,
 	}
 	return c.crosschainQueryClient.CrosschainAckRequestConfirmAll(ctx, req)
+}
+
+func (c *chainClient) GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error) {
+	req := &crosschainTypes.QueryGetCrosschainAckRequestConfirmRequest{
+		Orchestrator:         orchestrator,
+		DestChainId:          destChainId,
+		AckRequestIdentifier: ackRequestIdentifier,
+		ClaimHash:            claimHash,
+	}
+	return c.crosschainQueryClient.CrosschainAckRequestConfirm(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.
