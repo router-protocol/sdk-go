@@ -18,7 +18,7 @@ const (
 )
 
 func main() {
-	network := common.LoadNetwork("devnet-alpha", "k8s")
+	network := common.LoadNetwork("local", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {
@@ -66,14 +66,19 @@ func main() {
 
 	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
 	allCrosschainRequests, err := chainClient.GetAllCrosschainRequests(ctx, nil)
-	fmt.Println("allCrosschainRequests", allCrosschainRequests, "error", err)
+	// fmt.Println("allCrosschainRequests", allCrosschainRequests, "error", err)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	for _, crosschainRequest := range allCrosschainRequests.CrosschainRequest {
+		if crosschainRequest.RequestIdentifier != 7 {
+			continue
+		}
+
+		fmt.Println("crosschainRequest", crosschainRequest)
 		claimhash, _ := crosschainRequest.ClaimHash()
-		allCrosschainRequestConfirmations, err := chainClient.GetAllCrosschainRequestConfirmations(ctx, nil, crosschainRequest.SrcChainId, crosschainRequest.EventNonce, claimhash)
+		allCrosschainRequestConfirmations, err := chainClient.GetAllCrosschainRequestConfirmations(ctx, nil, crosschainRequest.SrcChainId, crosschainRequest.RequestIdentifier, claimhash)
 		fmt.Println("allCrosschainRequestConfirmations", allCrosschainRequestConfirmations, "error", err)
 		if err != nil {
 			fmt.Println(err)

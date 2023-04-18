@@ -60,7 +60,9 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iReceive gateway call  /////
 	//////////////////////////////////////////////////////////////////////
+	fmt.Println("Get EvmCheckpoint")
 	metadata := DecodeContractMetadata(&msg)
+	fmt.Println("Decoded Metadata", metadata)
 
 	methodNameBytes := []uint8("iReceive")
 	var crosschainMethodName [32]uint8
@@ -74,8 +76,8 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	requestTimestamp := &big.Int{}
 	requestTimestamp.SetUint64(uint64(msg.SrcTimestamp))
 
-	routeRecipient := common.BytesToAddress(msg.RouteRecipient)
-	asmAddress := common.BytesToAddress(metadata.AsmAddress)
+	routeRecipient := common.HexToAddress(string(msg.RouteRecipient))
+	asmAddress := common.HexToAddress(string(metadata.AsmAddress))
 
 	/////////////////////////////////////////////////
 	/////  pack abi for iReceive function  //////////
@@ -101,6 +103,19 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		msg.RequestPacket,
 		metadata.IsReadCall,
 	)
+
+	fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
+	fmt.Println("Checkpoint-routeAmount", routeAmount)
+	fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
+	fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
+	fmt.Println("Checkpoint-routeRecipient", routeRecipient)
+	fmt.Println("Checkpoint-asmAddress", asmAddress)
+	fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
+	fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
+	fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
+	fmt.Println("Checkpoint-msg.RequestPacket", msg.RequestPacket)
+	fmt.Println("Checkpoint-metadata.IsReadCall", metadata.IsReadCall)
+	fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
 
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
