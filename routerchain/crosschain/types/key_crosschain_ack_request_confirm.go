@@ -16,10 +16,10 @@ const (
 
 // CrosschainAckRequestConfirmKey returns the store key to retrieve a CrosschainAckRequestConfirm from the index fields
 func CrosschainAckRequestConfirmKey(
-	destChainId string,
+	ackSrcChainId string,
 	ackrequestIdentifier uint64,
 	claimHash []byte,
 	orchestrator sdk.AccAddress,
 ) []byte {
-	return util.AppendBytes([]byte(destChainId), util.UInt64Bytes(ackrequestIdentifier), claimHash, orchestrator.Bytes())
+	return util.AppendBytes([]byte(ackSrcChainId), util.UInt64Bytes(ackrequestIdentifier), claimHash, orchestrator.Bytes())
 }

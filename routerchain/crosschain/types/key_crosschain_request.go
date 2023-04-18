@@ -15,11 +15,11 @@ const (
 
 // CrosschainRequestKey returns the store key to retrieve a CrosschainRequest from the index fields
 func CrosschainRequestKey(
-	chainId string,
-	eventNonce uint64,
+	srcChainId string,
+	requestIdentifier uint64,
 	claimHash []byte,
 ) []byte {
-	crosschainRequestKey := util.AppendBytes([]byte(chainId), util.UInt64Bytes(eventNonce), claimHash)
+	crosschainRequestKey := util.AppendBytes([]byte(srcChainId), util.UInt64Bytes(requestIdentifier), claimHash)
 
 	return crosschainRequestKey
 }

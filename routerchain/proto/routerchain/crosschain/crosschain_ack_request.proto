@@ -9,7 +9,7 @@ import "gogoproto/gogo.proto";
 
 message CrosschainAckRequest {
   string ack_src_chain_id = 1; 
-  uint64 eventNonce = 2; 
+  uint64 ack_request_identifier = 2; 
   uint64 blockHeight = 3; 
   string destTxHash = 4; 
   string relayerRouterAddress = 5; 

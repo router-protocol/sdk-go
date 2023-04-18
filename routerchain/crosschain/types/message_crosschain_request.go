@@ -15,7 +15,7 @@ var _ sdk.Msg = &MsgCrosschainRequest{}
 func NewMsgCrosschainRequest(
 	orchestrator string,
 	srcChainId string,
-	srcEventNonce uint64,
+	requestIdentifier uint64,
 	srcBlockHeight uint64,
 	sourceTxHash string,
 	srcTimestamp uint64,
@@ -29,21 +29,21 @@ func NewMsgCrosschainRequest(
 	srcChainType multichainTypes.ChainType,
 	destChainType multichainTypes.ChainType) *MsgCrosschainRequest {
 	return &MsgCrosschainRequest{
-		Orchestrator:    orchestrator,
-		SrcChainId:      srcChainId,
-		SrcChainType:    srcChainType,
-		DestChainType:   destChainType,
-		EventNonce:      srcEventNonce,
-		BlockHeight:     srcBlockHeight,
-		SourceTxHash:    sourceTxHash,
-		SrcTimestamp:    srcTimestamp,
-		SrcTxOrigin:     srcTxOrigin,
-		RouteAmount:     routeAmount,
-		RouteRecipient:  routeRecipient,
-		DestChainId:     destChainId,
-		RequestSender:   requestSender,
-		RequestMetadata: requestMetadata,
-		RequestPacket:   requestPacket,
+		Orchestrator:      orchestrator,
+		SrcChainId:        srcChainId,
+		SrcChainType:      srcChainType,
+		DestChainType:     destChainType,
+		RequestIdentifier: requestIdentifier,
+		BlockHeight:       srcBlockHeight,
+		SourceTxHash:      sourceTxHash,
+		SrcTimestamp:      srcTimestamp,
+		SrcTxOrigin:       srcTxOrigin,
+		RouteAmount:       routeAmount,
+		RouteRecipient:    routeRecipient,
+		DestChainId:       destChainId,
+		RequestSender:     requestSender,
+		RequestMetadata:   requestMetadata,
+		RequestPacket:     requestPacket,
 	}
 }
 
@@ -82,6 +82,9 @@ func (msg *MsgCrosschainRequest) GetChainType() multichainTypes.ChainType {
 
 func (msg *MsgCrosschainRequest) GetChainId() string {
 	return msg.SrcChainId
+}
+func (msg *MsgCrosschainRequest) GetEventNonce() uint64 {
+	return msg.RequestIdentifier
 }
 
 /////////////////////////////

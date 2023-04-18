@@ -7,7 +7,7 @@ import (
 
 func NewCrosschainRequest(
 	srcChainId string,
-	srcEventNonce uint64,
+	requestIdentifier uint64,
 	srcBlockHeight uint64,
 	sourceTxHash string,
 	srcTimestamp uint64,
@@ -22,21 +22,21 @@ func NewCrosschainRequest(
 	destChainType multichainTypes.ChainType,
 ) *CrosschainRequest {
 	return &CrosschainRequest{
-		SrcChainId:      srcChainId,
-		EventNonce:      srcEventNonce,
-		BlockHeight:     srcBlockHeight,
-		SourceTxHash:    sourceTxHash,
-		SrcTimestamp:    srcTimestamp,
-		SrcTxOrigin:     srcTxOrigin,
-		RouteAmount:     routeAmount,
-		RouteRecipient:  routeRecipient,
-		DestChainId:     destChainId,
-		RequestSender:   requestSender,
-		RequestMetadata: requestMetadata,
-		RequestPacket:   requestPacket,
-		SrcChainType:    srcChainType,
-		DestChainType:   destChainType,
-		Status:          "created",
+		SrcChainId:        srcChainId,
+		RequestIdentifier: requestIdentifier,
+		BlockHeight:       srcBlockHeight,
+		SourceTxHash:      sourceTxHash,
+		SrcTimestamp:      srcTimestamp,
+		SrcTxOrigin:       srcTxOrigin,
+		RouteAmount:       routeAmount,
+		RouteRecipient:    routeRecipient,
+		DestChainId:       destChainId,
+		RequestSender:     requestSender,
+		RequestMetadata:   requestMetadata,
+		RequestPacket:     requestPacket,
+		SrcChainType:      srcChainType,
+		DestChainType:     destChainType,
+		Status:            "created",
 	}
 }
 
@@ -44,21 +44,21 @@ func NewCrosschainRequestFromMsg(
 	msg *MsgCrosschainRequest,
 ) *CrosschainRequest {
 	return &CrosschainRequest{
-		SrcChainId:      msg.SrcChainId,
-		EventNonce:      msg.EventNonce,
-		BlockHeight:     msg.BlockHeight,
-		SourceTxHash:    msg.SourceTxHash,
-		SrcTimestamp:    msg.SrcTimestamp,
-		SrcTxOrigin:     msg.SrcTxOrigin,
-		RouteAmount:     msg.RouteAmount,
-		RouteRecipient:  msg.RouteRecipient,
-		DestChainId:     msg.DestChainId,
-		RequestSender:   msg.RequestSender,
-		RequestMetadata: msg.RequestMetadata,
-		RequestPacket:   msg.RequestPacket,
-		SrcChainType:    msg.SrcChainType,
-		DestChainType:   msg.DestChainType,
-		Status:          "created",
+		SrcChainId:        msg.SrcChainId,
+		RequestIdentifier: msg.RequestIdentifier,
+		BlockHeight:       msg.BlockHeight,
+		SourceTxHash:      msg.SourceTxHash,
+		SrcTimestamp:      msg.SrcTimestamp,
+		SrcTxOrigin:       msg.SrcTxOrigin,
+		RouteAmount:       msg.RouteAmount,
+		RouteRecipient:    msg.RouteRecipient,
+		DestChainId:       msg.DestChainId,
+		RequestSender:     msg.RequestSender,
+		RequestMetadata:   msg.RequestMetadata,
+		RequestPacket:     msg.RequestPacket,
+		SrcChainType:      msg.SrcChainType,
+		DestChainType:     msg.DestChainType,
+		Status:            "created",
 	}
 }
 
@@ -78,7 +78,7 @@ func NewCrosschainAckRequestFromMsg(
 ) *CrosschainAckRequest {
 	return &CrosschainAckRequest{
 		AckSrcChainId:        msg.AckSrcChainId,
-		EventNonce:           msg.EventNonce,
+		AckRequestIdentifier: msg.AckRequestIdentifier,
 		BlockHeight:          msg.BlockHeight,
 		DestTxHash:           msg.DestTxHash,
 		RelayerRouterAddress: msg.RelayerRouterAddress,
@@ -93,9 +93,9 @@ func NewCrosschainAckRequestFromMsg(
 	}
 }
 
-func NewCrosschainAckRequestConfirm(destChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosschainAckRequestConfirm {
+func NewCrosschainAckRequestConfirm(ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosschainAckRequestConfirm {
 	return &CrosschainAckRequestConfirm{
-		DestChainId:          destChainId,
+		AckSrcChainId:        ackSrcChainId,
 		AckRequestIdentifier: ackRequestIdentifier,
 		ClaimHash:            claimHash,
 		Orchestrator:         orchestrator,
@@ -108,11 +108,11 @@ func NewCrosschainAckReceiptFromMsg(
 	msg *MsgCrosschainAckReceipt,
 ) *CrosschainAckReceipt {
 	return &CrosschainAckReceipt{
-		ChainId:              msg.ChainId,
-		EventNonce:           msg.EventNonce,
-		BlockHeight:          msg.BlockHeight,
-		TxHash:               msg.TxHash,
-		RelayerRouterAddress: msg.RelayerRouterAddress,
-		RequestIdentifier:    msg.RequestIdentifier,
+		AckReceiptSrcChainId:  msg.AckReceiptSrcChainId,
+		AckReceiptIdentifier:  msg.AckReceiptIdentifier,
+		AckReceiptBlockHeight: msg.AckReceiptBlockHeight,
+		AckReceiptTxHash:      msg.AckReceiptTxHash,
+		RelayerRouterAddress:  msg.RelayerRouterAddress,
+		RequestIdentifier:     msg.RequestIdentifier,
 	}
 }

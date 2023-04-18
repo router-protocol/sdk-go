@@ -15,11 +15,11 @@ const (
 
 // CrosschainAckReceiptKey returns the store key to retrieve a CrosschainAckReceipt from the index fields
 func CrosschainAckReceiptKey(
-	chainId string,
-	eventNonce uint64,
+	ackReceiptSrcChainId string,
+	ackReceiptIdentifier uint64,
 	claimHash []byte,
 ) []byte {
-	crosschainAckReceiptKey := util.AppendBytes([]byte(chainId), util.UInt64Bytes(eventNonce), claimHash)
+	crosschainAckReceiptKey := util.AppendBytes([]byte(ackReceiptSrcChainId), util.UInt64Bytes(ackReceiptIdentifier), claimHash)
 
 	return crosschainAckReceiptKey
 }

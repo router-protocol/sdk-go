@@ -10,15 +10,15 @@ const TypeMsgCrosschainAckReceipt = "crosschain_ack_receipt"
 
 var _ sdk.Msg = &MsgCrosschainAckReceipt{}
 
-func NewMsgCrosschainAckReceipt(orchestrator string, chainId string, eventNonce uint64, blockHeight uint64, txHash string, relayerRouterAddress string, requestIdentifier uint64) *MsgCrosschainAckReceipt {
+func NewMsgCrosschainAckReceipt(orchestrator string, ackReceiptSrcChainId string, ackReceiptIdentifier uint64, ackReceiptBlockHeight uint64, ackReceiptTxHash string, relayerRouterAddress string, requestIdentifier uint64) *MsgCrosschainAckReceipt {
 	return &MsgCrosschainAckReceipt{
-		Orchestrator:         orchestrator,
-		ChainId:              chainId,
-		EventNonce:           eventNonce,
-		BlockHeight:          blockHeight,
-		TxHash:               txHash,
-		RelayerRouterAddress: relayerRouterAddress,
-		RequestIdentifier:    requestIdentifier,
+		Orchestrator:          orchestrator,
+		AckReceiptSrcChainId:  ackReceiptSrcChainId,
+		AckReceiptIdentifier:  ackReceiptIdentifier,
+		AckReceiptBlockHeight: ackReceiptBlockHeight,
+		AckReceiptTxHash:      ackReceiptTxHash,
+		RelayerRouterAddress:  relayerRouterAddress,
+		RequestIdentifier:     requestIdentifier,
 	}
 }
 
@@ -49,6 +49,18 @@ func (msg *MsgCrosschainAckReceipt) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
+}
+
+func (msg *MsgCrosschainAckReceipt) GetChainId() string {
+	return msg.AckReceiptSrcChainId
+}
+
+func (msg *MsgCrosschainAckReceipt) GetBlockHeight() uint64 {
+	return msg.AckReceiptBlockHeight
+}
+
+func (msg *MsgCrosschainAckReceipt) GetEventNonce() uint64 {
+	return msg.AckReceiptIdentifier
 }
 
 /////////////////////////////

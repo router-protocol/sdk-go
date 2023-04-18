@@ -10,11 +10,11 @@ const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
 
 var _ sdk.Msg = &MsgCrosschainAckRequest{}
 
-func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainId string, eventNonce uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
+func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainId string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
 	return &MsgCrosschainAckRequest{
 		Orchestrator:         orchestrator,
 		AckSrcChainId:        ackSrcChainId,
-		EventNonce:           eventNonce,
+		AckRequestIdentifier: ackRequestIdentifier,
 		BlockHeight:          blockHeight,
 		DestTxHash:           destTxHash,
 		RelayerRouterAddress: relayerRouterAddress,
@@ -57,6 +57,10 @@ func (msg *MsgCrosschainAckRequest) ValidateBasic() error {
 
 func (msg *MsgCrosschainAckRequest) GetChainId() string {
 	return msg.AckSrcChainId
+}
+
+func (msg *MsgCrosschainAckRequest) GetEventNonce() uint64 {
+	return msg.AckRequestIdentifier
 }
 
 /////////////////////////////
