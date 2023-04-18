@@ -1,10 +1,10 @@
 package types
 
 import (
+	"encoding/binary"
+	"encoding/hex"
 	fmt "fmt"
 	"math/big"
-
-	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
 ///////////////////////////////////
@@ -12,10 +12,10 @@ import (
 ///////////////////////////////////
 
 type ContractMetadata struct {
-	DestGasLimit *big.Int `json:"destGasLimit"`
-	DestGasPrice *big.Int `json:"destGasPrice"`
-	AckGasLimit  *big.Int `json:"ackGasLimit"`
-	AckGasPrice  *big.Int `json:"ackGasPrice"`
+	DestGasLimit uint64   `json:"destGasLimit"`
+	DestGasPrice uint64   `json:"destGasPrice"`
+	AckGasLimit  uint64   `json:"ackGasLimit"`
+	AckGasPrice  uint64   `json:"ackGasPrice"`
 	RelayerFees  *big.Int `json:"relayerFees"`
 	AckType      uint8    `json:"ackType"`
 	IsReadCall   bool     `json:"isReadCall"`
@@ -28,70 +28,51 @@ type IContractMetadata interface {
 
 func DecodeContractMetadata(msg IContractMetadata) *ContractMetadata {
 	fmt.Println("sdk-go GetCheckpoint", "Decode Evm checkpoint")
+	requestMetadataStr := hex.EncodeToString(msg.GetRequestMetadata())
+	// Slice the string into required chunks and store them in separate variables
+	var (
+		chunk1 = requestMetadataStr[:16]
+		chunk2 = requestMetadataStr[16:32]
+		chunk3 = requestMetadataStr[32:48]
+		chunk4 = requestMetadataStr[48:64]
+		chunk5 = requestMetadataStr[64:96]
+		chunk6 = requestMetadataStr[96:98]
+		chunk7 = requestMetadataStr[98:100]
+		chunk8 = requestMetadataStr[100:]
+	)
 
-	// Define the ABI types for the function argument and return value
-	metadataType, _ := abi.NewType("tuple", "", []abi.ArgumentMarshaling{
-		{Name: "destGasLimit", Type: "uint256"},
-		{Name: "destGasPrice", Type: "uint256"},
-		{Name: "ackGasLimit", Type: "uint256"},
-		{Name: "ackGasPrice", Type: "uint256"},
-		{Name: "relayerFees", Type: "uint256"},
-		{Name: "ackType", Type: "uint8"},
-		{Name: "isReadCall", Type: "bool"},
-		{Name: "asmAddress", Type: "bytes"},
-	})
+	// Convert hexadecimal string to uint64
+	destGasLimit, _ := hex.DecodeString(chunk1)
+	destGasPrice, _ := hex.DecodeString(chunk2)
+	ackGasLimit, _ := hex.DecodeString(chunk3)
+	ackGasPrice, _ := hex.DecodeString(chunk4)
 
-	args := abi.Arguments{{Type: metadataType}}
+	// Convert hexadecimal string to *big.Int for 128-bit integer
+	relayerFees := new(big.Int)
+	relayerFees.SetString(chunk5, 16)
 
-	fmt.Println("sdk-go GetCheckpoint", "metadataAbiStruct", metadataType)
-	fmt.Println("sdk-go GetCheckpoint", "args", args)
+	// Convert hexadecimal string to uint8
+	var ackType uint8
+	fmt.Sscanf(chunk6, "%x", &ackType)
 
-	// Unpack the function argument
-	unpackedData, err := args.Unpack(msg.GetRequestMetadata())
-	if err != nil {
-		fmt.Println("failed to unpack data:", err)
-		return nil
+	// Convert hexadecimal string to bool
+	var isReadCall bool
+	if chunk7 == "01" {
+		isReadCall = true
 	}
 
-	fmt.Println("sdk-go GetCheckpoint", "unpackedData", unpackedData)
-
-	crosschainEVMMetadataArgs := unpackedData[0].(struct {
-		DestGasLimit *big.Int `json:"destGasLimit"`
-		DestGasPrice *big.Int `json:"destGasPrice"`
-		AckGasLimit  *big.Int `json:"ackGasLimit"`
-		AckGasPrice  *big.Int `json:"ackGasPrice"`
-		RelayerFees  *big.Int `json:"relayerFees"`
-		AckType      uint8    `json:"ackType"`
-		IsReadCall   bool     `json:"isReadCall"`
-		AsmAddress   []byte   `json:"asmAddress"`
-	})
-
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "DestGasLimit", crosschainEVMMetadataArgs.DestGasLimit)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "DestGasPrice", crosschainEVMMetadataArgs.DestGasPrice)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "DestGasLimit", crosschainEVMMetadataArgs.DestGasLimit)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AckGasLimit", crosschainEVMMetadataArgs.AckGasLimit)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AckGasPrice", crosschainEVMMetadataArgs.AckGasPrice)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "RelayerFees", crosschainEVMMetadataArgs.RelayerFees)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AckType", crosschainEVMMetadataArgs.AckType)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "IsReadCall", crosschainEVMMetadataArgs.IsReadCall)
-	fmt.Println("sdk-go GetCheckpoint", "crosschainEVMMetadataArgs", "AsmAddress", crosschainEVMMetadataArgs.AsmAddress)
-
-	// Cast the unpacked data to the Metadata struct
-	// metadata, ok := unpackedData[0].(Metadata)
-	// if !ok {
-	// 	fmt.Println("failed to cast data to Metadata struct")
-	// 	return nil
-	// }
+	// Convert hexadecimal string to bytes
+	asmAddress, _ := hex.DecodeString(chunk8)
 
 	metadata := ContractMetadata{
-		DestGasLimit: crosschainEVMMetadataArgs.DestGasLimit,
-		DestGasPrice: crosschainEVMMetadataArgs.DestGasPrice,
-		AckGasLimit:  crosschainEVMMetadataArgs.AckGasLimit,
-		AckGasPrice:  crosschainEVMMetadataArgs.AckGasPrice,
-		RelayerFees:  crosschainEVMMetadataArgs.RelayerFees,
-		AckType:      crosschainEVMMetadataArgs.AckType,
-		IsReadCall:   crosschainEVMMetadataArgs.IsReadCall,
-		AsmAddress:   crosschainEVMMetadataArgs.AsmAddress,
+		DestGasLimit: binary.BigEndian.Uint64(destGasLimit),
+		DestGasPrice: binary.BigEndian.Uint64(destGasPrice),
+		AckGasLimit:  binary.BigEndian.Uint64(ackGasLimit),
+		AckGasPrice:  binary.BigEndian.Uint64(ackGasPrice),
+		RelayerFees:  relayerFees,
+		AckType:      ackType,
+		IsReadCall:   isReadCall,
+		AsmAddress:   asmAddress,
 	}
 
 	fmt.Println("sdk-go GetCheckpoint", "crosschainMetadata", "metadata", metadata)
