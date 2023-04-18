@@ -11,7 +11,7 @@ import (
 //     Implement Metadata     //
 ///////////////////////////////////
 
-type CrosschainEVMMetadata struct {
+type ContractMetadata struct {
 	DestGasLimit *big.Int `json:"destGasLimit"`
 	DestGasPrice *big.Int `json:"destGasPrice"`
 	AckGasLimit  *big.Int `json:"ackGasLimit"`
@@ -22,11 +22,11 @@ type CrosschainEVMMetadata struct {
 	AsmAddress   []byte   `json:"asmAddress"`
 }
 
-type EvmMetadata interface {
+type IContractMetadata interface {
 	GetRequestMetadata() []byte
 }
 
-func DecodeEvmMetadata(msg EvmMetadata) *CrosschainEVMMetadata {
+func DecodeContractMetadata(msg IContractMetadata) *ContractMetadata {
 	fmt.Println("sdk-go GetCheckpoint", "Decode Evm checkpoint")
 
 	// Define the ABI types for the function argument and return value
@@ -83,7 +83,7 @@ func DecodeEvmMetadata(msg EvmMetadata) *CrosschainEVMMetadata {
 	// 	return nil
 	// }
 
-	metadata := CrosschainEVMMetadata{
+	metadata := ContractMetadata{
 		DestGasLimit: crosschainEVMMetadataArgs.DestGasLimit,
 		DestGasPrice: crosschainEVMMetadataArgs.DestGasPrice,
 		AckGasLimit:  crosschainEVMMetadataArgs.AckGasLimit,

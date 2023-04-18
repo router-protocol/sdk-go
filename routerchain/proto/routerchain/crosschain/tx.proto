@@ -51,25 +51,27 @@ message MsgConfirmCrosschainRequestResponse {}
 
 message MsgCrosschainAckRequest {
   string orchestrator         =  1;
-  string chainId              =  2;
+  string ack_src_chain_id              =  2;
   uint64 eventNonce           =  3;
   uint64 blockHeight          =  4;
   string destTxHash           =  5;
   string relayerRouterAddress =  6;
-  string sourceChainId        =  7;
+  string ack_dest_chain_id        =  7;
   bytes  request_sender       =  8;
   uint64 requestIdentifier    =  9;
-  bytes  execData             = 10;
-  bool   execStatus           = 11;
-  string ethSigner            = 12;
-  string signature            = 13;
+  routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
+  routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;
+  bytes  execData             = 12;
+  bool   execStatus           = 13;
+  string ethSigner            = 14;
+  string signature            = 15;  
 }
 
 message MsgCrosschainAckRequestResponse {}
 
 message MsgConfirmCrosschainAckRequest {
   string orchestrator         = 1;
-  string destChainId          = 2;
+  string ack_src_chain_id          = 2;
   uint64 ackRequestIdentifier = 3;
   bytes  claimHash            = 4;
   string ethSigner            = 5;

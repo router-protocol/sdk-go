@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum ExecuteMsgType {
+  option (gogoproto.goproto_enum_prefix) = false;
+  EXECUTE_NONE = 0 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_NONE"];
+  EXECUTE_CONTRACT_CALL = 1 [(gogoproto.enumvalue_customname) = "EXECUTE_CONTRACT_CALL"];
+  EXECUTE_IBC_MSG = 2 [(gogoproto.enumvalue_customname) = "EXECUTE_IBC_MSG"];
+}

@@ -10,15 +10,15 @@ const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
 
 var _ sdk.Msg = &MsgCrosschainAckRequest{}
 
-func NewMsgCrosschainAckRequest(orchestrator string, chainId string, eventNonce uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, sourceChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
+func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainId string, eventNonce uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
 	return &MsgCrosschainAckRequest{
 		Orchestrator:         orchestrator,
-		ChainId:              chainId,
+		AckSrcChainId:        ackSrcChainId,
 		EventNonce:           eventNonce,
 		BlockHeight:          blockHeight,
 		DestTxHash:           destTxHash,
 		RelayerRouterAddress: relayerRouterAddress,
-		SourceChainId:        sourceChainId,
+		AckDestChainId:       ackDestChainId,
 		RequestIdentifier:    requestIdentifier,
 		RequestSender:        requestSender,
 		ExecData:             execData,
@@ -53,6 +53,10 @@ func (msg *MsgCrosschainAckRequest) ValidateBasic() error {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
+}
+
+func (msg *MsgCrosschainAckRequest) GetChainId() string {
+	return msg.AckSrcChainId
 }
 
 /////////////////////////////

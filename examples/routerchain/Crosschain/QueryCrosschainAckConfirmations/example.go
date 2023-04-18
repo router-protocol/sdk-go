@@ -73,7 +73,7 @@ func main() {
 
 	for _, crosschainAckRequest := range allCrosschainAckRequests.CrosschainAckRequest {
 		claimhash, _ := crosschainAckRequest.ClaimHash()
-		allCrosschainAckRequestConfirmations, err := chainClient.GetAllCrosschainRequestAckConfirmations(ctx, nil, crosschainAckRequest.ChainId, crosschainAckRequest.EventNonce, claimhash)
+		allCrosschainAckRequestConfirmations, err := chainClient.GetAllCrosschainRequestAckConfirmations(ctx, nil, crosschainAckRequest.AckSrcChainId, crosschainAckRequest.EventNonce, claimhash)
 		fmt.Println("allCrosschainAckRequestConfirmations", allCrosschainAckRequestConfirmations, "error", err)
 		if err != nil {
 			fmt.Println(err)

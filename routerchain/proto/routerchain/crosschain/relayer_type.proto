@@ -1,0 +1,14 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum RelayerType {
+  option (gogoproto.goproto_enum_prefix) = false;
+  RELAYER_NONE = 0 [(gogoproto.enumvalue_customname) = "RELAYER_NONE"];
+  ROUTER_RELAYER = 1 [(gogoproto.enumvalue_customname) = "ROUTER_RELAYER"];
+  IBC_RELAYER = 2 [(gogoproto.enumvalue_customname) = "IBC_RELAYER"];
+}
