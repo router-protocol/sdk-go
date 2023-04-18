@@ -69,7 +69,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	routeAmount := msg.RouteAmount.BigInt()
 
 	requestIdentifier := &big.Int{}
-	requestIdentifier.SetUint64(msg.EventNonce)
+	requestIdentifier.SetUint64(msg.RequestIdentifier)
 
 	requestTimestamp := &big.Int{}
 	requestTimestamp.SetUint64(uint64(msg.SrcTimestamp))

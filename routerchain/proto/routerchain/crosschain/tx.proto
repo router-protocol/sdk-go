@@ -19,7 +19,7 @@ service Msg {
 message MsgCrosschainRequest {
   string                                          orchestrator     =  1;
   string                                          src_chain_id     =  2;
-  uint64                                          event_nonce      =  3;
+  uint64                                          request_identifier      =  3;
   uint64                                          block_height     =  4;
   string                                          source_tx_hash   =  5;
   uint64                                          src_timestamp    =  6;
@@ -52,7 +52,7 @@ message MsgConfirmCrosschainRequestResponse {}
 message MsgCrosschainAckRequest {
   string orchestrator         =  1;
   string ack_src_chain_id              =  2;
-  uint64 eventNonce           =  3;
+  uint64 ack_request_identifier           =  3;
   uint64 blockHeight          =  4;
   string destTxHash           =  5;
   string relayerRouterAddress =  6;
@@ -82,10 +82,10 @@ message MsgConfirmCrosschainAckRequestResponse {}
 
 message MsgCrosschainAckReceipt {
   string orchestrator         = 1;
-  string chainId              = 2;
-  uint64 eventNonce           = 3;
-  uint64 blockHeight          = 4;
-  string txHash               = 5;
+  string ackReceiptSrcChainId              = 2;
+  uint64 ack_receipt_identifier           = 3;
+  uint64 ack_receipt_blockHeight          = 4;
+  string ack_receipt_txHash               = 5;
   string relayerRouterAddress = 6;
   uint64 requestIdentifier    = 7;
 }

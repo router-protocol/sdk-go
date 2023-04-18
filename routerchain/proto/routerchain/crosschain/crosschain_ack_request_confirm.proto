@@ -5,7 +5,7 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 
 message CrosschainAckRequestConfirm {
   string orchestrator = 1; 
-  string destChainId = 2; 
+  string ackSrcChainId = 2; 
   uint64 ackRequestIdentifier = 3; 
   bytes claimHash            = 4;
   string ethSigner = 5; 

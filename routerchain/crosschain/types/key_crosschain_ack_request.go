@@ -15,11 +15,11 @@ const (
 
 // CrosschainAckRequestKey returns the store key to retrieve a CrosschainAckRequest from the index fields
 func CrosschainAckRequestKey(
-	chainId string,
-	eventNonce uint64,
+	ackSrcChainId string,
+	ackRequestIdentifier uint64,
 	claimHash []byte,
 ) []byte {
-	crosschainAckRequestKey := util.AppendBytes([]byte(chainId), util.UInt64Bytes(eventNonce), claimHash)
+	crosschainAckRequestKey := util.AppendBytes([]byte(ackSrcChainId), util.UInt64Bytes(ackRequestIdentifier), claimHash)
 
 	return crosschainAckRequestKey
 }

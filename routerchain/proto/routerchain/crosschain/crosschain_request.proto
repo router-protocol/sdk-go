@@ -9,7 +9,7 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 
 message CrosschainRequest {
   string src_chain_id     =  1;
-  uint64 event_nonce     =  2;
+  uint64 request_identifier     =  2;
   uint64 block_height    =  3;
   string source_tx_hash   =  4;
   uint64 src_timestamp   =  5;
