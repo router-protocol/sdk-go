@@ -55,11 +55,11 @@ service Query {
   
   // Queries a list of CrosschainAckRequestConfirm items.
   rpc CrosschainAckRequestConfirm    (QueryGetCrosschainAckRequestConfirmRequest) returns (QueryGetCrosschainAckRequestConfirmResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request_confirm/{destChainId}/{ackRequestIdentifier}/{claimHash}/{orchestrator}";
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request_confirm/{ackSrcChainId}/{ackRequestIdentifier}/{claimHash}/{orchestrator}";
   
   }
   rpc CrosschainAckRequestConfirmAll (QueryAllCrosschainAckRequestConfirmRequest) returns (QueryAllCrosschainAckRequestConfirmResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request_confirm/{destChainId}/{ackRequestIdentifier}/{claimHash}";
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_request_confirm/{ackSrcChainId}/{ackRequestIdentifier}/{claimHash}";
   
   }
   
@@ -141,7 +141,7 @@ message QueryAllCrosschainAckRequestResponse {
 }
 
 message QueryGetCrosschainAckRequestConfirmRequest {
-  string destChainId          = 1;
+  string ackSrcChainId          = 1;
   uint64 ackRequestIdentifier = 2;
   bytes  claimHash            = 3;
   string orchestrator         = 4;
@@ -152,7 +152,7 @@ message QueryGetCrosschainAckRequestConfirmResponse {
 }
 
 message QueryAllCrosschainAckRequestConfirmRequest {
-  string                                destChainId          = 1;
+  string                                ackSrcChainId          = 1;
   uint64                                ackRequestIdentifier = 2;
   bytes                                 claimHash            = 3;
   cosmos.base.query.v1beta1.PageRequest pagination           = 4;

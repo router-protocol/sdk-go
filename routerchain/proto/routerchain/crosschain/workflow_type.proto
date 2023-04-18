@@ -15,4 +15,7 @@ option (gogoproto.goproto_enum_prefix) = false;
   INBOUND = 1 [(gogoproto.enumvalue_customname) = "INBOUND"];
   CROSSTALK = 2 [(gogoproto.enumvalue_customname) = "CROSSTALK"];
   OUTBOUND = 3 [(gogoproto.enumvalue_customname) = "OUTBOUND"];
+  INBOUND_ACK = 4 [(gogoproto.enumvalue_customname) = "INBOUND_ACK"];
+  CROSSTALK_ACK = 5 [(gogoproto.enumvalue_customname) = "CROSSTALK_ACK"];
+  OUTBOUND_ACK = 6 [(gogoproto.enumvalue_customname) = "OUTBOUND_ACK"];
 }

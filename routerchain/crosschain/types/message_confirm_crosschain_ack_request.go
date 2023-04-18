@@ -9,10 +9,10 @@ const TypeMsgConfirmCrosschainAckRequest = "confirm_crosschain_ack_request"
 
 var _ sdk.Msg = &MsgConfirmCrosschainAckRequest{}
 
-func NewMsgConfirmCrosschainAckRequest(orchestrator string, destChainId string, ackRequestIdentifier uint64, claimHash []byte, ethSigner string, signature string) *MsgConfirmCrosschainAckRequest {
+func NewMsgConfirmCrosschainAckRequest(orchestrator string, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte, ethSigner string, signature string) *MsgConfirmCrosschainAckRequest {
 	return &MsgConfirmCrosschainAckRequest{
 		Orchestrator:         orchestrator,
-		DestChainId:          destChainId,
+		AckSrcChainId:        ackSrcChainId,
 		AckRequestIdentifier: ackRequestIdentifier,
 		ClaimHash:            claimHash,
 		EthSigner:            ethSigner,

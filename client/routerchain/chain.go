@@ -93,9 +93,9 @@ type ChainClient interface {
 	GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error)
 	GetAllCrosschainRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainRequestConfirmResponse, error)
 	GetAllCrosschainAckRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainAckRequestResponse, error)
-	GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error)
+	GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error)
 	GetCrosschainRequestConfirmation(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainRequestConfirmResponse, error)
-	GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error)
+	GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error)
 
 	// MetaStore
 	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
@@ -796,9 +796,9 @@ func (c *chainClient) GetAllCrosschainAckRequests(ctx context.Context, paginatio
 	return c.crosschainQueryClient.CrosschainAckRequestAll(ctx, req)
 }
 
-func (c *chainClient) GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error) {
+func (c *chainClient) GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error) {
 	req := &crosschainTypes.QueryAllCrosschainAckRequestConfirmRequest{
-		DestChainId:          destChainId,
+		AckSrcChainId:        ackSrcChainId,
 		AckRequestIdentifier: ackRequestIdentifier,
 		ClaimHash:            claimHash,
 		Pagination:           pagination,
@@ -806,10 +806,10 @@ func (c *chainClient) GetAllCrosschainRequestAckConfirmations(ctx context.Contex
 	return c.crosschainQueryClient.CrosschainAckRequestConfirmAll(ctx, req)
 }
 
-func (c *chainClient) GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, destChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error) {
+func (c *chainClient) GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error) {
 	req := &crosschainTypes.QueryGetCrosschainAckRequestConfirmRequest{
 		Orchestrator:         orchestrator,
-		DestChainId:          destChainId,
+		AckSrcChainId:        ackSrcChainId,
 		AckRequestIdentifier: ackRequestIdentifier,
 		ClaimHash:            claimHash,
 	}

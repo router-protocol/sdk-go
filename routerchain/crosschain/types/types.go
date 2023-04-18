@@ -77,12 +77,12 @@ func NewCrosschainAckRequestFromMsg(
 	msg *MsgCrosschainAckRequest,
 ) *CrosschainAckRequest {
 	return &CrosschainAckRequest{
-		ChainId:              msg.ChainId,
+		AckSrcChainId:        msg.AckSrcChainId,
 		EventNonce:           msg.EventNonce,
 		BlockHeight:          msg.BlockHeight,
 		DestTxHash:           msg.DestTxHash,
 		RelayerRouterAddress: msg.RelayerRouterAddress,
-		SourceChainId:        msg.SourceChainId,
+		AckDestChainId:       msg.AckDestChainId,
 		RequestSender:        msg.RequestSender,
 		RequestIdentifier:    msg.RequestIdentifier,
 		ExecData:             msg.ExecData,

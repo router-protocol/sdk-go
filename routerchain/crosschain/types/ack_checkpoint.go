@@ -23,7 +23,7 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	**/
 	crosschainAckRequest := NewCrosschainAckRequestFromMsg(&msg)
 
-	switch crosschainAckRequest.SourceChainId {
+	switch crosschainAckRequest.AckDestChainId {
 	case "none":
 		return nil
 	default:
@@ -33,7 +33,7 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
 
 // GetCheckpoint gets the checkpoint signature from the given MsgCrosschainAckRequest
 func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
-	switch msg.SourceChainId {
+	switch msg.AckDestChainId {
 	case "none":
 		return nil
 	default:
@@ -70,9 +70,9 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	// it gets encoded as a function name which we must then discard.
 	abiEncodedBatch, err := abiDef.Pack("checkpoint",
 		crosschainAckMethodName,
-		msg.SourceChainId,
+		msg.AckDestChainId,
 		requestIdentifier,
-		msg.ChainId,
+		msg.AckSrcChainId,
 		msg.RequestSender,
 		msg.ExecData,
 		msg.ExecStatus,

@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+
+enum ValidationType {
+option (gogoproto.goproto_enum_prefix) = false;
+  DEFAULT_VALIDATION = 0 [(gogoproto.enumvalue_customname) = "DEFAULT_VALIDATION"];
+  IBC_VALIDATION = 1 [(gogoproto.enumvalue_customname) = "IBC_VALIDATION"];
+  ORCHESTRATOR_VALIDATION = 2 [(gogoproto.enumvalue_customname) = "ORCHESTRATOR_VALIDATION"];
+}

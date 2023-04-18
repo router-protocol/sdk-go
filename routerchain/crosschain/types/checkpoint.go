@@ -60,7 +60,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iReceive gateway call  /////
 	//////////////////////////////////////////////////////////////////////
-	metadata := DecodeEvmMetadata(&msg)
+	metadata := DecodeContractMetadata(&msg)
 
 	methodNameBytes := []uint8("iReceive")
 	var crosschainMethodName [32]uint8
