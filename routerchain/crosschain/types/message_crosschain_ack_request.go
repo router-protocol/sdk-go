@@ -4,21 +4,25 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
 
 var _ sdk.Msg = &MsgCrosschainAckRequest{}
 
-func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainId string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
+func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainType multichainTypes.ChainType,
+	ackSrcChainId string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainType multichainTypes.ChainType, ackDestChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
 	return &MsgCrosschainAckRequest{
 		Orchestrator:         orchestrator,
 		AckSrcChainId:        ackSrcChainId,
+		AckSrcChainType:      ackSrcChainType,
 		AckRequestIdentifier: ackRequestIdentifier,
 		BlockHeight:          blockHeight,
 		DestTxHash:           destTxHash,
 		RelayerRouterAddress: relayerRouterAddress,
 		AckDestChainId:       ackDestChainId,
+		AckDestChainType:     ackDestChainType,
 		RequestIdentifier:    requestIdentifier,
 		RequestSender:        requestSender,
 		ExecData:             execData,

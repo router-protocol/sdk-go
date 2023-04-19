@@ -18,7 +18,7 @@ const (
 )
 
 func main() {
-	network := common.LoadNetwork("local", "k8s")
+	network := common.LoadNetwork("devnet-alpha", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {
@@ -73,7 +73,7 @@ func main() {
 
 	for _, crosschainAckRequest := range allCrosschainAckRequests.CrosschainAckRequest {
 		claimhash, _ := crosschainAckRequest.ClaimHash()
-		allCrosschainAckRequestConfirmations, err := chainClient.GetAllCrosschainRequestAckConfirmations(ctx, nil, crosschainAckRequest.AckSrcChainId, crosschainAckRequest.EventNonce, claimhash)
+		allCrosschainAckRequestConfirmations, err := chainClient.GetAllCrosschainRequestAckConfirmations(ctx, nil, crosschainAckRequest.AckSrcChainId, crosschainAckRequest.AckRequestIdentifier, claimhash)
 		fmt.Println("allCrosschainAckRequestConfirmations", allCrosschainAckRequestConfirmations, "error", err)
 		if err != nil {
 			fmt.Println(err)

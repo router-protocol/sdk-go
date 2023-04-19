@@ -7,7 +7,7 @@ import (
 )
 
 ///////////////////////////////////
-//     Implement Packet     //
+//     Implement Packet Decoding   //
 ///////////////////////////////////
 
 type CrosschainRouterPacket struct {
