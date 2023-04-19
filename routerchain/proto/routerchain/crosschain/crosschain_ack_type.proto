@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum CrosschainAckType {
+option (gogoproto.goproto_enum_prefix) = false;
+  NO_ACK = 0 [(gogoproto.enumvalue_customname) = "NO_ACK"];
+  ACK_ON_SUCCESS = 1 [(gogoproto.enumvalue_customname) = "ACK_ON_SUCCESS"];
+  ACK_ON_ERROR = 2 [(gogoproto.enumvalue_customname) = "ACK_ON_ERROR"];
+  ACK = 3 [(gogoproto.enumvalue_customname) = "ACK"];
+}

@@ -18,7 +18,7 @@ const (
 )
 
 func main() {
-	network := common.LoadNetwork("local", "k8s")
+	network := common.LoadNetwork("devnet-alpha", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {
@@ -72,7 +72,7 @@ func main() {
 	}
 
 	for _, crosschainRequest := range allCrosschainRequests.CrosschainRequest {
-		if crosschainRequest.RequestIdentifier != 7 {
+		if crosschainRequest.RequestIdentifier != 9 {
 			continue
 		}
 
