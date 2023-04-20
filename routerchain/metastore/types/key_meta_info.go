@@ -16,8 +16,8 @@ const (
 // MetaInfoKey returns the store key to retrieve a MetaInfo from the index fields
 func MetaInfoKey(
 	chainId string,
-	dappAddress []byte,
+	dappAddress string,
 ) []byte {
 
-	return util.AppendBytes([]byte(chainId), dappAddress)
+	return util.AppendBytes([]byte(chainId), []byte(dappAddress))
 }

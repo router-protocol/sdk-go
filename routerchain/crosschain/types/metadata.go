@@ -19,7 +19,7 @@ type ContractMetadata struct {
 	RelayerFees  *big.Int `json:"relayerFees"`
 	AckType      uint8    `json:"ackType"`
 	IsReadCall   bool     `json:"isReadCall"`
-	AsmAddress   []byte   `json:"asmAddress"`
+	AsmAddress   string   `json:"asmAddress"`
 }
 
 type IContractMetadata interface {
@@ -62,7 +62,8 @@ func DecodeContractMetadata(msg IContractMetadata) *ContractMetadata {
 	}
 
 	// Convert hexadecimal string to bytes
-	asmAddress, _ := hex.DecodeString(chunk8)
+	// asmAddress, _ := hex.DecodeString(chunk8)
+	asmAddress := chunk8
 
 	metadata := ContractMetadata{
 		DestGasLimit: binary.BigEndian.Uint64(destGasLimit),
@@ -75,6 +76,6 @@ func DecodeContractMetadata(msg IContractMetadata) *ContractMetadata {
 		AsmAddress:   asmAddress,
 	}
 
-	fmt.Println("sdk-go GetCheckpoint", "crosschainMetadata", "metadata", metadata)
+	fmt.Println("sdk-go GetCheckpoint", "crosschainMetadata", "metadata", metadata, "asmADdress", metadata.AsmAddress)
 	return &metadata
 }

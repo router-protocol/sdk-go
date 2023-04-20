@@ -14,7 +14,7 @@ message CrosschainAckRequest {
   string destTxHash = 4; 
   string relayerRouterAddress = 5; 
   string ack_dest_chain_id = 6; 
-  bytes request_sender   = 7;
+  string request_sender   = 7;
   uint64 requestIdentifier = 8; 
   routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 9;
   routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 10;

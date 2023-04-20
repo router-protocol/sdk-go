@@ -1,6 +1,6 @@
 package types
 
-func NewMetadataInfo(chainId string, daapAddress []byte, feePayer string) *MetaInfo {
+func NewMetadataInfo(chainId string, daapAddress string, feePayer string) *MetaInfo {
 	return &MetaInfo{
 		ChainId:          chainId,
 		DappAddress:      daapAddress,
@@ -9,7 +9,7 @@ func NewMetadataInfo(chainId string, daapAddress []byte, feePayer string) *MetaI
 	}
 }
 
-func NewMetadataRequest(chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MetadataRequest {
+func NewMetadataRequest(chainId string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MetadataRequest {
 	return &MetadataRequest{
 		ChainId:     chainId,
 		EventNonce:  eventNonce,
@@ -20,7 +20,7 @@ func NewMetadataRequest(chainId string, eventNonce uint64, blockHeight uint64, d
 	}
 }
 
-func NewMetadataRequestClaimHash(chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MetadataRequestClaimHash {
+func NewMetadataRequestClaimHash(chainId string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MetadataRequestClaimHash {
 	return &MetadataRequestClaimHash{
 		ChainId:     chainId,
 		EventNonce:  eventNonce,

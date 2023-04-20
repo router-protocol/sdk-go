@@ -5,7 +5,7 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/typ
 
 message MetaInfo {    
   string chainId = 1; 
-  bytes dappAddress = 2; 
+  string dappAddress = 2; 
   string feePayer = 3; 
   bool feePayerApproved = 4; 
   

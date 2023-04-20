@@ -16,9 +16,9 @@ message EventCrosschainRequestCreated {
   uint64 src_timestamp   =  6;
   string src_tx_origin    =  7;
   string                                          route_amount     =  9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes                                           route_recipient  =  10;
+  string                                           route_recipient  =  10;
   string                                          dest_chain_id    = 11;
-  bytes                                           request_sender   = 12;
+  string                                           request_sender   = 12;
   bytes                                           request_metadata = 13;
   bytes                                           request_packet   = 14;
   routerprotocol.routerchain.multichain.ChainType src_chain_type   = 15;
@@ -90,7 +90,7 @@ message EventCrosschainAckRequestCreated {
   string destTxHash           =  5;
   string relayerRouterAddress =  6;
   string ack_dest_chain_id        =  7;
-  bytes  request_sender       =  8;
+  string  request_sender       =  8;
   uint64 requestIdentifier    =  9;
   routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
   routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;

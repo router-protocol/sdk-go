@@ -12,7 +12,7 @@ const TypeMsgCreateMetadataRequest = "set_metadata_request"
 
 var _ sdk.Msg = &MsgCreateMetadataRequest{}
 
-func NewMsgCreateMetadataRequest(orchestrator string, chainId string, eventNonce uint64, blockHeight uint64, daapAddress []byte, feePayer string) *MsgCreateMetadataRequest {
+func NewMsgCreateMetadataRequest(orchestrator string, chainId string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MsgCreateMetadataRequest {
 	return &MsgCreateMetadataRequest{
 		Orchestrator: orchestrator,
 		ChainId:      chainId,

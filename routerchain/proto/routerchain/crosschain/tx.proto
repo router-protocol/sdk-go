@@ -25,9 +25,9 @@ message MsgCrosschainRequest {
   uint64                                          src_timestamp    =  6;
   string                                          src_tx_origin    =  7;
   string                                          route_amount     =  8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes                                           route_recipient  =  9;
+  string                                           route_recipient  =  9;
   string                                          dest_chain_id    = 10;
-  bytes                                           request_sender   = 11;
+  string                                           request_sender   = 11;
   bytes                                           request_metadata = 12;
   bytes                                           request_packet   = 13;
   routerprotocol.routerchain.multichain.ChainType src_chain_type   = 14;
@@ -36,7 +36,9 @@ message MsgCrosschainRequest {
   string                                          signature        = 17;
 }
 
-message MsgCrosschainRequestResponse {}
+message MsgCrosschainRequestResponse {
+  uint64                                          request_identifier      =  1;
+}
 
 message MsgConfirmCrosschainRequest {
   string orchestrator  = 1;
@@ -57,7 +59,7 @@ message MsgCrosschainAckRequest {
   string destTxHash           =  5;
   string relayerRouterAddress =  6;
   string ack_dest_chain_id        =  7;
-  bytes  request_sender       =  8;
+  string  request_sender       =  8;
   uint64 requestIdentifier    =  9;
   routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
   routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;

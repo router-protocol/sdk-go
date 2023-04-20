@@ -62,6 +62,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	//////////////////////////////////////////////////////////////////////
 	fmt.Println("Get EvmCheckpoint")
 	metadata := DecodeContractMetadata(&msg)
+	requestPacket := DecodeRouterCrosschainPacket(&msg)
 	fmt.Println("Decoded Metadata", metadata)
 
 	methodNameBytes := []uint8("iReceive")
@@ -76,8 +77,8 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	requestTimestamp := &big.Int{}
 	requestTimestamp.SetUint64(uint64(msg.SrcTimestamp))
 
-	routeRecipient := common.HexToAddress(string(msg.RouteRecipient))
-	asmAddress := common.HexToAddress(string(metadata.AsmAddress))
+	routeRecipient := common.HexToAddress(msg.RouteRecipient)
+	asmAddress := common.HexToAddress(metadata.AsmAddress)
 
 	/////////////////////////////////////////////////
 	/////  pack abi for iReceive function  //////////
@@ -95,12 +96,13 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		routeAmount,
 		requestIdentifier,
 		requestTimestamp,
-		routeRecipient,
-		asmAddress,
 		msg.SrcChainId,
+		routeRecipient,
 		msg.DestChainId,
+		asmAddress,
 		msg.RequestSender,
-		msg.RequestPacket,
+		requestPacket.Handler,
+		requestPacket.Payload,
 		metadata.IsReadCall,
 	)
 
@@ -108,13 +110,14 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	fmt.Println("Checkpoint-routeAmount", routeAmount)
 	fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
 	fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
-	fmt.Println("Checkpoint-routeRecipient", routeRecipient)
-	fmt.Println("Checkpoint-asmAddress", asmAddress)
 	fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
+	fmt.Println("Checkpoint-routeRecipient", routeRecipient)
 	fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
+	fmt.Println("Checkpoint-asmAddress", asmAddress)
 	fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
-	fmt.Println("Checkpoint-msg.RequestPacket", msg.RequestPacket)
-	fmt.Println("Checkpoint-metadata.IsReadCall", metadata.IsReadCall)
+
+	fmt.Println("Checkpoint-handler", requestPacket.Handler)
+	fmt.Println("Checkpoint-Payload", requestPacket.Payload)
 	fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
 
 	// this should never happen outside of test since any case that could crash on encoding

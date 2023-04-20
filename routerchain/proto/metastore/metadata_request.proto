@@ -10,7 +10,7 @@ message MetadataRequest {
   string chainId = 1; 
   uint64 eventNonce = 2; 
   uint64 blockHeight = 3; 
-  bytes daapAddress = 4; 
+  string daapAddress = 4; 
   string feePayer = 5; 
   MetaTxStatus status = 6;
 }
@@ -19,6 +19,6 @@ message MetadataRequestClaimHash {
   string chainId = 1; 
   uint64 eventNonce = 2; 
   uint64 blockHeight = 3; 
-  bytes daapAddress = 4; 
+  string daapAddress = 4; 
   string feePayer = 5; 
 }

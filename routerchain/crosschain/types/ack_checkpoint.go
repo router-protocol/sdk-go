@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
 	"github.com/router-protocol/sdk-go/routerchain/util"
@@ -57,6 +58,7 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	requestIdentifier := &big.Int{}
 	requestIdentifier.SetUint64(msg.RequestIdentifier)
 
+	requestSender := common.HexToAddress(msg.RequestSender)
 	/////////////////////////////////////////////////
 	/////  pack abi for iReceive function  //////////
 	/////////////////////////////////////////////////
@@ -73,7 +75,7 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		msg.AckDestChainId,
 		requestIdentifier,
 		msg.AckSrcChainId,
-		msg.RequestSender,
+		requestSender,
 		msg.ExecData,
 		msg.ExecStatus,
 	)
