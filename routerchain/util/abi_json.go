@@ -47,6 +47,7 @@ const (
 			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
 			{ "internalType": "string", "name": "_chainId","type": "string" },
 			{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+			{"internalType": "uint256","name": "_ackRequestIdentifier","type": "uint256"},
 			{ "internalType": "string", "name": "_destChainId","type": "string" },	
 			{ "internalType": "address","name": "_requestSender","type": "address"},
 			{"internalType": "bytes","name": "_execData","type": "bytes"},	
