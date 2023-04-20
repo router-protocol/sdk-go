@@ -58,6 +58,9 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	requestIdentifier := &big.Int{}
 	requestIdentifier.SetUint64(msg.RequestIdentifier)
 
+	ackRequestIdentifier := &big.Int{}
+	ackRequestIdentifier.SetUint64(msg.AckRequestIdentifier)
+
 	requestSender := common.HexToAddress(msg.RequestSender)
 	/////////////////////////////////////////////////
 	/////  pack abi for iReceive function  //////////
@@ -74,6 +77,7 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		crosschainAckMethodName,
 		msg.AckDestChainId,
 		requestIdentifier,
+		ackRequestIdentifier,
 		msg.AckSrcChainId,
 		requestSender,
 		msg.ExecData,
