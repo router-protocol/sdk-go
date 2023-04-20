@@ -22,6 +22,13 @@ type RouterCrosschainPacket interface {
 func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) *CrosschainRouterPacket {
 	fmt.Println("sdk-go Get packet", "Decode router packet")
 
+	packet := CrosschainRouterPacket{}
+
+	if len(msg.GetRequestPacket()) < 100 {
+		fmt.Println("Encoding Error")
+		return &packet
+	}
+
 	Bytes, _ := abi.NewType("bytes", "", nil)
 	String, _ := abi.NewType("string", "", nil)
 
@@ -45,7 +52,7 @@ func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) *CrosschainRouterP
 	fmt.Printf("Data 1: %v\n", handlerContractAddress)
 	fmt.Printf("Data 2: %v\n", (payload))
 
-	packet := CrosschainRouterPacket{
+	packet = CrosschainRouterPacket{
 		Handler: handlerContractAddress,
 		Payload: payload,
 	}
