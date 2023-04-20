@@ -11,7 +11,7 @@ import (
 //     Implement Metadata     //
 ///////////////////////////////////
 
-type ContractMetadata struct {
+type EvmContractMetadata struct {
 	DestGasLimit uint64   `json:"destGasLimit"`
 	DestGasPrice uint64   `json:"destGasPrice"`
 	AckGasLimit  uint64   `json:"ackGasLimit"`
@@ -26,7 +26,7 @@ type IContractMetadata interface {
 	GetRequestMetadata() []byte
 }
 
-func DecodeContractMetadata(msg IContractMetadata) *ContractMetadata {
+func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 	fmt.Println("sdk-go GetCheckpoint", "Decode Evm checkpoint")
 	requestMetadataStr := hex.EncodeToString(msg.GetRequestMetadata())
 	// Slice the string into required chunks and store them in separate variables
@@ -65,7 +65,7 @@ func DecodeContractMetadata(msg IContractMetadata) *ContractMetadata {
 	// asmAddress, _ := hex.DecodeString(chunk8)
 	asmAddress := chunk8
 
-	metadata := ContractMetadata{
+	metadata := EvmContractMetadata{
 		DestGasLimit: binary.BigEndian.Uint64(destGasLimit),
 		DestGasPrice: binary.BigEndian.Uint64(destGasPrice),
 		AckGasLimit:  binary.BigEndian.Uint64(ackGasLimit),

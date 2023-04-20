@@ -61,7 +61,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	/////  Build data with types required for iReceive gateway call  /////
 	//////////////////////////////////////////////////////////////////////
 	fmt.Println("Get EvmCheckpoint")
-	metadata := DecodeContractMetadata(&msg)
+	metadata := DecodeEvmContractMetadata(&msg)
 	requestPacket := DecodeRouterCrosschainPacket(&msg)
 	fmt.Println("Decoded Metadata", metadata)
 
