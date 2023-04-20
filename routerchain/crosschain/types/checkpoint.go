@@ -79,6 +79,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 
 	routeRecipient := common.HexToAddress(msg.RouteRecipient)
 	asmAddress := common.HexToAddress(metadata.AsmAddress)
+	handler := common.HexToAddress(requestPacket.Handler)
 
 	/////////////////////////////////////////////////
 	/////  pack abi for iReceive function  //////////
@@ -101,7 +102,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		msg.DestChainId,
 		asmAddress,
 		msg.RequestSender,
-		requestPacket.Handler,
+		handler,
 		requestPacket.Payload,
 		metadata.IsReadCall,
 	)
@@ -116,7 +117,7 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	fmt.Println("Checkpoint-asmAddress", asmAddress)
 	fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
 
-	fmt.Println("Checkpoint-handler", requestPacket.Handler)
+	fmt.Println("Checkpoint-handler", handler)
 	fmt.Println("Checkpoint-Payload", requestPacket.Payload)
 	fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
 
