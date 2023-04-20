@@ -28,7 +28,14 @@ type IContractMetadata interface {
 
 func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 	fmt.Println("sdk-go GetCheckpoint", "Decode Evm checkpoint")
+	metadata := EvmContractMetadata{}
 	requestMetadataStr := hex.EncodeToString(msg.GetRequestMetadata())
+
+	if len(requestMetadataStr) < 100 {
+		fmt.Println("Encoding Error")
+		return &metadata
+	}
+
 	// Slice the string into required chunks and store them in separate variables
 	var (
 		chunk1 = requestMetadataStr[:16]
@@ -65,7 +72,7 @@ func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 	// asmAddress, _ := hex.DecodeString(chunk8)
 	asmAddress := chunk8
 
-	metadata := EvmContractMetadata{
+	metadata = EvmContractMetadata{
 		DestGasLimit: binary.BigEndian.Uint64(destGasLimit),
 		DestGasPrice: binary.BigEndian.Uint64(destGasPrice),
 		AckGasLimit:  binary.BigEndian.Uint64(ackGasLimit),
