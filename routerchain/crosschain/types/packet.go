@@ -11,8 +11,8 @@ import (
 ///////////////////////////////////
 
 type CrosschainRouterPacket struct {
-	DestContractAddress []byte `json:"destContractAddress"`
-	Payload             []byte `json:"payload"`
+	Handler string `json:"handler"`
+	Payload []byte `json:"payload"`
 }
 
 type RouterCrosschainPacket interface {
@@ -23,10 +23,11 @@ func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) *CrosschainRouterP
 	fmt.Println("sdk-go Get packet", "Decode router packet")
 
 	Bytes, _ := abi.NewType("bytes", "", nil)
+	String, _ := abi.NewType("string", "", nil)
 
 	arguments := abi.Arguments{
 		{
-			Type: Bytes,
+			Type: String,
 		},
 		{
 			Type: Bytes,
@@ -39,14 +40,14 @@ func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) *CrosschainRouterP
 	}
 
 	// // Print the decoded values
-	contractAddress := data[0].([]byte)
+	handlerContractAddress := data[0].(string)
 	payload := data[1].([]byte)
-	fmt.Printf("Data 1: %v\n", string(contractAddress))
+	fmt.Printf("Data 1: %v\n", handlerContractAddress)
 	fmt.Printf("Data 2: %v\n", (payload))
 
 	packet := CrosschainRouterPacket{
-		DestContractAddress: contractAddress,
-		Payload:             payload,
+		Handler: handlerContractAddress,
+		Payload: payload,
 	}
 
 	fmt.Println("sdk-go GetCheckpoint", "crosschainpacket", "packet", packet)

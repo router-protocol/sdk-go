@@ -12,7 +12,7 @@ const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
 var _ sdk.Msg = &MsgCrosschainAckRequest{}
 
 func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainType multichainTypes.ChainType,
-	ackSrcChainId string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainType multichainTypes.ChainType, ackDestChainId string, requestSender []byte, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
+	ackSrcChainId string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainType multichainTypes.ChainType, ackDestChainId string, requestSender string, requestIdentifier uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
 	return &MsgCrosschainAckRequest{
 		Orchestrator:         orchestrator,
 		AckSrcChainId:        ackSrcChainId,

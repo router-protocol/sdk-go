@@ -15,9 +15,9 @@ message CrosschainRequest {
   uint64 src_timestamp   =  5;
   string src_tx_origin    =  6;
   string route_amount = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes route_recipient =  8;
+  string route_recipient =  8;
   string dest_chain_id    = 9;
-  bytes request_sender  = 10;
+  string request_sender  = 10;
   bytes request_metadata   = 11;
   bytes request_packet   = 12;
   routerprotocol.routerchain.multichain.ChainType src_chain_type = 13; 

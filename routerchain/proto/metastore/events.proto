@@ -15,7 +15,7 @@ message EventMetadataRequestCreated {
   string chainId = 3; 
   uint64 eventNonce = 4; 
   uint64 blockHeight = 5;
-  bytes daapAddress  = 6;
+  string daapAddress  = 6;
   string feePayer     = 7;  
 }
 
@@ -23,13 +23,13 @@ message EventMetadataRequestCreated {
 message EventMetaInfoCreated {    
   routerprotocol.routerchain.multichain.ChainType chainType = 1;
   string chainId = 2; 
-  bytes daapAddress  = 3;
+  string daapAddress  = 3;
   string feePayer = 4; 
 }
 
 message EventFeePayerApproved {    
   routerprotocol.routerchain.multichain.ChainType chainType = 1;
   string chainId = 2; 
-  bytes daapAddress  = 3;
+  string daapAddress  = 3;
   string feePayer = 4; 
 }
