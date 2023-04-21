@@ -18,7 +18,7 @@ import (
 ///////////////////////////////////
 
 // GetCheckpoint gets the checkpoint signature from the given CrossTalkRequest
-func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
+func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) ([]byte, error) {
 	/**
 	     Always get checkpoint from crosschain request only.
 	 	Crosschain request is dynamic while msg is static.
@@ -29,14 +29,14 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	case multichainTypes.CHAIN_TYPE_NEAR:
 		return crosschainRequest.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
-		return nil
+		return nil, nil
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}
 }
 
 // GetCheckpoint gets the checkpoint signature from the given CrossTalkRequest
-func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
+func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) ([]byte, error) {
 	/**
 	     Always get checkpoint from crosschain request only.
 	 	Crosschain request is dynamic while msg is static.
@@ -46,23 +46,26 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	case multichainTypes.CHAIN_TYPE_NEAR:
 		return msg.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
-		return nil
+		return nil, nil
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
 }
 
-func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) []byte {
+func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) ([]byte, error) {
 	return msg.GetEvmCheckpoint(routerIDstring)
 }
 
-func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
+func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) ([]byte, error) {
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iReceive gateway call  /////
 	//////////////////////////////////////////////////////////////////////
 	fmt.Println("Get EvmCheckpoint")
 	metadata := DecodeEvmContractMetadata(&msg)
-	requestPacket := DecodeRouterCrosschainPacket(&msg)
+	requestPacket, err := DecodeRouterCrosschainPacket(&msg)
+	if err != nil {
+		return nil, err
+	}
 	fmt.Println("Decoded Metadata", metadata)
 
 	methodNameBytes := []uint8("iReceive")
@@ -130,5 +133,5 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
 	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
 	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
-	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
 }

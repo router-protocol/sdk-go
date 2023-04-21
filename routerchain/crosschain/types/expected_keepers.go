@@ -2,6 +2,7 @@ package types
 
 import (
 	context "context"
+	"math/big"
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -15,6 +16,7 @@ import (
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 )
 
 type AttestationKeeper interface {
@@ -43,6 +45,9 @@ type MultichainKeeper interface {
 
 type OracleKeeper interface {
 	// Methods imported from oracle should be defined here
+	GetGasPrice(ctx sdk.Context, chainID string) oracleTypes.GasPriceState
+	GetTokenPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
+	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainId string, feeConsumed *big.Int) sdk.Coin
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
