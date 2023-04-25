@@ -10,7 +10,7 @@ const TypeMsgCrosschainAckReceipt = "crosschain_ack_receipt"
 
 var _ sdk.Msg = &MsgCrosschainAckReceipt{}
 
-func NewMsgCrosschainAckReceipt(orchestrator string, ackReceiptSrcChainId string, ackReceiptIdentifier uint64, ackReceiptBlockHeight uint64, ackReceiptTxHash string, relayerRouterAddress string, requestIdentifier uint64) *MsgCrosschainAckReceipt {
+func NewMsgCrosschainAckReceipt(orchestrator string, ackReceiptSrcChainId string, ackReceiptIdentifier uint64, ackReceiptBlockHeight uint64, ackReceiptTxHash string, relayerRouterAddress string, requestIdentifier uint64, ackSrcChainId string, ackRequestIdentifier uint64, feeConsumed uint64) *MsgCrosschainAckReceipt {
 	return &MsgCrosschainAckReceipt{
 		Orchestrator:          orchestrator,
 		AckReceiptSrcChainId:  ackReceiptSrcChainId,
@@ -19,6 +19,9 @@ func NewMsgCrosschainAckReceipt(orchestrator string, ackReceiptSrcChainId string
 		AckReceiptTxHash:      ackReceiptTxHash,
 		RelayerRouterAddress:  relayerRouterAddress,
 		RequestIdentifier:     requestIdentifier,
+		AckSrcChainId:         ackSrcChainId,
+		AckRequestIdentifier:  ackRequestIdentifier,
+		FeeConsumed:           feeConsumed,
 	}
 }
 
