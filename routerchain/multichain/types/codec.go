@@ -3,15 +3,13 @@ package types
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
-	sdk "github.com/cosmos/cosmos-sdk/types"
+	//sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	grpc "google.golang.org/grpc"
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgCreateChainConfig{}, "multichain/CreateChainConfig", nil)
-	cdc.RegisterConcrete(&MsgUpdateChainConfig{}, "multichain/UpdateChainConfig", nil)
-	cdc.RegisterConcrete(&MsgDeleteChainConfig{}, "multichain/DeleteChainConfig", nil)
 	cdc.RegisterConcrete(&MultichainCreateChainConfigProposal{}, "multichain/MultichainCreateChainConfigProposal", nil)
 	cdc.RegisterConcrete(&MultichainUpdateChainConfigProposal{}, "multichain/MultichainUpdateChainConfigProposal", nil)
 	cdc.RegisterConcrete(&MultichainDeleteChainConfigProposal{}, "multichain/MultichainDeleteChainConfigProposal", nil)
@@ -19,12 +17,6 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
-	registry.RegisterImplementations((*sdk.Msg)(nil),
-		&MsgCreateChainConfig{},
-		&MsgUpdateChainConfig{},
-		&MsgDeleteChainConfig{},
-	)
-
 	registry.RegisterImplementations(
 		(*govtypes.Content)(nil),
 		&MultichainCreateChainConfigProposal{},
@@ -33,8 +25,15 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 
 	// this line is used by starport scaffolding # 3
+	msgservice.RegisterMsgServiceDesc(registry, &serviceDesc)
+}
 
-	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
+var serviceDesc = grpc.ServiceDesc {
+	ServiceName: "routerprotocol.routerchain.multichain.Msg",
+	HandlerType: (*MsgServer)(nil),
+	Methods: []grpc.MethodDesc{},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "multichain/tx.proto",
 }
 
 var (

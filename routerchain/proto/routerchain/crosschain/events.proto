@@ -27,158 +27,163 @@ message EventCrosschainRequestCreated {
 }
 
 message EventCrosschainRequestConfirm {  
-  string sourceChainId = 1; 
+  string source_chain_id = 1; 
   uint64 request_identifier = 2;   
-  bytes claimHash = 3;
-  string ethSigner = 4; 
+  bytes claim_hash = 3;
+  string eth_signer = 4; 
   string signature = 5;   
   string orchestrator = 6;
 }
 
+message EventHandleNativeTransfer {    
+  string source_chain_id = 1; 
+  uint64 request_identifier = 2;     
+  string route_amount = 3 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string route_recipient = 4; 
+}
+
+
 message EventCrosschainReadyToExecute {    
-  string sourceChainId = 1; 
+  string source_chain_id = 1; 
   uint64 request_identifier = 2;   
-  bytes claimHash = 3;
-  string feePayer = 4;
-  cosmos.base.v1beta1.Coin destinationTxFeeInRoute = 5 [(gogoproto.nullable) = false];
+  bytes claim_hash = 3;
+  string fee_payer = 4;
+  cosmos.base.v1beta1.Coin dest_tx_fee_in_route = 5 [(gogoproto.nullable) = false];
 }
 
 message EventCrosschainExecuted {
   bytes attestation_id = 1;
-  string sourceChainId = 2; 
+  string src_chain_id = 2; 
   uint64 request_identifier = 3;
-  bytes delegationResponse = 4;
-  cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
+  bytes exec_response = 4;
+  cosmos.base.v1beta1.Coin refund_fee_in_route = 5 [(gogoproto.nullable) = false];
 }
 
 message EventCrosschainExecutionFailed {
   bytes attestation_id = 1;
-  string sourceChainId = 2; 
+  string src_chain_id = 2; 
   uint64 request_identifier = 3;
-  string delegationErrorResponse = 4;
-  cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
+  bytes exec_err_response = 4;
+  cosmos.base.v1beta1.Coin refund_fee_in_route = 5 [(gogoproto.nullable) = false];
 }
-
-
+  
 message EventCrosschainFeePayerUpdated {    
-  string sourceChainId = 1; 
+  string src_chain_id = 1; 
   uint64 request_identifier = 2;   
-  bytes claimHash = 3;
-  string feePayer = 4;
+  bytes claim_hash = 3;
+  string fee_payer = 4;
 }
 
 message EventCrosschainDestGasIncremented {  
-  string sourceChainId = 1; 
+  string src_chain_id = 1; 
   uint64 request_identifier = 2;   
-  bytes claimHash = 3;
-  string feePayer = 4;
-  uint64 destinationGasLimit = 5;
-  uint64 destinationGasPrice = 6;
+  bytes claim_hash = 3;
+  string fee_payer = 4;
+  uint64 dest_gas_limit = 5;
+  uint64 dest_gas_price = 6;
 }
 
-message EventCrosschainCompleted {    
-  string sourceChainId = 1; 
+message EventCrosschainRequestFeeSettlement {    
+  string src_chain_id = 1; 
+  uint64 request_identifier = 2;     
+  cosmos.base.v1beta1.Coin relayer_fee_in_route = 3 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin refund_fee_in_route = 4 [(gogoproto.nullable) = false];
+}
+
+message EventCrosschainRequestCompleted {    
+  string src_chain_id = 1; 
   uint64 request_identifier = 2;   
-  bytes claimHash = 3;  
+  bytes claim_hash = 3;  
 }
 
 message EventCrosschainAckRequestCreated {
   bytes attestation_id = 1;
   string ack_src_chain_id              =  2;
   uint64 ack_request_identifier           =  3;
-  uint64 blockHeight          =  4;
-  string destTxHash           =  5;
-  string relayerRouterAddress =  6;
+  uint64 block_height          =  4;
+  string dest_tx_hash           =  5;
+  string relayer_router_address =  6;
   string ack_dest_chain_id        =  7;
   string  request_sender       =  8;
-  uint64 requestIdentifier    =  9;
+  uint64 request_identifier    =  9;
   routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
   routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;
-  bytes  execData             = 12;
-  bool   execStatus           = 13;
+  bytes  exec_data             = 12;
+  bool   exec_status           = 13;
   string status = 14; 
 }
 
 message EventCrosschainAckRequestConfirm {    
-  string ackSrcChainId = 1; 
+  string ack_src_chain_id = 1; 
   uint64 ack_request_identifier = 2; 
-  bytes claimHash = 3; 
-  string ethSigner = 4; 
+  bytes claim_hash = 3; 
+  string eth_signer = 4; 
   string signature = 5; 
   string orchestrator = 6;
 }
 
 message EventCrosschainAckReadyToExecute {  
-  string ackSrcChainId = 1; 
+  string ack_src_chain_id = 1; 
   uint64 ack_request_identifier = 2;  
-  bytes claimHash = 3;
-  string feePayer = 4;
-  cosmos.base.v1beta1.Coin txFeeInRoute = 5 [(gogoproto.nullable) = false];
+  bytes claim_hash = 3;
+  string fee_payer = 4;
+  cosmos.base.v1beta1.Coin tx_fee_in_route = 5 [(gogoproto.nullable) = false];
 }
 
 
 message EventCrosschainAckExecuted {
   bytes attestation_id = 1;
-  string ackSrcChainId = 2; 
+  string ack_src_chain_id = 2; 
   uint64 ack_request_identifier = 3;
-  bytes delegationResponse = 4;
-  cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
+  bytes exec_response = 4;
+  cosmos.base.v1beta1.Coin refund_fee_in_route = 5 [(gogoproto.nullable) = false];
 }
 
 message EventCrosschainAckExecutionFailed {
   bytes attestation_id = 1;
-  string ackSrcChainId = 2; 
-  uint64 request_ideack_request_identifierntifier = 3;
-  string delegationErrorResponse = 4;
-  cosmos.base.v1beta1.Coin refundFeeInRoute = 5 [(gogoproto.nullable) = false];
+  string ack_src_chain_id = 2; 
+  uint64 ack_request_identifier = 3;
+  bytes exec_err_response = 4;
+  cosmos.base.v1beta1.Coin refund_fee_in_route = 5 [(gogoproto.nullable) = false];
+}
+
+
+message EventCrosschainAckFeeSettlement {  
+  string ack_src_chain_id = 1; 
+  uint64 ack_request_identifier = 2;     
+  cosmos.base.v1beta1.Coin relayer_fee_in_route = 3 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin refund_fee_in_route = 4 [(gogoproto.nullable) = false];
 }
 
 
 message EventCrosschainAckCompleted {    
-  string ackSrcChainId = 1; 
+  string ack_src_chain_id = 1; 
   uint64 ack_request_identifier = 2;  
-  bytes claimHash = 3;  
+  bytes claim_hash = 3;  
 }
-
-message EventCrosschainRequestFeeSettlement {    
-  string sourceChainId = 1; 
-  uint64 requestIdentifier = 2;     
-  cosmos.base.v1beta1.Coin relayerFeeInRoute = 3 [(gogoproto.nullable) = false];
-  cosmos.base.v1beta1.Coin refundFeeInRoute = 4 [(gogoproto.nullable) = false];
-}
-
 
 message EventCrosschainAckGasIncremented {    
-  string ackSrcChainType = 1; 
+  string ack_src_chain_type = 1; 
   uint64 ack_request_identifier = 2;   
-  bytes claimHash = 3;
-  string feePayer = 4;
-  uint64 ackGasLimit = 5;
-  uint64 ackGasPrice = 6;
+  bytes claim_hash = 3;
+  string fee_payer = 4;
+  uint64 ack_gas_limit = 5;
+  uint64 ack_gas_price = 6;
 }
 
 message EventCrosschainAckReceiptCreated {
   bytes attestation_id = 1;
-  string ackReceiptSrcChainId              = 2;
+  string ack_receipt_src_chain_id              = 2;
   uint64 ack_receipt_identifier           = 3;
-  uint64 ack_receipt_blockHeight          = 4;
-  string ack_receipt_txHash               = 5;
-  string relayerRouterAddress = 6;
-  uint64 requestIdentifier    = 7;
+  uint64 ack_receipt_block_height          = 4;
+  string ack_receipt_tx_hash               = 5;
+  string relayer_router_address = 6;
+  uint64 request_identifier    = 7;
   string status = 8; 
 }
 
-
-message EventCrosschainReceiptFeeSettlement {  
-  string ackReceiptSrcChainId = 1; 
-  uint64 ack_receipt_identifier = 2;     
-  cosmos.base.v1beta1.Coin relayerFeeInRoute = 3 [(gogoproto.nullable) = false];
-  cosmos.base.v1beta1.Coin refundFeeInRoute = 4 [(gogoproto.nullable) = false];
-}
-
-
 message EventCrosschainReceiptCompleted {    
-  string ackReceiptSrcChainId = 1; 
-  uint64 ackReceiptIdentifier = 2;   
-  bytes claimHash = 3;   
+  string ack_receipt_src_chain_id = 1; 
+  uint64 ack_receipt_identifier = 2;   
+  bytes claim_hash = 3;   
 }
