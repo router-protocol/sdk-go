@@ -118,5 +118,8 @@ func NewCrosschainAckReceiptFromMsg(
 		AckReceiptTxHash:      msg.AckReceiptTxHash,
 		RelayerRouterAddress:  msg.RelayerRouterAddress,
 		RequestIdentifier:     msg.RequestIdentifier,
+		AckSrcChainId:         msg.AckSrcChainId,
+		AckRequestIdentifier:  msg.AckRequestIdentifier,
+		FeeConsumed:           msg.FeeConsumed,
 	}
 }
