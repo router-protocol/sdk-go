@@ -22,7 +22,8 @@ message CrosschainRequest {
   bytes request_packet   = 12;
   routerprotocol.routerchain.multichain.ChainType src_chain_type = 13; 
   routerprotocol.routerchain.multichain.ChainType dest_chain_type = 14; 
-  string status = 15; 
+  cosmos.base.v1beta1.Coin dest_tx_fee_deducted = 15 [(gogoproto.nullable) = false];
+  string status = 16; 
 }
 
 // this line is used by starport scaffolding # genesis/types/import

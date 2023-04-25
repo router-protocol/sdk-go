@@ -18,10 +18,12 @@ message CrosschainAckRequest {
   uint64 requestIdentifier = 8; 
   routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 9;
   routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 10;
-  bytes execData = 11; 
-  bool execStatus = 12; 
-  string ethSigner = 13; 
-  string signature = 14; 
-  string status = 15; 
+  uint64 feeConsumed = 11;
+  bytes execData = 12; 
+  bool execStatus = 13; 
+  string ethSigner = 14; 
+  string signature = 15; 
+  cosmos.base.v1beta1.Coin ack_fee_deducted = 16 [(gogoproto.nullable) = false];
+  string status = 17; 
 }
 

@@ -63,10 +63,11 @@ message MsgCrosschainAckRequest {
   uint64 requestIdentifier    =  9;
   routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
   routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;
-  bytes  execData             = 12;
-  bool   execStatus           = 13;
-  string ethSigner            = 14;
-  string signature            = 15;  
+  uint64 feeConsumed = 12;
+  bytes  execData             = 13;
+  bool   execStatus           = 14;
+  string ethSigner            = 15;
+  string signature            = 16;  
 }
 
 message MsgCrosschainAckRequestResponse {}
@@ -90,6 +91,9 @@ message MsgCrosschainAckReceipt {
   string ack_receipt_txHash               = 5;
   string relayerRouterAddress = 6;
   uint64 requestIdentifier    = 7;
+  string ackSrcChainId              = 8;
+  uint64 ackRequestIdentifier              = 9;
+  uint64 feeConsumed = 10;
 }
 
 message MsgCrosschainAckReceiptResponse {}
