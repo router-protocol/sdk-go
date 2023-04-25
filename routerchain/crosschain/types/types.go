@@ -89,10 +89,11 @@ func NewCrosschainAckRequestFromMsg(
 		ExecStatus:           msg.ExecStatus,
 		EthSigner:            msg.EthSigner,
 		Signature:            msg.Signature,
+		FeeConsumed:          msg.FeeConsumed,
 		AckSrcChainType:      msg.AckSrcChainType,
 		AckDestChainType:     msg.AckDestChainType,
 
-		Status: "ack_created",
+		Status: "created",
 	}
 }
 

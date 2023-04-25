@@ -11,4 +11,7 @@ message CrosschainAckReceipt {
   string relayerRouterAddress = 5; 
   uint64 requestIdentifier = 6; 
   string status = 7; 
+  string ackSrcChainId              = 8;
+  uint64 ackRequestIdentifier              = 9;
+  uint64 feeConsumed = 10;
 }
