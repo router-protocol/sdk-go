@@ -38,6 +38,30 @@ const (
 		]
 	}]`
 
+	// CrosschainRequestNearCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkRequest message
+	CrosschainRequestNearCheckpointABIJSON = `[{
+		"name": "checkpoint",
+		"stateMutability": "nonpayable",
+		"type": "function",
+		"inputs":  [			
+			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+			{"internalType": "uint256","name": "_routeAmount","type": "uint256"},
+			{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+			{"internalType": "uint256","name": "_requestTimestamp","type": "uint256"},
+			{ "internalType": "string", "name": "_srcChainId","type": "string" },			
+			{ "internalType": "string", "name": "_routeRecipient", "type": "string"},
+			{"internalType": "string","name": "_destChainId","type": "string"},
+			{ "internalType": "string", "name": "_asmAddress", "type": "string"},						
+			{ "internalType": "string","name": "_requestSender","type": "string"},		
+			{ "internalType": "string", "name": "_handlerAddress", "type": "string"},
+			{ "internalType": "bytes","name": "_packet","type": "bytes"},
+			{"internalType": "bool","name": "_isReadCall","type": "bool"}			
+		],
+		"outputs": [
+			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+		]
+	}]`
+
 	// CrosschainAckRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
 	CrosschainAckRequestCheckpointABIJSON = `[{
 		"name": "checkpoint",
@@ -50,6 +74,26 @@ const (
 			{"internalType": "uint256","name": "_ackRequestIdentifier","type": "uint256"},
 			{ "internalType": "string", "name": "_destChainId","type": "string" },	
 			{ "internalType": "address","name": "_requestSender","type": "address"},
+			{"internalType": "bytes","name": "_execData","type": "bytes"},	
+			{"internalType": "bool","name": "execFlag", "type": "bool"}				
+		],
+		"outputs": [
+			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+		]
+	}]`
+
+	// CrosschainAckRequestNearCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
+	CrosschainAckRequestNearCheckpointABIJSON = `[{
+		"name": "checkpoint",
+		"stateMutability": "nonpayable",
+		"type": "function",
+		"inputs":  [			
+			{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+			{ "internalType": "string", "name": "_chainId","type": "string" },
+			{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+			{"internalType": "uint256","name": "_ackRequestIdentifier","type": "uint256"},
+			{ "internalType": "string", "name": "_destChainId","type": "string" },	
+			{ "internalType": "string","name": "_requestSender","type": "string"},
 			{"internalType": "bytes","name": "_execData","type": "bytes"},	
 			{"internalType": "bool","name": "execFlag", "type": "bool"}				
 		],
