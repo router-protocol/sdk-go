@@ -97,6 +97,17 @@ func LoadNetwork(name string, node string) Network {
 			Fee_denom:           "route",
 			Name:                "testnet",
 		}
+	} else if name == "load-test" {
+		return Network{
+
+			ApiEndpoint:         "http://13.233.149.217:1317",
+			TmEndpoint:          "http://13.233.149.217:26657",
+			ChainEvmRpcEndpoint: "http://13.233.149.217:8545",
+			ChainGrpcEndpoint:   "tcp://13.233.149.217:9090",
+			ChainId:             "router_9000-1",
+			Fee_denom:           "route",
+			Name:                "local-docker",
+		}
 	}
 	return Network{}
 }
