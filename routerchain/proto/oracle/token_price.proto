@@ -9,7 +9,6 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 message TokenPrice {
   string symbol = 1; 
   string tokenPrice = 2 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false]; 
-  uint64 decimals = 3; 
-  uint64 timestamp = 4;   
+  uint64 timestamp = 3;   
 }
 
