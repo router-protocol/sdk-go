@@ -28,12 +28,12 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	msgservice.RegisterMsgServiceDesc(registry, &serviceDesc)
 }
 
-var serviceDesc = grpc.ServiceDesc {
+var serviceDesc = grpc.ServiceDesc{
 	ServiceName: "routerprotocol.routerchain.multichain.Msg",
 	HandlerType: (*MsgServer)(nil),
-	Methods: []grpc.MethodDesc{},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "multichain/tx.proto",
+	Methods:     []grpc.MethodDesc{},
+	Streams:     []grpc.StreamDesc{},
+	Metadata:    "multichain/tx.proto",
 }
 
 var (

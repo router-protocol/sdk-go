@@ -46,7 +46,7 @@ type MultichainKeeper interface {
 type OracleKeeper interface {
 	// Methods imported from oracle should be defined here
 	GetGasPrice(ctx sdk.Context, chainID string) oracleTypes.GasPriceState
-	GetTokenPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *sdk.Dec
+	GetTokenPrice(ctx sdk.Context, oracletype oracleTypes.OracleType, symbol string) *big.Int
 	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainId string, feeConsumed *big.Int) sdk.Coin
 }
 

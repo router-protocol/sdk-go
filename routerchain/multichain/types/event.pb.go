@@ -26,15 +26,16 @@ type EventCreateChainConfig struct {
 	ChainId                      string    `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
 	ChainName                    string    `protobuf:"bytes,2,opt,name=chainName,proto3" json:"chainName,omitempty"`
 	Symbol                       string    `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	ChainType                    ChainType `protobuf:"varint,4,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ConfirmationsRequired        uint64    `protobuf:"varint,5,opt,name=confirmationsRequired,proto3" json:"confirmationsRequired,omitempty"`
-	GatewayContractAddress       string    `protobuf:"bytes,6,opt,name=gatewayContractAddress,proto3" json:"gatewayContractAddress,omitempty"`
-	GatewayContractHeight        uint64    `protobuf:"varint,7,opt,name=gatewayContractHeight,proto3" json:"gatewayContractHeight,omitempty"`
-	RouterContractAddress        string    `protobuf:"bytes,8,opt,name=routerContractAddress,proto3" json:"routerContractAddress,omitempty"`
-	LastObservedEventNonce       uint64    `protobuf:"varint,9,opt,name=lastObservedEventNonce,proto3" json:"lastObservedEventNonce,omitempty"`
-	LastObservedEventBlockHeight uint64    `protobuf:"varint,10,opt,name=LastObservedEventBlockHeight,proto3" json:"LastObservedEventBlockHeight,omitempty"`
-	LastObservedValsetNonce      uint64    `protobuf:"varint,11,opt,name=lastObservedValsetNonce,proto3" json:"lastObservedValsetNonce,omitempty"`
-	ChainEnabled                 bool      `protobuf:"varint,12,opt,name=chain_enabled,json=chainEnabled,proto3" json:"chain_enabled,omitempty"`
+	NativeDecimals               int64     `protobuf:"varint,4,opt,name=native_decimals,json=nativeDecimals,proto3" json:"native_decimals,omitempty"`
+	ChainType                    ChainType `protobuf:"varint,5,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ConfirmationsRequired        uint64    `protobuf:"varint,6,opt,name=confirmationsRequired,proto3" json:"confirmationsRequired,omitempty"`
+	GatewayContractAddress       string    `protobuf:"bytes,7,opt,name=gatewayContractAddress,proto3" json:"gatewayContractAddress,omitempty"`
+	GatewayContractHeight        uint64    `protobuf:"varint,8,opt,name=gatewayContractHeight,proto3" json:"gatewayContractHeight,omitempty"`
+	RouterContractAddress        string    `protobuf:"bytes,9,opt,name=routerContractAddress,proto3" json:"routerContractAddress,omitempty"`
+	LastObservedEventNonce       uint64    `protobuf:"varint,10,opt,name=lastObservedEventNonce,proto3" json:"lastObservedEventNonce,omitempty"`
+	LastObservedEventBlockHeight uint64    `protobuf:"varint,11,opt,name=LastObservedEventBlockHeight,proto3" json:"LastObservedEventBlockHeight,omitempty"`
+	LastObservedValsetNonce      uint64    `protobuf:"varint,12,opt,name=lastObservedValsetNonce,proto3" json:"lastObservedValsetNonce,omitempty"`
+	ChainEnabled                 bool      `protobuf:"varint,13,opt,name=chain_enabled,json=chainEnabled,proto3" json:"chain_enabled,omitempty"`
 }
 
 func (m *EventCreateChainConfig) Reset()         { *m = EventCreateChainConfig{} }
@@ -89,6 +90,13 @@ func (m *EventCreateChainConfig) GetSymbol() string {
 		return m.Symbol
 	}
 	return ""
+}
+
+func (m *EventCreateChainConfig) GetNativeDecimals() int64 {
+	if m != nil {
+		return m.NativeDecimals
+	}
+	return 0
 }
 
 func (m *EventCreateChainConfig) GetChainType() ChainType {
@@ -158,15 +166,16 @@ type EventUpdatedChainConfig struct {
 	ChainId                      string    `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
 	ChainName                    string    `protobuf:"bytes,2,opt,name=chainName,proto3" json:"chainName,omitempty"`
 	Symbol                       string    `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	ChainType                    ChainType `protobuf:"varint,4,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ConfirmationsRequired        uint64    `protobuf:"varint,5,opt,name=confirmationsRequired,proto3" json:"confirmationsRequired,omitempty"`
-	GatewayContractAddress       string    `protobuf:"bytes,6,opt,name=gatewayContractAddress,proto3" json:"gatewayContractAddress,omitempty"`
-	GatewayContractHeight        uint64    `protobuf:"varint,7,opt,name=gatewayContractHeight,proto3" json:"gatewayContractHeight,omitempty"`
-	RouterContractAddress        string    `protobuf:"bytes,8,opt,name=routerContractAddress,proto3" json:"routerContractAddress,omitempty"`
-	LastObservedEventNonce       uint64    `protobuf:"varint,9,opt,name=lastObservedEventNonce,proto3" json:"lastObservedEventNonce,omitempty"`
-	LastObservedEventBlockHeight uint64    `protobuf:"varint,10,opt,name=LastObservedEventBlockHeight,proto3" json:"LastObservedEventBlockHeight,omitempty"`
-	LastObservedValsetNonce      uint64    `protobuf:"varint,11,opt,name=lastObservedValsetNonce,proto3" json:"lastObservedValsetNonce,omitempty"`
-	ChainEnabled                 bool      `protobuf:"varint,12,opt,name=chain_enabled,json=chainEnabled,proto3" json:"chain_enabled,omitempty"`
+	NativeDecimals               int64     `protobuf:"varint,4,opt,name=native_decimals,json=nativeDecimals,proto3" json:"native_decimals,omitempty"`
+	ChainType                    ChainType `protobuf:"varint,5,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ConfirmationsRequired        uint64    `protobuf:"varint,6,opt,name=confirmationsRequired,proto3" json:"confirmationsRequired,omitempty"`
+	GatewayContractAddress       string    `protobuf:"bytes,7,opt,name=gatewayContractAddress,proto3" json:"gatewayContractAddress,omitempty"`
+	GatewayContractHeight        uint64    `protobuf:"varint,8,opt,name=gatewayContractHeight,proto3" json:"gatewayContractHeight,omitempty"`
+	RouterContractAddress        string    `protobuf:"bytes,9,opt,name=routerContractAddress,proto3" json:"routerContractAddress,omitempty"`
+	LastObservedEventNonce       uint64    `protobuf:"varint,10,opt,name=lastObservedEventNonce,proto3" json:"lastObservedEventNonce,omitempty"`
+	LastObservedEventBlockHeight uint64    `protobuf:"varint,11,opt,name=LastObservedEventBlockHeight,proto3" json:"LastObservedEventBlockHeight,omitempty"`
+	LastObservedValsetNonce      uint64    `protobuf:"varint,12,opt,name=lastObservedValsetNonce,proto3" json:"lastObservedValsetNonce,omitempty"`
+	ChainEnabled                 bool      `protobuf:"varint,13,opt,name=chain_enabled,json=chainEnabled,proto3" json:"chain_enabled,omitempty"`
 }
 
 func (m *EventUpdatedChainConfig) Reset()         { *m = EventUpdatedChainConfig{} }
@@ -221,6 +230,13 @@ func (m *EventUpdatedChainConfig) GetSymbol() string {
 		return m.Symbol
 	}
 	return ""
+}
+
+func (m *EventUpdatedChainConfig) GetNativeDecimals() int64 {
+	if m != nil {
+		return m.NativeDecimals
+	}
+	return 0
 }
 
 func (m *EventUpdatedChainConfig) GetChainType() ChainType {
@@ -347,36 +363,38 @@ func init() {
 func init() { proto.RegisterFile("multichain/event.proto", fileDescriptor_d69ad523a0238595) }
 
 var fileDescriptor_d69ad523a0238595 = []byte{
-	// 456 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x94, 0x41, 0x8b, 0x13, 0x31,
-	0x14, 0xc7, 0x9b, 0xb5, 0x76, 0xb7, 0x71, 0xf5, 0x10, 0xb0, 0x1b, 0x74, 0x19, 0xca, 0x8a, 0xd0,
-	0x8b, 0x53, 0x51, 0x11, 0xf1, 0x66, 0xc7, 0x05, 0x05, 0xa9, 0x30, 0xac, 0x1e, 0xbc, 0x48, 0x66,
-	0xf2, 0x6c, 0x07, 0x33, 0x93, 0x9a, 0xa4, 0xab, 0x3d, 0xfb, 0x05, 0xfc, 0x58, 0x1e, 0xf7, 0xe8,
-	0x51, 0xda, 0xb3, 0x7e, 0x06, 0x99, 0x97, 0x19, 0x5a, 0x4b, 0x2b, 0x0b, 0xb2, 0xb7, 0xbd, 0x94,
-	0xbe, 0xfc, 0xde, 0xff, 0xfd, 0x5f, 0x98, 0x3f, 0xa1, 0x9d, 0x7c, 0xaa, 0x5c, 0x96, 0x8e, 0x45,
-	0x56, 0xf4, 0xe1, 0x14, 0x0a, 0x17, 0x4e, 0x8c, 0x76, 0x9a, 0xdd, 0x35, 0x7a, 0xea, 0xc0, 0x60,
-	0x91, 0x6a, 0x15, 0xfa, 0x12, 0xfb, 0xc2, 0xa5, 0xe4, 0xd6, 0xed, 0x15, 0x39, 0xfe, 0xbe, 0x77,
-	0xb3, 0x09, 0xf8, 0x19, 0x47, 0xbf, 0x9a, 0xb4, 0x73, 0x5c, 0xce, 0x8c, 0x0c, 0x08, 0x07, 0x51,
-	0xc9, 0x23, 0x5d, 0x7c, 0xc8, 0x46, 0x8c, 0xd3, 0x5d, 0x6c, 0x7f, 0x29, 0x39, 0xe9, 0x92, 0x5e,
-	0x3b, 0xae, 0x4b, 0x76, 0x48, 0xdb, 0xf8, 0x77, 0x28, 0x72, 0xe0, 0x3b, 0xc8, 0x96, 0x07, 0xac,
-	0x43, 0x5b, 0x76, 0x96, 0x27, 0x5a, 0xf1, 0x2b, 0x88, 0xaa, 0x8a, 0x0d, 0x2b, 0xd5, 0xc9, 0x6c,
-	0x02, 0xbc, 0xd9, 0x25, 0xbd, 0x1b, 0x0f, 0xee, 0x87, 0xe7, 0xba, 0x42, 0x18, 0xd5, 0xba, 0x78,
-	0x39, 0x82, 0x3d, 0xa2, 0x37, 0xd3, 0x72, 0x53, 0x93, 0x0b, 0x97, 0xe9, 0xc2, 0xc6, 0xf0, 0x69,
-	0x9a, 0x19, 0x90, 0xfc, 0x6a, 0x97, 0xf4, 0x9a, 0xf1, 0x66, 0xc8, 0x1e, 0xd3, 0xce, 0x48, 0x38,
-	0xf8, 0x2c, 0x66, 0x91, 0x2e, 0x9c, 0x11, 0xa9, 0x7b, 0x26, 0xa5, 0x01, 0x6b, 0x79, 0x0b, 0xb7,
-	0xdd, 0x42, 0x4b, 0xb7, 0x35, 0xf2, 0x02, 0xb2, 0xd1, 0xd8, 0xf1, 0x5d, 0xef, 0xb6, 0x11, 0x96,
-	0x2a, 0x7f, 0xa5, 0x75, 0xb3, 0x3d, 0x34, 0xdb, 0x0c, 0xcb, 0x1d, 0x95, 0xb0, 0xee, 0x75, 0x62,
-	0xc1, 0x9c, 0x82, 0xc4, 0xef, 0x33, 0xd4, 0x45, 0x0a, 0xbc, 0x8d, 0x66, 0x5b, 0x28, 0x1b, 0xd0,
-	0xc3, 0x57, 0xeb, 0x64, 0xa0, 0x74, 0xfa, 0xb1, 0x5a, 0x95, 0xa2, 0xfa, 0x9f, 0x3d, 0xec, 0x09,
-	0x3d, 0x58, 0x9d, 0xfe, 0x56, 0x28, 0x0b, 0x95, 0xf9, 0x35, 0x94, 0x6f, 0xc3, 0xec, 0x0e, 0xbd,
-	0xee, 0xe3, 0x05, 0x85, 0x48, 0x14, 0x48, 0xbe, 0xdf, 0x25, 0xbd, 0xbd, 0x78, 0x1f, 0x0f, 0x8f,
-	0xfd, 0xd9, 0xd1, 0xef, 0x26, 0x3d, 0x40, 0xcf, 0x37, 0x13, 0x29, 0x1c, 0xc8, 0xcb, 0xc0, 0x5d,
-	0x06, 0xee, 0x42, 0x03, 0xf7, 0x95, 0x54, 0x81, 0x7b, 0x0e, 0x0a, 0xce, 0x1d, 0xb8, 0xbf, 0xa2,
-	0xb3, 0xf3, 0xdf, 0xd1, 0x19, 0x9c, 0x7c, 0x9f, 0x07, 0xe4, 0x6c, 0x1e, 0x90, 0x9f, 0xf3, 0x80,
-	0x7c, 0x5b, 0x04, 0x8d, 0xb3, 0x45, 0xd0, 0xf8, 0xb1, 0x08, 0x1a, 0xef, 0x9e, 0x8e, 0x32, 0x37,
-	0x9e, 0x26, 0x61, 0xaa, 0xf3, 0xbe, 0x9f, 0x78, 0xaf, 0x76, 0xa8, 0x6b, 0xff, 0x74, 0x7f, 0xe9,
-	0xaf, 0xbc, 0xe3, 0xe5, 0x0b, 0x6e, 0x93, 0x16, 0x76, 0x3e, 0xfc, 0x13, 0x00, 0x00, 0xff, 0xff,
-	0x9d, 0x72, 0xe6, 0x51, 0x21, 0x06, 0x00, 0x00,
+	// 482 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0x41, 0x6b, 0x13, 0x41,
+	0x14, 0xce, 0xb4, 0x4d, 0xda, 0x8c, 0x6d, 0x85, 0x01, 0xd3, 0x41, 0xcb, 0xb2, 0x54, 0xc4, 0xbd,
+	0xb8, 0x11, 0x15, 0x11, 0x6f, 0x66, 0x5b, 0x50, 0x90, 0x08, 0x4b, 0xf5, 0xe0, 0xa5, 0xcc, 0xee,
+	0x3e, 0x93, 0xc1, 0xd9, 0x9d, 0x38, 0x33, 0x89, 0xe6, 0xec, 0x1f, 0xf0, 0xa4, 0x7f, 0xc9, 0x63,
+	0x8f, 0x1e, 0x25, 0xf9, 0x23, 0xb2, 0x33, 0x1b, 0x12, 0x43, 0x22, 0x05, 0x2f, 0x3d, 0xe4, 0x12,
+	0xf2, 0xde, 0xf7, 0xbe, 0xef, 0x9b, 0xc7, 0x7e, 0xf0, 0x70, 0x2b, 0x1f, 0x0a, 0xc3, 0xd3, 0x3e,
+	0xe3, 0x45, 0x1b, 0x46, 0x50, 0x98, 0x70, 0xa0, 0xa4, 0x91, 0xe4, 0x9e, 0x92, 0x43, 0x03, 0xca,
+	0x16, 0xa9, 0x14, 0xa1, 0x2b, 0xed, 0x5c, 0x38, 0xa7, 0xdc, 0xbe, 0xb3, 0x40, 0xb7, 0xbf, 0x17,
+	0x66, 0x3c, 0x00, 0xa7, 0x71, 0xf2, 0xbd, 0x8e, 0x5b, 0x67, 0xa5, 0x66, 0xa4, 0x80, 0x19, 0x88,
+	0x4a, 0x3c, 0x92, 0xc5, 0x07, 0xde, 0x23, 0x14, 0xef, 0xda, 0xf1, 0x57, 0x19, 0x45, 0x3e, 0x0a,
+	0x9a, 0xf1, 0xac, 0x24, 0xc7, 0xb8, 0x69, 0xff, 0x76, 0x59, 0x0e, 0x74, 0xcb, 0x62, 0xf3, 0x06,
+	0x69, 0xe1, 0x86, 0x1e, 0xe7, 0x89, 0x14, 0x74, 0xdb, 0x42, 0x55, 0x45, 0xee, 0xe3, 0x9b, 0x05,
+	0x33, 0x7c, 0x04, 0x17, 0x19, 0xa4, 0x3c, 0x67, 0x42, 0xd3, 0x1d, 0x1f, 0x05, 0xdb, 0xf1, 0xa1,
+	0x6b, 0x9f, 0x56, 0x5d, 0xd2, 0xad, 0xe4, 0xcf, 0xc7, 0x03, 0xa0, 0x75, 0x1f, 0x05, 0x87, 0x8f,
+	0x1e, 0x86, 0x57, 0xda, 0x35, 0x8c, 0x66, 0xbc, 0x78, 0x2e, 0x41, 0x9e, 0xe0, 0x5b, 0x69, 0xb9,
+	0x92, 0xca, 0x99, 0xe1, 0xb2, 0xd0, 0x31, 0x7c, 0x1a, 0x72, 0x05, 0x19, 0x6d, 0xf8, 0x28, 0xd8,
+	0x89, 0x57, 0x83, 0xe4, 0x29, 0x6e, 0xf5, 0x98, 0x81, 0xcf, 0x6c, 0x1c, 0xc9, 0xc2, 0x28, 0x96,
+	0x9a, 0x17, 0x59, 0xa6, 0x40, 0x6b, 0xba, 0x6b, 0xd7, 0x5a, 0x83, 0x96, 0x6e, 0x4b, 0xc8, 0x4b,
+	0xe0, 0xbd, 0xbe, 0xa1, 0x7b, 0xce, 0x6d, 0x25, 0x58, 0xb2, 0xdc, 0x4a, 0xcb, 0x66, 0x4d, 0x6b,
+	0xb6, 0x1a, 0x2c, 0xdf, 0x28, 0x98, 0x36, 0x6f, 0x12, 0x0d, 0x6a, 0x04, 0x99, 0xfd, 0x90, 0x5d,
+	0x59, 0xa4, 0x40, 0xb1, 0x35, 0x5b, 0x83, 0x92, 0x0e, 0x3e, 0x7e, 0xbd, 0x8c, 0x74, 0x84, 0x4c,
+	0x3f, 0x56, 0x4f, 0xbd, 0x61, 0xd9, 0xff, 0x9c, 0x21, 0xcf, 0xf0, 0xd1, 0xa2, 0xfa, 0x3b, 0x26,
+	0x34, 0x54, 0xe6, 0xfb, 0x96, 0xbe, 0x0e, 0x26, 0x77, 0xf1, 0x81, 0xcb, 0x21, 0x14, 0x2c, 0x11,
+	0x90, 0xd1, 0x03, 0x1f, 0x05, 0x7b, 0xf1, 0xbe, 0x6d, 0x9e, 0xb9, 0xde, 0xc9, 0x8f, 0x3a, 0x3e,
+	0xb2, 0x9e, 0x6f, 0x07, 0x19, 0x33, 0x90, 0x6d, 0x92, 0xb9, 0x49, 0xe6, 0xf5, 0x48, 0xe6, 0x57,
+	0x54, 0x25, 0xf3, 0x14, 0x04, 0x5c, 0x39, 0x99, 0x7f, 0x45, 0x67, 0xeb, 0xbf, 0xa3, 0xd3, 0x39,
+	0xff, 0x39, 0xf1, 0xd0, 0xe5, 0xc4, 0x43, 0xbf, 0x27, 0x1e, 0xfa, 0x36, 0xf5, 0x6a, 0x97, 0x53,
+	0xaf, 0xf6, 0x6b, 0xea, 0xd5, 0xde, 0x3f, 0xef, 0x71, 0xd3, 0x1f, 0x26, 0x61, 0x2a, 0xf3, 0xb6,
+	0x53, 0x7c, 0x30, 0x73, 0x98, 0xd5, 0xee, 0x18, 0x7c, 0x69, 0x2f, 0x5c, 0x86, 0xf2, 0x26, 0xe8,
+	0xa4, 0x61, 0x27, 0x1f, 0xff, 0x09, 0x00, 0x00, 0xff, 0xff, 0xf1, 0xb0, 0xbc, 0x76, 0x73, 0x06,
+	0x00, 0x00,
 }
 
 func (m *EventCreateChainConfig) Marshal() (dAtA []byte, err error) {
@@ -407,49 +425,54 @@ func (m *EventCreateChainConfig) MarshalToSizedBuffer(dAtA []byte) (int, error) 
 			dAtA[i] = 0
 		}
 		i--
-		dAtA[i] = 0x60
+		dAtA[i] = 0x68
 	}
 	if m.LastObservedValsetNonce != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.LastObservedValsetNonce))
 		i--
-		dAtA[i] = 0x58
+		dAtA[i] = 0x60
 	}
 	if m.LastObservedEventBlockHeight != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.LastObservedEventBlockHeight))
 		i--
-		dAtA[i] = 0x50
+		dAtA[i] = 0x58
 	}
 	if m.LastObservedEventNonce != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.LastObservedEventNonce))
 		i--
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 	}
 	if len(m.RouterContractAddress) > 0 {
 		i -= len(m.RouterContractAddress)
 		copy(dAtA[i:], m.RouterContractAddress)
 		i = encodeVarintEvent(dAtA, i, uint64(len(m.RouterContractAddress)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	if m.GatewayContractHeight != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.GatewayContractHeight))
 		i--
-		dAtA[i] = 0x38
+		dAtA[i] = 0x40
 	}
 	if len(m.GatewayContractAddress) > 0 {
 		i -= len(m.GatewayContractAddress)
 		copy(dAtA[i:], m.GatewayContractAddress)
 		i = encodeVarintEvent(dAtA, i, uint64(len(m.GatewayContractAddress)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
 	if m.ConfirmationsRequired != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.ConfirmationsRequired))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x30
 	}
 	if m.ChainType != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.ChainType))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.NativeDecimals != 0 {
+		i = encodeVarintEvent(dAtA, i, uint64(m.NativeDecimals))
 		i--
 		dAtA[i] = 0x20
 	}
@@ -505,49 +528,54 @@ func (m *EventUpdatedChainConfig) MarshalToSizedBuffer(dAtA []byte) (int, error)
 			dAtA[i] = 0
 		}
 		i--
-		dAtA[i] = 0x60
+		dAtA[i] = 0x68
 	}
 	if m.LastObservedValsetNonce != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.LastObservedValsetNonce))
 		i--
-		dAtA[i] = 0x58
+		dAtA[i] = 0x60
 	}
 	if m.LastObservedEventBlockHeight != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.LastObservedEventBlockHeight))
 		i--
-		dAtA[i] = 0x50
+		dAtA[i] = 0x58
 	}
 	if m.LastObservedEventNonce != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.LastObservedEventNonce))
 		i--
-		dAtA[i] = 0x48
+		dAtA[i] = 0x50
 	}
 	if len(m.RouterContractAddress) > 0 {
 		i -= len(m.RouterContractAddress)
 		copy(dAtA[i:], m.RouterContractAddress)
 		i = encodeVarintEvent(dAtA, i, uint64(len(m.RouterContractAddress)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	if m.GatewayContractHeight != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.GatewayContractHeight))
 		i--
-		dAtA[i] = 0x38
+		dAtA[i] = 0x40
 	}
 	if len(m.GatewayContractAddress) > 0 {
 		i -= len(m.GatewayContractAddress)
 		copy(dAtA[i:], m.GatewayContractAddress)
 		i = encodeVarintEvent(dAtA, i, uint64(len(m.GatewayContractAddress)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
 	if m.ConfirmationsRequired != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.ConfirmationsRequired))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x30
 	}
 	if m.ChainType != 0 {
 		i = encodeVarintEvent(dAtA, i, uint64(m.ChainType))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.NativeDecimals != 0 {
+		i = encodeVarintEvent(dAtA, i, uint64(m.NativeDecimals))
 		i--
 		dAtA[i] = 0x20
 	}
@@ -639,6 +667,9 @@ func (m *EventCreateChainConfig) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovEvent(uint64(l))
 	}
+	if m.NativeDecimals != 0 {
+		n += 1 + sovEvent(uint64(m.NativeDecimals))
+	}
 	if m.ChainType != 0 {
 		n += 1 + sovEvent(uint64(m.ChainType))
 	}
@@ -688,6 +719,9 @@ func (m *EventUpdatedChainConfig) Size() (n int) {
 	l = len(m.Symbol)
 	if l > 0 {
 		n += 1 + l + sovEvent(uint64(l))
+	}
+	if m.NativeDecimals != 0 {
+		n += 1 + sovEvent(uint64(m.NativeDecimals))
 	}
 	if m.ChainType != 0 {
 		n += 1 + sovEvent(uint64(m.ChainType))
@@ -870,6 +904,25 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NativeDecimals", wireType)
+			}
+			m.NativeDecimals = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NativeDecimals |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
 			}
 			m.ChainType = 0
@@ -887,7 +940,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 5:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ConfirmationsRequired", wireType)
 			}
@@ -906,7 +959,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GatewayContractAddress", wireType)
 			}
@@ -938,7 +991,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.GatewayContractAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GatewayContractHeight", wireType)
 			}
@@ -957,7 +1010,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouterContractAddress", wireType)
 			}
@@ -989,7 +1042,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.RouterContractAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventNonce", wireType)
 			}
@@ -1008,7 +1061,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 10:
+		case 11:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventBlockHeight", wireType)
 			}
@@ -1027,7 +1080,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 11:
+		case 12:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedValsetNonce", wireType)
 			}
@@ -1046,7 +1099,7 @@ func (m *EventCreateChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 12:
+		case 13:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainEnabled", wireType)
 			}
@@ -1214,6 +1267,25 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 4:
 			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field NativeDecimals", wireType)
+			}
+			m.NativeDecimals = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvent
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.NativeDecimals |= int64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainType", wireType)
 			}
 			m.ChainType = 0
@@ -1231,7 +1303,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 5:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ConfirmationsRequired", wireType)
 			}
@@ -1250,7 +1322,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GatewayContractAddress", wireType)
 			}
@@ -1282,7 +1354,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.GatewayContractAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field GatewayContractHeight", wireType)
 			}
@@ -1301,7 +1373,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouterContractAddress", wireType)
 			}
@@ -1333,7 +1405,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 			}
 			m.RouterContractAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventNonce", wireType)
 			}
@@ -1352,7 +1424,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 10:
+		case 11:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventBlockHeight", wireType)
 			}
@@ -1371,7 +1443,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 11:
+		case 12:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedValsetNonce", wireType)
 			}
@@ -1390,7 +1462,7 @@ func (m *EventUpdatedChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 12:
+		case 13:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainEnabled", wireType)
 			}

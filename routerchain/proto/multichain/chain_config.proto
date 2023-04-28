@@ -11,14 +11,14 @@ message ChainConfig {
   string chainId = 1; 
   string chainName = 2; 
   string symbol = 3;   
-  ChainType chainType = 4; 
-  uint64 confirmationsRequired = 5; 
-  string gatewayContractAddress = 6; 
-  uint64 gatewayContractHeight = 7; 
-  string routerContractAddress = 8; 
-  uint64 lastObservedEventNonce = 9;
-  uint64 lastObservedEventBlockHeight = 10; 
-  uint64 lastObservedValsetNonce = 11; 
-  bool chain_enabled = 12; 
-  string creator = 13;
+  int64 native_decimals = 4; 
+  ChainType chainType = 5; 
+  uint64 confirmationsRequired = 6; 
+  string gatewayContractAddress = 7; 
+  uint64 gatewayContractHeight = 8; 
+  string routerContractAddress = 9; 
+  uint64 lastObservedEventNonce = 10;
+  uint64 lastObservedEventBlockHeight = 11; 
+  uint64 lastObservedValsetNonce = 12; 
+  bool chain_enabled = 13;   
 }
