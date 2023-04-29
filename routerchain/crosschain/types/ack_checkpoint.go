@@ -9,6 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
@@ -24,8 +25,10 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	**/
 	crosschainAckRequest := NewCrosschainAckRequestFromMsg(&msg)
 
-	switch crosschainAckRequest.AckDestChainId {
-	case "none":
+	switch crosschainAckRequest.AckDestChainType {
+	case multichainTypes.CHAIN_TYPE_NEAR:
+		return crosschainAckRequest.GetNearCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
@@ -34,8 +37,10 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
 
 // GetCheckpoint gets the checkpoint signature from the given MsgCrosschainAckRequest
 func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
-	switch msg.AckDestChainId {
-	case "none":
+	switch msg.AckDestChainType {
+	case multichainTypes.CHAIN_TYPE_NEAR:
+		return msg.GetNearCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil
 	default:
 		return msg.GetEvmCheckpoint("")

@@ -11,6 +11,7 @@ service Msg {
   rpc ExecuteCwContract     (MsgExecuteCwContract    ) returns (MsgExecuteCwContractResponse    );
   rpc InstantiateCwContract (MsgInstantiateCwContract) returns (MsgInstantiateCwContractResponse);
   rpc CwStoreCode           (MsgCwStoreCode          ) returns (MsgCwStoreCodeResponse          );
+  rpc MigrateCwContract     (MsgMigrateCwContract    ) returns (MsgMigrateCwContractResponse    );
 }
 message MsgExecuteCwContract {
   
@@ -50,14 +51,27 @@ message MsgInstantiateCwContractResponse {
 }
 
 message MsgCwStoreCode {
-  string sender       = 1;
+  string sender         = 1;
   string wasm_byte_code = 2;
 }
 
 message MsgCwStoreCodeResponse {
+  
   // CodeID is the reference to the stored WASM code
-  uint64 code_id = 1 [ (gogoproto.customname) = "CodeID" ];
+  uint64 code_id = 1 [(gogoproto.customname) = "CodeID"];
+  
   // Checksum is the sha256 hash of the stored code
   bytes checksum = 2;
+}
+
+message MsgMigrateCwContract {
+  string sender   = 1;
+  string contract = 2;
+  uint64 code_id   = 3;
+  string msg      = 4;
+}
+
+message MsgMigrateCwContractResponse {
+  bytes data = 1;
 }
 
