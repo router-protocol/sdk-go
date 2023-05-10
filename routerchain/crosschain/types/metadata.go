@@ -69,8 +69,12 @@ func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 	}
 
 	// Convert hexadecimal string to bytes
-	// asmAddress, _ := hex.DecodeString(chunk8)
-	asmAddress := chunk8
+	asmAddressByte, err := hex.DecodeString(chunk8)
+	if err != nil {
+		fmt.Println("Error while decoding asmAddress", err)
+		return &metadata
+	}
+	asmAddress := string(asmAddressByte)
 
 	metadata = EvmContractMetadata{
 		DestGasLimit: binary.BigEndian.Uint64(destGasLimit),
