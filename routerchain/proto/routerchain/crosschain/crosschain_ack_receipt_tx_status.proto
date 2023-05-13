@@ -1,0 +1,16 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum CrosschainAckReceiptTxStatus {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  CROSSCHAIN_ACK_RECEIPT_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_RECEIPT_TX_CREATED"];
+  CROSSCHAIN_ACK_RECEIPT_TX_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_RECEIPT_TX_VALIDATED"];
+  CROSSCHAIN_ACK_RECEIPT_TX_COMPLETED = 2 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_RECEIPT_TX_COMPLETED"];
+}
