@@ -15,7 +15,8 @@ func ParamKeyTable() paramtypes.KeyTable {
 // NewParams creates a new Params instance
 func NewParams() Params {
 	return Params{
-		InboundGasPrice: 50000000,
+		InboundGasPrice:    50000000,
+		MinimumRelayerFees: 100000000000000000,
 	}
 }
 

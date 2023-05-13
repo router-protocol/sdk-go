@@ -9,4 +9,5 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 message Params {
   option (gogoproto.goproto_stringer) = false;
   uint64 inboundGasPrice = 1;
+  uint64 minimumRelayerFees = 2;
 }

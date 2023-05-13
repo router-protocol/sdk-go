@@ -19,14 +19,15 @@ message CrosschainRequest {
   string route_recipient =  8;
   string dest_chain_id    = 9;
   uint64 dest_gas_limit = 10;
-	uint64 dest_gas_price = 11;
-  string request_sender  = 12;
-  bytes request_metadata   = 13;
-  bytes request_packet   = 14;
-  routerprotocol.routerchain.multichain.ChainType src_chain_type = 15; 
-  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 16; 
-  cosmos.base.v1beta1.Coin dest_tx_fee_deducted = 17 [(gogoproto.nullable) = false];
-  CrosschainTxStatus status = 18; 
+	uint64 dest_gas_price = 11;  
+  cosmos.base.v1beta1.Coin relayer_incentive = 12 [(gogoproto.nullable) = false];
+  string request_sender  = 13;
+  bytes request_metadata   = 14;
+  bytes request_packet   = 15;
+  routerprotocol.routerchain.multichain.ChainType src_chain_type = 16; 
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 17; 
+  cosmos.base.v1beta1.Coin dest_tx_fee_deducted = 18 [(gogoproto.nullable) = false];
+  CrosschainTxStatus status = 19; 
 }
 
 // this line is used by starport scaffolding # genesis/types/import

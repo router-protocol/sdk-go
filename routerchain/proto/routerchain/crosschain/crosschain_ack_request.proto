@@ -27,6 +27,7 @@ message CrosschainAckRequest {
   uint64 ack_gas_limit = 16;
 	uint64 ack_gas_price = 17;
   cosmos.base.v1beta1.Coin ack_fee_deducted = 18 [(gogoproto.nullable) = false];
-  CrosschainAckTxStatus status = 19; 
+  cosmos.base.v1beta1.Coin ack_relayer_incentive = 19 [(gogoproto.nullable) = false];  
+  CrosschainAckTxStatus status = 20; 
 }
 

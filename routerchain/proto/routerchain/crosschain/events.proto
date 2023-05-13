@@ -50,6 +50,7 @@ message EventCrosschainReadyToExecute {
   cosmos.base.v1beta1.Coin dest_tx_fee_in_route = 5 [(gogoproto.nullable) = false];
   uint64 dest_gas_limit = 6;
 	uint64 dest_gas_price = 7;
+  cosmos.base.v1beta1.Coin relayer_incentive_in_route = 8 [(gogoproto.nullable) = false];
 }
 
 message EventCrosschainExecuted {
@@ -128,6 +129,7 @@ message EventCrosschainAckReadyToExecute {
   cosmos.base.v1beta1.Coin tx_fee_in_route = 5 [(gogoproto.nullable) = false];
   uint64 ack_gas_limit = 6;
 	uint64 ack_gas_price = 7;
+  cosmos.base.v1beta1.Coin ack_relayer_incentive_in_route = 8 [(gogoproto.nullable) = false];
 }
 
 
