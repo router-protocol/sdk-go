@@ -36,7 +36,7 @@ func NewCrosschainRequest(
 		RequestPacket:     requestPacket,
 		SrcChainType:      srcChainType,
 		DestChainType:     destChainType,
-		Status:            "created",
+		Status:            CROSSCHAIN_TX_CREATED,
 	}
 }
 
@@ -58,7 +58,7 @@ func NewCrosschainRequestFromMsg(
 		RequestPacket:     msg.RequestPacket,
 		SrcChainType:      msg.SrcChainType,
 		DestChainType:     msg.DestChainType,
-		Status:            "created",
+		Status:            CROSSCHAIN_TX_CREATED,
 	}
 }
 
@@ -93,7 +93,7 @@ func NewCrosschainAckRequestFromMsg(
 		AckSrcChainType:      msg.AckSrcChainType,
 		AckDestChainType:     msg.AckDestChainType,
 
-		Status: "created",
+		Status: CROSSCHAIN_ACK_TX_CREATED,
 	}
 }
 
@@ -121,5 +121,6 @@ func NewCrosschainAckReceiptFromMsg(
 		AckSrcChainId:         msg.AckSrcChainId,
 		AckRequestIdentifier:  msg.AckRequestIdentifier,
 		FeeConsumed:           msg.FeeConsumed,
+		Status:                CROSSCHAIN_ACK_RECEIPT_TX_CREATED,
 	}
 }

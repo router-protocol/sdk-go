@@ -3,6 +3,8 @@ package routerprotocol.routerchain.crosschain;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
+import "routerchain/crosschain/crosschain_ack_receipt_tx_status.proto"; 
+
 message CrosschainAckReceipt {
   string ackReceiptSrcChainId              = 1;
   uint64 ack_receipt_identifier = 2; 
@@ -10,7 +12,7 @@ message CrosschainAckReceipt {
   string ack_receipt_txHash               = 4;
   string relayerRouterAddress = 5; 
   uint64 requestIdentifier = 6; 
-  string status = 7; 
+  CrosschainAckReceiptTxStatus status = 7; 
   string ackSrcChainId              = 8;
   uint64 ackRequestIdentifier              = 9;
   uint64 feeConsumed = 10;
