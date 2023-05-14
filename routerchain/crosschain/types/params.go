@@ -16,7 +16,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams() Params {
 	return Params{
 		InboundGasPrice:    50000000,
-		MinimumRelayerFees: 100000000000000000,
+		MinimumRelayerFees: 25000000000000000,
 	}
 }
 

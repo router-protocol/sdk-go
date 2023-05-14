@@ -34,7 +34,7 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info/{fee_payer}/{is_approved}";
   
   }
-  
+
   // Queries a list of MetadataRequest items.
   rpc MetadataRequest    (QueryGetMetadataRequestRequest) returns (QueryGetMetadataRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/metastore/metadata_request/{chain_id}/{event_nonce}";
@@ -101,3 +101,5 @@ message QueryAllMetaInfoResponseByFeePayer {
   repeated MetaInfo                               metaInfo   = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
+
+
