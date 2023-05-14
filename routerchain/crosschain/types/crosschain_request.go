@@ -1,7 +1,9 @@
 package types
 
 import (
+	proto "github.com/gogo/protobuf/proto"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 func (c CrosschainRequest) ValidateBasic() error {
@@ -17,8 +19,24 @@ func (c CrosschainRequest) ValidateBasic() error {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *CrosschainRequest) ClaimHash() ([]byte, error) {
-	// TODO : remove hardcoded value
-	return []byte{10}, nil
+	crosschainRequestClaimHash := NewCrosschainRequestClaimHash(
+		msg.SrcChainId,
+		msg.RequestIdentifier,
+		msg.BlockHeight,
+		msg.SourceTxHash,
+		msg.SrcTimestamp,
+		msg.SrcTxOrigin,
+		msg.RouteAmount,
+		msg.RouteRecipient,
+		msg.DestChainId,
+		msg.RequestSender,
+		msg.RequestMetadata,
+		msg.RequestPacket,
+		msg.SrcChainType,
+		msg.DestChainType)
+
+	out, err := proto.Marshal(crosschainRequestClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
 
 func (msg *CrosschainRequest) ExecuteMsgType() ExecuteMsgType {

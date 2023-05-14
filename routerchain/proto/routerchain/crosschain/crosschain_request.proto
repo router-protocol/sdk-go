@@ -30,4 +30,20 @@ message CrosschainRequest {
   CrosschainTxStatus status = 19; 
 }
 
+message CrosschainRequestClaimHash {  
+  string src_chain_id     =  1;
+  uint64 request_identifier     =  2;
+  uint64 block_height    =  3;
+  string source_tx_hash   =  4;
+  uint64 src_timestamp   =  5;
+  string src_tx_origin    =  6;
+  string route_amount = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string route_recipient =  8;
+  string dest_chain_id    = 9;  
+  string request_sender  = 10;
+  bytes request_metadata   = 11;
+  bytes request_packet   = 12;
+  routerprotocol.routerchain.multichain.ChainType src_chain_type = 13; 
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 14; 
+}
 // this line is used by starport scaffolding # genesis/types/import

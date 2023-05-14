@@ -1,6 +1,10 @@
 package types
 
-import multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+import (
+	proto "github.com/gogo/protobuf/proto"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	"github.com/tendermint/tendermint/crypto/tmhash"
+)
 
 func (c CrosschainAckRequest) ValidateBasic() error {
 	//TODO: Validate id?
@@ -15,8 +19,24 @@ func (c CrosschainAckRequest) ValidateBasic() error {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *CrosschainAckRequest) ClaimHash() ([]byte, error) {
-	// TODO : remove hardcoded value
-	return []byte{10}, nil
+	crosschainAckRequestClaimHash := NewCrosschainAckRequestClaimHash(
+		msg.AckSrcChainId,
+		msg.AckRequestIdentifier,
+		msg.BlockHeight,
+		msg.DestTxHash,
+		msg.RelayerRouterAddress,
+		msg.AckDestChainId,
+		msg.RequestSender,
+		msg.RequestIdentifier,
+		msg.AckSrcChainType,
+		msg.AckDestChainType,
+		msg.FeeConsumed,
+		msg.ExecData,
+		msg.ExecStatus,
+	)
+
+	out, err := proto.Marshal(crosschainAckRequestClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
 
 func (msg *CrosschainAckRequest) GetChainId() string {

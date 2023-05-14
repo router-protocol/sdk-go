@@ -1,5 +1,10 @@
 package types
 
+import (
+	proto "github.com/gogo/protobuf/proto"
+	"github.com/tendermint/tendermint/crypto/tmhash"
+)
+
 func (c CrosschainAckReceipt) ValidateBasic() error {
 	//TODO: Validate id?
 	//TODO: Validate cosmos sender?
@@ -13,8 +18,21 @@ func (c CrosschainAckReceipt) ValidateBasic() error {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *CrosschainAckReceipt) ClaimHash() ([]byte, error) {
-	// TODO : remove hardcoded value
-	return []byte{10}, nil
+	crosschainAckReceiptClaimHash := NewCrosschainAckReceiptClaimHash(
+		msg.AckReceiptSrcChainId,
+		msg.AckReceiptIdentifier,
+		msg.AckReceiptBlockHeight,
+		msg.AckReceiptTxHash,
+		msg.RelayerRouterAddress,
+		msg.RequestIdentifier,
+		msg.AckSrcChainId,
+		msg.AckRequestIdentifier,
+		msg.FeeConsumed,
+	)
+
+	out, err := proto.Marshal(crosschainAckReceiptClaimHash)
+	return tmhash.Sum([]byte(out)), err
+
 }
 
 func (msg *CrosschainAckReceipt) GetChainId() string {

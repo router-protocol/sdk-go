@@ -31,3 +31,18 @@ message CrosschainAckRequest {
   CrosschainAckTxStatus status = 20; 
 }
 
+message CrosschainAckRequestClaimHash {
+  string ack_src_chain_id = 1; 
+  uint64 ack_request_identifier = 2; 
+  uint64 blockHeight = 3; 
+  string destTxHash = 4; 
+  string relayerRouterAddress = 5; 
+  string ack_dest_chain_id = 6; 
+  string request_sender   = 7;
+  uint64 requestIdentifier = 8; 
+  routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 9;
+  routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 10;
+  uint64 feeConsumed = 11;
+  bytes execData = 12; 
+  bool execStatus = 13; 
+}

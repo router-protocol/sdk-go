@@ -62,6 +62,40 @@ func NewCrosschainRequestFromMsg(
 	}
 }
 
+func NewCrosschainRequestClaimHash(
+	srcChainId string,
+	requestIdentifier uint64,
+	blockHeight uint64,
+	sourceTxHash string,
+	srcTimestamp uint64,
+	srcTxOrigin string,
+	routeAmount sdk.Int,
+	routeRecipient string,
+	destChainId string,
+	requestSender string,
+	requestMetadata []byte,
+	requestPacket []byte,
+	srcChainType multichainTypes.ChainType,
+	destChainType multichainTypes.ChainType,
+) *CrosschainRequestClaimHash {
+	return &CrosschainRequestClaimHash{
+		SrcChainId:        srcChainId,
+		RequestIdentifier: requestIdentifier,
+		BlockHeight:       blockHeight,
+		SourceTxHash:      sourceTxHash,
+		SrcTimestamp:      srcTimestamp,
+		SrcTxOrigin:       srcTxOrigin,
+		RouteAmount:       routeAmount,
+		RouteRecipient:    routeRecipient,
+		DestChainId:       destChainId,
+		RequestSender:     requestSender,
+		RequestMetadata:   requestMetadata,
+		RequestPacket:     requestPacket,
+		SrcChainType:      srcChainType,
+		DestChainType:     destChainType,
+	}
+}
+
 func NewCrosschainRequestConfirm(sourceChainId string, requestIdentifier uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosschainRequestConfirm {
 	return &CrosschainRequestConfirm{
 		SourceChainId:     sourceChainId,
@@ -97,6 +131,38 @@ func NewCrosschainAckRequestFromMsg(
 	}
 }
 
+func NewCrosschainAckRequestClaimHash(
+	ackSrcChainId string,
+	ackRequestIdentifier uint64,
+	blockHeight uint64,
+	destTxHash string,
+	relayerRouterAddress string,
+	ackDestChainId string,
+	requestSender string,
+	requestIdentifier uint64,
+	ackSrcChainType multichainTypes.ChainType,
+	ackDestChainType multichainTypes.ChainType,
+	feeConsumed uint64,
+	execData []byte,
+	execStatus bool,
+) *CrosschainAckRequestClaimHash {
+	return &CrosschainAckRequestClaimHash{
+		AckSrcChainId:        ackSrcChainId,
+		AckRequestIdentifier: ackRequestIdentifier,
+		BlockHeight:          blockHeight,
+		DestTxHash:           destTxHash,
+		RelayerRouterAddress: relayerRouterAddress,
+		AckDestChainId:       ackDestChainId,
+		RequestSender:        requestSender,
+		RequestIdentifier:    requestIdentifier,
+		AckSrcChainType:      ackSrcChainType,
+		AckDestChainType:     ackDestChainType,
+		FeeConsumed:          feeConsumed,
+		ExecData:             execData,
+		ExecStatus:           execStatus,
+	}
+}
+
 func NewCrosschainAckRequestConfirm(ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string, ethSigner string, signature string) *CrosschainAckRequestConfirm {
 	return &CrosschainAckRequestConfirm{
 		AckSrcChainId:        ackSrcChainId,
@@ -122,5 +188,29 @@ func NewCrosschainAckReceiptFromMsg(
 		AckRequestIdentifier:  msg.AckRequestIdentifier,
 		FeeConsumed:           msg.FeeConsumed,
 		Status:                CROSSCHAIN_ACK_RECEIPT_TX_CREATED,
+	}
+}
+
+func NewCrosschainAckReceiptClaimHash(
+	ackReceiptSrcChainId string,
+	ackReceiptIdentifier uint64,
+	ackReceiptBlockHeight uint64,
+	ackReceiptTxHash string,
+	relayerRouterAddress string,
+	requestIdentifier uint64,
+	ackSrcChainId string,
+	ackRequestIdentifier uint64,
+	feeConsumed uint64,
+) *CrosschainAckReceiptClaimHash {
+	return &CrosschainAckReceiptClaimHash{
+		AckReceiptSrcChainId:  ackReceiptSrcChainId,
+		AckReceiptIdentifier:  ackReceiptIdentifier,
+		AckReceiptBlockHeight: ackReceiptBlockHeight,
+		AckReceiptTxHash:      ackReceiptTxHash,
+		RelayerRouterAddress:  relayerRouterAddress,
+		RequestIdentifier:     requestIdentifier,
+		AckSrcChainId:         ackSrcChainId,
+		AckRequestIdentifier:  ackRequestIdentifier,
+		FeeConsumed:           feeConsumed,
 	}
 }

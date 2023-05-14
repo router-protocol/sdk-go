@@ -3,8 +3,10 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	proto "github.com/gogo/protobuf/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
@@ -83,11 +85,24 @@ func (msg *MsgCrosschainAckRequest) GetType() attestationTypes.ClaimType {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgCrosschainAckRequest) ClaimHash() ([]byte, error) {
+	crosschainAckRequestClaimHash := NewCrosschainAckRequestClaimHash(
+		msg.AckSrcChainId,
+		msg.AckRequestIdentifier,
+		msg.BlockHeight,
+		msg.DestTxHash,
+		msg.RelayerRouterAddress,
+		msg.AckDestChainId,
+		msg.RequestSender,
+		msg.RequestIdentifier,
+		msg.AckSrcChainType,
+		msg.AckDestChainType,
+		msg.FeeConsumed,
+		msg.ExecData,
+		msg.ExecStatus,
+	)
 
-	// out, err := proto.Marshal(crosstalkRequestClaimHash)
-	// return tmhash.Sum([]byte(out)), err
-
-	return []byte{10}, nil
+	out, err := proto.Marshal(crosschainAckRequestClaimHash)
+	return tmhash.Sum([]byte(out)), err
 }
 
 func (msg MsgCrosschainAckRequest) GetClaimer() sdk.AccAddress {
