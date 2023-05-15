@@ -34,7 +34,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:          "http://localhost:26657",
 			ChainEvmRpcEndpoint: "http://localhost:8545",
 			ChainGrpcEndpoint:   "tcp://localhost:9090",
-			ChainId:             "router_9604-1",
+			ChainId:             "router_9601-1",
 			Fee_denom:           "route",
 			Name:                "local",
 		}
