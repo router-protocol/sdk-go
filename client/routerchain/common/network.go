@@ -34,7 +34,7 @@ func LoadNetwork(name string, node string) Network {
 			TmEndpoint:          "http://localhost:26657",
 			ChainEvmRpcEndpoint: "http://localhost:8545",
 			ChainGrpcEndpoint:   "tcp://localhost:9090",
-			ChainId:             "router_9601-1",
+			ChainId:             "router_9604-1",
 			Fee_denom:           "route",
 			Name:                "local",
 		}
@@ -71,13 +71,13 @@ func LoadNetwork(name string, node string) Network {
 	} else if name == "load-test" {
 		return Network{
 
-			ApiEndpoint:         "http://13.233.149.217:1317",
-			TmEndpoint:          "http://13.233.149.217:26657",
-			ChainEvmRpcEndpoint: "http://13.233.149.217:8545",
-			ChainGrpcEndpoint:   "tcp://13.233.149.217:9090",
-			ChainId:             "router_9602-1",
+			ApiEndpoint:         "http://13.235.246.63:1317",
+			TmEndpoint:          "http://13.235.246.63:26657",
+			ChainEvmRpcEndpoint: "http://13.235.246.63:8545",
+			ChainGrpcEndpoint:   "tcp://13.235.246.63:9090",
+			ChainId:             "router_9604-1",
 			Fee_denom:           "route",
-			Name:                "local-docker",
+			Name:                "local-test",
 		}
 	}
 	return Network{}
