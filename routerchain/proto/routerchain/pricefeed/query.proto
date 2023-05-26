@@ -1,0 +1,142 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.pricefeed;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "routerchain/pricefeed/params.proto";
+import "routerchain/pricefeed/price.proto";
+import "routerchain/pricefeed/symbol_request.proto";
+import "routerchain/pricefeed/price_feeder_info.proto";
+import "routerchain/pricefeed/gas_price.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/pricefeed/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/params";
+  
+  }
+  
+  // Queries a list of Price items.
+  rpc Price    (QueryGetPriceRequest) returns (QueryGetPriceResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/price/{symbol}";
+  
+  }
+  rpc PriceAll (QueryAllPriceRequest) returns (QueryAllPriceResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/price";
+  
+  }
+  
+  // Queries a list of SymbolRequest items.
+  rpc SymbolRequest    (QueryGetSymbolRequestRequest) returns (QueryGetSymbolRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/symbol_request/{symbol}";
+  
+  }
+  rpc SymbolRequestAll (QueryAllSymbolRequestRequest) returns (QueryAllSymbolRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/symbol_request";
+  
+  }
+  
+  // Queries a list of PriceFeederInfo items.
+  rpc PriceFeederInfo    (QueryGetPriceFeederInfoRequest) returns (QueryGetPriceFeederInfoResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/price_feeder_info/{name}";
+  
+  }
+  rpc PriceFeederInfoAll (QueryAllPriceFeederInfoRequest) returns (QueryAllPriceFeederInfoResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/price_feeder_info";
+  
+  }
+  
+  // Queries a list of GasPrice items.
+  rpc GasPrice    (QueryGetGasPriceRequest) returns (QueryGetGasPriceResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/gas_price/{chainId}";
+  
+  }
+  rpc GasPriceAll (QueryAllGasPriceRequest) returns (QueryAllGasPriceResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/gas_price";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetPriceRequest {
+  string symbol = 1;
+}
+
+message QueryGetPriceResponse {
+  Price price = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPriceRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPriceResponse {
+  repeated Price                                  price      = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetSymbolRequestRequest {
+  string symbol = 1;
+}
+
+message QueryGetSymbolRequestResponse {
+  SymbolRequest symbolRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllSymbolRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllSymbolRequestResponse {
+  repeated SymbolRequest                          symbolRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
+}
+
+message QueryGetPriceFeederInfoRequest {
+  string name = 1;
+}
+
+message QueryGetPriceFeederInfoResponse {
+  PriceFeederInfo priceFeederInfo = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPriceFeederInfoRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPriceFeederInfoResponse {
+  repeated PriceFeederInfo                        priceFeederInfo = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination      = 2;
+}
+
+message QueryGetGasPriceRequest {
+  string chainId = 1;
+}
+
+message QueryGetGasPriceResponse {
+  GasPrice gasPrice = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGasPriceRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGasPriceResponse {
+  repeated GasPrice                               gasPrice   = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
