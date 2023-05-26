@@ -102,7 +102,7 @@ type ChainClient interface {
 
 	// MetaStore
 	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
-	GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error)
+	GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryAllMetaInfoResponseByChainAndAddress, error)
 
 	// Wasm
 	StoreCode(file string, sender sdk.AccAddress) (int64, error)
@@ -679,12 +679,12 @@ func (c *chainClient) GetAllMetaInfo(ctx context.Context) (*metastoreTypes.Query
 	return c.metastoreQueryClient.MetaInfoAll(ctx, req)
 }
 
-func (c *chainClient) GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryGetMetaInfoResponse, error) {
-	req := &metastoreTypes.QueryGetMetaInfoRequest{
-		ChainId:     chainId,
-		DappAddress: string(dappAddress),
+func (c *chainClient) GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryAllMetaInfoResponseByChainAndAddress, error) {
+	req := &metastoreTypes.QueryAllMetaInfoRequestByChainAndAddress{
+		ChainIds: chainId,
+		Address:  string(dappAddress),
 	}
-	return c.metastoreQueryClient.MetaInfo(ctx, req)
+	return c.metastoreQueryClient.MetaInfoAllByChainAndAddress(ctx, req)
 }
 
 // func (c *chainClient) FeePayerApproval(chainType multichainTypes.ChainType, chainID string, dappAddress []byte) (err error) {
