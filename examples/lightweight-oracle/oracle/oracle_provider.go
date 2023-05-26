@@ -7,7 +7,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	routerclient "github.com/router-protocol/sdk-go/client/routerchain"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
 )
 
 type OracleProvider struct {
@@ -19,25 +18,25 @@ func NewOracleProvider(routerChainClient routerclient.ChainClient) *OracleProvid
 	return &OracleProvider{
 		routerChainClient: routerChainClient,
 	}
-}
+// }
 
-func (oracleProvider *OracleProvider) SendGasPrices() {
-	// Initialize
-	gasPrice := oracleTypes.GasPriceState{
-		ChainType: multichainTypes.CHAIN_TYPE_EVM,
-		ChainId:   "80001",
-		GasPrice:  uint64(4000000),
-		Decimals:  uint64(18),
-	}
-	gasPrices := []oracleTypes.GasPriceState{gasPrice}
+// func (oracleProvider *OracleProvider) SendGasPrices() {
+// 	// Initialize
+// 	gasPrice := pricefeedTypes.GasPrice{
+// 		ChainType: multichainTypes.CHAIN_TYPE_EVM,
+// 		ChainId:   "80001",
+// 		GasPrice:  uint64(4000000),
+// 		Decimals:  uint64(18),
+// 	}
+// 	gasPrices := []oracleTypes.GasPriceState{gasPrice}
 
-	// Create and submit Tx
-	msg := oracleTypes.NewMsgGasPrices(oracleProvider.routerChainClient.FromAddress().String(), gasPrices)
-	err := oracleProvider.routerChainClient.QueueBroadcastMsg(msg)
+// 	// Create and submit Tx
+// 	msg := oracleTypes.NewMsgGasPrices(oracleProvider.routerChainClient.FromAddress().String(), gasPrices)
+// 	err := oracleProvider.routerChainClient.QueueBroadcastMsg(msg)
 
-	if err != nil {
-		fmt.Println(err)
-	}
+// 	if err != nil {
+// 		fmt.Println(err)
+// 	}
 
-	time.Sleep(time.Second * 5)
-}
+// 	time.Sleep(time.Second * 5)
+// }

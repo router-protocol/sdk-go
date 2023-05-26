@@ -3,15 +3,13 @@ package main
 import (
 	"context"
 	"fmt"
-	"math/big"
 	"os"
 	"time"
 
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
 	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 )
 
@@ -65,19 +63,17 @@ func main() {
 
 	fmt.Println("allChainConfig", allChainConfig)
 
-	tokenPrices := make([]oracleTypes.TokenPrice, 0)
+	tokenPrices := make([]pricefeedTypes.Price, 0)
 	for _, chainConfig := range allChainConfig.ChainConfig {
-		tokenPrice := oracleTypes.TokenPrice{
-			Symbol:     chainConfig.Symbol,
-			TokenPrice: sdk.NewDecFromBigInt(big.NewInt(100000)),
-			Decimals:   18,
+		tokenPrice := pricefeedTypes.Price{
+			Symbol: chainConfig.Symbol,
 		}
 		tokenPrices = append(tokenPrices, tokenPrice)
 	}
 
 	fmt.Println("tokenPrices", tokenPrices)
 	// prepare tx msg
-	msg := oracleTypes.NewMsgTokenPrices(routerChainClient.FromAddress().String(), tokenPrices)
+	msg := pricefeedTypes.NewMsgTokenPrices(routerChainClient.FromAddress().String(), pricefeedTypes.ROUTER_PRICE_FEEDER, tokenPrices)
 
 	//AsyncBroadcastMsg, SyncBroadcastMsg, QueueBroadcastMsg
 	err = routerChainClient.QueueBroadcastMsg(msg)

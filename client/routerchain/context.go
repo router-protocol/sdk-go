@@ -20,7 +20,7 @@ import (
 	enccodec "github.com/router-protocol/sdk-go/routerchain/encoding/codec"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
 
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
 	signingtypes "github.com/cosmos/cosmos-sdk/types/tx/signing"
@@ -49,7 +49,7 @@ func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 	attestationTypes.RegisterInterfaces(interfaceRegistry)
 	metastoreTypes.RegisterInterfaces(interfaceRegistry)
 	multichainTypes.RegisterInterfaces(interfaceRegistry)
-	oracleTypes.RegisterInterfaces(interfaceRegistry)
+	pricefeedTypes.RegisterInterfaces(interfaceRegistry)
 	crosschainTypes.RegisterInterfaces(interfaceRegistry)
 	enccodec.RegisterInterfaces(interfaceRegistry)
 
