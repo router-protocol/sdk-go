@@ -12,7 +12,7 @@ var _ sdk.Msg = &MsgGasPrices{}
 func NewMsgGasPrices(priceFeederAddress string, priceFeederName string, gasPrices []GasPrice) *MsgGasPrices {
 	return &MsgGasPrices{
 		PriceFeederAddress: priceFeederAddress,
-		PriceFeederName:    priceFeederAddress,
+		PriceFeederName:    priceFeederName,
 		GasPrices:          gasPrices,
 	}
 }
