@@ -37,7 +37,7 @@ import (
 	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
 )
 
 const (
@@ -143,7 +143,7 @@ type chainClient struct {
 	// Custom Query clients
 	multichainQueryClient  multichainTypes.QueryClient
 	attestationQueryClient attestationTypes.QueryClient
-	oracleQueryClient      oracleTypes.QueryClient
+	pricefeedQueryClient   pricefeedTypes.QueryClient
 	wasmQueryClient        wasmTypes.QueryClient
 	metastoreQueryClient   metastoreTypes.QueryClient
 	crosschainQueryClient  crosschainTypes.QueryClient
@@ -263,7 +263,7 @@ func NewChainClient(
 
 		multichainQueryClient:  multichainTypes.NewQueryClient(conn),
 		attestationQueryClient: attestationTypes.NewQueryClient(conn),
-		oracleQueryClient:      oracleTypes.NewQueryClient(conn),
+		pricefeedQueryClient:   pricefeedTypes.NewQueryClient(conn),
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 		crosschainQueryClient:  crosschainTypes.NewQueryClient(conn),
 	}
