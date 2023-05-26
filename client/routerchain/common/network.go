@@ -2,6 +2,7 @@ package common
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"path"
 	"runtime"
@@ -28,59 +29,50 @@ func getFileAbsPath(relativePath string) string {
 }
 
 func LoadNetwork(name string, node string) Network {
-	if name == "local" {
-		return Network{
-			ApiEndpoint:         "https://localhost:1317",
-			TmEndpoint:          "http://localhost:26657",
-			ChainEvmRpcEndpoint: "http://localhost:8545",
-			ChainGrpcEndpoint:   "tcp://localhost:9090",
-			ChainId:             "router_9604-1",
-			Fee_denom:           "route",
-			Name:                "local",
-		}
-	} else if name == "devnet-alpha" {
-		return Network{
-			ApiEndpoint:         "https://devnet-alpha.lcd.routerprotocol.com:443",
-			TmEndpoint:          "https://devnet-alpha.tm.routerprotocol.com:443",
-			ChainEvmRpcEndpoint: "https://devnet-alpha.evm.rpc.routerprotocol.com/",
-			ChainGrpcEndpoint:   "tcp://devnet-alpha.grpc.routerprotocol.com:9090",
-			ChainId:             "router_9605-1",
-			Fee_denom:           "route",
-			Name:                "devnet-alpha",
-		}
-	} else if name == "devnet" {
-		return Network{
-			ApiEndpoint:         "https://devnet.lcd.routerprotocol.com:443",
-			TmEndpoint:          "https://devnet.tm.routerprotocol.com:443",
-			ChainEvmRpcEndpoint: "https://devnet.evm.rpc.routerprotocol.com/",
-			ChainGrpcEndpoint:   "tcp://devnet.grpc.routerprotocol.com:9090",
-			ChainId:             "router_9603-1",
-			Fee_denom:           "route",
-			Name:                "devnet",
-		}
-	} else if name == "testnet" {
-		return Network{
-			ApiEndpoint:         "https://lcd.testnet.routerchain.dev:443",
-			TmEndpoint:          "https://tm.rpc.testnet.routerchain.dev:443",
-			ChainEvmRpcEndpoint: "https://evm.rpc.testnet.routerchain.dev/",
-			ChainGrpcEndpoint:   "tcp://grpc.testnet.routerchain.dev:9090",
-			ChainId:             "router_9601-1",
-			Fee_denom:           "route",
-			Name:                "testnet",
-		}
-	} else if name == "load-test" {
-		return Network{
 
-			ApiEndpoint:         "http://13.235.246.63:1317",
-			TmEndpoint:          "http://13.235.246.63:26657",
-			ChainEvmRpcEndpoint: "http://13.235.246.63:8545",
-			ChainGrpcEndpoint:   "tcp://13.235.246.63:9090",
-			ChainId:             "router_9604-1",
-			Fee_denom:           "route",
-			Name:                "local-test",
-		}
+	// Set default fields
+	network := Network{
+		Fee_denom: "route",
+		Name:      name,
 	}
-	return Network{}
+
+	// Set endpoints
+	if name == "local" {
+		network.ApiEndpoint = "https://localhost:1317"
+		network.TmEndpoint = "http://localhost:26657"
+		network.ChainEvmRpcEndpoint = "http://localhost:8545"
+		network.ChainGrpcEndpoint = "tcp://localhost:9090"
+	} else if name == "devnet-alpha" {
+		network.ApiEndpoint = "https://devnet-alpha.lcd.routerprotocol.com:443"
+		network.TmEndpoint = "https://devnet-alpha.tm.routerprotocol.com:443"
+		network.ChainEvmRpcEndpoint = "https://devnet-alpha.evm.rpc.routerprotocol.com/"
+		network.ChainGrpcEndpoint = "tcp://devnet-alpha.grpc.routerprotocol.com:9090"
+	} else if name == "devnet" {
+		network.ApiEndpoint = "https://devnet.lcd.routerprotocol.com:443"
+		network.TmEndpoint = "https://devnet.tm.routerprotocol.com:443"
+		network.ChainEvmRpcEndpoint = "https://devnet.evm.rpc.routerprotocol.com/"
+		network.ChainGrpcEndpoint = "tcp://devnet.grpc.routerprotocol.com:9090"
+	} else if name == "testnet" {
+		network.ApiEndpoint = "https://lcd.testnet.routerchain.dev:443"
+		network.TmEndpoint = "https://tm.rpc.testnet.routerchain.dev:443"
+		network.ChainEvmRpcEndpoint = "https://evm.rpc.testnet.routerchain.dev/"
+		network.ChainGrpcEndpoint = "tcp://grpc.testnet.routerchain.dev:9090"
+	} else if name == "load-test" {
+		network.ApiEndpoint = "http://13.235.246.63:1317"
+		network.TmEndpoint = "http://13.235.246.63:26657"
+		network.ChainEvmRpcEndpoint = "http://13.235.246.63:8545"
+		network.ChainGrpcEndpoint = "tcp://13.235.246.63:9090"
+	}
+
+	//Fetch chain ID
+	chainId, err := FetchChainID(network.TmEndpoint)
+	if err != nil {
+		fmt.Println("Error while fetching chain ID", "rpc", network.TmEndpoint)
+		panic(err)
+	}
+
+	network.ChainId = chainId
+	return network
 }
 
 func contains(s []string, e string) bool {
