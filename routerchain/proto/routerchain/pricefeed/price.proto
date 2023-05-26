@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.pricefeed;
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/pricefeed/types";
+
+
+message Price {
+  string price_feeder =1;
+  string symbol = 2; 
+  string price = 3 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false]; 
+  int64 resolveTime = 4;   
+}

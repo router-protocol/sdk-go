@@ -1,0 +1,12 @@
+syntax = "proto3";
+package routerprotocol.routerchain.pricefeed;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/pricefeed/types";
+
+message PriceFeederInfo {
+  string name = 1; 
+  string address = 2; 
+  bool active = 3; 
+  
+}
+

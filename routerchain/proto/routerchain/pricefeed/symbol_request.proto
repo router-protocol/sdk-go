@@ -1,0 +1,18 @@
+syntax = "proto3";
+package routerprotocol.routerchain.pricefeed;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/pricefeed/types";
+
+// SymbolRequest is a message that represents a symbol request data structure.
+// It contains the symbol or name of the requested price data, the ID of the
+// oracle script used to fetch the requested price data, and the block interval
+// at which the price data should be update every n block.
+message SymbolRequest {
+  string symbol = 1;
+  uint64 oracle_script_id = 2 [
+    (gogoproto.customname) = "OracleScriptID"
+  ];
+  uint64 block_interval = 3;
+}
