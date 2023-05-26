@@ -186,6 +186,8 @@ func NewCrosschainAckReceiptFromMsg(
 		RequestIdentifier:     msg.RequestIdentifier,
 		AckSrcChainId:         msg.AckSrcChainId,
 		AckRequestIdentifier:  msg.AckRequestIdentifier,
+		AckExecData:           msg.AckExecData,
+		AckExecStatus:         msg.AckExecStatus,
 		FeeConsumed:           msg.FeeConsumed,
 		Status:                CROSSCHAIN_ACK_RECEIPT_TX_CREATED,
 	}
@@ -201,6 +203,8 @@ func NewCrosschainAckReceiptClaimHash(
 	ackSrcChainId string,
 	ackRequestIdentifier uint64,
 	feeConsumed uint64,
+	ackExecData []byte,
+	ackExecStatus bool,
 ) *CrosschainAckReceiptClaimHash {
 	return &CrosschainAckReceiptClaimHash{
 		AckReceiptSrcChainId:  ackReceiptSrcChainId,
@@ -212,5 +216,7 @@ func NewCrosschainAckReceiptClaimHash(
 		AckSrcChainId:         ackSrcChainId,
 		AckRequestIdentifier:  ackRequestIdentifier,
 		FeeConsumed:           feeConsumed,
+		AckExecData:           ackExecData,
+		AckExecStatus:         ackExecStatus,
 	}
 }

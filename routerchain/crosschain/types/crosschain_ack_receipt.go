@@ -28,6 +28,8 @@ func (msg *CrosschainAckReceipt) ClaimHash() ([]byte, error) {
 		msg.AckSrcChainId,
 		msg.AckRequestIdentifier,
 		msg.FeeConsumed,
+		msg.AckExecData,
+		msg.AckExecStatus,
 	)
 
 	out, err := proto.Marshal(crosschainAckReceiptClaimHash)
