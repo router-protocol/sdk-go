@@ -15,7 +15,9 @@ message CrosschainAckReceipt {
   CrosschainAckReceiptTxStatus status = 7; 
   string ackSrcChainId              = 8;
   uint64 ackRequestIdentifier              = 9;
-  uint64 feeConsumed = 10;
+  bytes  ackExecData             = 10;
+  bool   ackExecStatus           = 11;
+  uint64 feeConsumed = 12;
 }
 
 
@@ -28,5 +30,7 @@ message CrosschainAckReceiptClaimHash {
   uint64 requestIdentifier = 6; 
   string ackSrcChainId              = 7;
   uint64 ackRequestIdentifier              = 8;
-  uint64 feeConsumed = 9;
+  bytes  ackExecData             = 9;
+  bool   ackExecStatus           = 10;
+  uint64 feeConsumed = 11;
 }

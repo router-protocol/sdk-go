@@ -30,6 +30,34 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type MetaInfoQueryStatus int32
+
+const (
+	ALL      MetaInfoQueryStatus = 0
+	PENDING  MetaInfoQueryStatus = 1
+	APPROVED MetaInfoQueryStatus = 2
+)
+
+var MetaInfoQueryStatus_name = map[int32]string{
+	0: "ALL",
+	1: "PENDING",
+	2: "APPROVED",
+}
+
+var MetaInfoQueryStatus_value = map[string]int32{
+	"ALL":      0,
+	"PENDING":  1,
+	"APPROVED": 2,
+}
+
+func (x MetaInfoQueryStatus) String() string {
+	return proto.EnumName(MetaInfoQueryStatus_name, int32(x))
+}
+
+func (MetaInfoQueryStatus) EnumDescriptor() ([]byte, []int) {
+	return fileDescriptor_5152a8a24feba5e6, []int{0}
+}
+
 // QueryParamsRequest is request type for the Query/Params RPC method.
 type QueryParamsRequest struct {
 }
@@ -114,8 +142,8 @@ func (m *QueryParamsResponse) GetParams() Params {
 }
 
 type QueryGetMetaInfoRequest struct {
-	ChainId     string `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
-	DappAddress string `protobuf:"bytes,2,opt,name=dapp_address,json=dappAddress,proto3" json:"dapp_address,omitempty"`
+	ChainId string `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+	Address string `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
 }
 
 func (m *QueryGetMetaInfoRequest) Reset()         { *m = QueryGetMetaInfoRequest{} }
@@ -158,9 +186,9 @@ func (m *QueryGetMetaInfoRequest) GetChainId() string {
 	return ""
 }
 
-func (m *QueryGetMetaInfoRequest) GetDappAddress() string {
+func (m *QueryGetMetaInfoRequest) GetAddress() string {
 	if m != nil {
-		return m.DappAddress
+		return m.Address
 	}
 	return ""
 }
@@ -209,28 +237,27 @@ func (m *QueryGetMetaInfoResponse) GetMetaInfo() MetaInfo {
 	return MetaInfo{}
 }
 
-type QueryAllMetaInfoRequestByChainAndFeePayer struct {
-	ChainId    string             `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
-	FeePayer   string             `protobuf:"bytes,2,opt,name=fee_payer,json=feePayer,proto3" json:"fee_payer,omitempty"`
-	Pagination *query.PageRequest `protobuf:"bytes,3,opt,name=pagination,proto3" json:"pagination,omitempty"`
+type QueryAllMetaInfoRequestByChainAndAddress struct {
+	ChainIds   string              `protobuf:"bytes,1,opt,name=chain_ids,json=chainIds,proto3" json:"chain_ids,omitempty"`
+	Address    string              `protobuf:"bytes,2,opt,name=address,proto3" json:"address,omitempty"`
+	Status     MetaInfoQueryStatus `protobuf:"varint,3,opt,name=status,proto3,enum=routerprotocol.routerchain.metastore.MetaInfoQueryStatus" json:"status,omitempty"`
+	Pagination *query.PageRequest  `protobuf:"bytes,4,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Reset() {
-	*m = QueryAllMetaInfoRequestByChainAndFeePayer{}
+func (m *QueryAllMetaInfoRequestByChainAndAddress) Reset() {
+	*m = QueryAllMetaInfoRequestByChainAndAddress{}
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) String() string {
-	return proto.CompactTextString(m)
-}
-func (*QueryAllMetaInfoRequestByChainAndFeePayer) ProtoMessage() {}
-func (*QueryAllMetaInfoRequestByChainAndFeePayer) Descriptor() ([]byte, []int) {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) String() string { return proto.CompactTextString(m) }
+func (*QueryAllMetaInfoRequestByChainAndAddress) ProtoMessage()    {}
+func (*QueryAllMetaInfoRequestByChainAndAddress) Descriptor() ([]byte, []int) {
 	return fileDescriptor_5152a8a24feba5e6, []int{4}
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllMetaInfoRequestByChainAndFeePayer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllMetaInfoRequestByChainAndAddress.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -240,60 +267,67 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) XXX_Marshal(b []byte, determ
 		return b[:n], nil
 	}
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllMetaInfoRequestByChainAndFeePayer.Merge(m, src)
+func (m *QueryAllMetaInfoRequestByChainAndAddress) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllMetaInfoRequestByChainAndAddress.Merge(m, src)
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) XXX_Size() int {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllMetaInfoRequestByChainAndFeePayer.DiscardUnknown(m)
+func (m *QueryAllMetaInfoRequestByChainAndAddress) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllMetaInfoRequestByChainAndAddress.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllMetaInfoRequestByChainAndFeePayer proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllMetaInfoRequestByChainAndAddress proto.InternalMessageInfo
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) GetChainId() string {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) GetChainIds() string {
 	if m != nil {
-		return m.ChainId
+		return m.ChainIds
 	}
 	return ""
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) GetFeePayer() string {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) GetAddress() string {
 	if m != nil {
-		return m.FeePayer
+		return m.Address
 	}
 	return ""
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) GetPagination() *query.PageRequest {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) GetStatus() MetaInfoQueryStatus {
+	if m != nil {
+		return m.Status
+	}
+	return ALL
+}
+
+func (m *QueryAllMetaInfoRequestByChainAndAddress) GetPagination() *query.PageRequest {
 	if m != nil {
 		return m.Pagination
 	}
 	return nil
 }
 
-type QueryAllMetaInfoResponseByChainAndFeePayer struct {
+type QueryAllMetaInfoResponseByChainAndAddress struct {
 	MetaInfo   []MetaInfo          `protobuf:"bytes,1,rep,name=metaInfo,proto3" json:"metaInfo"`
 	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) Reset() {
-	*m = QueryAllMetaInfoResponseByChainAndFeePayer{}
+func (m *QueryAllMetaInfoResponseByChainAndAddress) Reset() {
+	*m = QueryAllMetaInfoResponseByChainAndAddress{}
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) String() string {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) String() string {
 	return proto.CompactTextString(m)
 }
-func (*QueryAllMetaInfoResponseByChainAndFeePayer) ProtoMessage() {}
-func (*QueryAllMetaInfoResponseByChainAndFeePayer) Descriptor() ([]byte, []int) {
+func (*QueryAllMetaInfoResponseByChainAndAddress) ProtoMessage() {}
+func (*QueryAllMetaInfoResponseByChainAndAddress) Descriptor() ([]byte, []int) {
 	return fileDescriptor_5152a8a24feba5e6, []int{5}
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllMetaInfoResponseByChainAndFeePayer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllMetaInfoResponseByChainAndAddress.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -303,26 +337,26 @@ func (m *QueryAllMetaInfoResponseByChainAndFeePayer) XXX_Marshal(b []byte, deter
 		return b[:n], nil
 	}
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllMetaInfoResponseByChainAndFeePayer.Merge(m, src)
+func (m *QueryAllMetaInfoResponseByChainAndAddress) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllMetaInfoResponseByChainAndAddress.Merge(m, src)
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) XXX_Size() int {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllMetaInfoResponseByChainAndFeePayer.DiscardUnknown(m)
+func (m *QueryAllMetaInfoResponseByChainAndAddress) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllMetaInfoResponseByChainAndAddress.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllMetaInfoResponseByChainAndFeePayer proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllMetaInfoResponseByChainAndAddress proto.InternalMessageInfo
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) GetMetaInfo() []MetaInfo {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) GetMetaInfo() []MetaInfo {
 	if m != nil {
 		return m.MetaInfo
 	}
 	return nil
 }
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) GetPagination() *query.PageResponse {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) GetPagination() *query.PageResponse {
 	if m != nil {
 		return m.Pagination
 	}
@@ -617,23 +651,23 @@ func (m *QueryAllMetadataRequestResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
-type QueryAllMetaInfoRequestByFeePayer struct {
-	FeePayer   string             `protobuf:"bytes,1,opt,name=fee_payer,json=feePayer,proto3" json:"fee_payer,omitempty"`
+type QueryAllMetaInfoRequestByAddress struct {
+	Address    string             `protobuf:"bytes,1,opt,name=address,proto3" json:"address,omitempty"`
 	Pagination *query.PageRequest `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllMetaInfoRequestByFeePayer) Reset()         { *m = QueryAllMetaInfoRequestByFeePayer{} }
-func (m *QueryAllMetaInfoRequestByFeePayer) String() string { return proto.CompactTextString(m) }
-func (*QueryAllMetaInfoRequestByFeePayer) ProtoMessage()    {}
-func (*QueryAllMetaInfoRequestByFeePayer) Descriptor() ([]byte, []int) {
+func (m *QueryAllMetaInfoRequestByAddress) Reset()         { *m = QueryAllMetaInfoRequestByAddress{} }
+func (m *QueryAllMetaInfoRequestByAddress) String() string { return proto.CompactTextString(m) }
+func (*QueryAllMetaInfoRequestByAddress) ProtoMessage()    {}
+func (*QueryAllMetaInfoRequestByAddress) Descriptor() ([]byte, []int) {
 	return fileDescriptor_5152a8a24feba5e6, []int{12}
 }
-func (m *QueryAllMetaInfoRequestByFeePayer) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllMetaInfoRequestByAddress) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllMetaInfoRequestByFeePayer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllMetaInfoRequestByAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllMetaInfoRequestByFeePayer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllMetaInfoRequestByAddress.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -643,49 +677,49 @@ func (m *QueryAllMetaInfoRequestByFeePayer) XXX_Marshal(b []byte, deterministic 
 		return b[:n], nil
 	}
 }
-func (m *QueryAllMetaInfoRequestByFeePayer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllMetaInfoRequestByFeePayer.Merge(m, src)
+func (m *QueryAllMetaInfoRequestByAddress) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllMetaInfoRequestByAddress.Merge(m, src)
 }
-func (m *QueryAllMetaInfoRequestByFeePayer) XXX_Size() int {
+func (m *QueryAllMetaInfoRequestByAddress) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllMetaInfoRequestByFeePayer) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllMetaInfoRequestByFeePayer.DiscardUnknown(m)
+func (m *QueryAllMetaInfoRequestByAddress) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllMetaInfoRequestByAddress.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllMetaInfoRequestByFeePayer proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllMetaInfoRequestByAddress proto.InternalMessageInfo
 
-func (m *QueryAllMetaInfoRequestByFeePayer) GetFeePayer() string {
+func (m *QueryAllMetaInfoRequestByAddress) GetAddress() string {
 	if m != nil {
-		return m.FeePayer
+		return m.Address
 	}
 	return ""
 }
 
-func (m *QueryAllMetaInfoRequestByFeePayer) GetPagination() *query.PageRequest {
+func (m *QueryAllMetaInfoRequestByAddress) GetPagination() *query.PageRequest {
 	if m != nil {
 		return m.Pagination
 	}
 	return nil
 }
 
-type QueryAllMetaInfoResponseByFeePayer struct {
+type QueryAllMetaInfoResponseByAddress struct {
 	MetaInfo   []MetaInfo          `protobuf:"bytes,1,rep,name=metaInfo,proto3" json:"metaInfo"`
 	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryAllMetaInfoResponseByFeePayer) Reset()         { *m = QueryAllMetaInfoResponseByFeePayer{} }
-func (m *QueryAllMetaInfoResponseByFeePayer) String() string { return proto.CompactTextString(m) }
-func (*QueryAllMetaInfoResponseByFeePayer) ProtoMessage()    {}
-func (*QueryAllMetaInfoResponseByFeePayer) Descriptor() ([]byte, []int) {
+func (m *QueryAllMetaInfoResponseByAddress) Reset()         { *m = QueryAllMetaInfoResponseByAddress{} }
+func (m *QueryAllMetaInfoResponseByAddress) String() string { return proto.CompactTextString(m) }
+func (*QueryAllMetaInfoResponseByAddress) ProtoMessage()    {}
+func (*QueryAllMetaInfoResponseByAddress) Descriptor() ([]byte, []int) {
 	return fileDescriptor_5152a8a24feba5e6, []int{13}
 }
-func (m *QueryAllMetaInfoResponseByFeePayer) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllMetaInfoResponseByAddress) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryAllMetaInfoResponseByFeePayer) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllMetaInfoResponseByAddress) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryAllMetaInfoResponseByFeePayer.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllMetaInfoResponseByAddress.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -695,130 +729,26 @@ func (m *QueryAllMetaInfoResponseByFeePayer) XXX_Marshal(b []byte, deterministic
 		return b[:n], nil
 	}
 }
-func (m *QueryAllMetaInfoResponseByFeePayer) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllMetaInfoResponseByFeePayer.Merge(m, src)
+func (m *QueryAllMetaInfoResponseByAddress) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllMetaInfoResponseByAddress.Merge(m, src)
 }
-func (m *QueryAllMetaInfoResponseByFeePayer) XXX_Size() int {
+func (m *QueryAllMetaInfoResponseByAddress) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryAllMetaInfoResponseByFeePayer) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllMetaInfoResponseByFeePayer.DiscardUnknown(m)
+func (m *QueryAllMetaInfoResponseByAddress) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllMetaInfoResponseByAddress.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryAllMetaInfoResponseByFeePayer proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllMetaInfoResponseByAddress proto.InternalMessageInfo
 
-func (m *QueryAllMetaInfoResponseByFeePayer) GetMetaInfo() []MetaInfo {
+func (m *QueryAllMetaInfoResponseByAddress) GetMetaInfo() []MetaInfo {
 	if m != nil {
 		return m.MetaInfo
 	}
 	return nil
 }
 
-func (m *QueryAllMetaInfoResponseByFeePayer) GetPagination() *query.PageResponse {
-	if m != nil {
-		return m.Pagination
-	}
-	return nil
-}
-
-type QueryAllMetaInfoRequestByDappAddr struct {
-	DappAddr   string             `protobuf:"bytes,1,opt,name=dapp_addr,json=dappAddr,proto3" json:"dapp_addr,omitempty"`
-	Pagination *query.PageRequest `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (m *QueryAllMetaInfoRequestByDappAddr) Reset()         { *m = QueryAllMetaInfoRequestByDappAddr{} }
-func (m *QueryAllMetaInfoRequestByDappAddr) String() string { return proto.CompactTextString(m) }
-func (*QueryAllMetaInfoRequestByDappAddr) ProtoMessage()    {}
-func (*QueryAllMetaInfoRequestByDappAddr) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5152a8a24feba5e6, []int{14}
-}
-func (m *QueryAllMetaInfoRequestByDappAddr) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryAllMetaInfoRequestByDappAddr) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryAllMetaInfoRequestByDappAddr.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryAllMetaInfoRequestByDappAddr) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllMetaInfoRequestByDappAddr.Merge(m, src)
-}
-func (m *QueryAllMetaInfoRequestByDappAddr) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryAllMetaInfoRequestByDappAddr) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllMetaInfoRequestByDappAddr.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryAllMetaInfoRequestByDappAddr proto.InternalMessageInfo
-
-func (m *QueryAllMetaInfoRequestByDappAddr) GetDappAddr() string {
-	if m != nil {
-		return m.DappAddr
-	}
-	return ""
-}
-
-func (m *QueryAllMetaInfoRequestByDappAddr) GetPagination() *query.PageRequest {
-	if m != nil {
-		return m.Pagination
-	}
-	return nil
-}
-
-type QueryAllMetaInfoResponseByDappAddr struct {
-	MetaInfo   []MetaInfo          `protobuf:"bytes,1,rep,name=metaInfo,proto3" json:"metaInfo"`
-	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (m *QueryAllMetaInfoResponseByDappAddr) Reset()         { *m = QueryAllMetaInfoResponseByDappAddr{} }
-func (m *QueryAllMetaInfoResponseByDappAddr) String() string { return proto.CompactTextString(m) }
-func (*QueryAllMetaInfoResponseByDappAddr) ProtoMessage()    {}
-func (*QueryAllMetaInfoResponseByDappAddr) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5152a8a24feba5e6, []int{15}
-}
-func (m *QueryAllMetaInfoResponseByDappAddr) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryAllMetaInfoResponseByDappAddr) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryAllMetaInfoResponseByDappAddr.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryAllMetaInfoResponseByDappAddr) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllMetaInfoResponseByDappAddr.Merge(m, src)
-}
-func (m *QueryAllMetaInfoResponseByDappAddr) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryAllMetaInfoResponseByDappAddr) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllMetaInfoResponseByDappAddr.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryAllMetaInfoResponseByDappAddr proto.InternalMessageInfo
-
-func (m *QueryAllMetaInfoResponseByDappAddr) GetMetaInfo() []MetaInfo {
-	if m != nil {
-		return m.MetaInfo
-	}
-	return nil
-}
-
-func (m *QueryAllMetaInfoResponseByDappAddr) GetPagination() *query.PageResponse {
+func (m *QueryAllMetaInfoResponseByAddress) GetPagination() *query.PageResponse {
 	if m != nil {
 		return m.Pagination
 	}
@@ -826,7 +756,7 @@ func (m *QueryAllMetaInfoResponseByDappAddr) GetPagination() *query.PageResponse
 }
 
 type QueryAllMetaInfoRequestByChainID struct {
-	ChainId    string             `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+	ChainIds   string             `protobuf:"bytes,1,opt,name=chain_ids,json=chainIds,proto3" json:"chain_ids,omitempty"`
 	Pagination *query.PageRequest `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
@@ -834,7 +764,7 @@ func (m *QueryAllMetaInfoRequestByChainID) Reset()         { *m = QueryAllMetaIn
 func (m *QueryAllMetaInfoRequestByChainID) String() string { return proto.CompactTextString(m) }
 func (*QueryAllMetaInfoRequestByChainID) ProtoMessage()    {}
 func (*QueryAllMetaInfoRequestByChainID) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5152a8a24feba5e6, []int{16}
+	return fileDescriptor_5152a8a24feba5e6, []int{14}
 }
 func (m *QueryAllMetaInfoRequestByChainID) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -863,9 +793,9 @@ func (m *QueryAllMetaInfoRequestByChainID) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_QueryAllMetaInfoRequestByChainID proto.InternalMessageInfo
 
-func (m *QueryAllMetaInfoRequestByChainID) GetChainId() string {
+func (m *QueryAllMetaInfoRequestByChainID) GetChainIds() string {
 	if m != nil {
-		return m.ChainId
+		return m.ChainIds
 	}
 	return ""
 }
@@ -886,7 +816,7 @@ func (m *QueryAllMetaInfoResponseByChainID) Reset()         { *m = QueryAllMetaI
 func (m *QueryAllMetaInfoResponseByChainID) String() string { return proto.CompactTextString(m) }
 func (*QueryAllMetaInfoResponseByChainID) ProtoMessage()    {}
 func (*QueryAllMetaInfoResponseByChainID) Descriptor() ([]byte, []int) {
-	return fileDescriptor_5152a8a24feba5e6, []int{17}
+	return fileDescriptor_5152a8a24feba5e6, []int{15}
 }
 func (m *QueryAllMetaInfoResponseByChainID) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -930,22 +860,21 @@ func (m *QueryAllMetaInfoResponseByChainID) GetPagination() *query.PageResponse 
 }
 
 func init() {
+	proto.RegisterEnum("routerprotocol.routerchain.metastore.MetaInfoQueryStatus", MetaInfoQueryStatus_name, MetaInfoQueryStatus_value)
 	proto.RegisterType((*QueryParamsRequest)(nil), "routerprotocol.routerchain.metastore.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "routerprotocol.routerchain.metastore.QueryParamsResponse")
 	proto.RegisterType((*QueryGetMetaInfoRequest)(nil), "routerprotocol.routerchain.metastore.QueryGetMetaInfoRequest")
 	proto.RegisterType((*QueryGetMetaInfoResponse)(nil), "routerprotocol.routerchain.metastore.QueryGetMetaInfoResponse")
-	proto.RegisterType((*QueryAllMetaInfoRequestByChainAndFeePayer)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequestByChainAndFeePayer")
-	proto.RegisterType((*QueryAllMetaInfoResponseByChainAndFeePayer)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponseByChainAndFeePayer")
+	proto.RegisterType((*QueryAllMetaInfoRequestByChainAndAddress)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequestByChainAndAddress")
+	proto.RegisterType((*QueryAllMetaInfoResponseByChainAndAddress)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponseByChainAndAddress")
 	proto.RegisterType((*QueryAllMetaInfoRequest)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequest")
 	proto.RegisterType((*QueryAllMetaInfoResponse)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponse")
 	proto.RegisterType((*QueryGetMetadataRequestRequest)(nil), "routerprotocol.routerchain.metastore.QueryGetMetadataRequestRequest")
 	proto.RegisterType((*QueryGetMetadataRequestResponse)(nil), "routerprotocol.routerchain.metastore.QueryGetMetadataRequestResponse")
 	proto.RegisterType((*QueryAllMetadataRequestRequest)(nil), "routerprotocol.routerchain.metastore.QueryAllMetadataRequestRequest")
 	proto.RegisterType((*QueryAllMetadataRequestResponse)(nil), "routerprotocol.routerchain.metastore.QueryAllMetadataRequestResponse")
-	proto.RegisterType((*QueryAllMetaInfoRequestByFeePayer)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequestByFeePayer")
-	proto.RegisterType((*QueryAllMetaInfoResponseByFeePayer)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponseByFeePayer")
-	proto.RegisterType((*QueryAllMetaInfoRequestByDappAddr)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequestByDappAddr")
-	proto.RegisterType((*QueryAllMetaInfoResponseByDappAddr)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponseByDappAddr")
+	proto.RegisterType((*QueryAllMetaInfoRequestByAddress)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequestByAddress")
+	proto.RegisterType((*QueryAllMetaInfoResponseByAddress)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponseByAddress")
 	proto.RegisterType((*QueryAllMetaInfoRequestByChainID)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoRequestByChainID")
 	proto.RegisterType((*QueryAllMetaInfoResponseByChainID)(nil), "routerprotocol.routerchain.metastore.QueryAllMetaInfoResponseByChainID")
 }
@@ -953,70 +882,70 @@ func init() {
 func init() { proto.RegisterFile("metastore/query.proto", fileDescriptor_5152a8a24feba5e6) }
 
 var fileDescriptor_5152a8a24feba5e6 = []byte{
-	// 1001 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x58, 0xcd, 0x6f, 0x1b, 0x45,
-	0x14, 0xcf, 0x38, 0x25, 0xa4, 0x2f, 0x48, 0x45, 0x43, 0x0a, 0xee, 0x02, 0x4e, 0xba, 0x42, 0x7c,
-	0x54, 0xb0, 0x4b, 0x5a, 0x81, 0x1a, 0x24, 0x10, 0x09, 0x4b, 0xc2, 0x52, 0x15, 0x1c, 0xe7, 0x80,
-	0x40, 0x48, 0x66, 0xec, 0x9d, 0x38, 0x2b, 0xd9, 0x3b, 0xdb, 0x9d, 0x75, 0x85, 0x15, 0xf9, 0x52,
-	0x09, 0xa9, 0x47, 0x24, 0xfe, 0x0c, 0xb8, 0xf6, 0x0a, 0xc7, 0xf6, 0x58, 0xc4, 0x85, 0x53, 0x85,
-	0x62, 0xfe, 0x09, 0xb8, 0x14, 0xed, 0xec, 0xec, 0x7a, 0x3f, 0x6c, 0xd7, 0xf6, 0x5a, 0x28, 0xbd,
-	0xed, 0x7c, 0xfd, 0xde, 0xfb, 0xfd, 0xde, 0x9b, 0x37, 0x33, 0x0b, 0x17, 0x3b, 0xd4, 0x27, 0xdc,
-	0x67, 0x1e, 0xd5, 0x6f, 0x75, 0xa9, 0xd7, 0xd3, 0x5c, 0x8f, 0xf9, 0x0c, 0xbf, 0xe6, 0xb1, 0xae,
-	0x4f, 0x3d, 0xd1, 0x68, 0xb2, 0xb6, 0x16, 0x36, 0x9b, 0xc7, 0xc4, 0x76, 0xb4, 0x78, 0x85, 0xb2,
-	0xde, 0x62, 0x2d, 0x26, 0xe6, 0xe8, 0xc1, 0x57, 0xb8, 0x56, 0x79, 0xa5, 0xc5, 0x58, 0xab, 0x4d,
-	0x75, 0xe2, 0xda, 0x3a, 0x71, 0x1c, 0xe6, 0x13, 0xdf, 0x66, 0x0e, 0x97, 0xa3, 0x57, 0x9a, 0x8c,
-	0x77, 0x18, 0xd7, 0x1b, 0x84, 0x4b, 0x93, 0xfa, 0xed, 0xad, 0x06, 0xf5, 0xc9, 0x96, 0xee, 0x92,
-	0x96, 0xed, 0x88, 0xc9, 0x72, 0xee, 0x8b, 0x43, 0xe7, 0x5c, 0xe2, 0x91, 0x4e, 0x84, 0x71, 0x69,
-	0xd8, 0x1f, 0x7c, 0xd5, 0x6d, 0xe7, 0x28, 0x32, 0xbe, 0x99, 0x1e, 0xb2, 0x88, 0x4f, 0xea, 0x1e,
-	0xbd, 0xd5, 0xa5, 0xdc, 0x0f, 0x67, 0xa8, 0xeb, 0x80, 0x0f, 0x02, 0xb3, 0x55, 0x81, 0x58, 0x0b,
-	0xc7, 0x54, 0x02, 0x2f, 0xa4, 0x7a, 0xb9, 0xcb, 0x1c, 0x4e, 0xf1, 0xe7, 0xb0, 0x12, 0x5a, 0x2e,
-	0xa3, 0x4d, 0xf4, 0xe6, 0xda, 0xd5, 0xb7, 0xb5, 0x69, 0x84, 0xd1, 0x42, 0x94, 0xdd, 0x73, 0x0f,
-	0x1e, 0x6d, 0x2c, 0xd5, 0x24, 0x82, 0xfa, 0x15, 0xbc, 0x24, 0x4c, 0xec, 0x53, 0xff, 0x26, 0xf5,
-	0x89, 0xe9, 0x1c, 0x31, 0x69, 0x1d, 0x5f, 0x82, 0x55, 0x01, 0x51, 0xb7, 0x2d, 0x61, 0xe8, 0x7c,
-	0xed, 0x59, 0xd1, 0x36, 0x2d, 0x7c, 0x19, 0x9e, 0xb3, 0x88, 0xeb, 0xd6, 0x89, 0x65, 0x79, 0x94,
-	0xf3, 0x72, 0x49, 0x0c, 0xaf, 0x05, 0x7d, 0x3b, 0x61, 0x97, 0xda, 0x86, 0x72, 0x1e, 0x58, 0x12,
-	0xa8, 0xc2, 0x6a, 0x47, 0xf6, 0x49, 0x0a, 0xda, 0x74, 0x14, 0x22, 0x24, 0x49, 0x22, 0x46, 0x51,
-	0x7f, 0x46, 0xf0, 0x96, 0x30, 0xb7, 0xd3, 0x6e, 0x67, 0x78, 0xec, 0xf6, 0x3e, 0x09, 0x50, 0x76,
-	0x1c, 0x6b, 0x8f, 0xd2, 0x2a, 0xe9, 0x51, 0x6f, 0x12, 0xb3, 0x97, 0xe1, 0xfc, 0x11, 0xa5, 0x75,
-	0x37, 0x98, 0x27, 0x69, 0xad, 0x1e, 0x45, 0xeb, 0xf6, 0x00, 0x86, 0xe9, 0x50, 0x5e, 0x16, 0x9e,
-	0xbf, 0xae, 0x85, 0xb9, 0xa3, 0x05, 0xb9, 0xa3, 0x85, 0xe9, 0x2a, 0x73, 0x47, 0xab, 0x92, 0x16,
-	0x95, 0x5e, 0xd4, 0x12, 0x2b, 0xd5, 0xfb, 0x08, 0xae, 0xe4, 0xbd, 0x0d, 0xc5, 0x19, 0xe1, 0x6e,
-	0x5a, 0xae, 0xe5, 0xe2, 0x72, 0xe1, 0xfd, 0x14, 0x91, 0x92, 0x20, 0xf2, 0xc6, 0x13, 0x89, 0x84,
-	0x0e, 0xa6, 0x98, 0x10, 0x99, 0x3e, 0x79, 0xd9, 0x33, 0x62, 0xa1, 0xb9, 0xc5, 0xba, 0x87, 0x64,
-	0x26, 0x8d, 0x10, 0xeb, 0x2c, 0x4b, 0xf3, 0x2d, 0x54, 0x92, 0x1b, 0x20, 0xd8, 0xf4, 0x11, 0xbd,
-	0x27, 0x6f, 0xb0, 0x0d, 0x58, 0xa3, 0xb7, 0xa9, 0xe3, 0xd7, 0x1d, 0xe6, 0x34, 0xa9, 0x70, 0xe3,
-	0x5c, 0x0d, 0x44, 0xd7, 0x17, 0x41, 0x8f, 0x7a, 0x17, 0xc1, 0xc6, 0x58, 0x78, 0x29, 0x0e, 0x85,
-	0x0b, 0x9d, 0xf4, 0x90, 0x0c, 0xc3, 0x7b, 0xd3, 0x6b, 0x94, 0x58, 0x2c, 0xa5, 0xca, 0x62, 0xaa,
-	0xc7, 0x92, 0xa8, 0x8c, 0xcf, 0x08, 0xa2, 0x8b, 0x4a, 0x85, 0xdf, 0x23, 0xd2, 0xa3, 0x4c, 0x4d,
-	0x22, 0xbd, 0xbc, 0x68, 0xd2, 0x8b, 0x4b, 0x93, 0xbb, 0x08, 0x2e, 0x8f, 0xad, 0x5c, 0x71, 0x09,
-	0x48, 0x95, 0x25, 0x34, 0xb1, 0x2c, 0x95, 0xe6, 0x96, 0xf7, 0x37, 0x04, 0xea, 0xf8, 0xb2, 0xf4,
-	0x34, 0x94, 0xa3, 0x89, 0x62, 0x1a, 0xf2, 0x74, 0x0a, 0xc4, 0x8c, 0x4f, 0xaf, 0x48, 0xcc, 0xe8,
-	0xe8, 0xfa, 0x9f, 0xc4, 0x8c, 0x7d, 0x39, 0xc3, 0x62, 0xfe, 0x80, 0x60, 0x73, 0xf2, 0x99, 0x6a,
-	0x1a, 0x93, 0x6a, 0xd8, 0xa2, 0x94, 0xfc, 0x75, 0x64, 0x50, 0x53, 0xa7, 0xa5, 0x69, 0x9c, 0x61,
-	0x21, 0xaf, 0x3e, 0x7e, 0x1e, 0x9e, 0x11, 0x04, 0xf0, 0x3d, 0x04, 0x2b, 0xe1, 0x35, 0x0c, 0x5f,
-	0x9f, 0xce, 0xbb, 0xfc, 0xad, 0x50, 0xd9, 0x9e, 0x63, 0x65, 0xe8, 0x95, 0xfa, 0xfe, 0x9d, 0x3f,
-	0xfe, 0xfe, 0xa9, 0xf4, 0x2e, 0xd6, 0xf4, 0x70, 0xcd, 0x3b, 0x11, 0x46, 0xd4, 0x16, 0x20, 0x7a,
-	0xf6, 0x86, 0x8b, 0xef, 0x23, 0x58, 0x8b, 0x74, 0xda, 0x69, 0xb7, 0xf1, 0x87, 0x33, 0xb8, 0x90,
-	0xcf, 0x1e, 0xe5, 0xa3, 0x79, 0x97, 0x4b, 0x1a, 0xdb, 0x82, 0xc6, 0x35, 0xbc, 0x35, 0x2d, 0x8d,
-	0xf8, 0x42, 0x8e, 0xef, 0x94, 0xa0, 0x9c, 0x60, 0x32, 0xdc, 0x89, 0x94, 0x73, 0xbc, 0x5f, 0x88,
-	0xd6, 0x10, 0x4b, 0xf9, 0xac, 0x18, 0xc1, 0x21, 0x92, 0x7a, 0x28, 0xa8, 0xde, 0xc4, 0x37, 0x66,
-	0xa6, 0xca, 0xf5, 0x46, 0xaf, 0x1e, 0xd7, 0x39, 0xfd, 0x24, 0xfe, 0xec, 0xe3, 0xc7, 0x08, 0x2e,
-	0xa6, 0x44, 0x88, 0x6b, 0x7b, 0x51, 0x05, 0x22, 0xa0, 0xe2, 0x0a, 0x44, 0x48, 0x45, 0x15, 0x88,
-	0x8f, 0x4d, 0xfd, 0x24, 0xfe, 0xec, 0xe3, 0x47, 0x08, 0x56, 0x23, 0x9b, 0x33, 0x65, 0x73, 0xfe,
-	0x9d, 0x34, 0x53, 0x36, 0x8f, 0x78, 0x0d, 0x15, 0x20, 0xa8, 0x9f, 0x44, 0xb5, 0xb7, 0x9f, 0x88,
-	0x2f, 0xe5, 0xbc, 0x8f, 0x7f, 0x29, 0xc1, 0xab, 0xa9, 0x10, 0xe7, 0x5e, 0x15, 0x5f, 0x16, 0x0c,
-	0x75, 0x16, 0x50, 0xa9, 0x16, 0x0d, 0x79, 0x16, 0x51, 0x3d, 0x16, 0xca, 0x34, 0xf0, 0x77, 0xf3,
-	0x85, 0x3e, 0x14, 0x87, 0x38, 0x56, 0x32, 0x09, 0x12, 0x8a, 0x25, 0xf2, 0xe1, 0x5f, 0x04, 0xeb,
-	0x79, 0xb9, 0x4c, 0x03, 0xef, 0x2d, 0x42, 0x25, 0xd3, 0x50, 0xf6, 0x17, 0x22, 0x8e, 0x69, 0xa8,
-	0x07, 0x42, 0x93, 0x1b, 0xd8, 0x2c, 0xa2, 0x89, 0x6d, 0x25, 0x84, 0xc0, 0xff, 0x20, 0xb8, 0x90,
-	0xb9, 0xf6, 0x62, 0x63, 0xf6, 0xa4, 0xce, 0x5f, 0xfc, 0x95, 0x4f, 0x0b, 0xa2, 0xc8, 0x1d, 0xf2,
-	0xb5, 0xe0, 0x7c, 0x88, 0x0f, 0x66, 0xe1, 0x9c, 0xfc, 0xcb, 0x92, 0x0a, 0x7b, 0xe2, 0x61, 0xd5,
-	0xc7, 0x03, 0x04, 0x38, 0x63, 0x36, 0x38, 0xe0, 0x8c, 0xd9, 0xc3, 0x55, 0x90, 0xfe, 0xf8, 0x27,
-	0x8d, 0xfa, 0xb1, 0xa0, 0xff, 0x01, 0xbe, 0x3e, 0x2f, 0xfd, 0xdd, 0xc3, 0x07, 0xa7, 0x15, 0xf4,
-	0xf0, 0xb4, 0x82, 0xfe, 0x3a, 0xad, 0xa0, 0x1f, 0x07, 0x95, 0xa5, 0x87, 0x83, 0xca, 0xd2, 0x9f,
-	0x83, 0xca, 0xd2, 0x37, 0xdb, 0x2d, 0xdb, 0x3f, 0xee, 0x36, 0xb4, 0x26, 0xeb, 0x4c, 0x46, 0xff,
-	0x3e, 0x81, 0xef, 0xf7, 0x5c, 0xca, 0x1b, 0x2b, 0x62, 0xe2, 0xb5, 0xff, 0x02, 0x00, 0x00, 0xff,
-	0xff, 0x2a, 0xca, 0x94, 0x2e, 0xae, 0x13, 0x00, 0x00,
+	// 993 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x97, 0x41, 0x6f, 0x1b, 0x45,
+	0x14, 0xc7, 0x3d, 0x4e, 0x48, 0xd2, 0x17, 0xa0, 0xd1, 0x34, 0x80, 0xbb, 0x54, 0x8e, 0x59, 0x21,
+	0x08, 0x15, 0xec, 0x92, 0x54, 0xa0, 0x06, 0x09, 0x84, 0x83, 0x13, 0xcb, 0x55, 0x70, 0x9c, 0x8d,
+	0x84, 0x00, 0x21, 0x59, 0x63, 0x7b, 0xea, 0x58, 0xb2, 0x77, 0x5c, 0xcf, 0xb8, 0x22, 0x8a, 0x2c,
+	0x21, 0x84, 0x44, 0x95, 0x13, 0x12, 0x27, 0x0e, 0x39, 0xf1, 0x19, 0x7a, 0xe5, 0x08, 0x3d, 0x16,
+	0x71, 0xe1, 0x84, 0x50, 0xc2, 0x87, 0x00, 0xc1, 0x01, 0xed, 0xcc, 0xac, 0xbd, 0x5e, 0xdb, 0xa9,
+	0xed, 0x8d, 0x50, 0xb8, 0xed, 0xec, 0xce, 0xfc, 0xdf, 0xfb, 0xfd, 0xf7, 0xed, 0xf3, 0x33, 0x3c,
+	0xd7, 0xa0, 0x82, 0x70, 0xc1, 0x5a, 0xd4, 0xbe, 0xd7, 0xa6, 0xad, 0x43, 0xab, 0xd9, 0x62, 0x82,
+	0xe1, 0x97, 0x5b, 0xac, 0x2d, 0x68, 0x4b, 0x2e, 0xca, 0xac, 0x6e, 0xa9, 0x65, 0xf9, 0x80, 0xd4,
+	0x5c, 0xab, 0x7b, 0xc2, 0x58, 0xae, 0xb2, 0x2a, 0x93, 0x7b, 0x6c, 0xef, 0x4a, 0x9d, 0x35, 0x6e,
+	0x54, 0x19, 0xab, 0xd6, 0xa9, 0x4d, 0x9a, 0x35, 0x9b, 0xb8, 0x2e, 0x13, 0x44, 0xd4, 0x98, 0xcb,
+	0xf5, 0xd3, 0x9b, 0x65, 0xc6, 0x1b, 0x8c, 0xdb, 0x25, 0xc2, 0x75, 0x48, 0xfb, 0xfe, 0x5a, 0x89,
+	0x0a, 0xb2, 0x66, 0x37, 0x49, 0xb5, 0xe6, 0xca, 0xcd, 0x7a, 0xef, 0xf3, 0xbd, 0xe4, 0x9a, 0xa4,
+	0x45, 0x1a, 0xbe, 0xc6, 0xf5, 0xde, 0x7d, 0xef, 0xaa, 0x58, 0x73, 0xef, 0xfa, 0xc1, 0x53, 0xfd,
+	0x8f, 0x2a, 0x44, 0x90, 0x62, 0x8b, 0xde, 0x6b, 0x53, 0x2e, 0xd4, 0x0e, 0x73, 0x19, 0xf0, 0x9e,
+	0x17, 0xb6, 0x20, 0x15, 0x1d, 0xf5, 0xcc, 0x24, 0x70, 0xad, 0xef, 0x2e, 0x6f, 0x32, 0x97, 0x53,
+	0x7c, 0x07, 0xe6, 0x54, 0xe4, 0x04, 0x4a, 0xa1, 0xd5, 0xc5, 0xf5, 0xd7, 0xad, 0x71, 0x8c, 0xb1,
+	0x94, 0xca, 0xe6, 0xec, 0xa3, 0xdf, 0x56, 0x62, 0x8e, 0x56, 0x30, 0xf3, 0xf0, 0x82, 0x0c, 0x91,
+	0xa5, 0xe2, 0x43, 0x2a, 0x48, 0xce, 0xbd, 0xcb, 0x74, 0x74, 0x7c, 0x1d, 0x16, 0xa4, 0x44, 0xb1,
+	0x56, 0x91, 0x81, 0xae, 0x38, 0xf3, 0x72, 0x9d, 0xab, 0xe0, 0x04, 0xcc, 0x93, 0x4a, 0xa5, 0x45,
+	0x39, 0x4f, 0xc4, 0xd5, 0x13, 0xbd, 0x34, 0xeb, 0x90, 0x18, 0xd4, 0xd3, 0x79, 0x17, 0x60, 0xa1,
+	0xa1, 0xef, 0xe9, 0xcc, 0xad, 0xf1, 0x32, 0xf7, 0x95, 0x74, 0xee, 0x5d, 0x15, 0xf3, 0x1f, 0x04,
+	0xab, 0x32, 0x5c, 0xba, 0x5e, 0x0f, 0xa5, 0xbf, 0x79, 0xf8, 0x81, 0xa7, 0x92, 0x76, 0x2b, 0x69,
+	0x95, 0x1a, 0x7e, 0x11, 0xae, 0xf8, 0x3c, 0x5c, 0x03, 0x2d, 0x68, 0x20, 0x3e, 0x9a, 0x08, 0xef,
+	0xc1, 0x1c, 0x17, 0x44, 0xb4, 0x79, 0x62, 0x26, 0x85, 0x56, 0x9f, 0x5d, 0xdf, 0x98, 0x2c, 0x67,
+	0x99, 0xde, 0xbe, 0x14, 0x70, 0xb4, 0x10, 0xde, 0x06, 0xe8, 0x95, 0x55, 0x62, 0x56, 0x5a, 0xf1,
+	0x8a, 0xa5, 0x6a, 0xd0, 0xf2, 0x6a, 0xd0, 0x52, 0x65, 0xaf, 0x6b, 0xd0, 0x2a, 0x90, 0x2a, 0xd5,
+	0x58, 0x4e, 0xe0, 0xa4, 0xf9, 0x23, 0x82, 0xd7, 0x06, 0xf1, 0x95, 0xdb, 0x83, 0xfc, 0xfd, 0xf6,
+	0xcf, 0x44, 0xb7, 0x1f, 0x67, 0xfb, 0x38, 0xe2, 0x92, 0xe3, 0xd5, 0x27, 0x72, 0xa8, 0xfc, 0xfa,
+	0x40, 0x88, 0xae, 0xc2, 0xc1, 0xd7, 0x18, 0xf2, 0x0a, 0x4d, 0xed, 0xd5, 0x43, 0xa4, 0x2b, 0x73,
+	0x88, 0x57, 0x97, 0xd9, 0x9a, 0xcf, 0x20, 0x19, 0xfc, 0xa0, 0xbc, 0xde, 0xe1, 0xe3, 0x3d, 0xf9,
+	0x3b, 0x5d, 0x81, 0x45, 0x7a, 0x9f, 0xba, 0xa2, 0xe8, 0x32, 0xb7, 0x4c, 0x65, 0x1a, 0xb3, 0x0e,
+	0xc8, 0x5b, 0x79, 0xef, 0x8e, 0xf9, 0x00, 0xc1, 0xca, 0x48, 0x79, 0x6d, 0x0e, 0x85, 0xab, 0x8d,
+	0xfe, 0x47, 0xfa, 0x35, 0xbc, 0x35, 0xbe, 0x47, 0x81, 0xc3, 0xda, 0xaa, 0xb0, 0xa6, 0x79, 0xa0,
+	0x41, 0xf5, 0xfb, 0x19, 0x02, 0x7a, 0x51, 0xa5, 0xf0, 0xb3, 0x0f, 0x3d, 0x2c, 0xd4, 0x79, 0xd0,
+	0x33, 0x17, 0x0d, 0x7d, 0x71, 0x65, 0xf2, 0x15, 0x82, 0xd4, 0xc8, 0x4e, 0xe8, 0x77, 0x80, 0x40,
+	0x93, 0x43, 0xfd, 0x4d, 0x6e, 0x7b, 0x48, 0x1e, 0xd3, 0x58, 0xfb, 0x03, 0x82, 0x97, 0x46, 0x77,
+	0xa4, 0xff, 0x41, 0x27, 0xfa, 0xfa, 0x3c, 0x1f, 0x65, 0x47, 0xcd, 0x65, 0xce, 0xff, 0x25, 0xf9,
+	0x6f, 0xac, 0xf4, 0x53, 0xb9, 0xbc, 0x56, 0xde, 0x2c, 0xc3, 0xb5, 0x21, 0x3f, 0x82, 0x78, 0x09,
+	0x66, 0xd2, 0x3b, 0x3b, 0x4b, 0x31, 0x63, 0xfe, 0xf8, 0x24, 0xe5, 0x5d, 0x7a, 0x65, 0x59, 0xd8,
+	0xca, 0x67, 0x72, 0xf9, 0xec, 0x12, 0x32, 0x16, 0x8f, 0x4f, 0x52, 0xfe, 0x12, 0x1b, 0xb0, 0x90,
+	0x2e, 0x14, 0x9c, 0xdd, 0x8f, 0xb6, 0x32, 0x4b, 0x71, 0xe3, 0xe9, 0xe3, 0x93, 0x54, 0x77, 0x6d,
+	0xcc, 0x3e, 0xf8, 0x3e, 0x19, 0x5b, 0xff, 0xe2, 0x19, 0x78, 0x4a, 0xaa, 0xe3, 0x87, 0x08, 0xe6,
+	0xd4, 0x88, 0x83, 0x6f, 0x8f, 0x67, 0xc1, 0xe0, 0xc4, 0x65, 0x6c, 0x4c, 0x71, 0x52, 0xa1, 0x9b,
+	0x6f, 0x7f, 0xf9, 0xcb, 0x1f, 0xdf, 0xc6, 0xdf, 0xc4, 0x96, 0xad, 0xce, 0xbc, 0xe1, 0x6b, 0xf8,
+	0x6b, 0x29, 0x62, 0x87, 0xa7, 0x47, 0xfc, 0x13, 0x82, 0x45, 0xdf, 0xa7, 0x74, 0xbd, 0x8e, 0xdf,
+	0x9d, 0x20, 0x85, 0xc1, 0x22, 0x35, 0xde, 0x9b, 0xf6, 0xb8, 0xc6, 0xd8, 0x90, 0x18, 0xb7, 0xf0,
+	0xda, 0xb8, 0x18, 0xdd, 0x61, 0x17, 0xff, 0x89, 0x60, 0x39, 0x40, 0xd2, 0xfb, 0xde, 0xb7, 0x23,
+	0x21, 0x75, 0x75, 0x8c, 0x6c, 0x34, 0xb6, 0xae, 0x90, 0xb9, 0x2b, 0x21, 0x73, 0x38, 0x3b, 0x31,
+	0x24, 0xb7, 0x4b, 0x87, 0x45, 0xdd, 0x35, 0xed, 0x23, 0x7d, 0xd1, 0xc1, 0xdf, 0xc5, 0xe1, 0x46,
+	0x1f, 0x7a, 0x78, 0xf8, 0xca, 0x47, 0xb4, 0x20, 0xa4, 0x67, 0xec, 0x46, 0xb5, 0x22, 0x24, 0x68,
+	0x7e, 0x2c, 0x2d, 0x71, 0x70, 0x61, 0x62, 0x4b, 0xec, 0xa3, 0x6e, 0x33, 0xec, 0xf4, 0x2c, 0xb1,
+	0x8f, 0xd4, 0xb0, 0xdb, 0xc1, 0x7f, 0x87, 0xcb, 0xc2, 0xef, 0x5d, 0xdb, 0x17, 0xe1, 0x49, 0x2e,
+	0x13, 0xbd, 0x2c, 0xb4, 0x90, 0xe9, 0x48, 0x0f, 0x76, 0xf0, 0x9d, 0xe9, 0xca, 0xc2, 0xb7, 0x21,
+	0x68, 0x08, 0xfe, 0x0b, 0xc1, 0xd5, 0xd0, 0x30, 0x80, 0x33, 0x13, 0x24, 0x3c, 0x72, 0xee, 0x33,
+	0xb6, 0x22, 0xaa, 0xe8, 0x0f, 0xfe, 0x13, 0x09, 0xbd, 0x8f, 0xf7, 0x26, 0x81, 0x0e, 0xfe, 0x85,
+	0xed, 0xe1, 0x76, 0xec, 0xa3, 0xc0, 0xb8, 0xd9, 0xc1, 0x67, 0x08, 0x70, 0x28, 0xac, 0xd7, 0xe1,
+	0x32, 0x93, 0xbf, 0xaf, 0x88, 0xf8, 0xa3, 0x07, 0x3d, 0xf3, 0x7d, 0x89, 0xff, 0x0e, 0xbe, 0x3d,
+	0x2d, 0xfe, 0xe6, 0xfe, 0xa3, 0xd3, 0x24, 0x7a, 0x7c, 0x9a, 0x44, 0xbf, 0x9f, 0x26, 0xd1, 0x37,
+	0x67, 0xc9, 0xd8, 0xe3, 0xb3, 0x64, 0xec, 0xd7, 0xb3, 0x64, 0xec, 0xd3, 0x8d, 0x6a, 0x4d, 0x1c,
+	0xb4, 0x4b, 0x56, 0x99, 0x35, 0xce, 0x57, 0xff, 0x3c, 0xa0, 0x2f, 0x0e, 0x9b, 0x94, 0x97, 0xe6,
+	0xe4, 0xc6, 0x5b, 0xff, 0x06, 0x00, 0x00, 0xff, 0xff, 0x63, 0xb9, 0xd7, 0xe0, 0x0b, 0x11, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -1036,13 +965,9 @@ type QueryClient interface {
 	// Queries all MetaInfo items
 	MetaInfoAll(ctx context.Context, in *QueryAllMetaInfoRequest, opts ...grpc.CallOption) (*QueryAllMetaInfoResponse, error)
 	// Queries a list of MetaInfo items by dapp address
-	MetaInfoAllByDappAddress(ctx context.Context, in *QueryAllMetaInfoRequestByDappAddr, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByDappAddr, error)
-	// Queries a list of MetaInfo items by fee payer
-	MetaInfoAllByFeePayer(ctx context.Context, in *QueryAllMetaInfoRequestByFeePayer, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByFeePayer, error)
+	MetaInfoAllByAddress(ctx context.Context, in *QueryAllMetaInfoRequestByAddress, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByAddress, error)
 	// Queries MetaInfo item by dapp address and chain id.
-	MetaInfo(ctx context.Context, in *QueryGetMetaInfoRequest, opts ...grpc.CallOption) (*QueryGetMetaInfoResponse, error)
-	// Queries a list of MetaInfo items by chain id and fee payer
-	MetaInfoAllByChainAndFeePayer(ctx context.Context, in *QueryAllMetaInfoRequestByChainAndFeePayer, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByChainAndFeePayer, error)
+	MetaInfoAllByChainAndAddress(ctx context.Context, in *QueryAllMetaInfoRequestByChainAndAddress, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByChainAndAddress, error)
 	// Queries a list of MetaInfo items by chain id
 	MetaInfoAllByChainID(ctx context.Context, in *QueryAllMetaInfoRequestByChainID, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByChainID, error)
 	// Queries a list of MetadataRequest items.
@@ -1077,36 +1002,18 @@ func (c *queryClient) MetaInfoAll(ctx context.Context, in *QueryAllMetaInfoReque
 	return out, nil
 }
 
-func (c *queryClient) MetaInfoAllByDappAddress(ctx context.Context, in *QueryAllMetaInfoRequestByDappAddr, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByDappAddr, error) {
-	out := new(QueryAllMetaInfoResponseByDappAddr)
-	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByDappAddress", in, out, opts...)
+func (c *queryClient) MetaInfoAllByAddress(ctx context.Context, in *QueryAllMetaInfoRequestByAddress, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByAddress, error) {
+	out := new(QueryAllMetaInfoResponseByAddress)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *queryClient) MetaInfoAllByFeePayer(ctx context.Context, in *QueryAllMetaInfoRequestByFeePayer, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByFeePayer, error) {
-	out := new(QueryAllMetaInfoResponseByFeePayer)
-	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByFeePayer", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) MetaInfo(ctx context.Context, in *QueryGetMetaInfoRequest, opts ...grpc.CallOption) (*QueryGetMetaInfoResponse, error) {
-	out := new(QueryGetMetaInfoResponse)
-	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.metastore.Query/MetaInfo", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) MetaInfoAllByChainAndFeePayer(ctx context.Context, in *QueryAllMetaInfoRequestByChainAndFeePayer, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByChainAndFeePayer, error) {
-	out := new(QueryAllMetaInfoResponseByChainAndFeePayer)
-	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByChainAndFeePayer", in, out, opts...)
+func (c *queryClient) MetaInfoAllByChainAndAddress(ctx context.Context, in *QueryAllMetaInfoRequestByChainAndAddress, opts ...grpc.CallOption) (*QueryAllMetaInfoResponseByChainAndAddress, error) {
+	out := new(QueryAllMetaInfoResponseByChainAndAddress)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByChainAndAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1147,13 +1054,9 @@ type QueryServer interface {
 	// Queries all MetaInfo items
 	MetaInfoAll(context.Context, *QueryAllMetaInfoRequest) (*QueryAllMetaInfoResponse, error)
 	// Queries a list of MetaInfo items by dapp address
-	MetaInfoAllByDappAddress(context.Context, *QueryAllMetaInfoRequestByDappAddr) (*QueryAllMetaInfoResponseByDappAddr, error)
-	// Queries a list of MetaInfo items by fee payer
-	MetaInfoAllByFeePayer(context.Context, *QueryAllMetaInfoRequestByFeePayer) (*QueryAllMetaInfoResponseByFeePayer, error)
+	MetaInfoAllByAddress(context.Context, *QueryAllMetaInfoRequestByAddress) (*QueryAllMetaInfoResponseByAddress, error)
 	// Queries MetaInfo item by dapp address and chain id.
-	MetaInfo(context.Context, *QueryGetMetaInfoRequest) (*QueryGetMetaInfoResponse, error)
-	// Queries a list of MetaInfo items by chain id and fee payer
-	MetaInfoAllByChainAndFeePayer(context.Context, *QueryAllMetaInfoRequestByChainAndFeePayer) (*QueryAllMetaInfoResponseByChainAndFeePayer, error)
+	MetaInfoAllByChainAndAddress(context.Context, *QueryAllMetaInfoRequestByChainAndAddress) (*QueryAllMetaInfoResponseByChainAndAddress, error)
 	// Queries a list of MetaInfo items by chain id
 	MetaInfoAllByChainID(context.Context, *QueryAllMetaInfoRequestByChainID) (*QueryAllMetaInfoResponseByChainID, error)
 	// Queries a list of MetadataRequest items.
@@ -1172,17 +1075,11 @@ func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsReq
 func (*UnimplementedQueryServer) MetaInfoAll(ctx context.Context, req *QueryAllMetaInfoRequest) (*QueryAllMetaInfoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAll not implemented")
 }
-func (*UnimplementedQueryServer) MetaInfoAllByDappAddress(ctx context.Context, req *QueryAllMetaInfoRequestByDappAddr) (*QueryAllMetaInfoResponseByDappAddr, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAllByDappAddress not implemented")
+func (*UnimplementedQueryServer) MetaInfoAllByAddress(ctx context.Context, req *QueryAllMetaInfoRequestByAddress) (*QueryAllMetaInfoResponseByAddress, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAllByAddress not implemented")
 }
-func (*UnimplementedQueryServer) MetaInfoAllByFeePayer(ctx context.Context, req *QueryAllMetaInfoRequestByFeePayer) (*QueryAllMetaInfoResponseByFeePayer, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAllByFeePayer not implemented")
-}
-func (*UnimplementedQueryServer) MetaInfo(ctx context.Context, req *QueryGetMetaInfoRequest) (*QueryGetMetaInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MetaInfo not implemented")
-}
-func (*UnimplementedQueryServer) MetaInfoAllByChainAndFeePayer(ctx context.Context, req *QueryAllMetaInfoRequestByChainAndFeePayer) (*QueryAllMetaInfoResponseByChainAndFeePayer, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAllByChainAndFeePayer not implemented")
+func (*UnimplementedQueryServer) MetaInfoAllByChainAndAddress(ctx context.Context, req *QueryAllMetaInfoRequestByChainAndAddress) (*QueryAllMetaInfoResponseByChainAndAddress, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAllByChainAndAddress not implemented")
 }
 func (*UnimplementedQueryServer) MetaInfoAllByChainID(ctx context.Context, req *QueryAllMetaInfoRequestByChainID) (*QueryAllMetaInfoResponseByChainID, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method MetaInfoAllByChainID not implemented")
@@ -1234,74 +1131,38 @@ func _Query_MetaInfoAll_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_MetaInfoAllByDappAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllMetaInfoRequestByDappAddr)
+func _Query_MetaInfoAllByAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllMetaInfoRequestByAddress)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).MetaInfoAllByDappAddress(ctx, in)
+		return srv.(QueryServer).MetaInfoAllByAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByDappAddress",
+		FullMethod: "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).MetaInfoAllByDappAddress(ctx, req.(*QueryAllMetaInfoRequestByDappAddr))
+		return srv.(QueryServer).MetaInfoAllByAddress(ctx, req.(*QueryAllMetaInfoRequestByAddress))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_MetaInfoAllByFeePayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllMetaInfoRequestByFeePayer)
+func _Query_MetaInfoAllByChainAndAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllMetaInfoRequestByChainAndAddress)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).MetaInfoAllByFeePayer(ctx, in)
+		return srv.(QueryServer).MetaInfoAllByChainAndAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByFeePayer",
+		FullMethod: "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByChainAndAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).MetaInfoAllByFeePayer(ctx, req.(*QueryAllMetaInfoRequestByFeePayer))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_MetaInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetMetaInfoRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).MetaInfo(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/routerprotocol.routerchain.metastore.Query/MetaInfo",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).MetaInfo(ctx, req.(*QueryGetMetaInfoRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_MetaInfoAllByChainAndFeePayer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllMetaInfoRequestByChainAndFeePayer)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).MetaInfoAllByChainAndFeePayer(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/routerprotocol.routerchain.metastore.Query/MetaInfoAllByChainAndFeePayer",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).MetaInfoAllByChainAndFeePayer(ctx, req.(*QueryAllMetaInfoRequestByChainAndFeePayer))
+		return srv.(QueryServer).MetaInfoAllByChainAndAddress(ctx, req.(*QueryAllMetaInfoRequestByChainAndAddress))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1373,20 +1234,12 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_MetaInfoAll_Handler,
 		},
 		{
-			MethodName: "MetaInfoAllByDappAddress",
-			Handler:    _Query_MetaInfoAllByDappAddress_Handler,
+			MethodName: "MetaInfoAllByAddress",
+			Handler:    _Query_MetaInfoAllByAddress_Handler,
 		},
 		{
-			MethodName: "MetaInfoAllByFeePayer",
-			Handler:    _Query_MetaInfoAllByFeePayer_Handler,
-		},
-		{
-			MethodName: "MetaInfo",
-			Handler:    _Query_MetaInfo_Handler,
-		},
-		{
-			MethodName: "MetaInfoAllByChainAndFeePayer",
-			Handler:    _Query_MetaInfoAllByChainAndFeePayer_Handler,
+			MethodName: "MetaInfoAllByChainAndAddress",
+			Handler:    _Query_MetaInfoAllByChainAndAddress_Handler,
 		},
 		{
 			MethodName: "MetaInfoAllByChainID",
@@ -1481,10 +1334,10 @@ func (m *QueryGetMetaInfoRequest) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	_ = i
 	var l int
 	_ = l
-	if len(m.DappAddress) > 0 {
-		i -= len(m.DappAddress)
-		copy(dAtA[i:], m.DappAddress)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.DappAddress)))
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
 		i--
 		dAtA[i] = 0x12
 	}
@@ -1531,7 +1384,7 @@ func (m *QueryGetMetaInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1541,12 +1394,12 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Marshal() (dAtA []byte, err 
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1561,26 +1414,31 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) MarshalToSizedBuffer(dAtA []
 			i = encodeVarintQuery(dAtA, i, uint64(size))
 		}
 		i--
-		dAtA[i] = 0x1a
+		dAtA[i] = 0x22
 	}
-	if len(m.FeePayer) > 0 {
-		i -= len(m.FeePayer)
-		copy(dAtA[i:], m.FeePayer)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.FeePayer)))
+	if m.Status != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.Status))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.ChainId) > 0 {
-		i -= len(m.ChainId)
-		copy(dAtA[i:], m.ChainId)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainId)))
+	if len(m.ChainIds) > 0 {
+		i -= len(m.ChainIds)
+		copy(dAtA[i:], m.ChainIds)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainIds)))
 		i--
 		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1590,12 +1448,12 @@ func (m *QueryAllMetaInfoResponseByChainAndFeePayer) Marshal() (dAtA []byte, err
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1865,7 +1723,7 @@ func (m *QueryAllMetadataRequestResponse) MarshalToSizedBuffer(dAtA []byte) (int
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllMetaInfoRequestByFeePayer) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllMetaInfoRequestByAddress) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1875,12 +1733,12 @@ func (m *QueryAllMetaInfoRequestByFeePayer) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllMetaInfoRequestByFeePayer) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoRequestByAddress) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllMetaInfoRequestByFeePayer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoRequestByAddress) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1897,17 +1755,17 @@ func (m *QueryAllMetaInfoRequestByFeePayer) MarshalToSizedBuffer(dAtA []byte) (i
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.FeePayer) > 0 {
-		i -= len(m.FeePayer)
-		copy(dAtA[i:], m.FeePayer)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.FeePayer)))
+	if len(m.Address) > 0 {
+		i -= len(m.Address)
+		copy(dAtA[i:], m.Address)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Address)))
 		i--
 		dAtA[i] = 0xa
 	}
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryAllMetaInfoResponseByFeePayer) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllMetaInfoResponseByAddress) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -1917,103 +1775,12 @@ func (m *QueryAllMetaInfoResponseByFeePayer) Marshal() (dAtA []byte, err error) 
 	return dAtA[:n], nil
 }
 
-func (m *QueryAllMetaInfoResponseByFeePayer) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoResponseByAddress) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryAllMetaInfoResponseByFeePayer) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.Pagination != nil {
-		{
-			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintQuery(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.MetaInfo) > 0 {
-		for iNdEx := len(m.MetaInfo) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.MetaInfo[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintQuery(dAtA, i, uint64(size))
-			}
-			i--
-			dAtA[i] = 0xa
-		}
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *QueryAllMetaInfoRequestByDappAddr) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryAllMetaInfoRequestByDappAddr) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryAllMetaInfoRequestByDappAddr) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.Pagination != nil {
-		{
-			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintQuery(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.DappAddr) > 0 {
-		i -= len(m.DappAddr)
-		copy(dAtA[i:], m.DappAddr)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.DappAddr)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *QueryAllMetaInfoResponseByDappAddr) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryAllMetaInfoResponseByDappAddr) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryAllMetaInfoResponseByDappAddr) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllMetaInfoResponseByAddress) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -2079,10 +1846,10 @@ func (m *QueryAllMetaInfoRequestByChainID) MarshalToSizedBuffer(dAtA []byte) (in
 		i--
 		dAtA[i] = 0x12
 	}
-	if len(m.ChainId) > 0 {
-		i -= len(m.ChainId)
-		copy(dAtA[i:], m.ChainId)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainId)))
+	if len(m.ChainIds) > 0 {
+		i -= len(m.ChainIds)
+		copy(dAtA[i:], m.ChainIds)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainIds)))
 		i--
 		dAtA[i] = 0xa
 	}
@@ -2179,7 +1946,7 @@ func (m *QueryGetMetaInfoRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
-	l = len(m.DappAddress)
+	l = len(m.Address)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
@@ -2197,19 +1964,22 @@ func (m *QueryGetMetaInfoResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Size() (n int) {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.ChainId)
+	l = len(m.ChainIds)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
-	l = len(m.FeePayer)
+	l = len(m.Address)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
+	}
+	if m.Status != 0 {
+		n += 1 + sovQuery(uint64(m.Status))
 	}
 	if m.Pagination != nil {
 		l = m.Pagination.Size()
@@ -2218,7 +1988,7 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) Size() (n int) {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2328,13 +2098,13 @@ func (m *QueryAllMetadataRequestResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllMetaInfoRequestByFeePayer) Size() (n int) {
+func (m *QueryAllMetaInfoRequestByAddress) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.FeePayer)
+	l = len(m.Address)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
@@ -2345,43 +2115,7 @@ func (m *QueryAllMetaInfoRequestByFeePayer) Size() (n int) {
 	return n
 }
 
-func (m *QueryAllMetaInfoResponseByFeePayer) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if len(m.MetaInfo) > 0 {
-		for _, e := range m.MetaInfo {
-			l = e.Size()
-			n += 1 + l + sovQuery(uint64(l))
-		}
-	}
-	if m.Pagination != nil {
-		l = m.Pagination.Size()
-		n += 1 + l + sovQuery(uint64(l))
-	}
-	return n
-}
-
-func (m *QueryAllMetaInfoRequestByDappAddr) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.DappAddr)
-	if l > 0 {
-		n += 1 + l + sovQuery(uint64(l))
-	}
-	if m.Pagination != nil {
-		l = m.Pagination.Size()
-		n += 1 + l + sovQuery(uint64(l))
-	}
-	return n
-}
-
-func (m *QueryAllMetaInfoResponseByDappAddr) Size() (n int) {
+func (m *QueryAllMetaInfoResponseByAddress) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -2406,7 +2140,7 @@ func (m *QueryAllMetaInfoRequestByChainID) Size() (n int) {
 	}
 	var l int
 	_ = l
-	l = len(m.ChainId)
+	l = len(m.ChainIds)
 	if l > 0 {
 		n += 1 + l + sovQuery(uint64(l))
 	}
@@ -2638,7 +2372,7 @@ func (m *QueryGetMetaInfoRequest) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DappAddress", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -2666,7 +2400,7 @@ func (m *QueryGetMetaInfoRequest) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.DappAddress = string(dAtA[iNdEx:postIndex])
+			m.Address = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
@@ -2772,7 +2506,7 @@ func (m *QueryGetMetaInfoResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Unmarshal(dAtA []byte) error {
+func (m *QueryAllMetaInfoRequestByChainAndAddress) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2795,15 +2529,15 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Unmarshal(dAtA []byte) error
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllMetaInfoRequestByChainAndFeePayer: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllMetaInfoRequestByChainAndAddress: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllMetaInfoRequestByChainAndFeePayer: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllMetaInfoRequestByChainAndAddress: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainIds", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -2831,11 +2565,11 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Unmarshal(dAtA []byte) error
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ChainId = string(dAtA[iNdEx:postIndex])
+			m.ChainIds = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field FeePayer", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -2863,9 +2597,28 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Unmarshal(dAtA []byte) error
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.FeePayer = string(dAtA[iNdEx:postIndex])
+			m.Address = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
+			}
+			m.Status = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.Status |= MetaInfoQueryStatus(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
 			}
@@ -2922,7 +2675,7 @@ func (m *QueryAllMetaInfoRequestByChainAndFeePayer) Unmarshal(dAtA []byte) error
 	}
 	return nil
 }
-func (m *QueryAllMetaInfoResponseByChainAndFeePayer) Unmarshal(dAtA []byte) error {
+func (m *QueryAllMetaInfoResponseByChainAndAddress) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -2945,10 +2698,10 @@ func (m *QueryAllMetaInfoResponseByChainAndFeePayer) Unmarshal(dAtA []byte) erro
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllMetaInfoResponseByChainAndFeePayer: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllMetaInfoResponseByChainAndAddress: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllMetaInfoResponseByChainAndFeePayer: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllMetaInfoResponseByChainAndAddress: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -3638,7 +3391,7 @@ func (m *QueryAllMetadataRequestResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllMetaInfoRequestByFeePayer) Unmarshal(dAtA []byte) error {
+func (m *QueryAllMetaInfoRequestByAddress) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3661,15 +3414,15 @@ func (m *QueryAllMetaInfoRequestByFeePayer) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllMetaInfoRequestByFeePayer: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllMetaInfoRequestByAddress: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllMetaInfoRequestByFeePayer: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllMetaInfoRequestByAddress: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field FeePayer", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Address", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -3697,7 +3450,7 @@ func (m *QueryAllMetaInfoRequestByFeePayer) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.FeePayer = string(dAtA[iNdEx:postIndex])
+			m.Address = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {
@@ -3756,7 +3509,7 @@ func (m *QueryAllMetaInfoRequestByFeePayer) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryAllMetaInfoResponseByFeePayer) Unmarshal(dAtA []byte) error {
+func (m *QueryAllMetaInfoResponseByAddress) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -3779,248 +3532,10 @@ func (m *QueryAllMetaInfoResponseByFeePayer) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllMetaInfoResponseByFeePayer: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllMetaInfoResponseByAddress: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllMetaInfoResponseByFeePayer: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field MetaInfo", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.MetaInfo = append(m.MetaInfo, MetaInfo{})
-			if err := m.MetaInfo[len(m.MetaInfo)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Pagination == nil {
-				m.Pagination = &query.PageResponse{}
-			}
-			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryAllMetaInfoRequestByDappAddr) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllMetaInfoRequestByDappAddr: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllMetaInfoRequestByDappAddr: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field DappAddr", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.DappAddr = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Pagination == nil {
-				m.Pagination = &query.PageRequest{}
-			}
-			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryAllMetaInfoResponseByDappAddr) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllMetaInfoResponseByDappAddr: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllMetaInfoResponseByDappAddr: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllMetaInfoResponseByAddress: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -4145,7 +3660,7 @@ func (m *QueryAllMetaInfoRequestByChainID) Unmarshal(dAtA []byte) error {
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainIds", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -4173,7 +3688,7 @@ func (m *QueryAllMetaInfoRequestByChainID) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.ChainId = string(dAtA[iNdEx:postIndex])
+			m.ChainIds = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
 			if wireType != 2 {

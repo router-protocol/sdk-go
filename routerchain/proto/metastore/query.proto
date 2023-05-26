@@ -25,28 +25,18 @@ service Query {
   }
 
   // Queries a list of MetaInfo items by dapp address
-  rpc MetaInfoAllByDappAddress (QueryAllMetaInfoRequestByDappAddr) returns (QueryAllMetaInfoResponseByDappAddr) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_infos/by_dapp_addr/{dapp_addr}";
-  }
-  
-  // Queries a list of MetaInfo items by fee payer
-  rpc MetaInfoAllByFeePayer (QueryAllMetaInfoRequestByFeePayer) returns (QueryAllMetaInfoResponseByFeePayer) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_infos/by_fee_payer/{fee_payer}";
+  rpc MetaInfoAllByAddress (QueryAllMetaInfoRequestByAddress) returns (QueryAllMetaInfoResponseByAddress) {
+    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_infos/by_address/{address}";
   }
 
   // Queries MetaInfo item by dapp address and chain id.
-  rpc MetaInfo (QueryGetMetaInfoRequest) returns (QueryGetMetaInfoResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info/{chain_id}/{dapp_address}";
-  }
-
-  // Queries a list of MetaInfo items by chain id and fee payer
-  rpc MetaInfoAllByChainAndFeePayer (QueryAllMetaInfoRequestByChainAndFeePayer) returns (QueryAllMetaInfoResponseByChainAndFeePayer) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_infos/by_chain_and_fee_payer/{chain_id}/{fee_payer}";
+  rpc MetaInfoAllByChainAndAddress (QueryAllMetaInfoRequestByChainAndAddress) returns (QueryAllMetaInfoResponseByChainAndAddress) {
+    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_info/{chain_ids}/{address}/{status}";
   }
 
   // Queries a list of MetaInfo items by chain id
   rpc MetaInfoAllByChainID (QueryAllMetaInfoRequestByChainID) returns (QueryAllMetaInfoResponseByChainID) {
-    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_infos/by_chain_id/{chain_id}";
+    option (google.api.http).get = "/router-protocol/router-chain/metastore/meta_infos/by_chain_id/{chain_ids}";
   }
 
   // Queries a list of MetadataRequest items.
@@ -58,6 +48,14 @@ service Query {
   rpc MetadataRequestAll (QueryAllMetadataRequestRequest) returns (QueryAllMetadataRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/metastore/metadata_request";
   }
+}
+
+enum MetaInfoQueryStatus {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  ALL = 0 [(gogoproto.enumvalue_customname) = "ALL"];
+  PENDING = 1 [(gogoproto.enumvalue_customname) = "PENDING"];
+  APPROVED = 2 [(gogoproto.enumvalue_customname) = "APPROVED"];
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -72,20 +70,21 @@ message QueryParamsResponse {
 
 message QueryGetMetaInfoRequest {
   string chain_id = 1;
-  string dapp_address = 2;
+  string address = 2;
 }
 
 message QueryGetMetaInfoResponse {
   MetaInfo metaInfo = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryAllMetaInfoRequestByChainAndFeePayer {
-  string chain_id = 1;
-  string fee_payer = 2;
-  cosmos.base.query.v1beta1.PageRequest pagination = 3;
+message QueryAllMetaInfoRequestByChainAndAddress {
+  string chain_ids = 1;
+  string address = 2;
+  MetaInfoQueryStatus status = 3;
+  cosmos.base.query.v1beta1.PageRequest pagination = 4;
 }
 
-message QueryAllMetaInfoResponseByChainAndFeePayer {
+message QueryAllMetaInfoResponseByChainAndAddress {
   repeated MetaInfo                               metaInfo   = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
@@ -117,28 +116,18 @@ message QueryAllMetadataRequestResponse {
            cosmos.base.query.v1beta1.PageResponse pagination      = 2;
 }
 
-message QueryAllMetaInfoRequestByFeePayer {
-  string fee_payer = 1;
+message QueryAllMetaInfoRequestByAddress {
+  string address = 1;
   cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 
-message QueryAllMetaInfoResponseByFeePayer {
-  repeated MetaInfo                               metaInfo   = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination = 2;
-}
-
-message QueryAllMetaInfoRequestByDappAddr {
-  string dapp_addr = 1;
-  cosmos.base.query.v1beta1.PageRequest pagination = 2;
-}
-
-message QueryAllMetaInfoResponseByDappAddr {
+message QueryAllMetaInfoResponseByAddress {
   repeated MetaInfo                               metaInfo   = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 message QueryAllMetaInfoRequestByChainID {
-  string chain_id = 1;
+  string chain_ids = 1;
   cosmos.base.query.v1beta1.PageRequest pagination = 2;
 }
 

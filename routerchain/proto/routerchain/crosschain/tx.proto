@@ -93,7 +93,9 @@ message MsgCrosschainAckReceipt {
   uint64 requestIdentifier    = 7;
   string ackSrcChainId              = 8;
   uint64 ackRequestIdentifier              = 9;
-  uint64 feeConsumed = 10;
+  bytes  ackExecData             = 10;
+  bool   ackExecStatus           = 11;
+  uint64 feeConsumed = 12;
 }
 
 message MsgCrosschainAckReceiptResponse {}
