@@ -4,6 +4,7 @@ import (
 	context "context"
 	"math/big"
 
+	"cosmossdk.io/math"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -16,7 +17,7 @@ import (
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	oracleTypes "github.com/router-protocol/sdk-go/routerchain/oracle/types"
+	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
 )
 
 type AttestationKeeper interface {
@@ -43,11 +44,11 @@ type MultichainKeeper interface {
 	GetChainConfig(ctx sdk.Context, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
 }
 
-type OracleKeeper interface {
+type PriceFeedKeeper interface {
 	// Methods imported from oracle should be defined here
-	GetGasPrice(ctx sdk.Context, chainID string) (oracleTypes.GasPriceState, error)
-	GetTokenPrice(ctx sdk.Context, symbol string) (*big.Int, error)
-	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainId string, feeConsumedInDecimals *big.Int) (sdk.Coin, error)
+	GetTokenPriceState(ctx sdk.Context, symbol string) (*big.Int, error)
+	GetGasPriceState(ctx sdk.Context, chainID string) (pricefeedTypes.GasPrice, error)
+	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainId string, feeConsumedInDecimals math.Int) (sdk.Coin, error)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
