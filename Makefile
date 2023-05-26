@@ -13,9 +13,8 @@ copy-chain-types:
 	cp ../router-chain/x/metastore/types/*.go routerchain/metastore/types
 	rm -rf routerchain/metastore/types/*test.go  rm -rf routerchain/metastore/types/*gw.go
 
-
-	cp ../router-chain/x/oracle/types/*.go routerchain/oracle/types
-	rm -rf routerchain/oracle/types/*test.go  rm -rf routerchain/oracle/types/*gw.go
+	cp ../router-chain/x/pricefeed/types/*.go routerchain/pricefeed/types
+	rm -rf routerchain/pricefeed/types/*test.go  rm -rf routerchain/pricefeed/types/*gw.go
 
 	cp -r ../router-chain/types/*.go routerchain/types
 	rm -rf routerchain/types/*test.go
