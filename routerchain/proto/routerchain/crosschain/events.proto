@@ -137,16 +137,14 @@ message EventCrosschainAckExecuted {
   bytes attestation_id = 1;
   string ack_src_chain_id = 2; 
   uint64 ack_request_identifier = 3;
-  bytes exec_response = 4;
-  cosmos.base.v1beta1.Coin refund_fee_in_route = 5 [(gogoproto.nullable) = false];
+  bytes ack_exec_response = 4;  
 }
 
 message EventCrosschainAckExecutionFailed {
   bytes attestation_id = 1;
   string ack_src_chain_id = 2; 
   uint64 ack_request_identifier = 3;
-  bytes exec_err_response = 4;
-  cosmos.base.v1beta1.Coin refund_fee_in_route = 5 [(gogoproto.nullable) = false];
+  bytes ack_exec_err_response = 4;  
 }
 
 
