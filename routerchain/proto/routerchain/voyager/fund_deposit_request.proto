@@ -15,14 +15,13 @@ message FundDepositRequest {
   string contract = 5; 
   uint64 deposit_id = 6; 
   uint64 blockHeight = 7; 
-  string destChainId = 8; 
-  routerprotocol.routerchain.multichain.ChainType destChainType = 9; 
-  uint64 amount = 10; 
-  uint64 relayerFees = 11; 
-  string srcToken = 12; 
-  string recipient = 13; 
-  string depositor = 14; 
-  string status = 15; 
+  bytes destChainId = 8; 
+  uint64 amount = 9; 
+  uint64 relayerFees = 10; 
+  string srcToken = 11; 
+  string recipient = 12; 
+  string depositor = 13; 
+  string status = 14; 
   
 }
 
@@ -34,11 +33,10 @@ message FundDepositRequestClaimHash {
   string contract = 5; 
   uint64 deposit_id = 6; 
   uint64 blockHeight = 7; 
-  string destChainId = 8; 
-  routerprotocol.routerchain.multichain.ChainType destChainType = 9; 
-  uint64 amount = 10; 
-  uint64 relayerFees = 11; 
-  string srcToken = 12; 
-  string recipient = 13; 
-  string depositor = 14; 
+  bytes destChainId = 8; 
+  uint64 amount = 9; 
+  uint64 relayerFees = 10; 
+  string srcToken = 11; 
+  string recipient = 12; 
+  string depositor = 13; 
 }

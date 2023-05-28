@@ -13,23 +13,22 @@ const TypeMsgFundsDeposited = "funds_deposited"
 
 var _ sdk.Msg = &MsgFundsDeposited{}
 
-func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId string, destChainType multichainTypes.ChainType, amount uint64, relayerFees uint64, srcToken string, recipient string, depositor string) *MsgFundsDeposited {
+func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, destChainType multichainTypes.ChainType, amount uint64, relayerFees uint64, srcToken string, recipient string, depositor string) *MsgFundsDeposited {
 	return &MsgFundsDeposited{
-		Orchestrator:  orchestrator,
-		SrcChainId:    srcChainId,
-		SrcChainType:  srcChainType,
-		SrcTxHash:     srcTxHash,
-		SrcTimestamp:  srcTimestamp,
-		Contract:      contract,
-		DepositId:     depositId,
-		BlockHeight:   blockHeight,
-		DestChainId:   destChainId,
-		DestChainType: destChainType,
-		Amount:        amount,
-		RelayerFees:   relayerFees,
-		SrcToken:      srcToken,
-		Recipient:     recipient,
-		Depositor:     depositor,
+		Orchestrator: orchestrator,
+		SrcChainId:   srcChainId,
+		SrcChainType: srcChainType,
+		SrcTxHash:    srcTxHash,
+		SrcTimestamp: srcTimestamp,
+		Contract:     contract,
+		DepositId:    depositId,
+		BlockHeight:  blockHeight,
+		DestChainId:  destChainId,
+		Amount:       amount,
+		RelayerFees:  relayerFees,
+		SrcToken:     srcToken,
+		Recipient:    recipient,
+		Depositor:    depositor,
 	}
 }
 
@@ -94,7 +93,6 @@ func (msg *MsgFundsDeposited) ClaimHash() ([]byte, error) {
 		msg.DepositId,
 		msg.BlockHeight,
 		msg.DestChainId,
-		msg.DestChainType,
 		msg.Amount,
 		msg.RelayerFees,
 		msg.SrcToken,
