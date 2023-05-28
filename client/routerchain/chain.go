@@ -38,6 +38,7 @@ import (
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
+	voyagerTypes "github.com/router-protocol/sdk-go/routerchain/voyager/types"
 )
 
 const (
@@ -149,6 +150,7 @@ type chainClient struct {
 	wasmQueryClient        wasmTypes.QueryClient
 	metastoreQueryClient   metastoreTypes.QueryClient
 	crosschainQueryClient  crosschainTypes.QueryClient
+	voyagerQueryClient     voyagerTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -268,6 +270,7 @@ func NewChainClient(
 		pricefeedQueryClient:   pricefeedTypes.NewQueryClient(conn),
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 		crosschainQueryClient:  crosschainTypes.NewQueryClient(conn),
+		voyagerQueryClient:     voyagerTypes.NewQueryClient(conn),
 	}
 
 	if cc.canSign {
