@@ -28,8 +28,8 @@ service Query {
 
 
   // Queries a ContractConfig by chain_id and address.
-	rpc ContractConfig(QueryGetContractConfigRequest) returns (QueryGetContractConfigResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config/{chain_id}/{contract_address}";
+	rpc ContractConfigByChainId(QueryAllContractConfigByChainIdRequest) returns (QueryAllContractConfigByChainIdResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config/{chain_id}";
 	}
 
 	// Queries a list of ContractConfig items.
@@ -68,14 +68,13 @@ message QueryAllChainConfigResponse {
 }
 
 
-message QueryGetContractConfigRequest {	  
-	  string chain_id = 1;
-	  string contract_address = 2;
+message QueryAllContractConfigByChainIdRequest {	  
+	  string chain_id = 1;	  
 
 }
 
-message QueryGetContractConfigResponse {
-	ContractConfig contractConfig = 1 [(gogoproto.nullable) = false];
+message QueryAllContractConfigByChainIdResponse {
+	repeated ContractConfig contractConfig = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllContractConfigRequest {
