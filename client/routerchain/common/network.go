@@ -62,6 +62,11 @@ func LoadNetwork(name string, node string) Network {
 		network.TmEndpoint = "http://13.235.246.63:26657"
 		network.ChainEvmRpcEndpoint = "http://13.235.246.63:8545"
 		network.ChainGrpcEndpoint = "tcp://13.235.246.63:9090"
+	} else if name == "devnet-internal" {
+		network.ApiEndpoint = "http://65.0.127.255:1317"
+		network.TmEndpoint = "http://65.0.127.255:26657"
+		network.ChainEvmRpcEndpoint = "http://65.0.127.255:8545"
+		network.ChainGrpcEndpoint = "tcp://65.0.127.255:9090"
 	}
 
 	//Fetch chain ID
