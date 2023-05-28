@@ -8,6 +8,7 @@ import (
 func (msg *MetadataRequest) ClaimHash() ([]byte, error) {
 	metadataRequestClaimHash := NewMetadataRequestClaimHash(
 		msg.ChainId,
+		msg.Contract,
 		msg.EventNonce,
 		msg.BlockHeight,
 		msg.DaapAddress,

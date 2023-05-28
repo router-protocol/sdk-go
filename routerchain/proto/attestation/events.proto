@@ -13,7 +13,7 @@ message EventAttestationVote {
   ClaimType attestationType = 1;    
   bytes attestation_id = 2;
   routerprotocol.routerchain.multichain.ChainType chainType = 3;
-  string chainId = 4; 
+  string chainId = 4;    
   uint64 eventNonce = 5;
   string voter = 6;
 }
@@ -49,7 +49,7 @@ message EventValsetConfirm {
 message EventValsetUpdatedClaimCreated {
   bytes attestation_id = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2;
-  string chainId = 3; 
+  string chainId = 3;   
   uint64 eventNonce = 4;
   uint64 valset_nonce = 5;  
   uint64 event_height = 6;

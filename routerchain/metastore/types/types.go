@@ -9,9 +9,10 @@ func NewMetadataInfo(chainId string, daapAddress string, feePayer string) *MetaI
 	}
 }
 
-func NewMetadataRequest(chainId string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MetadataRequest {
+func NewMetadataRequest(chainId string, contract string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MetadataRequest {
 	return &MetadataRequest{
 		ChainId:     chainId,
+		Contract:    contract,
 		EventNonce:  eventNonce,
 		BlockHeight: blockHeight,
 		DaapAddress: daapAddress,
@@ -20,9 +21,10 @@ func NewMetadataRequest(chainId string, eventNonce uint64, blockHeight uint64, d
 	}
 }
 
-func NewMetadataRequestClaimHash(chainId string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MetadataRequestClaimHash {
+func NewMetadataRequestClaimHash(chainId string, contract string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MetadataRequestClaimHash {
 	return &MetadataRequestClaimHash{
 		ChainId:     chainId,
+		Contract:    contract,
 		EventNonce:  eventNonce,
 		BlockHeight: blockHeight,
 		DaapAddress: daapAddress,

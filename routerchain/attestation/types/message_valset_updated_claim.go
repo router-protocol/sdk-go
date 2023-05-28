@@ -14,10 +14,11 @@ const TypeMsgValsetUpdatedClaim = "valset_updated_claim"
 
 var _ sdk.Msg = &MsgValsetUpdatedClaim{}
 
-func NewMsgValsetUpdatedClaim(orchestrator string, chainType multichainTypes.ChainType, chainId string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, srcTxHash string, members []BridgeValidator) *MsgValsetUpdatedClaim {
+func NewMsgValsetUpdatedClaim(orchestrator string, chainType multichainTypes.ChainType, chainId string, contract string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, srcTxHash string, members []BridgeValidator) *MsgValsetUpdatedClaim {
 	return &MsgValsetUpdatedClaim{
 		Orchestrator: orchestrator,
 		ChainId:      chainId,
+		Contract:     contract,
 		EventNonce:   eventNonce,
 		ValsetNonce:  valsetNonce,
 		BlockHeight:  blockHeight,
@@ -77,6 +78,7 @@ func (e *MsgValsetUpdatedClaim) GetType() ClaimType {
 func (msg *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
 	valsetUpdatedClaimHash := NewValsetUpdatedClaimHash(
 		msg.GetChainId(),
+		msg.GetContract(),
 		msg.GetEventNonce(),
 		msg.GetValsetNonce(),
 		msg.GetBlockHeight(),

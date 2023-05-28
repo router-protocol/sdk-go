@@ -12,10 +12,11 @@ const TypeMsgCrosschainAckReceipt = "crosschain_ack_receipt"
 
 var _ sdk.Msg = &MsgCrosschainAckReceipt{}
 
-func NewMsgCrosschainAckReceipt(orchestrator string, ackReceiptSrcChainId string, ackReceiptIdentifier uint64, ackReceiptBlockHeight uint64, ackReceiptTxHash string, relayerRouterAddress string, requestIdentifier uint64, ackSrcChainId string, ackRequestIdentifier uint64, feeConsumed uint64, ackExecData []byte, ackExecStatus bool) *MsgCrosschainAckReceipt {
+func NewMsgCrosschainAckReceipt(orchestrator string, ackReceiptSrcChainId string, contract string, ackReceiptIdentifier uint64, ackReceiptBlockHeight uint64, ackReceiptTxHash string, relayerRouterAddress string, requestIdentifier uint64, ackSrcChainId string, ackRequestIdentifier uint64, feeConsumed uint64, ackExecData []byte, ackExecStatus bool) *MsgCrosschainAckReceipt {
 	return &MsgCrosschainAckReceipt{
 		Orchestrator:          orchestrator,
 		AckReceiptSrcChainId:  ackReceiptSrcChainId,
+		Contract:              contract,
 		AckReceiptIdentifier:  ackReceiptIdentifier,
 		AckReceiptBlockHeight: ackReceiptBlockHeight,
 		AckReceiptTxHash:      ackReceiptTxHash,
@@ -87,6 +88,7 @@ func (msg *MsgCrosschainAckReceipt) GetType() attestationTypes.ClaimType {
 func (msg *MsgCrosschainAckReceipt) ClaimHash() ([]byte, error) {
 	crosschainAckReceiptClaimHash := NewCrosschainAckReceiptClaimHash(
 		msg.AckReceiptSrcChainId,
+		msg.Contract,
 		msg.AckReceiptIdentifier,
 		msg.AckReceiptBlockHeight,
 		msg.AckReceiptTxHash,

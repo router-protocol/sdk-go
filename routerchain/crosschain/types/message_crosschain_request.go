@@ -17,6 +17,7 @@ var _ sdk.Msg = &MsgCrosschainRequest{}
 func NewMsgCrosschainRequest(
 	orchestrator string,
 	srcChainId string,
+	contract string,
 	requestIdentifier uint64,
 	srcBlockHeight uint64,
 	sourceTxHash string,
@@ -33,6 +34,7 @@ func NewMsgCrosschainRequest(
 	return &MsgCrosschainRequest{
 		Orchestrator:      orchestrator,
 		SrcChainId:        srcChainId,
+		Contract:          contract,
 		SrcChainType:      srcChainType,
 		DestChainType:     destChainType,
 		RequestIdentifier: requestIdentifier,
@@ -106,6 +108,7 @@ func (msg *MsgCrosschainRequest) GetType() attestationTypes.ClaimType {
 func (msg *MsgCrosschainRequest) ClaimHash() ([]byte, error) {
 	crosschainRequestClaimHash := NewCrosschainRequestClaimHash(
 		msg.SrcChainId,
+		msg.Contract,
 		msg.RequestIdentifier,
 		msg.BlockHeight,
 		msg.SourceTxHash,

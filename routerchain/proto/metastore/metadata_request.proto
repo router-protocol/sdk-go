@@ -8,17 +8,19 @@ import "metastore/meta_tx_status.proto";
 
 message MetadataRequest {    
   string chainId = 1; 
-  uint64 eventNonce = 2; 
-  uint64 blockHeight = 3; 
-  string daapAddress = 4; 
-  string feePayer = 5; 
-  MetaTxStatus status = 6;
+  string contract = 2;
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4; 
+  string daapAddress = 5; 
+  string feePayer = 6; 
+  MetaTxStatus status = 7;
 }
 
 message MetadataRequestClaimHash {  
   string chainId = 1; 
-  uint64 eventNonce = 2; 
-  uint64 blockHeight = 3; 
-  string daapAddress = 4; 
-  string feePayer = 5; 
+  string contract = 2;
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4; 
+  string daapAddress = 5; 
+  string feePayer = 6; 
 }

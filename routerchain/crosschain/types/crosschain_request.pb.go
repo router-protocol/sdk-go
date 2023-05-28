@@ -28,24 +28,25 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type CrosschainRequest struct {
 	SrcChainId        string                                 `protobuf:"bytes,1,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	RequestIdentifier uint64                                 `protobuf:"varint,2,opt,name=request_identifier,json=requestIdentifier,proto3" json:"request_identifier,omitempty"`
-	BlockHeight       uint64                                 `protobuf:"varint,3,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
-	SourceTxHash      string                                 `protobuf:"bytes,4,opt,name=source_tx_hash,json=sourceTxHash,proto3" json:"source_tx_hash,omitempty"`
-	SrcTimestamp      uint64                                 `protobuf:"varint,5,opt,name=src_timestamp,json=srcTimestamp,proto3" json:"src_timestamp,omitempty"`
-	SrcTxOrigin       string                                 `protobuf:"bytes,6,opt,name=src_tx_origin,json=srcTxOrigin,proto3" json:"src_tx_origin,omitempty"`
-	RouteAmount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,7,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
-	RouteRecipient    string                                 `protobuf:"bytes,8,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
-	DestChainId       string                                 `protobuf:"bytes,9,opt,name=dest_chain_id,json=destChainId,proto3" json:"dest_chain_id,omitempty"`
-	DestGasLimit      uint64                                 `protobuf:"varint,10,opt,name=dest_gas_limit,json=destGasLimit,proto3" json:"dest_gas_limit,omitempty"`
-	DestGasPrice      uint64                                 `protobuf:"varint,11,opt,name=dest_gas_price,json=destGasPrice,proto3" json:"dest_gas_price,omitempty"`
-	RelayerIncentive  types.Coin                             `protobuf:"bytes,12,opt,name=relayer_incentive,json=relayerIncentive,proto3" json:"relayer_incentive"`
-	RequestSender     string                                 `protobuf:"bytes,13,opt,name=request_sender,json=requestSender,proto3" json:"request_sender,omitempty"`
-	RequestMetadata   []byte                                 `protobuf:"bytes,14,opt,name=request_metadata,json=requestMetadata,proto3" json:"request_metadata,omitempty"`
-	RequestPacket     []byte                                 `protobuf:"bytes,15,opt,name=request_packet,json=requestPacket,proto3" json:"request_packet,omitempty"`
-	SrcChainType      types1.ChainType                       `protobuf:"varint,16,opt,name=src_chain_type,json=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"src_chain_type,omitempty"`
-	DestChainType     types1.ChainType                       `protobuf:"varint,17,opt,name=dest_chain_type,json=destChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"dest_chain_type,omitempty"`
-	DestTxFeeDeducted types.Coin                             `protobuf:"bytes,18,opt,name=dest_tx_fee_deducted,json=destTxFeeDeducted,proto3" json:"dest_tx_fee_deducted"`
-	Status            CrosschainTxStatus                     `protobuf:"varint,19,opt,name=status,proto3,enum=routerprotocol.routerchain.crosschain.CrosschainTxStatus" json:"status,omitempty"`
+	Contract          string                                 `protobuf:"bytes,2,opt,name=contract,proto3" json:"contract,omitempty"`
+	RequestIdentifier uint64                                 `protobuf:"varint,3,opt,name=request_identifier,json=requestIdentifier,proto3" json:"request_identifier,omitempty"`
+	BlockHeight       uint64                                 `protobuf:"varint,4,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
+	SourceTxHash      string                                 `protobuf:"bytes,5,opt,name=source_tx_hash,json=sourceTxHash,proto3" json:"source_tx_hash,omitempty"`
+	SrcTimestamp      uint64                                 `protobuf:"varint,6,opt,name=src_timestamp,json=srcTimestamp,proto3" json:"src_timestamp,omitempty"`
+	SrcTxOrigin       string                                 `protobuf:"bytes,7,opt,name=src_tx_origin,json=srcTxOrigin,proto3" json:"src_tx_origin,omitempty"`
+	RouteAmount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,8,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
+	RouteRecipient    string                                 `protobuf:"bytes,9,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
+	DestChainId       string                                 `protobuf:"bytes,10,opt,name=dest_chain_id,json=destChainId,proto3" json:"dest_chain_id,omitempty"`
+	DestGasLimit      uint64                                 `protobuf:"varint,11,opt,name=dest_gas_limit,json=destGasLimit,proto3" json:"dest_gas_limit,omitempty"`
+	DestGasPrice      uint64                                 `protobuf:"varint,12,opt,name=dest_gas_price,json=destGasPrice,proto3" json:"dest_gas_price,omitempty"`
+	RelayerIncentive  types.Coin                             `protobuf:"bytes,13,opt,name=relayer_incentive,json=relayerIncentive,proto3" json:"relayer_incentive"`
+	RequestSender     string                                 `protobuf:"bytes,14,opt,name=request_sender,json=requestSender,proto3" json:"request_sender,omitempty"`
+	RequestMetadata   []byte                                 `protobuf:"bytes,15,opt,name=request_metadata,json=requestMetadata,proto3" json:"request_metadata,omitempty"`
+	RequestPacket     []byte                                 `protobuf:"bytes,16,opt,name=request_packet,json=requestPacket,proto3" json:"request_packet,omitempty"`
+	SrcChainType      types1.ChainType                       `protobuf:"varint,17,opt,name=src_chain_type,json=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"src_chain_type,omitempty"`
+	DestChainType     types1.ChainType                       `protobuf:"varint,18,opt,name=dest_chain_type,json=destChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"dest_chain_type,omitempty"`
+	DestTxFeeDeducted types.Coin                             `protobuf:"bytes,19,opt,name=dest_tx_fee_deducted,json=destTxFeeDeducted,proto3" json:"dest_tx_fee_deducted"`
+	Status            CrosschainTxStatus                     `protobuf:"varint,20,opt,name=status,proto3,enum=routerprotocol.routerchain.crosschain.CrosschainTxStatus" json:"status,omitempty"`
 }
 
 func (m *CrosschainRequest) Reset()         { *m = CrosschainRequest{} }
@@ -84,6 +85,13 @@ var xxx_messageInfo_CrosschainRequest proto.InternalMessageInfo
 func (m *CrosschainRequest) GetSrcChainId() string {
 	if m != nil {
 		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *CrosschainRequest) GetContract() string {
+	if m != nil {
+		return m.Contract
 	}
 	return ""
 }
@@ -209,19 +217,20 @@ func (m *CrosschainRequest) GetStatus() CrosschainTxStatus {
 
 type CrosschainRequestClaimHash struct {
 	SrcChainId        string                                 `protobuf:"bytes,1,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	RequestIdentifier uint64                                 `protobuf:"varint,2,opt,name=request_identifier,json=requestIdentifier,proto3" json:"request_identifier,omitempty"`
-	BlockHeight       uint64                                 `protobuf:"varint,3,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
-	SourceTxHash      string                                 `protobuf:"bytes,4,opt,name=source_tx_hash,json=sourceTxHash,proto3" json:"source_tx_hash,omitempty"`
-	SrcTimestamp      uint64                                 `protobuf:"varint,5,opt,name=src_timestamp,json=srcTimestamp,proto3" json:"src_timestamp,omitempty"`
-	SrcTxOrigin       string                                 `protobuf:"bytes,6,opt,name=src_tx_origin,json=srcTxOrigin,proto3" json:"src_tx_origin,omitempty"`
-	RouteAmount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,7,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
-	RouteRecipient    string                                 `protobuf:"bytes,8,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
-	DestChainId       string                                 `protobuf:"bytes,9,opt,name=dest_chain_id,json=destChainId,proto3" json:"dest_chain_id,omitempty"`
-	RequestSender     string                                 `protobuf:"bytes,10,opt,name=request_sender,json=requestSender,proto3" json:"request_sender,omitempty"`
-	RequestMetadata   []byte                                 `protobuf:"bytes,11,opt,name=request_metadata,json=requestMetadata,proto3" json:"request_metadata,omitempty"`
-	RequestPacket     []byte                                 `protobuf:"bytes,12,opt,name=request_packet,json=requestPacket,proto3" json:"request_packet,omitempty"`
-	SrcChainType      types1.ChainType                       `protobuf:"varint,13,opt,name=src_chain_type,json=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"src_chain_type,omitempty"`
-	DestChainType     types1.ChainType                       `protobuf:"varint,14,opt,name=dest_chain_type,json=destChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"dest_chain_type,omitempty"`
+	Contract          string                                 `protobuf:"bytes,2,opt,name=contract,proto3" json:"contract,omitempty"`
+	RequestIdentifier uint64                                 `protobuf:"varint,3,opt,name=request_identifier,json=requestIdentifier,proto3" json:"request_identifier,omitempty"`
+	BlockHeight       uint64                                 `protobuf:"varint,4,opt,name=block_height,json=blockHeight,proto3" json:"block_height,omitempty"`
+	SourceTxHash      string                                 `protobuf:"bytes,5,opt,name=source_tx_hash,json=sourceTxHash,proto3" json:"source_tx_hash,omitempty"`
+	SrcTimestamp      uint64                                 `protobuf:"varint,6,opt,name=src_timestamp,json=srcTimestamp,proto3" json:"src_timestamp,omitempty"`
+	SrcTxOrigin       string                                 `protobuf:"bytes,7,opt,name=src_tx_origin,json=srcTxOrigin,proto3" json:"src_tx_origin,omitempty"`
+	RouteAmount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,8,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
+	RouteRecipient    string                                 `protobuf:"bytes,9,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
+	DestChainId       string                                 `protobuf:"bytes,10,opt,name=dest_chain_id,json=destChainId,proto3" json:"dest_chain_id,omitempty"`
+	RequestSender     string                                 `protobuf:"bytes,11,opt,name=request_sender,json=requestSender,proto3" json:"request_sender,omitempty"`
+	RequestMetadata   []byte                                 `protobuf:"bytes,12,opt,name=request_metadata,json=requestMetadata,proto3" json:"request_metadata,omitempty"`
+	RequestPacket     []byte                                 `protobuf:"bytes,13,opt,name=request_packet,json=requestPacket,proto3" json:"request_packet,omitempty"`
+	SrcChainType      types1.ChainType                       `protobuf:"varint,14,opt,name=src_chain_type,json=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"src_chain_type,omitempty"`
+	DestChainType     types1.ChainType                       `protobuf:"varint,15,opt,name=dest_chain_type,json=destChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"dest_chain_type,omitempty"`
 }
 
 func (m *CrosschainRequestClaimHash) Reset()         { *m = CrosschainRequestClaimHash{} }
@@ -260,6 +269,13 @@ var xxx_messageInfo_CrosschainRequestClaimHash proto.InternalMessageInfo
 func (m *CrosschainRequestClaimHash) GetSrcChainId() string {
 	if m != nil {
 		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *CrosschainRequestClaimHash) GetContract() string {
+	if m != nil {
+		return m.Contract
 	}
 	return ""
 }
@@ -358,53 +374,54 @@ func init() {
 }
 
 var fileDescriptor_0e9890b6bb70b2c0 = []byte{
-	// 729 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0x41, 0x6f, 0x13, 0x39,
-	0x14, 0xce, 0xec, 0xb6, 0xdd, 0xd6, 0x49, 0x26, 0x8d, 0xb7, 0x07, 0x6f, 0x57, 0x4a, 0xb3, 0xdd,
-	0x16, 0xc2, 0xa1, 0x33, 0xb4, 0x9c, 0xe0, 0x46, 0x83, 0xa0, 0x91, 0x8a, 0x68, 0xa7, 0x11, 0x42,
-	0x5c, 0x46, 0xce, 0x8c, 0x9b, 0x58, 0xcd, 0x8c, 0x83, 0xed, 0xa9, 0xa6, 0x37, 0x7e, 0x02, 0x3f,
-	0xab, 0xe2, 0xd4, 0x23, 0xe2, 0x50, 0xa1, 0xf6, 0x8f, 0x20, 0xbf, 0x99, 0x49, 0x52, 0x2a, 0x41,
-	0x84, 0x40, 0x5c, 0x38, 0x8d, 0xfd, 0xf9, 0x7b, 0x9f, 0x9f, 0xdf, 0xf3, 0xe7, 0x41, 0xae, 0x14,
-	0x89, 0x66, 0x32, 0x18, 0x50, 0x1e, 0xbb, 0x81, 0x14, 0x4a, 0x7d, 0x39, 0xf4, 0x25, 0x7b, 0x93,
-	0x30, 0xa5, 0x9d, 0x91, 0x14, 0x5a, 0xe0, 0xcd, 0x2c, 0x00, 0x26, 0x81, 0x18, 0x3a, 0x53, 0xf1,
-	0xce, 0x24, 0x68, 0xf5, 0xdf, 0x28, 0x19, 0x6a, 0x9e, 0x6b, 0x81, 0x8c, 0x3e, 0x1b, 0xb1, 0x4c,
-	0x63, 0xb5, 0x11, 0x08, 0x15, 0x09, 0xe5, 0xf6, 0xa8, 0x62, 0xee, 0xe9, 0x76, 0x8f, 0x69, 0xba,
-	0xed, 0x06, 0x82, 0xc7, 0xf9, 0xfa, 0x4a, 0x5f, 0xf4, 0x05, 0x0c, 0x5d, 0x33, 0xca, 0xd1, 0xed,
-	0x6f, 0xa7, 0xaa, 0x53, 0x5f, 0x69, 0xaa, 0x13, 0x95, 0x85, 0xac, 0xbf, 0x5d, 0x44, 0xf5, 0xf6,
-	0x78, 0xd9, 0xcb, 0x0e, 0x82, 0x9b, 0xa8, 0xa2, 0x64, 0xe0, 0x67, 0x21, 0x3c, 0x24, 0x56, 0xd3,
-	0x6a, 0x2d, 0x79, 0x48, 0xc9, 0xa0, 0x6d, 0xa0, 0x4e, 0x88, 0xb7, 0x10, 0xce, 0x4f, 0xed, 0xf3,
-	0x90, 0xc5, 0x9a, 0x1f, 0x73, 0x26, 0xc9, 0x1f, 0x4d, 0xab, 0x35, 0xe7, 0xd5, 0xf3, 0x95, 0xce,
-	0x78, 0x01, 0xff, 0x87, 0x2a, 0xbd, 0xa1, 0x08, 0x4e, 0xfc, 0x01, 0xe3, 0xfd, 0x81, 0x26, 0x7f,
-	0x02, 0xb1, 0x0c, 0xd8, 0x1e, 0x40, 0x78, 0x03, 0xd9, 0x4a, 0x24, 0x32, 0x60, 0x26, 0xc7, 0x01,
-	0x55, 0x03, 0x32, 0x07, 0xbb, 0x56, 0x32, 0xb4, 0x9b, 0xee, 0x51, 0x35, 0xc0, 0xff, 0xa3, 0xaa,
-	0xc9, 0x4c, 0xf3, 0x88, 0x29, 0x4d, 0xa3, 0x11, 0x99, 0x07, 0x25, 0x93, 0x6e, 0xb7, 0xc0, 0xf0,
-	0x7a, 0x4e, 0x4a, 0x7d, 0x21, 0x79, 0x9f, 0xc7, 0x64, 0x01, 0x94, 0xca, 0x86, 0x94, 0xbe, 0x00,
-	0x08, 0x1f, 0xa2, 0x0a, 0x54, 0xcb, 0xa7, 0x91, 0x48, 0x62, 0x4d, 0xfe, 0x32, 0x94, 0x5d, 0xe7,
-	0xfc, 0x72, 0xad, 0xf4, 0xf1, 0x72, 0xed, 0x4e, 0x9f, 0xeb, 0x41, 0xd2, 0x73, 0x02, 0x11, 0xb9,
-	0x79, 0x2b, 0xb2, 0xcf, 0x96, 0x0a, 0x4f, 0x5c, 0xd3, 0x28, 0xe5, 0x74, 0x62, 0xed, 0x95, 0x41,
-	0xe3, 0x31, 0x48, 0xe0, 0xbb, 0xa8, 0x96, 0x49, 0x4a, 0x16, 0xf0, 0x11, 0x67, 0xb1, 0x26, 0x8b,
-	0xb0, 0xb1, 0x0d, 0xb0, 0x57, 0xa0, 0x26, 0xbf, 0xd0, 0x54, 0x6e, 0x5c, 0xdf, 0xa5, 0x2c, 0x3f,
-	0x03, 0x16, 0x05, 0xde, 0x40, 0x36, 0x70, 0xfa, 0x54, 0xf9, 0x43, 0x1e, 0x71, 0x4d, 0x50, 0x76,
-	0x52, 0x83, 0x3e, 0xa3, 0x6a, 0xdf, 0x60, 0x37, 0x58, 0x23, 0xc9, 0x03, 0x46, 0xca, 0x37, 0x58,
-	0x07, 0x06, 0xc3, 0xfb, 0xa8, 0x2e, 0xd9, 0x90, 0x9e, 0x31, 0xe9, 0xf3, 0x38, 0x30, 0x4d, 0x39,
-	0x65, 0xa4, 0xd2, 0xb4, 0x5a, 0xe5, 0x9d, 0x7f, 0x9c, 0xec, 0x5c, 0x8e, 0xb9, 0x69, 0x4e, 0x7e,
-	0xd3, 0x9c, 0xb6, 0xe0, 0xf1, 0xee, 0x9c, 0xa9, 0x85, 0xb7, 0x9c, 0x47, 0x76, 0x8a, 0x40, 0xbc,
-	0x89, 0xec, 0xa2, 0xf5, 0x8a, 0xc5, 0x21, 0x93, 0xa4, 0x0a, 0xe9, 0x57, 0x73, 0xf4, 0x08, 0x40,
-	0x7c, 0x0f, 0x2d, 0x17, 0xb4, 0x88, 0x69, 0x1a, 0x52, 0x4d, 0x89, 0xdd, 0xb4, 0x5a, 0x15, 0xaf,
-	0x96, 0xe3, 0xcf, 0x73, 0x78, 0x5a, 0x71, 0x44, 0x83, 0x13, 0xa6, 0x49, 0x0d, 0x88, 0x85, 0xe2,
-	0x01, 0x80, 0xf8, 0x25, 0xb2, 0x27, 0xb7, 0xd2, 0xf4, 0x80, 0x2c, 0x37, 0xad, 0x96, 0xbd, 0x73,
-	0xdf, 0xf9, 0x8a, 0xe3, 0x26, 0x2e, 0x73, 0xa0, 0xb4, 0xdd, 0xb3, 0x11, 0x83, 0xeb, 0x32, 0x9e,
-	0xe1, 0x57, 0xa8, 0x36, 0xd5, 0x0e, 0x10, 0xae, 0x7f, 0xa7, 0x70, 0x75, 0xdc, 0x42, 0x50, 0x3e,
-	0x40, 0x2b, 0xa0, 0xac, 0x53, 0xff, 0x98, 0x31, 0x3f, 0x64, 0x61, 0x12, 0x68, 0x16, 0x12, 0x3c,
-	0x5b, 0xed, 0xeb, 0x26, 0xb8, 0x9b, 0x3e, 0x65, 0xec, 0x49, 0x1e, 0x89, 0x0f, 0xd1, 0x42, 0xe6,
-	0x5f, 0xf2, 0x37, 0xa4, 0xf8, 0xd0, 0x99, 0xe9, 0xb5, 0x71, 0x26, 0x1e, 0xef, 0xa6, 0x47, 0x20,
-	0xe0, 0xe5, 0x42, 0xeb, 0xef, 0xe7, 0xd1, 0xea, 0xad, 0x27, 0xa0, 0x3d, 0xa4, 0x3c, 0x02, 0xc7,
-	0xfd, 0x7e, 0x0b, 0x7e, 0xf9, 0x5b, 0x70, 0xdb, 0x71, 0x68, 0x56, 0xc7, 0x95, 0x67, 0x75, 0x5c,
-	0x65, 0x36, 0xc7, 0x55, 0x7f, 0x96, 0xe3, 0xec, 0x1f, 0xe2, 0xb8, 0xdd, 0xee, 0xf9, 0x55, 0xc3,
-	0xba, 0xb8, 0x6a, 0x58, 0x9f, 0xae, 0x1a, 0xd6, 0xbb, 0xeb, 0x46, 0xe9, 0xe2, 0xba, 0x51, 0xfa,
-	0x70, 0xdd, 0x28, 0xbd, 0x7e, 0x34, 0xd5, 0xc6, 0x4c, 0x75, 0xab, 0xd8, 0xa5, 0x98, 0x67, 0x7f,
-	0xcb, 0x74, 0xfa, 0xd7, 0x09, 0xed, 0xed, 0x2d, 0x00, 0xf3, 0xc1, 0xe7, 0x00, 0x00, 0x00, 0xff,
-	0xff, 0xe2, 0x99, 0x1b, 0x3c, 0x0c, 0x08, 0x00, 0x00,
+	// 745 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0x41, 0x4f, 0x23, 0x37,
+	0x14, 0xce, 0xb4, 0x40, 0xc1, 0x49, 0x26, 0xc4, 0xe5, 0xe0, 0xa6, 0x52, 0x48, 0x29, 0xb4, 0xe9,
+	0x81, 0x99, 0x42, 0x4f, 0xed, 0xad, 0xa4, 0x6a, 0x89, 0x44, 0x55, 0x18, 0xa2, 0xaa, 0xea, 0x65,
+	0xe4, 0x78, 0x4c, 0x62, 0x91, 0x19, 0xa7, 0xb6, 0x07, 0x0d, 0xff, 0xa2, 0x3f, 0xa0, 0x3f, 0x88,
+	0x23, 0xc7, 0x6a, 0x0f, 0x68, 0x05, 0xd2, 0xfe, 0x8e, 0x95, 0xdf, 0xcc, 0x24, 0x61, 0x91, 0x76,
+	0xa3, 0xd5, 0xae, 0xb4, 0x87, 0x3d, 0x8d, 0xfd, 0xf9, 0x7b, 0x9f, 0x9f, 0xdf, 0xf3, 0xe7, 0x41,
+	0xbe, 0x92, 0xa9, 0xe1, 0x8a, 0x8d, 0xa9, 0x48, 0x7c, 0xa6, 0xa4, 0xd6, 0xaf, 0x0e, 0x43, 0xc5,
+	0xff, 0x49, 0xb9, 0x36, 0xde, 0x54, 0x49, 0x23, 0xf1, 0x5e, 0x1e, 0x00, 0x13, 0x26, 0x27, 0xde,
+	0x42, 0xbc, 0x37, 0x0f, 0x6a, 0x7d, 0x19, 0xa7, 0x13, 0x23, 0x0a, 0x2d, 0x90, 0x31, 0xd7, 0x53,
+	0x9e, 0x6b, 0xb4, 0xda, 0x4c, 0xea, 0x58, 0x6a, 0x7f, 0x48, 0x35, 0xf7, 0xaf, 0x0e, 0x86, 0xdc,
+	0xd0, 0x03, 0x9f, 0x49, 0x91, 0x14, 0xeb, 0x5b, 0x23, 0x39, 0x92, 0x30, 0xf4, 0xed, 0xa8, 0x40,
+	0x0f, 0xde, 0x9c, 0xaa, 0xc9, 0x42, 0x6d, 0xa8, 0x49, 0x75, 0x1e, 0xb2, 0xf3, 0xdf, 0x3a, 0x6a,
+	0xf6, 0x66, 0xcb, 0x41, 0x7e, 0x10, 0xdc, 0x41, 0x35, 0xad, 0x58, 0x98, 0x87, 0x88, 0x88, 0x38,
+	0x1d, 0xa7, 0xbb, 0x11, 0x20, 0xad, 0x58, 0xcf, 0x42, 0xfd, 0x08, 0xb7, 0xd0, 0x3a, 0x93, 0x89,
+	0x51, 0x94, 0x19, 0xf2, 0x09, 0xac, 0xce, 0xe6, 0x78, 0x1f, 0xe1, 0xa2, 0x22, 0xa1, 0x88, 0x78,
+	0x62, 0xc4, 0x85, 0xe0, 0x8a, 0x7c, 0xda, 0x71, 0xba, 0x2b, 0x41, 0xb3, 0x58, 0xe9, 0xcf, 0x16,
+	0xf0, 0x57, 0xa8, 0x36, 0x9c, 0x48, 0x76, 0x19, 0x8e, 0xb9, 0x18, 0x8d, 0x0d, 0x59, 0x01, 0x62,
+	0x15, 0xb0, 0x63, 0x80, 0xf0, 0x2e, 0x72, 0xb5, 0x4c, 0x15, 0xe3, 0x36, 0xff, 0x31, 0xd5, 0x63,
+	0xb2, 0x0a, 0x7b, 0xd6, 0x72, 0x74, 0x90, 0x1d, 0x53, 0x3d, 0xc6, 0x5f, 0xa3, 0xba, 0xcd, 0xda,
+	0x88, 0x98, 0x6b, 0x43, 0xe3, 0x29, 0x59, 0x03, 0x25, 0x7b, 0x94, 0x41, 0x89, 0xe1, 0x9d, 0x82,
+	0x94, 0x85, 0x52, 0x89, 0x91, 0x48, 0xc8, 0x67, 0xa0, 0x54, 0xb5, 0xa4, 0xec, 0x0f, 0x80, 0xf0,
+	0x19, 0xaa, 0x41, 0x25, 0x43, 0x1a, 0xcb, 0x34, 0x31, 0x64, 0xdd, 0x52, 0x8e, 0xbc, 0x9b, 0xbb,
+	0xed, 0xca, 0xb3, 0xbb, 0xed, 0x6f, 0x46, 0xc2, 0x8c, 0xd3, 0xa1, 0xc7, 0x64, 0xec, 0x17, 0x6d,
+	0xca, 0x3f, 0xfb, 0x3a, 0xba, 0xf4, 0x6d, 0x13, 0xb5, 0xd7, 0x4f, 0x4c, 0x50, 0x05, 0x8d, 0x9f,
+	0x41, 0x02, 0x7f, 0x8b, 0x1a, 0xb9, 0xa4, 0xe2, 0x4c, 0x4c, 0x05, 0x4f, 0x0c, 0xd9, 0x80, 0x8d,
+	0x5d, 0x80, 0x83, 0x12, 0xb5, 0xf9, 0x45, 0xb6, 0x72, 0xb3, 0xda, 0xa3, 0x3c, 0x3f, 0x0b, 0x96,
+	0xc5, 0xdf, 0x45, 0x2e, 0x70, 0x46, 0x54, 0x87, 0x13, 0x11, 0x0b, 0x43, 0xaa, 0xf9, 0x49, 0x2d,
+	0xfa, 0x1b, 0xd5, 0x27, 0x16, 0x7b, 0xc4, 0x9a, 0x2a, 0xc1, 0x38, 0xa9, 0x3d, 0x62, 0x9d, 0x5a,
+	0x0c, 0x9f, 0xa0, 0xa6, 0xe2, 0x13, 0x7a, 0xcd, 0x55, 0x28, 0x12, 0x66, 0x9b, 0x72, 0xc5, 0x49,
+	0xbd, 0xe3, 0x74, 0xab, 0x87, 0x5f, 0x78, 0xf9, 0xb9, 0x3c, 0x7b, 0x0b, 0xbd, 0xe2, 0x16, 0x7a,
+	0x3d, 0x29, 0x92, 0xa3, 0x15, 0x5b, 0x8b, 0x60, 0xb3, 0x88, 0xec, 0x97, 0x81, 0x78, 0x0f, 0xb9,
+	0x65, 0xeb, 0x35, 0x4f, 0x22, 0xae, 0x88, 0x0b, 0xe9, 0xd7, 0x0b, 0xf4, 0x1c, 0x40, 0xfc, 0x1d,
+	0xda, 0x2c, 0x69, 0x31, 0x37, 0x34, 0xa2, 0x86, 0x92, 0x46, 0xc7, 0xe9, 0xd6, 0x82, 0x46, 0x81,
+	0xff, 0x5e, 0xc0, 0x8b, 0x8a, 0x53, 0xca, 0x2e, 0xb9, 0x21, 0x9b, 0x40, 0x2c, 0x15, 0x4f, 0x01,
+	0xc4, 0x7f, 0x22, 0x77, 0x7e, 0x63, 0x6d, 0x0f, 0x48, 0xb3, 0xe3, 0x74, 0xdd, 0xc3, 0xef, 0xbd,
+	0xd7, 0xb8, 0x71, 0xee, 0x40, 0x0f, 0x4a, 0x3b, 0xb8, 0x9e, 0x72, 0xb8, 0x2e, 0xb3, 0x19, 0xfe,
+	0x0b, 0x35, 0x16, 0xda, 0x01, 0xc2, 0xf8, 0x2d, 0x85, 0xeb, 0xb3, 0x16, 0x82, 0xf2, 0x29, 0xda,
+	0x02, 0x65, 0x93, 0x85, 0x17, 0x9c, 0x87, 0x11, 0x8f, 0x52, 0x66, 0x78, 0x44, 0x3e, 0x5f, 0xae,
+	0xf6, 0x4d, 0x1b, 0x3c, 0xc8, 0x7e, 0xe5, 0xfc, 0x97, 0x22, 0x12, 0x9f, 0xa1, 0xb5, 0xdc, 0xdb,
+	0x64, 0x0b, 0x52, 0xfc, 0xd1, 0x5b, 0xea, 0x25, 0xf2, 0xe6, 0xfe, 0x1f, 0x64, 0xe7, 0x20, 0x10,
+	0x14, 0x42, 0x3b, 0x2f, 0x56, 0x51, 0xeb, 0xc9, 0xf3, 0xd0, 0x9b, 0x50, 0x11, 0x83, 0xe3, 0x3e,
+	0xbe, 0x13, 0x1f, 0xf4, 0x3b, 0xf1, 0xd4, 0x8d, 0xd5, 0x65, 0xdd, 0x58, 0x5b, 0xd6, 0x8d, 0xf5,
+	0xe5, 0xdc, 0xe8, 0xbe, 0x2f, 0x37, 0x36, 0xde, 0x89, 0x1b, 0x8f, 0x06, 0x37, 0xf7, 0x6d, 0xe7,
+	0xf6, 0xbe, 0xed, 0x3c, 0xbf, 0x6f, 0x3b, 0xff, 0x3e, 0xb4, 0x2b, 0xb7, 0x0f, 0xed, 0xca, 0xff,
+	0x0f, 0xed, 0xca, 0xdf, 0x3f, 0x2d, 0xb4, 0x31, 0x57, 0xdd, 0x2f, 0x77, 0x29, 0xe7, 0xf9, 0x5f,
+	0x36, 0x5b, 0xfc, 0xe5, 0x42, 0x7b, 0x87, 0x6b, 0xc0, 0xfc, 0xe1, 0x65, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0x24, 0xd6, 0x64, 0xbb, 0x44, 0x08, 0x00, 0x00,
 }
 
 func (m *CrosschainRequest) Marshal() (dAtA []byte, err error) {
@@ -432,7 +449,7 @@ func (m *CrosschainRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x98
+		dAtA[i] = 0xa0
 	}
 	{
 		size, err := m.DestTxFeeDeducted.MarshalToSizedBuffer(dAtA[:i])
@@ -445,41 +462,43 @@ func (m *CrosschainRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i--
 	dAtA[i] = 0x1
 	i--
-	dAtA[i] = 0x92
+	dAtA[i] = 0x9a
 	if m.DestChainType != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.DestChainType))
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x88
+		dAtA[i] = 0x90
 	}
 	if m.SrcChainType != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.SrcChainType))
 		i--
 		dAtA[i] = 0x1
 		i--
-		dAtA[i] = 0x80
+		dAtA[i] = 0x88
 	}
 	if len(m.RequestPacket) > 0 {
 		i -= len(m.RequestPacket)
 		copy(dAtA[i:], m.RequestPacket)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RequestPacket)))
 		i--
-		dAtA[i] = 0x7a
+		dAtA[i] = 0x1
+		i--
+		dAtA[i] = 0x82
 	}
 	if len(m.RequestMetadata) > 0 {
 		i -= len(m.RequestMetadata)
 		copy(dAtA[i:], m.RequestMetadata)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RequestMetadata)))
 		i--
-		dAtA[i] = 0x72
+		dAtA[i] = 0x7a
 	}
 	if len(m.RequestSender) > 0 {
 		i -= len(m.RequestSender)
 		copy(dAtA[i:], m.RequestSender)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RequestSender)))
 		i--
-		dAtA[i] = 0x6a
+		dAtA[i] = 0x72
 	}
 	{
 		size, err := m.RelayerIncentive.MarshalToSizedBuffer(dAtA[:i])
@@ -490,30 +509,30 @@ func (m *CrosschainRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(size))
 	}
 	i--
-	dAtA[i] = 0x62
+	dAtA[i] = 0x6a
 	if m.DestGasPrice != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.DestGasPrice))
 		i--
-		dAtA[i] = 0x58
+		dAtA[i] = 0x60
 	}
 	if m.DestGasLimit != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.DestGasLimit))
 		i--
-		dAtA[i] = 0x50
+		dAtA[i] = 0x58
 	}
 	if len(m.DestChainId) > 0 {
 		i -= len(m.DestChainId)
 		copy(dAtA[i:], m.DestChainId)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.DestChainId)))
 		i--
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x52
 	}
 	if len(m.RouteRecipient) > 0 {
 		i -= len(m.RouteRecipient)
 		copy(dAtA[i:], m.RouteRecipient)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RouteRecipient)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	{
 		size := m.RouteAmount.Size()
@@ -524,35 +543,42 @@ func (m *CrosschainRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(size))
 	}
 	i--
-	dAtA[i] = 0x3a
+	dAtA[i] = 0x42
 	if len(m.SrcTxOrigin) > 0 {
 		i -= len(m.SrcTxOrigin)
 		copy(dAtA[i:], m.SrcTxOrigin)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.SrcTxOrigin)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
 	if m.SrcTimestamp != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.SrcTimestamp))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x30
 	}
 	if len(m.SourceTxHash) > 0 {
 		i -= len(m.SourceTxHash)
 		copy(dAtA[i:], m.SourceTxHash)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.SourceTxHash)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.BlockHeight != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 	}
 	if m.RequestIdentifier != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.RequestIdentifier))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -587,47 +613,47 @@ func (m *CrosschainRequestClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, err
 	if m.DestChainType != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.DestChainType))
 		i--
-		dAtA[i] = 0x70
+		dAtA[i] = 0x78
 	}
 	if m.SrcChainType != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.SrcChainType))
 		i--
-		dAtA[i] = 0x68
+		dAtA[i] = 0x70
 	}
 	if len(m.RequestPacket) > 0 {
 		i -= len(m.RequestPacket)
 		copy(dAtA[i:], m.RequestPacket)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RequestPacket)))
 		i--
-		dAtA[i] = 0x62
+		dAtA[i] = 0x6a
 	}
 	if len(m.RequestMetadata) > 0 {
 		i -= len(m.RequestMetadata)
 		copy(dAtA[i:], m.RequestMetadata)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RequestMetadata)))
 		i--
-		dAtA[i] = 0x5a
+		dAtA[i] = 0x62
 	}
 	if len(m.RequestSender) > 0 {
 		i -= len(m.RequestSender)
 		copy(dAtA[i:], m.RequestSender)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RequestSender)))
 		i--
-		dAtA[i] = 0x52
+		dAtA[i] = 0x5a
 	}
 	if len(m.DestChainId) > 0 {
 		i -= len(m.DestChainId)
 		copy(dAtA[i:], m.DestChainId)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.DestChainId)))
 		i--
-		dAtA[i] = 0x4a
+		dAtA[i] = 0x52
 	}
 	if len(m.RouteRecipient) > 0 {
 		i -= len(m.RouteRecipient)
 		copy(dAtA[i:], m.RouteRecipient)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.RouteRecipient)))
 		i--
-		dAtA[i] = 0x42
+		dAtA[i] = 0x4a
 	}
 	{
 		size := m.RouteAmount.Size()
@@ -638,35 +664,42 @@ func (m *CrosschainRequestClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, err
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(size))
 	}
 	i--
-	dAtA[i] = 0x3a
+	dAtA[i] = 0x42
 	if len(m.SrcTxOrigin) > 0 {
 		i -= len(m.SrcTxOrigin)
 		copy(dAtA[i:], m.SrcTxOrigin)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.SrcTxOrigin)))
 		i--
-		dAtA[i] = 0x32
+		dAtA[i] = 0x3a
 	}
 	if m.SrcTimestamp != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.SrcTimestamp))
 		i--
-		dAtA[i] = 0x28
+		dAtA[i] = 0x30
 	}
 	if len(m.SourceTxHash) > 0 {
 		i -= len(m.SourceTxHash)
 		copy(dAtA[i:], m.SourceTxHash)
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.SourceTxHash)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.BlockHeight != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.BlockHeight))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
 	}
 	if m.RequestIdentifier != 0 {
 		i = encodeVarintCrosschainRequest(dAtA, i, uint64(m.RequestIdentifier))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x18
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintCrosschainRequest(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x12
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -696,6 +729,10 @@ func (m *CrosschainRequest) Size() (n int) {
 	var l int
 	_ = l
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovCrosschainRequest(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovCrosschainRequest(uint64(l))
 	}
@@ -744,7 +781,7 @@ func (m *CrosschainRequest) Size() (n int) {
 	}
 	l = len(m.RequestPacket)
 	if l > 0 {
-		n += 1 + l + sovCrosschainRequest(uint64(l))
+		n += 2 + l + sovCrosschainRequest(uint64(l))
 	}
 	if m.SrcChainType != 0 {
 		n += 2 + sovCrosschainRequest(uint64(m.SrcChainType))
@@ -767,6 +804,10 @@ func (m *CrosschainRequestClaimHash) Size() (n int) {
 	var l int
 	_ = l
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovCrosschainRequest(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovCrosschainRequest(uint64(l))
 	}
@@ -886,6 +927,38 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrosschainRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCrosschainRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrosschainRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestIdentifier", wireType)
 			}
@@ -904,7 +977,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
@@ -923,7 +996,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SourceTxHash", wireType)
 			}
@@ -955,7 +1028,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.SourceTxHash = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcTimestamp", wireType)
 			}
@@ -974,7 +1047,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcTxOrigin", wireType)
 			}
@@ -1006,7 +1079,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.SrcTxOrigin = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouteAmount", wireType)
 			}
@@ -1040,7 +1113,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouteRecipient", wireType)
 			}
@@ -1072,7 +1145,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.RouteRecipient = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestChainId", wireType)
 			}
@@ -1104,7 +1177,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.DestChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 10:
+		case 11:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestGasLimit", wireType)
 			}
@@ -1123,7 +1196,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 11:
+		case 12:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestGasPrice", wireType)
 			}
@@ -1142,7 +1215,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 12:
+		case 13:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RelayerIncentive", wireType)
 			}
@@ -1175,7 +1248,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 13:
+		case 14:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestSender", wireType)
 			}
@@ -1207,7 +1280,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 			}
 			m.RequestSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 14:
+		case 15:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestMetadata", wireType)
 			}
@@ -1241,7 +1314,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 				m.RequestMetadata = []byte{}
 			}
 			iNdEx = postIndex
-		case 15:
+		case 16:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestPacket", wireType)
 			}
@@ -1275,7 +1348,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 				m.RequestPacket = []byte{}
 			}
 			iNdEx = postIndex
-		case 16:
+		case 17:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainType", wireType)
 			}
@@ -1294,7 +1367,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 17:
+		case 18:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestChainType", wireType)
 			}
@@ -1313,7 +1386,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 18:
+		case 19:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestTxFeeDeducted", wireType)
 			}
@@ -1346,7 +1419,7 @@ func (m *CrosschainRequest) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 19:
+		case 20:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)
 			}
@@ -1448,6 +1521,38 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCrosschainRequest
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCrosschainRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCrosschainRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestIdentifier", wireType)
 			}
@@ -1466,7 +1571,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 3:
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
 			}
@@ -1485,7 +1590,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SourceTxHash", wireType)
 			}
@@ -1517,7 +1622,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.SourceTxHash = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 5:
+		case 6:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcTimestamp", wireType)
 			}
@@ -1536,7 +1641,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 6:
+		case 7:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcTxOrigin", wireType)
 			}
@@ -1568,7 +1673,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.SrcTxOrigin = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 7:
+		case 8:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouteAmount", wireType)
 			}
@@ -1602,7 +1707,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 				return err
 			}
 			iNdEx = postIndex
-		case 8:
+		case 9:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RouteRecipient", wireType)
 			}
@@ -1634,7 +1739,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.RouteRecipient = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 9:
+		case 10:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestChainId", wireType)
 			}
@@ -1666,7 +1771,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.DestChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 10:
+		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestSender", wireType)
 			}
@@ -1698,7 +1803,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			m.RequestSender = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 11:
+		case 12:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestMetadata", wireType)
 			}
@@ -1732,7 +1837,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 				m.RequestMetadata = []byte{}
 			}
 			iNdEx = postIndex
-		case 12:
+		case 13:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RequestPacket", wireType)
 			}
@@ -1766,7 +1871,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 				m.RequestPacket = []byte{}
 			}
 			iNdEx = postIndex
-		case 13:
+		case 14:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainType", wireType)
 			}
@@ -1785,7 +1890,7 @@ func (m *CrosschainRequestClaimHash) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 14:
+		case 15:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DestChainType", wireType)
 			}

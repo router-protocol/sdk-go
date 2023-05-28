@@ -26,6 +26,17 @@ service Query {
 		option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config";
 	}
 
+
+  // Queries a ContractConfig by chain_id and address.
+	rpc ContractConfig(QueryGetContractConfigRequest) returns (QueryGetContractConfigResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config/{chain_id}/{contract_address}";
+	}
+
+	// Queries a list of ContractConfig items.
+	rpc ContractConfigAll(QueryAllContractConfigRequest) returns (QueryAllContractConfigResponse) {
+		option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -55,5 +66,27 @@ message QueryAllChainConfigResponse {
 	repeated ChainConfig chainConfig = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
+
+
+message QueryGetContractConfigRequest {	  
+	  string chain_id = 1;
+	  string contract_address = 2;
+
+}
+
+message QueryGetContractConfigResponse {
+	ContractConfig contractConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllContractConfigRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllContractConfigResponse {
+	repeated ContractConfig contractConfig = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+
 
 // this line is used by starport scaffolding # 3

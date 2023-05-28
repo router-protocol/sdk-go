@@ -7,30 +7,32 @@ import "routerchain/crosschain/crosschain_ack_receipt_tx_status.proto";
 
 message CrosschainAckReceipt {
   string ackReceiptSrcChainId              = 1;
-  uint64 ack_receipt_identifier = 2; 
-  uint64 ack_receipt_blockHeight          = 3;
-  string ack_receipt_txHash               = 4;
-  string relayerRouterAddress = 5; 
-  uint64 requestIdentifier = 6; 
-  CrosschainAckReceiptTxStatus status = 7; 
+  string contract =2;
+  uint64 ack_receipt_identifier = 3; 
+  uint64 ack_receipt_blockHeight          = 4;
+  string ack_receipt_txHash               = 5;
+  string relayerRouterAddress = 6; 
+  uint64 requestIdentifier = 7; 
+  CrosschainAckReceiptTxStatus status = 8; 
+  string ackSrcChainId              = 9;
+  uint64 ackRequestIdentifier              = 10;
+  bytes  ackExecData             = 11;
+  bool   ackExecStatus           = 12;
+  uint64 feeConsumed = 13;
+}
+
+
+message CrosschainAckReceiptClaimHash {
+  string ackReceiptSrcChainId              = 1; 
+  string contract =2; 
+  uint64 ack_receipt_identifier = 3; 
+  uint64 ack_receipt_blockHeight          = 4;
+  string ack_receipt_txHash               = 5;
+  string relayerRouterAddress = 6; 
+  uint64 requestIdentifier = 7; 
   string ackSrcChainId              = 8;
   uint64 ackRequestIdentifier              = 9;
   bytes  ackExecData             = 10;
   bool   ackExecStatus           = 11;
   uint64 feeConsumed = 12;
-}
-
-
-message CrosschainAckReceiptClaimHash {
-  string ackReceiptSrcChainId              = 1;
-  uint64 ack_receipt_identifier = 2; 
-  uint64 ack_receipt_blockHeight          = 3;
-  string ack_receipt_txHash               = 4;
-  string relayerRouterAddress = 5; 
-  uint64 requestIdentifier = 6; 
-  string ackSrcChainId              = 7;
-  uint64 ackRequestIdentifier              = 8;
-  bytes  ackExecData             = 9;
-  bool   ackExecStatus           = 10;
-  uint64 feeConsumed = 11;
 }

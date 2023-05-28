@@ -24,27 +24,98 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type ContractConfig struct {
+	ChainId                      string `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	ContractAddress              string `protobuf:"bytes,2,opt,name=contractAddress,proto3" json:"contractAddress,omitempty"`
+	ContractHeight               uint64 `protobuf:"varint,3,opt,name=contractHeight,proto3" json:"contractHeight,omitempty"`
+	LastObservedEventNonce       uint64 `protobuf:"varint,4,opt,name=lastObservedEventNonce,proto3" json:"lastObservedEventNonce,omitempty"`
+	LastObservedEventBlockHeight uint64 `protobuf:"varint,5,opt,name=lastObservedEventBlockHeight,proto3" json:"lastObservedEventBlockHeight,omitempty"`
+}
+
+func (m *ContractConfig) Reset()         { *m = ContractConfig{} }
+func (m *ContractConfig) String() string { return proto.CompactTextString(m) }
+func (*ContractConfig) ProtoMessage()    {}
+func (*ContractConfig) Descriptor() ([]byte, []int) {
+	return fileDescriptor_706820093b076a45, []int{0}
+}
+func (m *ContractConfig) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ContractConfig) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ContractConfig.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ContractConfig) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ContractConfig.Merge(m, src)
+}
+func (m *ContractConfig) XXX_Size() int {
+	return m.Size()
+}
+func (m *ContractConfig) XXX_DiscardUnknown() {
+	xxx_messageInfo_ContractConfig.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ContractConfig proto.InternalMessageInfo
+
+func (m *ContractConfig) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *ContractConfig) GetContractAddress() string {
+	if m != nil {
+		return m.ContractAddress
+	}
+	return ""
+}
+
+func (m *ContractConfig) GetContractHeight() uint64 {
+	if m != nil {
+		return m.ContractHeight
+	}
+	return 0
+}
+
+func (m *ContractConfig) GetLastObservedEventNonce() uint64 {
+	if m != nil {
+		return m.LastObservedEventNonce
+	}
+	return 0
+}
+
+func (m *ContractConfig) GetLastObservedEventBlockHeight() uint64 {
+	if m != nil {
+		return m.LastObservedEventBlockHeight
+	}
+	return 0
+}
+
 type ChainConfig struct {
-	ChainId                      string    `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
-	ChainName                    string    `protobuf:"bytes,2,opt,name=chainName,proto3" json:"chainName,omitempty"`
-	Symbol                       string    `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
-	NativeDecimals               int64     `protobuf:"varint,4,opt,name=native_decimals,json=nativeDecimals,proto3" json:"native_decimals,omitempty"`
-	ChainType                    ChainType `protobuf:"varint,5,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
-	ConfirmationsRequired        uint64    `protobuf:"varint,6,opt,name=confirmationsRequired,proto3" json:"confirmationsRequired,omitempty"`
-	GatewayContractAddress       string    `protobuf:"bytes,7,opt,name=gatewayContractAddress,proto3" json:"gatewayContractAddress,omitempty"`
-	GatewayContractHeight        uint64    `protobuf:"varint,8,opt,name=gatewayContractHeight,proto3" json:"gatewayContractHeight,omitempty"`
-	RouterContractAddress        string    `protobuf:"bytes,9,opt,name=routerContractAddress,proto3" json:"routerContractAddress,omitempty"`
-	LastObservedEventNonce       uint64    `protobuf:"varint,10,opt,name=lastObservedEventNonce,proto3" json:"lastObservedEventNonce,omitempty"`
-	LastObservedEventBlockHeight uint64    `protobuf:"varint,11,opt,name=lastObservedEventBlockHeight,proto3" json:"lastObservedEventBlockHeight,omitempty"`
-	LastObservedValsetNonce      uint64    `protobuf:"varint,12,opt,name=lastObservedValsetNonce,proto3" json:"lastObservedValsetNonce,omitempty"`
-	ChainEnabled                 bool      `protobuf:"varint,13,opt,name=chain_enabled,json=chainEnabled,proto3" json:"chain_enabled,omitempty"`
+	ChainId                 string    `protobuf:"bytes,1,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	ChainName               string    `protobuf:"bytes,2,opt,name=chainName,proto3" json:"chainName,omitempty"`
+	Symbol                  string    `protobuf:"bytes,3,opt,name=symbol,proto3" json:"symbol,omitempty"`
+	NativeDecimals          int64     `protobuf:"varint,4,opt,name=native_decimals,json=nativeDecimals,proto3" json:"native_decimals,omitempty"`
+	ChainType               ChainType `protobuf:"varint,5,opt,name=chainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"chainType,omitempty"`
+	ConfirmationsRequired   uint64    `protobuf:"varint,6,opt,name=confirmationsRequired,proto3" json:"confirmationsRequired,omitempty"`
+	LastObservedValsetNonce uint64    `protobuf:"varint,7,opt,name=lastObservedValsetNonce,proto3" json:"lastObservedValsetNonce,omitempty"`
+	ChainEnabled            bool      `protobuf:"varint,8,opt,name=chain_enabled,json=chainEnabled,proto3" json:"chain_enabled,omitempty"`
 }
 
 func (m *ChainConfig) Reset()         { *m = ChainConfig{} }
 func (m *ChainConfig) String() string { return proto.CompactTextString(m) }
 func (*ChainConfig) ProtoMessage()    {}
 func (*ChainConfig) Descriptor() ([]byte, []int) {
-	return fileDescriptor_706820093b076a45, []int{0}
+	return fileDescriptor_706820093b076a45, []int{1}
 }
 func (m *ChainConfig) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -115,41 +186,6 @@ func (m *ChainConfig) GetConfirmationsRequired() uint64 {
 	return 0
 }
 
-func (m *ChainConfig) GetGatewayContractAddress() string {
-	if m != nil {
-		return m.GatewayContractAddress
-	}
-	return ""
-}
-
-func (m *ChainConfig) GetGatewayContractHeight() uint64 {
-	if m != nil {
-		return m.GatewayContractHeight
-	}
-	return 0
-}
-
-func (m *ChainConfig) GetRouterContractAddress() string {
-	if m != nil {
-		return m.RouterContractAddress
-	}
-	return ""
-}
-
-func (m *ChainConfig) GetLastObservedEventNonce() uint64 {
-	if m != nil {
-		return m.LastObservedEventNonce
-	}
-	return 0
-}
-
-func (m *ChainConfig) GetLastObservedEventBlockHeight() uint64 {
-	if m != nil {
-		return m.LastObservedEventBlockHeight
-	}
-	return 0
-}
-
 func (m *ChainConfig) GetLastObservedValsetNonce() uint64 {
 	if m != nil {
 		return m.LastObservedValsetNonce
@@ -165,43 +201,95 @@ func (m *ChainConfig) GetChainEnabled() bool {
 }
 
 func init() {
+	proto.RegisterType((*ContractConfig)(nil), "routerprotocol.routerchain.multichain.ContractConfig")
 	proto.RegisterType((*ChainConfig)(nil), "routerprotocol.routerchain.multichain.ChainConfig")
 }
 
 func init() { proto.RegisterFile("multichain/chain_config.proto", fileDescriptor_706820093b076a45) }
 
 var fileDescriptor_706820093b076a45 = []byte{
-	// 465 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x93, 0x4f, 0x6f, 0xd3, 0x30,
-	0x18, 0xc6, 0x6b, 0xb6, 0x75, 0xab, 0xf7, 0x07, 0xc9, 0x82, 0x61, 0x8d, 0x11, 0x55, 0x20, 0x44,
-	0x2e, 0x24, 0x0c, 0x10, 0x42, 0xdc, 0x68, 0x99, 0x04, 0x97, 0x22, 0x45, 0x13, 0x07, 0x2e, 0x93,
-	0xe3, 0xbc, 0xa4, 0x16, 0x89, 0x5d, 0x62, 0xb7, 0xd0, 0xcf, 0xc0, 0x85, 0x8f, 0xc5, 0x71, 0x47,
-	0x8e, 0xa8, 0xfd, 0x22, 0x28, 0xaf, 0x53, 0x75, 0xda, 0x5a, 0xb4, 0x4b, 0xe4, 0xf7, 0xf9, 0xf9,
-	0x7d, 0x1e, 0xc7, 0xf2, 0x4b, 0x1f, 0x94, 0xe3, 0xc2, 0x29, 0x39, 0x14, 0x4a, 0xc7, 0xf8, 0x3d,
-	0x97, 0x46, 0x7f, 0x51, 0x79, 0x34, 0xaa, 0x8c, 0x33, 0xec, 0x71, 0x65, 0xc6, 0x0e, 0x2a, 0x2c,
-	0xa4, 0x29, 0x22, 0x5f, 0xe2, 0xc6, 0x68, 0xd9, 0x79, 0x74, 0xff, 0x9a, 0x8b, 0x9b, 0x8e, 0xc0,
-	0x7b, 0x1c, 0x05, 0xd2, 0xd8, 0xd2, 0xd8, 0x38, 0x15, 0x16, 0xe2, 0xc9, 0x49, 0x0a, 0x4e, 0x9c,
-	0xc4, 0xd2, 0x28, 0xdd, 0xf0, 0x3b, 0xb9, 0xc9, 0x0d, 0x2e, 0xe3, 0x7a, 0xe5, 0xd5, 0x87, 0x3f,
-	0xb7, 0xe8, 0x6e, 0xbf, 0xb6, 0xea, 0xe3, 0x79, 0x18, 0xa7, 0xdb, 0xe8, 0xfc, 0x21, 0xe3, 0xa4,
-	0x4b, 0xc2, 0x4e, 0xb2, 0x28, 0xd9, 0x31, 0xed, 0xe0, 0x72, 0x20, 0x4a, 0xe0, 0xb7, 0x90, 0x2d,
-	0x05, 0x76, 0x48, 0xdb, 0x76, 0x5a, 0xa6, 0xa6, 0xe0, 0x1b, 0x88, 0x9a, 0x8a, 0x3d, 0xa1, 0xb7,
-	0xb5, 0x70, 0x6a, 0x02, 0xe7, 0x19, 0x48, 0x55, 0x8a, 0xc2, 0xf2, 0xcd, 0x2e, 0x09, 0x37, 0x92,
-	0x03, 0x2f, 0xbf, 0x6b, 0x54, 0x36, 0x68, 0xec, 0xcf, 0xa6, 0x23, 0xe0, 0x5b, 0x5d, 0x12, 0x1e,
-	0x3c, 0x7f, 0x16, 0xdd, 0xe8, 0x5a, 0xa2, 0xfe, 0xa2, 0x2f, 0x59, 0x5a, 0xb0, 0x97, 0xf4, 0x2e,
-	0x5e, 0x71, 0x55, 0x0a, 0xa7, 0x8c, 0xb6, 0x09, 0x7c, 0x1b, 0xab, 0x0a, 0x32, 0xde, 0xee, 0x92,
-	0x70, 0x33, 0x59, 0x0d, 0xd9, 0x2b, 0x7a, 0x98, 0x0b, 0x07, 0xdf, 0xc5, 0xb4, 0x6f, 0xb4, 0xab,
-	0x84, 0x74, 0x6f, 0xb3, 0xac, 0x02, 0x6b, 0xf9, 0x36, 0xfe, 0xd6, 0x1a, 0x5a, 0xa7, 0x5d, 0x21,
-	0xef, 0x41, 0xe5, 0x43, 0xc7, 0x77, 0x7c, 0xda, 0x4a, 0x58, 0x77, 0xf9, 0x5f, 0xba, 0x1a, 0xd6,
-	0xc1, 0xb0, 0xd5, 0xb0, 0x3e, 0x63, 0x21, 0xac, 0xfb, 0x98, 0x5a, 0xa8, 0x26, 0x90, 0x9d, 0x4e,
-	0x40, 0xbb, 0x81, 0xd1, 0x12, 0x38, 0xc5, 0xb0, 0x35, 0x94, 0xf5, 0xe8, 0xf1, 0x35, 0xd2, 0x2b,
-	0x8c, 0xfc, 0xda, 0x1c, 0x75, 0x17, 0xbb, 0xff, 0xbb, 0x87, 0xbd, 0xa6, 0xf7, 0x2e, 0xf3, 0x4f,
-	0xa2, 0xb0, 0xd0, 0x84, 0xef, 0x61, 0xfb, 0x3a, 0xcc, 0x1e, 0xd1, 0x7d, 0xff, 0x64, 0x41, 0x8b,
-	0xb4, 0x80, 0x8c, 0xef, 0x77, 0x49, 0xb8, 0x93, 0xec, 0xa1, 0x78, 0xea, 0xb5, 0xde, 0xd9, 0xef,
-	0x59, 0x40, 0x2e, 0x66, 0x01, 0xf9, 0x3b, 0x0b, 0xc8, 0xaf, 0x79, 0xd0, 0xba, 0x98, 0x07, 0xad,
-	0x3f, 0xf3, 0xa0, 0xf5, 0xf9, 0x4d, 0xae, 0xdc, 0x70, 0x9c, 0x46, 0xd2, 0x94, 0xb1, 0xbf, 0x96,
-	0xa7, 0x8b, 0x67, 0xb1, 0xa8, 0xfd, 0x5c, 0xfc, 0x88, 0x2f, 0x0d, 0x49, 0x3d, 0x1e, 0x36, 0x6d,
-	0xe3, 0xce, 0x17, 0xff, 0x02, 0x00, 0x00, 0xff, 0xff, 0xe5, 0xee, 0xb8, 0x8a, 0x85, 0x03, 0x00,
-	0x00,
+	// 455 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x52, 0xc1, 0x6e, 0xd3, 0x40,
+	0x10, 0x8d, 0xdb, 0x92, 0x36, 0x0b, 0xa4, 0xd2, 0x0a, 0x8a, 0x55, 0x8a, 0x15, 0x15, 0x01, 0xb9,
+	0x60, 0x53, 0x40, 0x08, 0x71, 0x23, 0xa1, 0x12, 0x5c, 0x82, 0x64, 0x55, 0x1c, 0xb8, 0x54, 0xeb,
+	0xf5, 0xe0, 0xac, 0xb0, 0x77, 0x82, 0x77, 0x63, 0x91, 0xbf, 0xe0, 0xb3, 0x38, 0xf6, 0xc8, 0x11,
+	0x25, 0x47, 0x7e, 0x80, 0x23, 0xca, 0x78, 0xad, 0x54, 0x2d, 0x81, 0x5e, 0xac, 0x99, 0x37, 0x6f,
+	0x9e, 0xf7, 0xed, 0x3e, 0x76, 0xaf, 0x98, 0xe6, 0x56, 0xc9, 0xb1, 0x50, 0x3a, 0xa2, 0xef, 0xa9,
+	0x44, 0xfd, 0x49, 0x65, 0xe1, 0xa4, 0x44, 0x8b, 0xfc, 0x41, 0x89, 0x53, 0x0b, 0x25, 0x35, 0x12,
+	0xf3, 0xb0, 0x6e, 0x89, 0x18, 0xae, 0x36, 0xf7, 0xef, 0x5e, 0x52, 0xb1, 0xb3, 0x09, 0xd4, 0x1a,
+	0xfb, 0x81, 0x44, 0x53, 0xa0, 0x89, 0x12, 0x61, 0x20, 0xaa, 0x8e, 0x12, 0xb0, 0xe2, 0x28, 0x92,
+	0xa8, 0xb4, 0x9b, 0xdf, 0xca, 0x30, 0x43, 0x2a, 0xa3, 0x65, 0x55, 0xa3, 0x87, 0xbf, 0x3d, 0xd6,
+	0x1d, 0xa2, 0xb6, 0xa5, 0x90, 0x76, 0x48, 0x47, 0xe2, 0x3e, 0xdb, 0x26, 0xf1, 0x77, 0xa9, 0xef,
+	0xf5, 0xbc, 0x7e, 0x27, 0x6e, 0x5a, 0xde, 0x67, 0xbb, 0xd2, 0x71, 0x5f, 0xa7, 0x69, 0x09, 0xc6,
+	0xf8, 0x1b, 0xc4, 0xb8, 0x08, 0xf3, 0x87, 0xac, 0xdb, 0x40, 0x6f, 0x41, 0x65, 0x63, 0xeb, 0x6f,
+	0xf6, 0xbc, 0xfe, 0x56, 0x7c, 0x01, 0xe5, 0x2f, 0xd8, 0x5e, 0x2e, 0x8c, 0x7d, 0x9f, 0x18, 0x28,
+	0x2b, 0x48, 0x8f, 0x2b, 0xd0, 0x76, 0x84, 0x5a, 0x82, 0xbf, 0x45, 0xfc, 0x35, 0x53, 0x3e, 0x60,
+	0x07, 0x97, 0x26, 0x83, 0x1c, 0xe5, 0x67, 0xf7, 0xb7, 0x6b, 0xb4, 0xfd, 0x4f, 0xce, 0xe1, 0xaf,
+	0x0d, 0x76, 0x7d, 0xb8, 0x74, 0xf6, 0x5f, 0xdf, 0x07, 0xac, 0x43, 0xe5, 0x48, 0x14, 0xe0, 0x1c,
+	0xaf, 0x00, 0xbe, 0xc7, 0xda, 0x66, 0x56, 0x24, 0x98, 0x93, 0xc7, 0x4e, 0xec, 0x3a, 0xfe, 0x88,
+	0xed, 0x6a, 0x61, 0x55, 0x05, 0xa7, 0x29, 0x48, 0x55, 0x88, 0xdc, 0x90, 0xa9, 0xcd, 0xb8, 0x5b,
+	0xc3, 0x6f, 0x1c, 0xca, 0x47, 0x4e, 0xfe, 0x64, 0x36, 0x01, 0x3a, 0x79, 0xf7, 0xe9, 0x93, 0xf0,
+	0x4a, 0x89, 0x08, 0x87, 0xcd, 0x5e, 0xbc, 0x92, 0xe0, 0xcf, 0xd9, 0x6d, 0x4a, 0x57, 0x59, 0x08,
+	0xab, 0x50, 0x9b, 0x18, 0xbe, 0x4c, 0x55, 0x09, 0xa9, 0xdf, 0xa6, 0x5b, 0xf9, 0xfb, 0x90, 0xbf,
+	0x64, 0x77, 0xce, 0x5f, 0xd7, 0x07, 0x91, 0x1b, 0x70, 0x6f, 0xb1, 0x4d, 0x7b, 0xeb, 0xc6, 0xfc,
+	0x3e, 0xbb, 0x59, 0xa7, 0x11, 0xb4, 0x48, 0x72, 0x48, 0xfd, 0x9d, 0x9e, 0xd7, 0xdf, 0x89, 0x6f,
+	0x10, 0x78, 0x5c, 0x63, 0x83, 0x93, 0xef, 0xf3, 0xc0, 0x3b, 0x9b, 0x07, 0xde, 0xcf, 0x79, 0xe0,
+	0x7d, 0x5b, 0x04, 0xad, 0xb3, 0x45, 0xd0, 0xfa, 0xb1, 0x08, 0x5a, 0x1f, 0x5f, 0x65, 0xca, 0x8e,
+	0xa7, 0x49, 0x28, 0xb1, 0x88, 0x6a, 0x9b, 0x8f, 0x1b, 0xdb, 0x4d, 0x5f, 0x47, 0xfe, 0x6b, 0x74,
+	0x2e, 0xff, 0xcb, 0xe4, 0x9b, 0xa4, 0x4d, 0xcc, 0x67, 0x7f, 0x02, 0x00, 0x00, 0xff, 0xff, 0x40,
+	0x2f, 0xf4, 0x40, 0x60, 0x03, 0x00, 0x00,
+}
+
+func (m *ContractConfig) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ContractConfig) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *ContractConfig) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.LastObservedEventBlockHeight != 0 {
+		i = encodeVarintChainConfig(dAtA, i, uint64(m.LastObservedEventBlockHeight))
+		i--
+		dAtA[i] = 0x28
+	}
+	if m.LastObservedEventNonce != 0 {
+		i = encodeVarintChainConfig(dAtA, i, uint64(m.LastObservedEventNonce))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.ContractHeight != 0 {
+		i = encodeVarintChainConfig(dAtA, i, uint64(m.ContractHeight))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.ContractAddress) > 0 {
+		i -= len(m.ContractAddress)
+		copy(dAtA[i:], m.ContractAddress)
+		i = encodeVarintChainConfig(dAtA, i, uint64(len(m.ContractAddress)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintChainConfig(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *ChainConfig) Marshal() (dAtA []byte, err error) {
@@ -232,41 +320,12 @@ func (m *ChainConfig) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 			dAtA[i] = 0
 		}
 		i--
-		dAtA[i] = 0x68
+		dAtA[i] = 0x40
 	}
 	if m.LastObservedValsetNonce != 0 {
 		i = encodeVarintChainConfig(dAtA, i, uint64(m.LastObservedValsetNonce))
 		i--
-		dAtA[i] = 0x60
-	}
-	if m.LastObservedEventBlockHeight != 0 {
-		i = encodeVarintChainConfig(dAtA, i, uint64(m.LastObservedEventBlockHeight))
-		i--
-		dAtA[i] = 0x58
-	}
-	if m.LastObservedEventNonce != 0 {
-		i = encodeVarintChainConfig(dAtA, i, uint64(m.LastObservedEventNonce))
-		i--
-		dAtA[i] = 0x50
-	}
-	if len(m.RouterContractAddress) > 0 {
-		i -= len(m.RouterContractAddress)
-		copy(dAtA[i:], m.RouterContractAddress)
-		i = encodeVarintChainConfig(dAtA, i, uint64(len(m.RouterContractAddress)))
-		i--
-		dAtA[i] = 0x4a
-	}
-	if m.GatewayContractHeight != 0 {
-		i = encodeVarintChainConfig(dAtA, i, uint64(m.GatewayContractHeight))
-		i--
-		dAtA[i] = 0x40
-	}
-	if len(m.GatewayContractAddress) > 0 {
-		i -= len(m.GatewayContractAddress)
-		copy(dAtA[i:], m.GatewayContractAddress)
-		i = encodeVarintChainConfig(dAtA, i, uint64(len(m.GatewayContractAddress)))
-		i--
-		dAtA[i] = 0x3a
+		dAtA[i] = 0x38
 	}
 	if m.ConfirmationsRequired != 0 {
 		i = encodeVarintChainConfig(dAtA, i, uint64(m.ConfirmationsRequired))
@@ -318,6 +377,32 @@ func encodeVarintChainConfig(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *ContractConfig) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovChainConfig(uint64(l))
+	}
+	l = len(m.ContractAddress)
+	if l > 0 {
+		n += 1 + l + sovChainConfig(uint64(l))
+	}
+	if m.ContractHeight != 0 {
+		n += 1 + sovChainConfig(uint64(m.ContractHeight))
+	}
+	if m.LastObservedEventNonce != 0 {
+		n += 1 + sovChainConfig(uint64(m.LastObservedEventNonce))
+	}
+	if m.LastObservedEventBlockHeight != 0 {
+		n += 1 + sovChainConfig(uint64(m.LastObservedEventBlockHeight))
+	}
+	return n
+}
+
 func (m *ChainConfig) Size() (n int) {
 	if m == nil {
 		return 0
@@ -345,23 +430,6 @@ func (m *ChainConfig) Size() (n int) {
 	if m.ConfirmationsRequired != 0 {
 		n += 1 + sovChainConfig(uint64(m.ConfirmationsRequired))
 	}
-	l = len(m.GatewayContractAddress)
-	if l > 0 {
-		n += 1 + l + sovChainConfig(uint64(l))
-	}
-	if m.GatewayContractHeight != 0 {
-		n += 1 + sovChainConfig(uint64(m.GatewayContractHeight))
-	}
-	l = len(m.RouterContractAddress)
-	if l > 0 {
-		n += 1 + l + sovChainConfig(uint64(l))
-	}
-	if m.LastObservedEventNonce != 0 {
-		n += 1 + sovChainConfig(uint64(m.LastObservedEventNonce))
-	}
-	if m.LastObservedEventBlockHeight != 0 {
-		n += 1 + sovChainConfig(uint64(m.LastObservedEventBlockHeight))
-	}
 	if m.LastObservedValsetNonce != 0 {
 		n += 1 + sovChainConfig(uint64(m.LastObservedValsetNonce))
 	}
@@ -376,6 +444,177 @@ func sovChainConfig(x uint64) (n int) {
 }
 func sozChainConfig(x uint64) (n int) {
 	return sovChainConfig(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *ContractConfig) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowChainConfig
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ContractConfig: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ContractConfig: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowChainConfig
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthChainConfig
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthChainConfig
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowChainConfig
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthChainConfig
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthChainConfig
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractHeight", wireType)
+			}
+			m.ContractHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowChainConfig
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ContractHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventNonce", wireType)
+			}
+			m.LastObservedEventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowChainConfig
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LastObservedEventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventBlockHeight", wireType)
+			}
+			m.LastObservedEventBlockHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowChainConfig
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LastObservedEventBlockHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipChainConfig(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthChainConfig
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -560,127 +799,6 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 				}
 			}
 		case 7:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GatewayContractAddress", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowChainConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthChainConfig
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthChainConfig
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.GatewayContractAddress = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 8:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field GatewayContractHeight", wireType)
-			}
-			m.GatewayContractHeight = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowChainConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.GatewayContractHeight |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 9:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field RouterContractAddress", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowChainConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthChainConfig
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthChainConfig
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.RouterContractAddress = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		case 10:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventNonce", wireType)
-			}
-			m.LastObservedEventNonce = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowChainConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.LastObservedEventNonce |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 11:
-			if wireType != 0 {
-				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedEventBlockHeight", wireType)
-			}
-			m.LastObservedEventBlockHeight = 0
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowChainConfig
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				m.LastObservedEventBlockHeight |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-		case 12:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LastObservedValsetNonce", wireType)
 			}
@@ -699,7 +817,7 @@ func (m *ChainConfig) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 13:
+		case 8:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ChainEnabled", wireType)
 			}

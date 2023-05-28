@@ -40,9 +40,9 @@ func ValsetKey(
 // GetLastEventByValidatorKey returns the following key format
 // prefix              cosmos-validator
 // [0x0][gravity1ahx7f8wyertuus9r20284ej0asrs085ceqtfnm]
-func GetLastEventByValidatorKey(validator sdk.ValAddress, chainId string) []byte {
+func GetLastEventByValidatorKey(validator sdk.ValAddress, chainId string, contract string) []byte {
 	if err := sdk.VerifyAddressFormat(validator); err != nil {
 		panic(sdkerrors.Wrap(err, "invalid validator address"))
 	}
-	return util.AppendBytes(LastEventNonceByValidatorKey, []byte(chainId), validator.Bytes())
+	return util.AppendBytes(LastEventNonceByValidatorKey, []byte(chainId), []byte(contract), validator.Bytes())
 }
