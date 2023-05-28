@@ -1,26 +1,59 @@
 syntax = "proto3";
+
 package routerprotocol.routerchain.voyager;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "routerchain/voyager/params.proto";
+import "routerchain/voyager/fund_deposit_request.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
 
 // Query defines the gRPC querier service.
 service Query {
+  
   // Parameters queries the parameters of the module.
-  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/voyager/params";
+  
+  }
+  
+  // Queries a list of FundDepositRequest items.
+  rpc FundDepositRequest    (QueryGetFundDepositRequestRequest) returns (QueryGetFundDepositRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/voyager/fund_deposit_request/{srcChainId}/{eventNonce}";
+  
+  }
+  rpc FundDepositRequestAll (QueryAllFundDepositRequestRequest) returns (QueryAllFundDepositRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/voyager/fund_deposit_request";
+  
   }
 }
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
 
 // QueryParamsResponse is response type for the Query/Params RPC method.
 message QueryParamsResponse {
+  
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryGetFundDepositRequestRequest {
+  string srcChainId = 1;
+  uint64 eventNonce = 2;
+}
+
+message QueryGetFundDepositRequestResponse {
+  repeated FundDepositRequest fundDepositRequests = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllFundDepositRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllFundDepositRequestResponse {
+  repeated FundDepositRequest                     fundDepositRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination         = 2;
+}
+
