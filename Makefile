@@ -16,6 +16,9 @@ copy-chain-types:
 	cp ../router-chain/x/pricefeed/types/*.go routerchain/pricefeed/types
 	rm -rf routerchain/pricefeed/types/*test.go  rm -rf routerchain/pricefeed/types/*gw.go
 
+	cp ../router-chain/x/voyager/types/*.go routerchain/voyager/types
+	rm -rf routerchain/voyager/types/*test.go  rm -rf routerchain/voyager/types/*gw.go
+
 	cp -r ../router-chain/types/*.go routerchain/types
 	rm -rf routerchain/types/*test.go
 
