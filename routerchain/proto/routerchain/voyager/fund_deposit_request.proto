@@ -1,0 +1,44 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+import "multichain/chain_type.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+message FundDepositRequest {
+  string srcChainId = 1; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 2; 
+  string srcTxHash = 3; 
+  uint64 srcTimestamp = 4; 
+  string contract = 5; 
+  uint64 deposit_id = 6; 
+  uint64 blockHeight = 7; 
+  string destChainId = 8; 
+  routerprotocol.routerchain.multichain.ChainType destChainType = 9; 
+  uint64 amount = 10; 
+  uint64 relayerFees = 11; 
+  string srcToken = 12; 
+  string recipient = 13; 
+  string depositor = 14; 
+  string status = 15; 
+  
+}
+
+message FundDepositRequestClaimHash {
+  string srcChainId = 1; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 2; 
+  string srcTxHash = 3; 
+  uint64 srcTimestamp = 4; 
+  string contract = 5; 
+  uint64 deposit_id = 6; 
+  uint64 blockHeight = 7; 
+  string destChainId = 8; 
+  routerprotocol.routerchain.multichain.ChainType destChainType = 9; 
+  uint64 amount = 10; 
+  uint64 relayerFees = 11; 
+  string srcToken = 12; 
+  string recipient = 13; 
+  string depositor = 14; 
+}
