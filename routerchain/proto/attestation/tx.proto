@@ -37,11 +37,12 @@ message MsgValsetConfirmResponse {
 message MsgValsetUpdatedClaim {
   string orchestrator = 1;
   string chainId = 2;
-  uint64 eventNonce = 3;
-  uint64 valsetNonce = 4;
-  uint64 blockHeight = 5;  
-  repeated BridgeValidator members = 6 [(gogoproto.nullable) = false];
-  string sourceTxHash = 7;
+  string contract = 3;
+  uint64 eventNonce = 4;
+  uint64 valsetNonce = 5;
+  uint64 blockHeight = 6;  
+  repeated BridgeValidator members = 7 [(gogoproto.nullable) = false];
+  string sourceTxHash = 8;
 }
 
 message MsgValsetUpdatedClaimResponse {

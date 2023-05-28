@@ -35,7 +35,7 @@ service Query {
 
 // Queries a Attestation by index.
 	rpc Attestation(QueryGetAttestationRequest) returns (QueryGetAttestationResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/attestation/attestation/{chain_id}/{event_nonce}";
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/attestation/{chain_id}/{contract}/{event_nonce}";
 	}
 
 	// Queries a list of Attestation items.
@@ -75,7 +75,7 @@ service Query {
 
 // Queries a list of LastEventNonce items.
 	rpc LastEventNonce(QueryLastEventNonceRequest) returns (QueryLastEventNonceResponse) {
-		option (google.api.http).get = "/router-protocol/router-chain/attestation/last_event_nonce/{chain_id}/{validator_address}";
+		option (google.api.http).get = "/router-protocol/router-chain/attestation/last_event_nonce/{chain_id}/{contract}/{validator_address}";
 	}
 
 // Queries a list of ListOrchestrators items.
@@ -120,7 +120,8 @@ message QueryAllValsetResponse {
 
 message QueryGetAttestationRequest {	  
 	  string chain_id = 1;
-	  uint64 event_nonce = 2;
+	  string contract = 2;
+	  uint64 event_nonce = 3;
 
 }
 
@@ -158,8 +159,8 @@ message QueryAllValsetConfirmationResponse {
 }
 
 message QueryGetValsetUpdatedClaimRequest {	  
-	  string chain_id = 1;
-	  uint64 event_nonce = 2;
+	  string chain_id = 1;	  
+	  uint64 event_nonce = 3;
 
 }
 
@@ -192,7 +193,8 @@ message QueryLatestValsetResponse {
 
 message QueryLastEventNonceRequest {  	
 	string chain_id = 1;
-	string validator_address = 2;
+	string contract = 2;
+	string validator_address = 3;
 }
 
 message QueryLastEventNonceResponse {

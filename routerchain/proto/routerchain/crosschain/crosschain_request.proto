@@ -10,40 +10,42 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 
 message CrosschainRequest {
   string src_chain_id     =  1;
-  uint64 request_identifier     =  2;
-  uint64 block_height    =  3;
-  string source_tx_hash   =  4;
-  uint64 src_timestamp   =  5;
-  string src_tx_origin    =  6;
-  string route_amount = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  string route_recipient =  8;
-  string dest_chain_id    = 9;
-  uint64 dest_gas_limit = 10;
-	uint64 dest_gas_price = 11;  
-  cosmos.base.v1beta1.Coin relayer_incentive = 12 [(gogoproto.nullable) = false];
-  string request_sender  = 13;
-  bytes request_metadata   = 14;
-  bytes request_packet   = 15;
-  routerprotocol.routerchain.multichain.ChainType src_chain_type = 16; 
-  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 17; 
-  cosmos.base.v1beta1.Coin dest_tx_fee_deducted = 18 [(gogoproto.nullable) = false];
-  CrosschainTxStatus status = 19; 
+  string contract = 2;
+  uint64 request_identifier     =  3;
+  uint64 block_height    =  4;
+  string source_tx_hash   =  5;
+  uint64 src_timestamp   =  6;
+  string src_tx_origin    =  7;
+  string route_amount = 8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string route_recipient =  9;
+  string dest_chain_id    = 10;
+  uint64 dest_gas_limit = 11;
+	uint64 dest_gas_price = 12;  
+  cosmos.base.v1beta1.Coin relayer_incentive = 13 [(gogoproto.nullable) = false];
+  string request_sender  = 14;
+  bytes request_metadata   = 15;
+  bytes request_packet   = 16;
+  routerprotocol.routerchain.multichain.ChainType src_chain_type = 17; 
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 18; 
+  cosmos.base.v1beta1.Coin dest_tx_fee_deducted = 19 [(gogoproto.nullable) = false];
+  CrosschainTxStatus status = 20; 
 }
 
 message CrosschainRequestClaimHash {  
   string src_chain_id     =  1;
-  uint64 request_identifier     =  2;
-  uint64 block_height    =  3;
-  string source_tx_hash   =  4;
-  uint64 src_timestamp   =  5;
-  string src_tx_origin    =  6;
-  string route_amount = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  string route_recipient =  8;
-  string dest_chain_id    = 9;  
-  string request_sender  = 10;
-  bytes request_metadata   = 11;
-  bytes request_packet   = 12;
-  routerprotocol.routerchain.multichain.ChainType src_chain_type = 13; 
-  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 14; 
+  string contract = 2;
+  uint64 request_identifier     =  3;
+  uint64 block_height    =  4;
+  string source_tx_hash   =  5;
+  uint64 src_timestamp   =  6;
+  string src_tx_origin    =  7;
+  string route_amount = 8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string route_recipient =  9;
+  string dest_chain_id    = 10;  
+  string request_sender  = 11;
+  bytes request_metadata   = 12;
+  bytes request_packet   = 13;
+  routerprotocol.routerchain.multichain.ChainType src_chain_type = 14; 
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type = 15; 
 }
 // this line is used by starport scaffolding # genesis/types/import
