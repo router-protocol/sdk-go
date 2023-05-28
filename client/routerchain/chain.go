@@ -86,7 +86,7 @@ type ChainClient interface {
 	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
 	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
-	GetLastEventByValidator(ctx context.Context, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
+	GetLastEventByValidator(ctx context.Context, chainId string, contract string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
@@ -751,9 +751,10 @@ func (c *chainClient) GetValsetByNonce(ctx context.Context, valsetNonce uint64) 
 	}
 	return c.attestationQueryClient.Valset(ctx, req)
 }
-func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
+func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId string, contract string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
 	req := &attestationTypes.QueryLastEventNonceRequest{
 		ChainId:          chainId,
+		Contract:         contract,
 		ValidatorAddress: validator.String(),
 	}
 	return c.attestationQueryClient.LastEventNonce(ctx, req)
