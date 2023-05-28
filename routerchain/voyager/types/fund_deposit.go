@@ -27,7 +27,6 @@ func (msg *FundDepositRequest) ClaimHash() ([]byte, error) {
 		msg.DepositId,
 		msg.BlockHeight,
 		msg.DestChainId,
-		msg.DestChainType,
 		msg.Amount,
 		msg.RelayerFees,
 		msg.SrcToken,

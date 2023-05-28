@@ -16,13 +16,12 @@ message EventFundDepositRequestCreated {
   string contract = 6; 
   uint64 deposit_id = 7; 
   uint64 blockHeight = 8; 
-  string destChainId = 9; 
-  routerprotocol.routerchain.multichain.ChainType destChainType = 10; 
-  uint64 amount = 11; 
-  uint64 relayerFees = 12; 
-  string srcToken = 13; 
-  string recipient = 14; 
-  string depositor = 15; 
+  bytes destChainId = 9; 
+  uint64 amount = 10; 
+  uint64 relayerFees = 11; 
+  string srcToken = 12; 
+  string recipient = 13; 
+  string depositor = 14; 
 }
 
 
