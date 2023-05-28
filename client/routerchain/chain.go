@@ -77,6 +77,8 @@ type ChainClient interface {
 	// MultiChain
 	GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error)
 	GetChainConfig(ctx context.Context, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error)
+	GetAllContractConfig(ctx context.Context) (*multichainTypes.QueryAllContractConfigResponse, error)
+	GetContractConfig(ctx context.Context, chainId string, contractAddress string) (*multichainTypes.QueryGetContractConfigResponse, error)
 
 	// Attestation
 	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
@@ -668,6 +670,19 @@ func (c *chainClient) GetChainConfig(ctx context.Context, chainId string) (*mult
 		ChainId: chainId,
 	}
 	return c.multichainQueryClient.ChainConfig(ctx, req)
+}
+
+func (c *chainClient) GetAllContractConfig(ctx context.Context) (*multichainTypes.QueryAllContractConfigResponse, error) {
+	req := &multichainTypes.QueryAllContractConfigRequest{}
+	return c.multichainQueryClient.ContractConfigAll(ctx, req)
+}
+
+func (c *chainClient) GetContractConfig(ctx context.Context, chainId string, contractAddress string) (*multichainTypes.QueryGetContractConfigResponse, error) {
+	req := &multichainTypes.QueryGetContractConfigRequest{
+		ChainId:         chainId,
+		ContractAddress: contractAddress,
+	}
+	return c.multichainQueryClient.ContractConfig(ctx, req)
 }
 
 /////////////////////////////////

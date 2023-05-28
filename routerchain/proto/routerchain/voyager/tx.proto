@@ -1,0 +1,7 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+// Msg defines the Msg service.
+service Msg {}
