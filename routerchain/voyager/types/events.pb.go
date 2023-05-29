@@ -311,50 +311,320 @@ func (m *EventFundDepositRequestExecutionFailed) GetExecErrResponse() []byte {
 	return nil
 }
 
+type EventFundPaidRequestCreated struct {
+	AttestationId       []byte          `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
+	SrcChainId          string          `protobuf:"bytes,2,opt,name=srcChainId,proto3" json:"srcChainId,omitempty"`
+	SrcChainType        types.ChainType `protobuf:"varint,3,opt,name=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"srcChainType,omitempty"`
+	SrcTxHash           string          `protobuf:"bytes,4,opt,name=srcTxHash,proto3" json:"srcTxHash,omitempty"`
+	SrcTimestamp        uint64          `protobuf:"varint,5,opt,name=srcTimestamp,proto3" json:"srcTimestamp,omitempty"`
+	Contract            string          `protobuf:"bytes,6,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce          uint64          `protobuf:"varint,7,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	BlockHeight         uint64          `protobuf:"varint,8,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	MessageHash         []byte          `protobuf:"bytes,9,opt,name=messageHash,proto3" json:"messageHash,omitempty"`
+	Forwarder           string          `protobuf:"bytes,10,opt,name=forwarder,proto3" json:"forwarder,omitempty"`
+	ForwarderRouterAddr []byte          `protobuf:"bytes,11,opt,name=forwarderRouterAddr,proto3" json:"forwarderRouterAddr,omitempty"`
+}
+
+func (m *EventFundPaidRequestCreated) Reset()         { *m = EventFundPaidRequestCreated{} }
+func (m *EventFundPaidRequestCreated) String() string { return proto.CompactTextString(m) }
+func (*EventFundPaidRequestCreated) ProtoMessage()    {}
+func (*EventFundPaidRequestCreated) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2a192919f6cc2e7e, []int{3}
+}
+func (m *EventFundPaidRequestCreated) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EventFundPaidRequestCreated) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EventFundPaidRequestCreated.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EventFundPaidRequestCreated) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EventFundPaidRequestCreated.Merge(m, src)
+}
+func (m *EventFundPaidRequestCreated) XXX_Size() int {
+	return m.Size()
+}
+func (m *EventFundPaidRequestCreated) XXX_DiscardUnknown() {
+	xxx_messageInfo_EventFundPaidRequestCreated.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EventFundPaidRequestCreated proto.InternalMessageInfo
+
+func (m *EventFundPaidRequestCreated) GetAttestationId() []byte {
+	if m != nil {
+		return m.AttestationId
+	}
+	return nil
+}
+
+func (m *EventFundPaidRequestCreated) GetSrcChainId() string {
+	if m != nil {
+		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestCreated) GetSrcChainType() types.ChainType {
+	if m != nil {
+		return m.SrcChainType
+	}
+	return types.CHAIN_TYPE_NONE
+}
+
+func (m *EventFundPaidRequestCreated) GetSrcTxHash() string {
+	if m != nil {
+		return m.SrcTxHash
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestCreated) GetSrcTimestamp() uint64 {
+	if m != nil {
+		return m.SrcTimestamp
+	}
+	return 0
+}
+
+func (m *EventFundPaidRequestCreated) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestCreated) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+func (m *EventFundPaidRequestCreated) GetBlockHeight() uint64 {
+	if m != nil {
+		return m.BlockHeight
+	}
+	return 0
+}
+
+func (m *EventFundPaidRequestCreated) GetMessageHash() []byte {
+	if m != nil {
+		return m.MessageHash
+	}
+	return nil
+}
+
+func (m *EventFundPaidRequestCreated) GetForwarder() string {
+	if m != nil {
+		return m.Forwarder
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestCreated) GetForwarderRouterAddr() []byte {
+	if m != nil {
+		return m.ForwarderRouterAddr
+	}
+	return nil
+}
+
+type EventFundPaidRequestExecuted struct {
+	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
+	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
+	EventNonce    uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ExecResponse  []byte `protobuf:"bytes,4,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
+}
+
+func (m *EventFundPaidRequestExecuted) Reset()         { *m = EventFundPaidRequestExecuted{} }
+func (m *EventFundPaidRequestExecuted) String() string { return proto.CompactTextString(m) }
+func (*EventFundPaidRequestExecuted) ProtoMessage()    {}
+func (*EventFundPaidRequestExecuted) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2a192919f6cc2e7e, []int{4}
+}
+func (m *EventFundPaidRequestExecuted) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EventFundPaidRequestExecuted) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EventFundPaidRequestExecuted.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EventFundPaidRequestExecuted) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EventFundPaidRequestExecuted.Merge(m, src)
+}
+func (m *EventFundPaidRequestExecuted) XXX_Size() int {
+	return m.Size()
+}
+func (m *EventFundPaidRequestExecuted) XXX_DiscardUnknown() {
+	xxx_messageInfo_EventFundPaidRequestExecuted.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EventFundPaidRequestExecuted proto.InternalMessageInfo
+
+func (m *EventFundPaidRequestExecuted) GetAttestationId() []byte {
+	if m != nil {
+		return m.AttestationId
+	}
+	return nil
+}
+
+func (m *EventFundPaidRequestExecuted) GetSrcChainId() string {
+	if m != nil {
+		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestExecuted) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+func (m *EventFundPaidRequestExecuted) GetExecResponse() []byte {
+	if m != nil {
+		return m.ExecResponse
+	}
+	return nil
+}
+
+type EventFundPaidRequestExecutionFailed struct {
+	AttestationId   []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
+	SrcChainId      string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
+	EventNonce      uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ExecErrResponse []byte `protobuf:"bytes,4,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
+}
+
+func (m *EventFundPaidRequestExecutionFailed) Reset()         { *m = EventFundPaidRequestExecutionFailed{} }
+func (m *EventFundPaidRequestExecutionFailed) String() string { return proto.CompactTextString(m) }
+func (*EventFundPaidRequestExecutionFailed) ProtoMessage()    {}
+func (*EventFundPaidRequestExecutionFailed) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2a192919f6cc2e7e, []int{5}
+}
+func (m *EventFundPaidRequestExecutionFailed) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *EventFundPaidRequestExecutionFailed) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_EventFundPaidRequestExecutionFailed.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *EventFundPaidRequestExecutionFailed) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EventFundPaidRequestExecutionFailed.Merge(m, src)
+}
+func (m *EventFundPaidRequestExecutionFailed) XXX_Size() int {
+	return m.Size()
+}
+func (m *EventFundPaidRequestExecutionFailed) XXX_DiscardUnknown() {
+	xxx_messageInfo_EventFundPaidRequestExecutionFailed.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_EventFundPaidRequestExecutionFailed proto.InternalMessageInfo
+
+func (m *EventFundPaidRequestExecutionFailed) GetAttestationId() []byte {
+	if m != nil {
+		return m.AttestationId
+	}
+	return nil
+}
+
+func (m *EventFundPaidRequestExecutionFailed) GetSrcChainId() string {
+	if m != nil {
+		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestExecutionFailed) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+func (m *EventFundPaidRequestExecutionFailed) GetExecErrResponse() []byte {
+	if m != nil {
+		return m.ExecErrResponse
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*EventFundDepositRequestCreated)(nil), "routerprotocol.routerchain.voyager.EventFundDepositRequestCreated")
 	proto.RegisterType((*EventFundDepositRequestExecuted)(nil), "routerprotocol.routerchain.voyager.EventFundDepositRequestExecuted")
 	proto.RegisterType((*EventFundDepositRequestExecutionFailed)(nil), "routerprotocol.routerchain.voyager.EventFundDepositRequestExecutionFailed")
+	proto.RegisterType((*EventFundPaidRequestCreated)(nil), "routerprotocol.routerchain.voyager.EventFundPaidRequestCreated")
+	proto.RegisterType((*EventFundPaidRequestExecuted)(nil), "routerprotocol.routerchain.voyager.EventFundPaidRequestExecuted")
+	proto.RegisterType((*EventFundPaidRequestExecutionFailed)(nil), "routerprotocol.routerchain.voyager.EventFundPaidRequestExecutionFailed")
 }
 
 func init() { proto.RegisterFile("routerchain/voyager/events.proto", fileDescriptor_2a192919f6cc2e7e) }
 
 var fileDescriptor_2a192919f6cc2e7e = []byte{
-	// 542 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x54, 0xc1, 0x8e, 0xd3, 0x30,
-	0x10, 0x6d, 0xd8, 0x52, 0xb6, 0xde, 0xb6, 0x88, 0x08, 0x21, 0xab, 0x40, 0x88, 0x8a, 0x40, 0x15,
-	0x12, 0x09, 0x0b, 0x07, 0xee, 0x2c, 0xad, 0xb6, 0x47, 0xa2, 0x9e, 0xb8, 0x54, 0xae, 0x33, 0x6a,
-	0xad, 0x6d, 0xec, 0x60, 0x3b, 0x55, 0xfb, 0x17, 0xfb, 0x25, 0x7c, 0x01, 0x1f, 0xc0, 0x71, 0x8f,
-	0x1c, 0x51, 0xfb, 0x23, 0xc8, 0x76, 0xda, 0x4d, 0x57, 0xb0, 0x12, 0x97, 0xbd, 0x44, 0x9e, 0x37,
-	0x7e, 0xe3, 0x37, 0x2f, 0x63, 0xa3, 0x50, 0x8a, 0x42, 0x83, 0xa4, 0x73, 0xc2, 0x78, 0xbc, 0x14,
-	0x6b, 0x32, 0x03, 0x19, 0xc3, 0x12, 0xb8, 0x56, 0x51, 0x2e, 0x85, 0x16, 0x7e, 0xcf, 0xed, 0xb0,
-	0x01, 0x15, 0x8b, 0xa8, 0x42, 0x88, 0x4a, 0x42, 0xf7, 0x69, 0x56, 0x2c, 0x34, 0x73, 0x45, 0xec,
-	0x77, 0xa2, 0xd7, 0x39, 0xb8, 0x02, 0xdd, 0x80, 0x0a, 0x95, 0x09, 0x15, 0x4f, 0x89, 0x82, 0x78,
-	0x79, 0x3a, 0x05, 0x4d, 0x4e, 0x63, 0x2a, 0x18, 0x2f, 0xf3, 0x8f, 0x67, 0x62, 0x26, 0xec, 0x32,
-	0x36, 0x2b, 0x87, 0xf6, 0x2e, 0xeb, 0x28, 0x18, 0x18, 0x1d, 0xc3, 0x82, 0xa7, 0x9f, 0x21, 0x17,
-	0x8a, 0xe9, 0x04, 0xbe, 0x15, 0xa0, 0xf4, 0x99, 0x04, 0xa2, 0x21, 0xf5, 0x5f, 0xa1, 0x0e, 0xd1,
-	0x1a, 0x94, 0x26, 0x9a, 0x09, 0x3e, 0x61, 0x29, 0xf6, 0x42, 0xaf, 0xdf, 0x4a, 0xda, 0x15, 0x74,
-	0x94, 0xfa, 0x01, 0x42, 0x4a, 0xd2, 0x33, 0x23, 0x6b, 0x94, 0xe2, 0x7b, 0xa1, 0xd7, 0x6f, 0x26,
-	0x15, 0xc4, 0x1f, 0xa3, 0xd6, 0x2e, 0x1a, 0xaf, 0x73, 0xc0, 0x47, 0xa1, 0xd7, 0xef, 0xbc, 0x7f,
-	0x17, 0xdd, 0xd2, 0xf7, 0x75, 0xbb, 0xd1, 0x9e, 0x97, 0x1c, 0x54, 0xf1, 0x9f, 0xa1, 0xa6, 0x92,
-	0x74, 0xbc, 0x3a, 0x27, 0x6a, 0x8e, 0xeb, 0xf6, 0xd0, 0x6b, 0xc0, 0xef, 0xd9, 0x33, 0xc7, 0x2c,
-	0x33, 0x3a, 0xb3, 0x1c, 0xdf, 0x0f, 0xbd, 0x7e, 0x3d, 0x39, 0xc0, 0xfc, 0x2e, 0x3a, 0xa6, 0x82,
-	0x6b, 0x49, 0xa8, 0xc6, 0x0d, 0x5b, 0x60, 0x1f, 0xfb, 0xcf, 0x11, 0x4a, 0x9d, 0x27, 0xa6, 0xed,
-	0x07, 0x96, 0xdd, 0x2c, 0x91, 0x51, 0xea, 0x87, 0xe8, 0x64, 0xba, 0x10, 0xf4, 0xe2, 0x1c, 0xd8,
-	0x6c, 0xae, 0xf1, 0xb1, 0xcd, 0x57, 0x21, 0xb3, 0x23, 0x35, 0x56, 0x96, 0xae, 0x34, 0xad, 0x71,
-	0x55, 0xc8, 0x7f, 0x82, 0x1a, 0x24, 0x13, 0x05, 0xd7, 0x18, 0x59, 0x7a, 0x19, 0x19, 0xa6, 0x84,
-	0x05, 0x59, 0x83, 0x1c, 0x02, 0x28, 0x7c, 0xe2, 0x6a, 0x57, 0x20, 0x23, 0xdc, 0x34, 0x22, 0x2e,
-	0x80, 0xe3, 0x96, 0x13, 0xbe, 0x8b, 0x8d, 0x2d, 0x12, 0x28, 0xcb, 0x19, 0x70, 0x8d, 0xdb, 0xce,
-	0x96, 0x3d, 0x60, 0xb2, 0x65, 0x13, 0x42, 0xe2, 0x8e, 0xcb, 0xee, 0x81, 0xde, 0x77, 0x0f, 0xbd,
-	0xf8, 0xc7, 0x48, 0x0c, 0x56, 0x40, 0x8b, 0xff, 0x98, 0x89, 0xd0, 0xfa, 0x3f, 0x71, 0xb3, 0xca,
-	0xfe, 0x36, 0x15, 0x87, 0x0e, 0x1f, 0xdd, 0x74, 0xf8, 0x25, 0x6a, 0xc3, 0x0a, 0xe8, 0x44, 0x82,
-	0xca, 0x05, 0x57, 0x60, 0x7f, 0x71, 0x2b, 0x69, 0x19, 0x30, 0x29, 0xb1, 0xde, 0x0f, 0x0f, 0xbd,
-	0xbe, 0x55, 0x30, 0x13, 0x7c, 0x48, 0xd8, 0xe2, 0x0e, 0x75, 0xbf, 0x41, 0x8f, 0xac, 0x6e, 0x90,
-	0xf2, 0xa6, 0xf6, 0x87, 0x26, 0x31, 0x90, 0x72, 0x27, 0xff, 0xd3, 0x97, 0x9f, 0x9b, 0xc0, 0xbb,
-	0xda, 0x04, 0xde, 0xef, 0x4d, 0xe0, 0x5d, 0x6e, 0x83, 0xda, 0xd5, 0x36, 0xa8, 0xfd, 0xda, 0x06,
-	0xb5, 0xaf, 0x1f, 0x67, 0x4c, 0xcf, 0x8b, 0x69, 0x44, 0x45, 0x16, 0xbb, 0x7b, 0xf1, 0x76, 0x77,
-	0x4f, 0x76, 0xb1, 0x7b, 0x0c, 0x56, 0xfb, 0x37, 0xc5, 0x3c, 0x08, 0x6a, 0xda, 0xb0, 0xdb, 0x3e,
-	0xfc, 0x09, 0x00, 0x00, 0xff, 0xff, 0x61, 0x17, 0x11, 0x6e, 0x77, 0x04, 0x00, 0x00,
+	// 654 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x55, 0xc1, 0x6e, 0xd3, 0x40,
+	0x10, 0xad, 0x49, 0x29, 0xcd, 0x36, 0x2d, 0xc2, 0x20, 0x64, 0xb5, 0xc5, 0x58, 0xa9, 0x40, 0x11,
+	0x12, 0x71, 0x0b, 0x07, 0xce, 0x50, 0x5a, 0xb5, 0x17, 0x04, 0x56, 0x4e, 0x5c, 0xa2, 0xcd, 0xee,
+	0x90, 0xac, 0x1a, 0xef, 0x9a, 0xdd, 0x75, 0x49, 0xfe, 0xa2, 0x1f, 0x82, 0xf8, 0x00, 0xc4, 0x07,
+	0x70, 0xe0, 0xd0, 0x23, 0x47, 0xd4, 0xfe, 0x08, 0xda, 0x5d, 0xc7, 0x75, 0x4a, 0x5b, 0x5a, 0x09,
+	0x38, 0x71, 0x89, 0x3c, 0x6f, 0x76, 0xc6, 0x6f, 0x9e, 0xe7, 0x65, 0x51, 0x24, 0x45, 0xae, 0x41,
+	0x92, 0x01, 0x66, 0x3c, 0xde, 0x17, 0x63, 0xdc, 0x07, 0x19, 0xc3, 0x3e, 0x70, 0xad, 0xda, 0x99,
+	0x14, 0x5a, 0xf8, 0x4d, 0x77, 0xc2, 0x06, 0x44, 0x0c, 0xdb, 0x95, 0x82, 0x76, 0x51, 0xb0, 0xbc,
+	0x92, 0xe6, 0x43, 0xcd, 0x5c, 0x13, 0xfb, 0xdb, 0xd5, 0xe3, 0x0c, 0x5c, 0x83, 0xe5, 0x90, 0x08,
+	0x95, 0x0a, 0x15, 0xf7, 0xb0, 0x82, 0x78, 0x7f, 0xa3, 0x07, 0x1a, 0x6f, 0xc4, 0x44, 0x30, 0x5e,
+	0xe4, 0xef, 0xf4, 0x45, 0x5f, 0xd8, 0xc7, 0xd8, 0x3c, 0x39, 0xb4, 0x79, 0x30, 0x8b, 0xc2, 0x2d,
+	0xc3, 0x63, 0x3b, 0xe7, 0xf4, 0x25, 0x64, 0x42, 0x31, 0x9d, 0xc0, 0xfb, 0x1c, 0x94, 0xde, 0x94,
+	0x80, 0x35, 0x50, 0xff, 0x01, 0x5a, 0xc2, 0x5a, 0x83, 0xd2, 0x58, 0x33, 0xc1, 0xbb, 0x8c, 0x06,
+	0x5e, 0xe4, 0xb5, 0x1a, 0xc9, 0x62, 0x05, 0xdd, 0xa5, 0x7e, 0x88, 0x90, 0x92, 0x64, 0xd3, 0xd0,
+	0xda, 0xa5, 0xc1, 0xb5, 0xc8, 0x6b, 0xd5, 0x93, 0x0a, 0xe2, 0x77, 0x50, 0x63, 0x12, 0x75, 0xc6,
+	0x19, 0x04, 0xb5, 0xc8, 0x6b, 0x2d, 0x3d, 0x59, 0x6f, 0x5f, 0x30, 0xf7, 0xc9, 0xb8, 0xed, 0xb2,
+	0x2e, 0x99, 0xea, 0xe2, 0xaf, 0xa2, 0xba, 0x92, 0xa4, 0x33, 0xda, 0xc1, 0x6a, 0x10, 0xcc, 0xda,
+	0x97, 0x9e, 0x00, 0x7e, 0xd3, 0xbe, 0xb3, 0xc3, 0x52, 0xc3, 0x33, 0xcd, 0x82, 0xeb, 0x91, 0xd7,
+	0x9a, 0x4d, 0xa6, 0x30, 0x7f, 0x19, 0xcd, 0x13, 0xc1, 0xb5, 0xc4, 0x44, 0x07, 0x73, 0xb6, 0x41,
+	0x19, 0xfb, 0xf7, 0x10, 0xa2, 0x4e, 0x13, 0x33, 0xf6, 0x0d, 0x5b, 0x5d, 0x2f, 0x90, 0x5d, 0xea,
+	0x47, 0x68, 0xa1, 0x37, 0x14, 0x64, 0x6f, 0x07, 0x58, 0x7f, 0xa0, 0x83, 0x79, 0x9b, 0xaf, 0x42,
+	0xe6, 0x04, 0x35, 0x52, 0x16, 0xaa, 0xd4, 0xad, 0x70, 0x55, 0xc8, 0xbf, 0x8b, 0xe6, 0x70, 0x2a,
+	0x72, 0xae, 0x03, 0x64, 0xcb, 0x8b, 0xc8, 0x54, 0x4a, 0x18, 0xe2, 0x31, 0xc8, 0x6d, 0x00, 0x15,
+	0x2c, 0xb8, 0xde, 0x15, 0xc8, 0x10, 0x37, 0x83, 0x88, 0x3d, 0xe0, 0x41, 0xc3, 0x11, 0x9f, 0xc4,
+	0x46, 0x16, 0x09, 0x84, 0x65, 0x0c, 0xb8, 0x0e, 0x16, 0x9d, 0x2c, 0x25, 0x60, 0xb2, 0xc5, 0x10,
+	0x42, 0x06, 0x4b, 0x2e, 0x5b, 0x02, 0xcd, 0x4f, 0x1e, 0xba, 0x7f, 0xce, 0x4a, 0x6c, 0x8d, 0x80,
+	0xe4, 0x57, 0xd8, 0x89, 0xc8, 0xea, 0xdf, 0x75, 0xbb, 0xca, 0xce, 0xda, 0x8a, 0x69, 0x85, 0x6b,
+	0xa7, 0x15, 0x5e, 0x43, 0x8b, 0x30, 0x02, 0xd2, 0x95, 0xa0, 0x32, 0xc1, 0x15, 0xd8, 0x4f, 0xdc,
+	0x48, 0x1a, 0x06, 0x4c, 0x0a, 0xac, 0xf9, 0xc5, 0x43, 0x0f, 0x2f, 0x24, 0xcc, 0x04, 0xdf, 0xc6,
+	0x6c, 0xf8, 0x0f, 0x79, 0x3f, 0x42, 0xb7, 0x2c, 0x6f, 0x90, 0xf2, 0x34, 0xf7, 0x9b, 0x26, 0xb1,
+	0x25, 0x65, 0x49, 0xff, 0x5b, 0x0d, 0xad, 0x94, 0xf4, 0x5f, 0x63, 0x46, 0xff, 0xfb, 0x6f, 0xe2,
+	0xbf, 0x10, 0x21, 0xfb, 0x27, 0xf9, 0x4a, 0x70, 0x02, 0x85, 0xff, 0x2a, 0xc8, 0xe5, 0x0c, 0x98,
+	0x82, 0x52, 0xb8, 0x0f, 0x96, 0x61, 0x61, 0xc0, 0x0a, 0x64, 0x26, 0x78, 0x27, 0xe4, 0x07, 0x2c,
+	0x29, 0x48, 0xeb, 0xc1, 0x7a, 0x72, 0x02, 0xf8, 0xeb, 0xe8, 0x76, 0x19, 0x24, 0x56, 0x9a, 0xe7,
+	0x94, 0x4a, 0x6b, 0xc7, 0x46, 0x72, 0x56, 0xaa, 0xf9, 0xd1, 0x43, 0xab, 0x67, 0x7d, 0xce, 0x3f,
+	0xef, 0x9d, 0x69, 0x75, 0x6a, 0xbf, 0xa8, 0x73, 0x29, 0xf3, 0x7c, 0xf6, 0xd0, 0xda, 0xf9, 0x74,
+	0xff, 0x82, 0x73, 0x7e, 0xc7, 0xfa, 0x0a, 0xd6, 0x79, 0xf1, 0xe6, 0xeb, 0x51, 0xe8, 0x1d, 0x1e,
+	0x85, 0xde, 0x8f, 0xa3, 0xd0, 0x3b, 0x38, 0x0e, 0x67, 0x0e, 0x8f, 0xc3, 0x99, 0xef, 0xc7, 0xe1,
+	0xcc, 0xdb, 0x67, 0x7d, 0xa6, 0x07, 0x79, 0xaf, 0x4d, 0x44, 0x1a, 0xbb, 0x95, 0x7e, 0x3c, 0x59,
+	0xf1, 0x49, 0xec, 0xee, 0xd1, 0x51, 0x79, 0x1d, 0x9b, 0xbb, 0x54, 0xf5, 0xe6, 0xec, 0xb1, 0xa7,
+	0x3f, 0x03, 0x00, 0x00, 0xff, 0xff, 0x94, 0x25, 0x96, 0x6c, 0xb2, 0x07, 0x00, 0x00,
 }
 
 func (m *EventFundDepositRequestCreated) Marshal() (dAtA []byte, err error) {
@@ -564,6 +834,196 @@ func (m *EventFundDepositRequestExecutionFailed) MarshalToSizedBuffer(dAtA []byt
 	return len(dAtA) - i, nil
 }
 
+func (m *EventFundPaidRequestCreated) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EventFundPaidRequestCreated) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EventFundPaidRequestCreated) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ForwarderRouterAddr) > 0 {
+		i -= len(m.ForwarderRouterAddr)
+		copy(dAtA[i:], m.ForwarderRouterAddr)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.ForwarderRouterAddr)))
+		i--
+		dAtA[i] = 0x5a
+	}
+	if len(m.Forwarder) > 0 {
+		i -= len(m.Forwarder)
+		copy(dAtA[i:], m.Forwarder)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Forwarder)))
+		i--
+		dAtA[i] = 0x52
+	}
+	if len(m.MessageHash) > 0 {
+		i -= len(m.MessageHash)
+		copy(dAtA[i:], m.MessageHash)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.MessageHash)))
+		i--
+		dAtA[i] = 0x4a
+	}
+	if m.BlockHeight != 0 {
+		i = encodeVarintEvents(dAtA, i, uint64(m.BlockHeight))
+		i--
+		dAtA[i] = 0x40
+	}
+	if m.EventNonce != 0 {
+		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x38
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if m.SrcTimestamp != 0 {
+		i = encodeVarintEvents(dAtA, i, uint64(m.SrcTimestamp))
+		i--
+		dAtA[i] = 0x28
+	}
+	if len(m.SrcTxHash) > 0 {
+		i -= len(m.SrcTxHash)
+		copy(dAtA[i:], m.SrcTxHash)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.SrcTxHash)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.SrcChainType != 0 {
+		i = encodeVarintEvents(dAtA, i, uint64(m.SrcChainType))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.SrcChainId) > 0 {
+		i -= len(m.SrcChainId)
+		copy(dAtA[i:], m.SrcChainId)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.SrcChainId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.AttestationId) > 0 {
+		i -= len(m.AttestationId)
+		copy(dAtA[i:], m.AttestationId)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.AttestationId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *EventFundPaidRequestExecuted) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EventFundPaidRequestExecuted) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EventFundPaidRequestExecuted) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ExecResponse) > 0 {
+		i -= len(m.ExecResponse)
+		copy(dAtA[i:], m.ExecResponse)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecResponse)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.EventNonce != 0 {
+		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.SrcChainId) > 0 {
+		i -= len(m.SrcChainId)
+		copy(dAtA[i:], m.SrcChainId)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.SrcChainId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.AttestationId) > 0 {
+		i -= len(m.AttestationId)
+		copy(dAtA[i:], m.AttestationId)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.AttestationId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *EventFundPaidRequestExecutionFailed) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *EventFundPaidRequestExecutionFailed) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *EventFundPaidRequestExecutionFailed) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ExecErrResponse) > 0 {
+		i -= len(m.ExecErrResponse)
+		copy(dAtA[i:], m.ExecErrResponse)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecErrResponse)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if m.EventNonce != 0 {
+		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x18
+	}
+	if len(m.SrcChainId) > 0 {
+		i -= len(m.SrcChainId)
+		copy(dAtA[i:], m.SrcChainId)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.SrcChainId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.AttestationId) > 0 {
+		i -= len(m.AttestationId)
+		copy(dAtA[i:], m.AttestationId)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.AttestationId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintEvents(dAtA []byte, offset int, v uint64) int {
 	offset -= sovEvents(v)
 	base := offset
@@ -674,6 +1134,103 @@ func (m *EventFundDepositRequestExecutionFailed) Size() (n int) {
 	}
 	if m.DepositId != 0 {
 		n += 1 + sovEvents(uint64(m.DepositId))
+	}
+	l = len(m.ExecErrResponse)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	return n
+}
+
+func (m *EventFundPaidRequestCreated) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.AttestationId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	if m.SrcChainType != 0 {
+		n += 1 + sovEvents(uint64(m.SrcChainType))
+	}
+	l = len(m.SrcTxHash)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	if m.SrcTimestamp != 0 {
+		n += 1 + sovEvents(uint64(m.SrcTimestamp))
+	}
+	l = len(m.Contract)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovEvents(uint64(m.EventNonce))
+	}
+	if m.BlockHeight != 0 {
+		n += 1 + sovEvents(uint64(m.BlockHeight))
+	}
+	l = len(m.MessageHash)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Forwarder)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.ForwarderRouterAddr)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	return n
+}
+
+func (m *EventFundPaidRequestExecuted) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.AttestationId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovEvents(uint64(m.EventNonce))
+	}
+	l = len(m.ExecResponse)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	return n
+}
+
+func (m *EventFundPaidRequestExecutionFailed) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.AttestationId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovEvents(uint64(m.EventNonce))
 	}
 	l = len(m.ExecErrResponse)
 	if l > 0 {
@@ -1391,6 +1948,700 @@ func (m *EventFundDepositRequestExecutionFailed) Unmarshal(dAtA []byte) error {
 				b := dAtA[iNdEx]
 				iNdEx++
 				m.DepositId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecErrResponse", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExecErrResponse = append(m.ExecErrResponse[:0], dAtA[iNdEx:postIndex]...)
+			if m.ExecErrResponse == nil {
+				m.ExecErrResponse = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipEvents(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EventFundPaidRequestCreated) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowEvents
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EventFundPaidRequestCreated: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EventFundPaidRequestCreated: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttestationId", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AttestationId = append(m.AttestationId[:0], dAtA[iNdEx:postIndex]...)
+			if m.AttestationId == nil {
+				m.AttestationId = []byte{}
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SrcChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainType", wireType)
+			}
+			m.SrcChainType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SrcChainType |= types.ChainType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcTxHash", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SrcTxHash = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcTimestamp", wireType)
+			}
+			m.SrcTimestamp = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.SrcTimestamp |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 8:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field BlockHeight", wireType)
+			}
+			m.BlockHeight = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.BlockHeight |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 9:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field MessageHash", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.MessageHash = append(m.MessageHash[:0], dAtA[iNdEx:postIndex]...)
+			if m.MessageHash == nil {
+				m.MessageHash = []byte{}
+			}
+			iNdEx = postIndex
+		case 10:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Forwarder", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Forwarder = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 11:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ForwarderRouterAddr", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ForwarderRouterAddr = append(m.ForwarderRouterAddr[:0], dAtA[iNdEx:postIndex]...)
+			if m.ForwarderRouterAddr == nil {
+				m.ForwarderRouterAddr = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipEvents(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EventFundPaidRequestExecuted) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowEvents
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EventFundPaidRequestExecuted: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EventFundPaidRequestExecuted: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttestationId", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AttestationId = append(m.AttestationId[:0], dAtA[iNdEx:postIndex]...)
+			if m.AttestationId == nil {
+				m.AttestationId = []byte{}
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SrcChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ExecResponse", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ExecResponse = append(m.ExecResponse[:0], dAtA[iNdEx:postIndex]...)
+			if m.ExecResponse == nil {
+				m.ExecResponse = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipEvents(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *EventFundPaidRequestExecutionFailed) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowEvents
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: EventFundPaidRequestExecutionFailed: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: EventFundPaidRequestExecutionFailed: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field AttestationId", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.AttestationId = append(m.AttestationId[:0], dAtA[iNdEx:postIndex]...)
+			if m.AttestationId == nil {
+				m.AttestationId = []byte{}
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SrcChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}

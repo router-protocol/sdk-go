@@ -7,6 +7,7 @@ import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "routerchain/voyager/params.proto";
 import "routerchain/voyager/fund_deposit_request.proto";
+import "routerchain/voyager/funds_paid_request.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
 
@@ -26,6 +27,16 @@ service Query {
   }
   rpc FundDepositRequestAll (QueryAllFundDepositRequestRequest) returns (QueryAllFundDepositRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/voyager/fund_deposit_request";
+  
+  }
+  
+  // Queries a list of FundsPaidRequest items.
+  rpc FundsPaidRequest    (QueryGetFundsPaidRequestRequest) returns (QueryGetFundsPaidRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/voyager/funds_paid_request/{srcChainId}/{eventNonce}";
+  
+  }
+  rpc FundsPaidRequestAll (QueryAllFundsPaidRequestRequest) returns (QueryAllFundsPaidRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/voyager/funds_paid_request";
   
   }
 }
@@ -55,5 +66,23 @@ message QueryAllFundDepositRequestRequest {
 message QueryAllFundDepositRequestResponse {
   repeated FundDepositRequest                     fundDepositRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination         = 2;
+}
+
+message QueryGetFundsPaidRequestRequest {
+  string srcChainId = 1;
+  uint64 eventNonce = 2;
+}
+
+message QueryGetFundsPaidRequestResponse {
+  FundsPaidRequest fundsPaidRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllFundsPaidRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllFundsPaidRequestResponse {
+  repeated FundsPaidRequest                       fundsPaidRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination       = 2;
 }
 

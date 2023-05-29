@@ -305,6 +305,198 @@ func (m *QueryAllFundDepositRequestResponse) GetPagination() *query.PageResponse
 	return nil
 }
 
+type QueryGetFundsPaidRequestRequest struct {
+	SrcChainId string `protobuf:"bytes,1,opt,name=srcChainId,proto3" json:"srcChainId,omitempty"`
+	EventNonce uint64 `protobuf:"varint,2,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+}
+
+func (m *QueryGetFundsPaidRequestRequest) Reset()         { *m = QueryGetFundsPaidRequestRequest{} }
+func (m *QueryGetFundsPaidRequestRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetFundsPaidRequestRequest) ProtoMessage()    {}
+func (*QueryGetFundsPaidRequestRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bbe09d9e0fc5151e, []int{6}
+}
+func (m *QueryGetFundsPaidRequestRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetFundsPaidRequestRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetFundsPaidRequestRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetFundsPaidRequestRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetFundsPaidRequestRequest.Merge(m, src)
+}
+func (m *QueryGetFundsPaidRequestRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetFundsPaidRequestRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetFundsPaidRequestRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetFundsPaidRequestRequest proto.InternalMessageInfo
+
+func (m *QueryGetFundsPaidRequestRequest) GetSrcChainId() string {
+	if m != nil {
+		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *QueryGetFundsPaidRequestRequest) GetEventNonce() uint64 {
+	if m != nil {
+		return m.EventNonce
+	}
+	return 0
+}
+
+type QueryGetFundsPaidRequestResponse struct {
+	FundsPaidRequest FundsPaidRequest `protobuf:"bytes,1,opt,name=fundsPaidRequest,proto3" json:"fundsPaidRequest"`
+}
+
+func (m *QueryGetFundsPaidRequestResponse) Reset()         { *m = QueryGetFundsPaidRequestResponse{} }
+func (m *QueryGetFundsPaidRequestResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetFundsPaidRequestResponse) ProtoMessage()    {}
+func (*QueryGetFundsPaidRequestResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bbe09d9e0fc5151e, []int{7}
+}
+func (m *QueryGetFundsPaidRequestResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetFundsPaidRequestResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetFundsPaidRequestResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetFundsPaidRequestResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetFundsPaidRequestResponse.Merge(m, src)
+}
+func (m *QueryGetFundsPaidRequestResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetFundsPaidRequestResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetFundsPaidRequestResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetFundsPaidRequestResponse proto.InternalMessageInfo
+
+func (m *QueryGetFundsPaidRequestResponse) GetFundsPaidRequest() FundsPaidRequest {
+	if m != nil {
+		return m.FundsPaidRequest
+	}
+	return FundsPaidRequest{}
+}
+
+type QueryAllFundsPaidRequestRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllFundsPaidRequestRequest) Reset()         { *m = QueryAllFundsPaidRequestRequest{} }
+func (m *QueryAllFundsPaidRequestRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllFundsPaidRequestRequest) ProtoMessage()    {}
+func (*QueryAllFundsPaidRequestRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bbe09d9e0fc5151e, []int{8}
+}
+func (m *QueryAllFundsPaidRequestRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllFundsPaidRequestRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllFundsPaidRequestRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllFundsPaidRequestRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllFundsPaidRequestRequest.Merge(m, src)
+}
+func (m *QueryAllFundsPaidRequestRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllFundsPaidRequestRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllFundsPaidRequestRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllFundsPaidRequestRequest proto.InternalMessageInfo
+
+func (m *QueryAllFundsPaidRequestRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllFundsPaidRequestResponse struct {
+	FundsPaidRequest []FundsPaidRequest  `protobuf:"bytes,1,rep,name=fundsPaidRequest,proto3" json:"fundsPaidRequest"`
+	Pagination       *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllFundsPaidRequestResponse) Reset()         { *m = QueryAllFundsPaidRequestResponse{} }
+func (m *QueryAllFundsPaidRequestResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllFundsPaidRequestResponse) ProtoMessage()    {}
+func (*QueryAllFundsPaidRequestResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_bbe09d9e0fc5151e, []int{9}
+}
+func (m *QueryAllFundsPaidRequestResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllFundsPaidRequestResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllFundsPaidRequestResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllFundsPaidRequestResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllFundsPaidRequestResponse.Merge(m, src)
+}
+func (m *QueryAllFundsPaidRequestResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllFundsPaidRequestResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllFundsPaidRequestResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllFundsPaidRequestResponse proto.InternalMessageInfo
+
+func (m *QueryAllFundsPaidRequestResponse) GetFundsPaidRequest() []FundsPaidRequest {
+	if m != nil {
+		return m.FundsPaidRequest
+	}
+	return nil
+}
+
+func (m *QueryAllFundsPaidRequestResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "routerprotocol.routerchain.voyager.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "routerprotocol.routerchain.voyager.QueryParamsResponse")
@@ -312,48 +504,61 @@ func init() {
 	proto.RegisterType((*QueryGetFundDepositRequestResponse)(nil), "routerprotocol.routerchain.voyager.QueryGetFundDepositRequestResponse")
 	proto.RegisterType((*QueryAllFundDepositRequestRequest)(nil), "routerprotocol.routerchain.voyager.QueryAllFundDepositRequestRequest")
 	proto.RegisterType((*QueryAllFundDepositRequestResponse)(nil), "routerprotocol.routerchain.voyager.QueryAllFundDepositRequestResponse")
+	proto.RegisterType((*QueryGetFundsPaidRequestRequest)(nil), "routerprotocol.routerchain.voyager.QueryGetFundsPaidRequestRequest")
+	proto.RegisterType((*QueryGetFundsPaidRequestResponse)(nil), "routerprotocol.routerchain.voyager.QueryGetFundsPaidRequestResponse")
+	proto.RegisterType((*QueryAllFundsPaidRequestRequest)(nil), "routerprotocol.routerchain.voyager.QueryAllFundsPaidRequestRequest")
+	proto.RegisterType((*QueryAllFundsPaidRequestResponse)(nil), "routerprotocol.routerchain.voyager.QueryAllFundsPaidRequestResponse")
 }
 
 func init() { proto.RegisterFile("routerchain/voyager/query.proto", fileDescriptor_bbe09d9e0fc5151e) }
 
 var fileDescriptor_bbe09d9e0fc5151e = []byte{
-	// 568 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x54, 0x41, 0x6b, 0x13, 0x4d,
-	0x18, 0xce, 0xe6, 0x6b, 0x03, 0xdf, 0xf4, 0x36, 0xad, 0x50, 0x82, 0x6c, 0xe3, 0x1c, 0x34, 0x14,
-	0x9d, 0xa1, 0x51, 0x2c, 0x88, 0x97, 0x46, 0x4d, 0xf5, 0x22, 0x6d, 0x10, 0x0f, 0x22, 0x84, 0xc9,
-	0x66, 0xba, 0x5d, 0xdc, 0xcc, 0x6c, 0x77, 0x66, 0x83, 0xa1, 0xf4, 0xa0, 0xbf, 0x40, 0xd0, 0x5f,
-	0xe1, 0xc5, 0xbf, 0xd1, 0x63, 0xc1, 0x8b, 0x20, 0x88, 0x24, 0x9e, 0xfc, 0x15, 0xb2, 0x33, 0x13,
-	0x93, 0xb2, 0xdb, 0x6d, 0xa2, 0x9e, 0x92, 0x99, 0x79, 0xde, 0xe7, 0x79, 0x9f, 0x27, 0xef, 0x1b,
-	0xb0, 0x11, 0x8b, 0x44, 0xb1, 0xd8, 0x3b, 0xa4, 0x01, 0x27, 0x03, 0x31, 0xa4, 0x3e, 0x8b, 0xc9,
-	0x51, 0xc2, 0xe2, 0x21, 0x8e, 0x62, 0xa1, 0x04, 0x44, 0x06, 0xa0, 0x0f, 0x9e, 0x08, 0xf1, 0x0c,
-	0x1e, 0x5b, 0x7c, 0x75, 0xcd, 0x17, 0xbe, 0xd0, 0x08, 0x92, 0x7e, 0x33, 0x95, 0xd5, 0xab, 0xbe,
-	0x10, 0x7e, 0xc8, 0x08, 0x8d, 0x02, 0x42, 0x39, 0x17, 0x8a, 0xaa, 0x40, 0x70, 0x69, 0x5f, 0x37,
-	0x3d, 0x21, 0xfb, 0x42, 0x92, 0x2e, 0x95, 0xcc, 0x08, 0x92, 0xc1, 0x56, 0x97, 0x29, 0xba, 0x45,
-	0x22, 0xea, 0x07, 0x5c, 0x83, 0x2d, 0xb6, 0x96, 0xd7, 0x64, 0x44, 0x63, 0xda, 0x9f, 0xb0, 0xe1,
-	0x3c, 0xc4, 0x41, 0xc2, 0x7b, 0x9d, 0x1e, 0x8b, 0x84, 0x0c, 0x54, 0x27, 0x66, 0x47, 0x09, 0x93,
-	0xca, 0xe0, 0xd1, 0x1a, 0x80, 0xfb, 0xa9, 0xe6, 0x9e, 0x26, 0x69, 0x9b, 0x37, 0xd4, 0x01, 0xab,
-	0xe7, 0x6e, 0x65, 0x24, 0xb8, 0x64, 0xf0, 0x31, 0xa8, 0x18, 0xb1, 0x75, 0xa7, 0xe6, 0xd4, 0x57,
-	0x1a, 0x9b, 0xf8, 0xf2, 0x4c, 0xb0, 0xe1, 0x68, 0x2e, 0x9d, 0x7e, 0xdb, 0x28, 0xb5, 0x6d, 0x3d,
-	0xf2, 0xc0, 0x35, 0x2d, 0xb0, 0xcb, 0x54, 0x2b, 0xe1, 0xbd, 0x87, 0xa6, 0x37, 0x2b, 0x6f, 0x3f,
-	0xa0, 0x0b, 0x80, 0x8c, 0xbd, 0x07, 0x29, 0xdb, 0x93, 0x9e, 0x96, 0xfc, 0xbf, 0x3d, 0x73, 0x93,
-	0xbe, 0xb3, 0x01, 0xe3, 0xea, 0xa9, 0xe0, 0x1e, 0x5b, 0x2f, 0xd7, 0x9c, 0xfa, 0x52, 0x7b, 0xe6,
-	0x06, 0x7d, 0x70, 0x00, 0x2a, 0x52, 0xb1, 0xae, 0x38, 0x58, 0x3d, 0xc8, 0xbc, 0xa6, 0x16, 0xff,
-	0xab, 0xaf, 0x34, 0xee, 0xce, 0x63, 0x31, 0x4b, 0x6e, 0xed, 0xe6, 0x11, 0xa3, 0x57, 0xd6, 0xfb,
-	0x4e, 0x18, 0x5e, 0xec, 0xbd, 0x05, 0xc0, 0xf4, 0xd7, 0xb7, 0x71, 0x5f, 0xc7, 0x66, 0x54, 0x70,
-	0x3a, 0x2a, 0xd8, 0xcc, 0xa6, 0x1d, 0x15, 0xbc, 0x47, 0x7d, 0x36, 0xa1, 0x98, 0xa9, 0x44, 0x5f,
-	0x27, 0x19, 0x5c, 0xa0, 0x66, 0x33, 0x08, 0x01, 0xcc, 0xb6, 0xfa, 0x4f, 0x22, 0xc8, 0xe1, 0x85,
-	0xbb, 0xe7, 0xcc, 0x95, 0xb5, 0xb9, 0x1b, 0x97, 0x9a, 0x33, 0xad, 0xce, 0xba, 0x6b, 0x7c, 0x5c,
-	0x06, 0xcb, 0xda, 0x1d, 0xfc, 0xe4, 0x80, 0x8a, 0x99, 0x34, 0x38, 0x57, 0xbf, 0xd9, 0xa1, 0xaf,
-	0x6e, 0x2f, 0x5c, 0x67, 0x3a, 0x42, 0x77, 0xde, 0x7e, 0xfe, 0xf1, 0xbe, 0x8c, 0xe1, 0x4d, 0x62,
-	0x2a, 0x6e, 0x4d, 0x18, 0x26, 0xe7, 0xbc, 0x7d, 0x85, 0x6f, 0xca, 0x00, 0x66, 0x53, 0x83, 0x8f,
-	0xe6, 0xee, 0xa2, 0x68, 0x77, 0xaa, 0xad, 0xbf, 0xa5, 0xb1, 0xde, 0x5e, 0x6a, 0x6f, 0xcf, 0xe1,
-	0xb3, 0xf9, 0xbc, 0xe5, 0xfd, 0xd3, 0x90, 0xe3, 0xe9, 0xce, 0x9e, 0x90, 0xe3, 0xe9, 0x82, 0x9e,
-	0xc0, 0x9f, 0x0e, 0xb8, 0x92, 0x15, 0xdf, 0x09, 0xc3, 0x05, 0x62, 0x28, 0x5a, 0xa3, 0x05, 0x62,
-	0x28, 0xdc, 0x0f, 0xd4, 0xd4, 0x31, 0xdc, 0x87, 0xf7, 0xfe, 0x3c, 0x86, 0xe6, 0xfe, 0xe9, 0xc8,
-	0x75, 0xce, 0x46, 0xae, 0xf3, 0x7d, 0xe4, 0x3a, 0xef, 0xc6, 0x6e, 0xe9, 0x6c, 0xec, 0x96, 0xbe,
-	0x8c, 0xdd, 0xd2, 0x8b, 0x6d, 0x3f, 0x50, 0x87, 0x49, 0x17, 0x7b, 0xa2, 0x5f, 0xcc, 0xff, 0xfa,
-	0xb7, 0x82, 0x1a, 0x46, 0x4c, 0x76, 0x2b, 0x1a, 0x76, 0xfb, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0x4b, 0x95, 0xd3, 0x4e, 0xbd, 0x06, 0x00, 0x00,
+	// 705 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0x4f, 0x4b, 0xdc, 0x4e,
+	0x18, 0xc7, 0x77, 0x56, 0x7f, 0x82, 0xe3, 0x45, 0x46, 0x7f, 0x20, 0x4b, 0x89, 0xdb, 0x39, 0xb4,
+	0x22, 0x76, 0x82, 0x56, 0x6a, 0x91, 0x1e, 0xea, 0x9f, 0x6a, 0x7b, 0x29, 0xba, 0x48, 0x0f, 0x52,
+	0x58, 0x66, 0xb3, 0xb3, 0x31, 0x34, 0x66, 0x62, 0x26, 0x2b, 0x15, 0xf1, 0xd0, 0x1e, 0xdb, 0x4b,
+	0xa1, 0x7d, 0x1f, 0x7d, 0x1b, 0x1e, 0x05, 0x2f, 0x85, 0x42, 0x29, 0x6b, 0x4f, 0x7d, 0x07, 0xbd,
+	0x95, 0xcc, 0x4c, 0x6a, 0xd6, 0x64, 0x63, 0x56, 0xf7, 0xa4, 0xc9, 0x3c, 0xcf, 0xf7, 0x79, 0x3e,
+	0xcf, 0xf3, 0xcc, 0x93, 0x85, 0xd3, 0x01, 0x6f, 0x87, 0x2c, 0xb0, 0xf6, 0xa8, 0xe3, 0x99, 0x87,
+	0xfc, 0x88, 0xda, 0x2c, 0x30, 0x0f, 0xda, 0x2c, 0x38, 0x22, 0x7e, 0xc0, 0x43, 0x8e, 0xb0, 0x32,
+	0x90, 0x0f, 0x16, 0x77, 0x49, 0xc2, 0x9e, 0x68, 0xfb, 0xca, 0xa4, 0xcd, 0x6d, 0x2e, 0x2d, 0xcc,
+	0xe8, 0x3f, 0xe5, 0x59, 0xb9, 0x63, 0x73, 0x6e, 0xbb, 0xcc, 0xa4, 0xbe, 0x63, 0x52, 0xcf, 0xe3,
+	0x21, 0x0d, 0x1d, 0xee, 0x09, 0x7d, 0x3a, 0x6b, 0x71, 0xb1, 0xcf, 0x85, 0xd9, 0xa0, 0x82, 0xa9,
+	0x80, 0xe6, 0xe1, 0x7c, 0x83, 0x85, 0x74, 0xde, 0xf4, 0xa9, 0xed, 0x78, 0xd2, 0x58, 0xdb, 0x56,
+	0xb3, 0x92, 0xf4, 0x69, 0x40, 0xf7, 0x63, 0x35, 0x92, 0x65, 0xd1, 0x6a, 0x7b, 0xcd, 0x7a, 0x93,
+	0xf9, 0x5c, 0x38, 0x61, 0x3d, 0x60, 0x07, 0x6d, 0x26, 0x42, 0x6d, 0x3f, 0xd7, 0xcb, 0x5e, 0xd4,
+	0x7d, 0xea, 0x34, 0xbb, 0xad, 0xf1, 0x24, 0x44, 0xdb, 0x51, 0x86, 0x5b, 0x32, 0x64, 0x4d, 0x9d,
+	0xe1, 0x3a, 0x9c, 0xe8, 0x7a, 0x2b, 0x7c, 0xee, 0x09, 0x86, 0x9e, 0xc3, 0x11, 0x95, 0xda, 0x14,
+	0xa8, 0x82, 0x99, 0xb1, 0x85, 0x59, 0x72, 0x7d, 0x05, 0x89, 0xd2, 0x58, 0x1d, 0x3e, 0xfd, 0x31,
+	0x5d, 0xaa, 0x69, 0x7f, 0x6c, 0xc1, 0xbb, 0x32, 0xc0, 0x26, 0x0b, 0x37, 0xda, 0x5e, 0x73, 0x5d,
+	0x91, 0xe8, 0xf0, 0xfa, 0x0f, 0x32, 0x20, 0x14, 0x81, 0xb5, 0x16, 0xa9, 0xbd, 0x68, 0xca, 0x90,
+	0xa3, 0xb5, 0xc4, 0x9b, 0xe8, 0x9c, 0x1d, 0x32, 0x2f, 0x7c, 0xc9, 0x3d, 0x8b, 0x4d, 0x95, 0xab,
+	0x60, 0x66, 0xb8, 0x96, 0x78, 0x83, 0xbf, 0x00, 0x88, 0xf3, 0xa2, 0x68, 0x2a, 0x0f, 0x4e, 0xb4,
+	0x52, 0xa7, 0x11, 0xe2, 0xd0, 0xcc, 0xd8, 0xc2, 0xa3, 0x22, 0x88, 0x69, 0x71, 0x8d, 0x9b, 0x25,
+	0x8c, 0xdf, 0x68, 0xf6, 0x15, 0xd7, 0xed, 0xcd, 0xbe, 0x01, 0xe1, 0xe5, 0xac, 0xe8, 0x72, 0xdf,
+	0x23, 0x6a, 0xb0, 0x48, 0x34, 0x58, 0x44, 0x4d, 0xb2, 0x1e, 0x2c, 0xb2, 0x45, 0x6d, 0x16, 0x4b,
+	0x24, 0x3c, 0xf1, 0xf7, 0xb8, 0x06, 0x3d, 0xa2, 0xe9, 0x1a, 0xb8, 0x10, 0xa5, 0x53, 0x1d, 0x48,
+	0x09, 0x32, 0x74, 0xd1, 0x66, 0x17, 0x5c, 0x59, 0xc2, 0xdd, 0xbf, 0x16, 0x4e, 0xa5, 0xda, 0x45,
+	0x47, 0xe1, 0x74, 0xb2, 0xc1, 0x62, 0x8b, 0x3a, 0xcd, 0x01, 0x0f, 0xd1, 0x07, 0x00, 0xab, 0xbd,
+	0x63, 0xe8, 0xf2, 0xb5, 0xe0, 0x78, 0xeb, 0xca, 0x99, 0xee, 0xd9, 0x62, 0xd1, 0xe2, 0x25, 0x7d,
+	0x75, 0xe9, 0x52, 0x9a, 0xd8, 0xd1, 0xbc, 0xba, 0x99, 0x59, 0xbc, 0x83, 0x1a, 0x9c, 0xf3, 0x98,
+	0x3b, 0x33, 0x56, 0x2e, 0xf7, 0xd0, 0xa0, 0xb9, 0x07, 0x36, 0x30, 0x0b, 0x1f, 0x47, 0xe1, 0x7f,
+	0x92, 0x0a, 0x7d, 0x05, 0x70, 0x44, 0xad, 0x26, 0x54, 0x68, 0xc0, 0xd3, 0x5b, 0xb2, 0xb2, 0xd4,
+	0xb7, 0x9f, 0xca, 0x08, 0x2f, 0xbe, 0x3f, 0xff, 0xf5, 0xb9, 0x4c, 0xd0, 0x9c, 0xa9, 0x3c, 0x1e,
+	0xc4, 0x0a, 0xf1, 0x73, 0xd6, 0xe7, 0x00, 0xbd, 0x2b, 0x43, 0x94, 0xbe, 0x66, 0xe8, 0x59, 0xe1,
+	0x2c, 0xf2, 0x96, 0x6d, 0x65, 0xe3, 0xb6, 0x32, 0x9a, 0xed, 0xb5, 0x64, 0x7b, 0x85, 0x76, 0x8a,
+	0xb1, 0x65, 0x7d, 0xc8, 0xcc, 0xe3, 0xcb, 0xfb, 0x79, 0x62, 0x1e, 0x5f, 0x5e, 0xc6, 0x13, 0xf4,
+	0x1b, 0xc0, 0xff, 0xd3, 0xc1, 0x57, 0x5c, 0xb7, 0x8f, 0x32, 0xe4, 0xed, 0xdd, 0x3e, 0xca, 0x90,
+	0xbb, 0x50, 0xf1, 0xaa, 0x2c, 0xc3, 0x13, 0xb4, 0x7c, 0xf3, 0x32, 0xa0, 0x3f, 0x00, 0x8e, 0x5f,
+	0xbd, 0x22, 0x68, 0xad, 0xdf, 0x3e, 0x65, 0x2c, 0x89, 0xca, 0xfa, 0xed, 0x44, 0x34, 0xe3, 0xae,
+	0x64, 0xdc, 0x41, 0xb5, 0xe2, 0x8c, 0xdd, 0xbf, 0x41, 0x72, 0x1a, 0xdd, 0x01, 0x70, 0xe2, 0x6a,
+	0xe0, 0xa8, 0xcd, 0x6b, 0xfd, 0xf6, 0xe7, 0x76, 0xf8, 0x39, 0xcb, 0x0f, 0x3f, 0x95, 0xf8, 0xcb,
+	0xe8, 0xf1, 0x4d, 0xf1, 0x57, 0xb7, 0x4f, 0x3b, 0x06, 0x38, 0xeb, 0x18, 0xe0, 0x67, 0xc7, 0x00,
+	0x9f, 0x2e, 0x8c, 0xd2, 0xd9, 0x85, 0x51, 0xfa, 0x76, 0x61, 0x94, 0x76, 0x97, 0x6c, 0x27, 0xdc,
+	0x6b, 0x37, 0x88, 0xc5, 0xf7, 0xf3, 0xd5, 0xdf, 0xfe, 0xd3, 0x0f, 0x8f, 0x7c, 0x26, 0x1a, 0x23,
+	0xd2, 0xec, 0xe1, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff, 0xf4, 0x98, 0xc3, 0x43, 0xfd, 0x0a, 0x00,
+	0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -373,6 +578,9 @@ type QueryClient interface {
 	// Queries a list of FundDepositRequest items.
 	FundDepositRequest(ctx context.Context, in *QueryGetFundDepositRequestRequest, opts ...grpc.CallOption) (*QueryGetFundDepositRequestResponse, error)
 	FundDepositRequestAll(ctx context.Context, in *QueryAllFundDepositRequestRequest, opts ...grpc.CallOption) (*QueryAllFundDepositRequestResponse, error)
+	// Queries a list of FundsPaidRequest items.
+	FundsPaidRequest(ctx context.Context, in *QueryGetFundsPaidRequestRequest, opts ...grpc.CallOption) (*QueryGetFundsPaidRequestResponse, error)
+	FundsPaidRequestAll(ctx context.Context, in *QueryAllFundsPaidRequestRequest, opts ...grpc.CallOption) (*QueryAllFundsPaidRequestResponse, error)
 }
 
 type queryClient struct {
@@ -410,6 +618,24 @@ func (c *queryClient) FundDepositRequestAll(ctx context.Context, in *QueryAllFun
 	return out, nil
 }
 
+func (c *queryClient) FundsPaidRequest(ctx context.Context, in *QueryGetFundsPaidRequestRequest, opts ...grpc.CallOption) (*QueryGetFundsPaidRequestResponse, error) {
+	out := new(QueryGetFundsPaidRequestResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.voyager.Query/FundsPaidRequest", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) FundsPaidRequestAll(ctx context.Context, in *QueryAllFundsPaidRequestRequest, opts ...grpc.CallOption) (*QueryAllFundsPaidRequestResponse, error) {
+	out := new(QueryAllFundsPaidRequestResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.voyager.Query/FundsPaidRequestAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -417,6 +643,9 @@ type QueryServer interface {
 	// Queries a list of FundDepositRequest items.
 	FundDepositRequest(context.Context, *QueryGetFundDepositRequestRequest) (*QueryGetFundDepositRequestResponse, error)
 	FundDepositRequestAll(context.Context, *QueryAllFundDepositRequestRequest) (*QueryAllFundDepositRequestResponse, error)
+	// Queries a list of FundsPaidRequest items.
+	FundsPaidRequest(context.Context, *QueryGetFundsPaidRequestRequest) (*QueryGetFundsPaidRequestResponse, error)
+	FundsPaidRequestAll(context.Context, *QueryAllFundsPaidRequestRequest) (*QueryAllFundsPaidRequestResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -431,6 +660,12 @@ func (*UnimplementedQueryServer) FundDepositRequest(ctx context.Context, req *Qu
 }
 func (*UnimplementedQueryServer) FundDepositRequestAll(ctx context.Context, req *QueryAllFundDepositRequestRequest) (*QueryAllFundDepositRequestResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FundDepositRequestAll not implemented")
+}
+func (*UnimplementedQueryServer) FundsPaidRequest(ctx context.Context, req *QueryGetFundsPaidRequestRequest) (*QueryGetFundsPaidRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FundsPaidRequest not implemented")
+}
+func (*UnimplementedQueryServer) FundsPaidRequestAll(ctx context.Context, req *QueryAllFundsPaidRequestRequest) (*QueryAllFundsPaidRequestResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method FundsPaidRequestAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -491,6 +726,42 @@ func _Query_FundDepositRequestAll_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_FundsPaidRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetFundsPaidRequestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).FundsPaidRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.voyager.Query/FundsPaidRequest",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).FundsPaidRequest(ctx, req.(*QueryGetFundsPaidRequestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_FundsPaidRequestAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllFundsPaidRequestRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).FundsPaidRequestAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.voyager.Query/FundsPaidRequestAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).FundsPaidRequestAll(ctx, req.(*QueryAllFundsPaidRequestRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "routerprotocol.routerchain.voyager.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -506,6 +777,14 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "FundDepositRequestAll",
 			Handler:    _Query_FundDepositRequestAll_Handler,
+		},
+		{
+			MethodName: "FundsPaidRequest",
+			Handler:    _Query_FundsPaidRequest_Handler,
+		},
+		{
+			MethodName: "FundsPaidRequestAll",
+			Handler:    _Query_FundsPaidRequestAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -724,6 +1003,158 @@ func (m *QueryAllFundDepositRequestResponse) MarshalToSizedBuffer(dAtA []byte) (
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetFundsPaidRequestRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetFundsPaidRequestRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetFundsPaidRequestRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.EventNonce != 0 {
+		i = encodeVarintQuery(dAtA, i, uint64(m.EventNonce))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.SrcChainId) > 0 {
+		i -= len(m.SrcChainId)
+		copy(dAtA[i:], m.SrcChainId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.SrcChainId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetFundsPaidRequestResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetFundsPaidRequestResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetFundsPaidRequestResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.FundsPaidRequest.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllFundsPaidRequestRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllFundsPaidRequestRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllFundsPaidRequestRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllFundsPaidRequestResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllFundsPaidRequestResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllFundsPaidRequestResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.FundsPaidRequest) > 0 {
+		for iNdEx := len(m.FundsPaidRequest) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.FundsPaidRequest[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -807,6 +1238,65 @@ func (m *QueryAllFundDepositRequestResponse) Size() (n int) {
 	_ = l
 	if len(m.FundDepositRequest) > 0 {
 		for _, e := range m.FundDepositRequest {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetFundsPaidRequestRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	if m.EventNonce != 0 {
+		n += 1 + sovQuery(uint64(m.EventNonce))
+	}
+	return n
+}
+
+func (m *QueryGetFundsPaidRequestResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.FundsPaidRequest.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllFundsPaidRequestRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllFundsPaidRequestResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.FundsPaidRequest) > 0 {
+		for _, e := range m.FundsPaidRequest {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -1288,6 +1778,396 @@ func (m *QueryAllFundDepositRequestResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.FundDepositRequest = append(m.FundDepositRequest, FundDepositRequest{})
 			if err := m.FundDepositRequest[len(m.FundDepositRequest)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetFundsPaidRequestRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetFundsPaidRequestRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetFundsPaidRequestRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field SrcChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.SrcChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
+			}
+			m.EventNonce = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.EventNonce |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetFundsPaidRequestResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetFundsPaidRequestResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetFundsPaidRequestResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FundsPaidRequest", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.FundsPaidRequest.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllFundsPaidRequestRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllFundsPaidRequestRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllFundsPaidRequestRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllFundsPaidRequestResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllFundsPaidRequestResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllFundsPaidRequestResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FundsPaidRequest", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.FundsPaidRequest = append(m.FundsPaidRequest, FundsPaidRequest{})
+			if err := m.FundsPaidRequest[len(m.FundsPaidRequest)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
