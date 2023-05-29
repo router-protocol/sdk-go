@@ -86,3 +86,71 @@ func NewFundDepositRequestClaimHash(
 		Depositor:    depositor,
 	}
 }
+
+func NewFundPaidRequest(
+	srcChainId string,
+	srcChainType multichainTypes.ChainType,
+	srcTxHash string,
+	srcTimestamp uint64,
+	contract string,
+	eventNonce uint64,
+	blockHeight uint64,
+	messageHash []byte,
+	forwarder string,
+	forwarderRouterAddr []byte) *FundsPaidRequest {
+	return &FundsPaidRequest{
+		SrcChainId:          srcChainId,
+		SrcChainType:        srcChainType,
+		SrcTxHash:           srcTxHash,
+		SrcTimestamp:        srcTimestamp,
+		Contract:            contract,
+		EventNonce:          eventNonce,
+		BlockHeight:         blockHeight,
+		MessageHash:         messageHash,
+		Forwarder:           forwarder,
+		ForwarderRouterAddr: forwarderRouterAddr,
+		Status:              "fund_paid_request_created",
+	}
+}
+
+func NewFundsPaidFromMsg(
+	msg *MsgFundsPaid) *FundsPaidRequest {
+	return &FundsPaidRequest{
+		SrcChainId:          msg.SrcChainId,
+		SrcChainType:        msg.SrcChainType,
+		SrcTxHash:           msg.SrcTxHash,
+		SrcTimestamp:        msg.SrcTimestamp,
+		Contract:            msg.Contract,
+		EventNonce:          msg.EventNonce,
+		BlockHeight:         msg.BlockHeight,
+		MessageHash:         msg.MessageHash,
+		Forwarder:           msg.Forwarder,
+		ForwarderRouterAddr: msg.ForwarderRouterAddr,
+		Status:              "fund_paid_request_created",
+	}
+}
+
+func NewFundPaidRequestClaimHash(
+	srcChainId string,
+	srcChainType multichainTypes.ChainType,
+	srcTxHash string,
+	srcTimestamp uint64,
+	contract string,
+	eventNonce uint64,
+	blockHeight uint64,
+	messageHash []byte,
+	forwarder string,
+	forwarderRouterAddr []byte) *FundsPaidRequestClaimHash {
+	return &FundsPaidRequestClaimHash{
+		SrcChainId:          srcChainId,
+		SrcChainType:        srcChainType,
+		SrcTxHash:           srcTxHash,
+		SrcTimestamp:        srcTimestamp,
+		Contract:            contract,
+		EventNonce:          eventNonce,
+		BlockHeight:         blockHeight,
+		MessageHash:         messageHash,
+		Forwarder:           forwarder,
+		ForwarderRouterAddr: forwarderRouterAddr,
+	}
+}

@@ -39,3 +39,33 @@ message EventFundDepositRequestExecutionFailed {
   bytes exec_err_response = 4;
 }
   
+
+
+message EventFundPaidRequestCreated {
+  bytes attestation_id = 1;
+  string srcChainId = 2; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 3; 
+  string srcTxHash           =  4;
+  uint64 srcTimestamp        =  5;
+  string contract            =  6;
+  uint64 eventNonce          =  7;
+  uint64 blockHeight         =  8;
+  bytes messageHash         =  9;
+  string forwarder           = 10;
+  bytes forwarderRouterAddr = 11;
+}
+
+
+message EventFundPaidRequestExecuted {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 eventNonce = 3;
+  bytes exec_response = 4;
+}
+
+message EventFundPaidRequestExecutionFailed {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 eventNonce = 3;
+  bytes exec_err_response = 4;
+}

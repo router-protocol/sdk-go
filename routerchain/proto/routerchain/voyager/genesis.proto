@@ -5,6 +5,7 @@ package routerprotocol.routerchain.voyager;
 import "gogoproto/gogo.proto";
 import "routerchain/voyager/params.proto";
 import "routerchain/voyager/fund_deposit_request.proto";
+import "routerchain/voyager/funds_paid_request.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
 
@@ -12,5 +13,6 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types
 message GenesisState {
            Params             params                 = 1 [(gogoproto.nullable) = false];
   repeated FundDepositRequest fundDepositRequestList = 2 [(gogoproto.nullable) = false];
+  repeated FundsPaidRequest   fundsPaidRequestList   = 3 [(gogoproto.nullable) = false];
 }
 
