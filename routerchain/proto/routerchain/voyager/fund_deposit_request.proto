@@ -16,8 +16,9 @@ message FundDepositRequest {
   uint64 deposit_id = 6; 
   uint64 blockHeight = 7; 
   bytes destChainId = 8; 
-  uint64 amount = 9; 
-  uint64 relayerFees = 10; 
+  
+  string                                          amount       = 9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          relayerFees  = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string srcToken = 11; 
   bytes recipient = 12; 
   string depositor = 13; 
@@ -34,8 +35,8 @@ message FundDepositRequestClaimHash {
   uint64 deposit_id = 6; 
   uint64 blockHeight = 7; 
   bytes destChainId = 8; 
-  uint64 amount = 9; 
-  uint64 relayerFees = 10; 
+  string                                          amount       = 9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          relayerFees  = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string srcToken = 11; 
   bytes recipient = 12; 
   string depositor = 13; 
