@@ -16,7 +16,7 @@ func NewFundDepositRequest(
 	amount uint64,
 	relayerFees uint64,
 	srcToken string,
-	recipient string,
+	recipient []byte,
 	depositor string) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:   srcChainId,
@@ -68,7 +68,7 @@ func NewFundDepositRequestClaimHash(
 	amount uint64,
 	relayerFees uint64,
 	srcToken string,
-	recipient string,
+	recipient []byte,
 	depositor string) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:   srcChainId,
