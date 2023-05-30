@@ -6,6 +6,7 @@ package types
 import (
 	fmt "fmt"
 	_ "github.com/cosmos/cosmos-sdk/types"
+	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	types "github.com/router-protocol/sdk-go/routerchain/multichain/types"
@@ -26,20 +27,20 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type FundDepositRequest struct {
-	SrcChainId   string          `protobuf:"bytes,1,opt,name=srcChainId,proto3" json:"srcChainId,omitempty"`
-	SrcChainType types.ChainType `protobuf:"varint,2,opt,name=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"srcChainType,omitempty"`
-	SrcTxHash    string          `protobuf:"bytes,3,opt,name=srcTxHash,proto3" json:"srcTxHash,omitempty"`
-	SrcTimestamp uint64          `protobuf:"varint,4,opt,name=srcTimestamp,proto3" json:"srcTimestamp,omitempty"`
-	Contract     string          `protobuf:"bytes,5,opt,name=contract,proto3" json:"contract,omitempty"`
-	DepositId    uint64          `protobuf:"varint,6,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
-	BlockHeight  uint64          `protobuf:"varint,7,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	DestChainId  []byte          `protobuf:"bytes,8,opt,name=destChainId,proto3" json:"destChainId,omitempty"`
-	Amount       uint64          `protobuf:"varint,9,opt,name=amount,proto3" json:"amount,omitempty"`
-	RelayerFees  uint64          `protobuf:"varint,10,opt,name=relayerFees,proto3" json:"relayerFees,omitempty"`
-	SrcToken     string          `protobuf:"bytes,11,opt,name=srcToken,proto3" json:"srcToken,omitempty"`
-	Recipient    []byte          `protobuf:"bytes,12,opt,name=recipient,proto3" json:"recipient,omitempty"`
-	Depositor    string          `protobuf:"bytes,13,opt,name=depositor,proto3" json:"depositor,omitempty"`
-	Status       string          `protobuf:"bytes,14,opt,name=status,proto3" json:"status,omitempty"`
+	SrcChainId   string                                 `protobuf:"bytes,1,opt,name=srcChainId,proto3" json:"srcChainId,omitempty"`
+	SrcChainType types.ChainType                        `protobuf:"varint,2,opt,name=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"srcChainType,omitempty"`
+	SrcTxHash    string                                 `protobuf:"bytes,3,opt,name=srcTxHash,proto3" json:"srcTxHash,omitempty"`
+	SrcTimestamp uint64                                 `protobuf:"varint,4,opt,name=srcTimestamp,proto3" json:"srcTimestamp,omitempty"`
+	Contract     string                                 `protobuf:"bytes,5,opt,name=contract,proto3" json:"contract,omitempty"`
+	DepositId    uint64                                 `protobuf:"varint,6,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
+	BlockHeight  uint64                                 `protobuf:"varint,7,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	DestChainId  []byte                                 `protobuf:"bytes,8,opt,name=destChainId,proto3" json:"destChainId,omitempty"`
+	Amount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,9,opt,name=amount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"amount"`
+	RelayerFees  github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,10,opt,name=relayerFees,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"relayerFees"`
+	SrcToken     string                                 `protobuf:"bytes,11,opt,name=srcToken,proto3" json:"srcToken,omitempty"`
+	Recipient    []byte                                 `protobuf:"bytes,12,opt,name=recipient,proto3" json:"recipient,omitempty"`
+	Depositor    string                                 `protobuf:"bytes,13,opt,name=depositor,proto3" json:"depositor,omitempty"`
+	Status       string                                 `protobuf:"bytes,14,opt,name=status,proto3" json:"status,omitempty"`
 }
 
 func (m *FundDepositRequest) Reset()         { *m = FundDepositRequest{} }
@@ -131,20 +132,6 @@ func (m *FundDepositRequest) GetDestChainId() []byte {
 	return nil
 }
 
-func (m *FundDepositRequest) GetAmount() uint64 {
-	if m != nil {
-		return m.Amount
-	}
-	return 0
-}
-
-func (m *FundDepositRequest) GetRelayerFees() uint64 {
-	if m != nil {
-		return m.RelayerFees
-	}
-	return 0
-}
-
 func (m *FundDepositRequest) GetSrcToken() string {
 	if m != nil {
 		return m.SrcToken
@@ -174,19 +161,19 @@ func (m *FundDepositRequest) GetStatus() string {
 }
 
 type FundDepositRequestClaimHash struct {
-	SrcChainId   string          `protobuf:"bytes,1,opt,name=srcChainId,proto3" json:"srcChainId,omitempty"`
-	SrcChainType types.ChainType `protobuf:"varint,2,opt,name=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"srcChainType,omitempty"`
-	SrcTxHash    string          `protobuf:"bytes,3,opt,name=srcTxHash,proto3" json:"srcTxHash,omitempty"`
-	SrcTimestamp uint64          `protobuf:"varint,4,opt,name=srcTimestamp,proto3" json:"srcTimestamp,omitempty"`
-	Contract     string          `protobuf:"bytes,5,opt,name=contract,proto3" json:"contract,omitempty"`
-	DepositId    uint64          `protobuf:"varint,6,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
-	BlockHeight  uint64          `protobuf:"varint,7,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
-	DestChainId  []byte          `protobuf:"bytes,8,opt,name=destChainId,proto3" json:"destChainId,omitempty"`
-	Amount       uint64          `protobuf:"varint,9,opt,name=amount,proto3" json:"amount,omitempty"`
-	RelayerFees  uint64          `protobuf:"varint,10,opt,name=relayerFees,proto3" json:"relayerFees,omitempty"`
-	SrcToken     string          `protobuf:"bytes,11,opt,name=srcToken,proto3" json:"srcToken,omitempty"`
-	Recipient    []byte          `protobuf:"bytes,12,opt,name=recipient,proto3" json:"recipient,omitempty"`
-	Depositor    string          `protobuf:"bytes,13,opt,name=depositor,proto3" json:"depositor,omitempty"`
+	SrcChainId   string                                 `protobuf:"bytes,1,opt,name=srcChainId,proto3" json:"srcChainId,omitempty"`
+	SrcChainType types.ChainType                        `protobuf:"varint,2,opt,name=srcChainType,proto3,enum=routerprotocol.routerchain.multichain.ChainType" json:"srcChainType,omitempty"`
+	SrcTxHash    string                                 `protobuf:"bytes,3,opt,name=srcTxHash,proto3" json:"srcTxHash,omitempty"`
+	SrcTimestamp uint64                                 `protobuf:"varint,4,opt,name=srcTimestamp,proto3" json:"srcTimestamp,omitempty"`
+	Contract     string                                 `protobuf:"bytes,5,opt,name=contract,proto3" json:"contract,omitempty"`
+	DepositId    uint64                                 `protobuf:"varint,6,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
+	BlockHeight  uint64                                 `protobuf:"varint,7,opt,name=blockHeight,proto3" json:"blockHeight,omitempty"`
+	DestChainId  []byte                                 `protobuf:"bytes,8,opt,name=destChainId,proto3" json:"destChainId,omitempty"`
+	Amount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,9,opt,name=amount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"amount"`
+	RelayerFees  github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,10,opt,name=relayerFees,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"relayerFees"`
+	SrcToken     string                                 `protobuf:"bytes,11,opt,name=srcToken,proto3" json:"srcToken,omitempty"`
+	Recipient    []byte                                 `protobuf:"bytes,12,opt,name=recipient,proto3" json:"recipient,omitempty"`
+	Depositor    string                                 `protobuf:"bytes,13,opt,name=depositor,proto3" json:"depositor,omitempty"`
 }
 
 func (m *FundDepositRequestClaimHash) Reset()         { *m = FundDepositRequestClaimHash{} }
@@ -278,20 +265,6 @@ func (m *FundDepositRequestClaimHash) GetDestChainId() []byte {
 	return nil
 }
 
-func (m *FundDepositRequestClaimHash) GetAmount() uint64 {
-	if m != nil {
-		return m.Amount
-	}
-	return 0
-}
-
-func (m *FundDepositRequestClaimHash) GetRelayerFees() uint64 {
-	if m != nil {
-		return m.RelayerFees
-	}
-	return 0
-}
-
 func (m *FundDepositRequestClaimHash) GetSrcToken() string {
 	if m != nil {
 		return m.SrcToken
@@ -323,37 +296,39 @@ func init() {
 }
 
 var fileDescriptor_21a6ef72f6d84c90 = []byte{
-	// 467 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x54, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x8d, 0x49, 0x09, 0xcd, 0x36, 0xf4, 0xb0, 0x42, 0x68, 0x95, 0x82, 0x15, 0xe5, 0x94, 0x0b,
-	0x36, 0x85, 0x03, 0x77, 0x8a, 0xaa, 0xf6, 0x88, 0x95, 0x13, 0x97, 0x68, 0xbd, 0x1e, 0x9c, 0x55,
-	0x6d, 0xaf, 0xd9, 0x1d, 0x57, 0xcd, 0x5f, 0xf0, 0x59, 0x1c, 0x7b, 0xe4, 0x88, 0x12, 0x89, 0x3f,
-	0xe0, 0x8e, 0x76, 0xd7, 0x4e, 0x5c, 0x21, 0xf1, 0x01, 0x88, 0x8b, 0xe5, 0xf7, 0x66, 0xdf, 0xcc,
-	0xdb, 0x99, 0xd5, 0x90, 0x48, 0xab, 0x06, 0x41, 0x8b, 0x35, 0x97, 0x55, 0x7c, 0xab, 0x36, 0x3c,
-	0x07, 0x1d, 0x7f, 0x6e, 0xaa, 0x6c, 0x95, 0x41, 0xad, 0x8c, 0xc4, 0x95, 0x86, 0x2f, 0x0d, 0x18,
-	0x8c, 0x6a, 0xad, 0x50, 0xd1, 0xb9, 0x3f, 0xef, 0x80, 0x50, 0x45, 0x5f, 0x1e, 0xb5, 0xf2, 0xe9,
-	0x59, 0xd9, 0x14, 0x28, 0x7d, 0x4a, 0xf7, 0x5d, 0xe1, 0xa6, 0x06, 0x9f, 0x60, 0x1a, 0x0a, 0x65,
-	0x4a, 0x65, 0xe2, 0x94, 0x1b, 0x88, 0x6f, 0xcf, 0x53, 0x40, 0x7e, 0x1e, 0x0b, 0x25, 0xab, 0x36,
-	0xfe, 0x2c, 0x57, 0xb9, 0x72, 0xbf, 0xb1, 0xfd, 0xf3, 0xec, 0xfc, 0xd7, 0x90, 0xd0, 0xcb, 0xa6,
-	0xca, 0x3e, 0x78, 0x53, 0x89, 0xf7, 0x44, 0x43, 0x42, 0x8c, 0x16, 0x17, 0xb6, 0xc6, 0x75, 0xc6,
-	0x82, 0x59, 0xb0, 0x18, 0x27, 0x3d, 0x86, 0x2e, 0xc9, 0xa4, 0x43, 0xcb, 0x4d, 0x0d, 0xec, 0xd1,
-	0x2c, 0x58, 0x9c, 0xbe, 0x79, 0x1d, 0xfd, 0xe5, 0x12, 0x07, 0xef, 0xd1, 0x5e, 0x97, 0x3c, 0xc8,
-	0x42, 0x5f, 0x90, 0xb1, 0xd1, 0x62, 0x79, 0x77, 0xc5, 0xcd, 0x9a, 0x0d, 0x5d, 0xd1, 0x03, 0x41,
-	0xe7, 0xae, 0xe6, 0x52, 0x96, 0x60, 0x90, 0x97, 0x35, 0x3b, 0x9a, 0x05, 0x8b, 0xa3, 0xe4, 0x01,
-	0x47, 0xa7, 0xe4, 0x58, 0xa8, 0x0a, 0x35, 0x17, 0xc8, 0x1e, 0xbb, 0x04, 0x7b, 0x4c, 0x5f, 0x12,
-	0xd2, 0xb5, 0x5e, 0x66, 0x6c, 0xe4, 0xd4, 0xe3, 0x96, 0xb9, 0xce, 0xe8, 0x8c, 0x9c, 0xa4, 0x85,
-	0x12, 0x37, 0x57, 0x20, 0xf3, 0x35, 0xb2, 0x27, 0x2e, 0xde, 0xa7, 0xec, 0x89, 0x0c, 0x0c, 0x76,
-	0x5d, 0x39, 0x9e, 0x05, 0x8b, 0x49, 0xd2, 0xa7, 0xe8, 0x73, 0x32, 0xe2, 0xa5, 0x6a, 0x2a, 0x64,
-	0x63, 0x27, 0x6f, 0x91, 0x55, 0x6a, 0x28, 0xf8, 0x06, 0xf4, 0x25, 0x80, 0x61, 0xc4, 0xe7, 0xee,
-	0x51, 0xd6, 0xb8, 0xbd, 0x88, 0xba, 0x81, 0x8a, 0x9d, 0x78, 0xe3, 0x1d, 0xb6, 0x6d, 0xd1, 0x20,
-	0x64, 0x2d, 0xa1, 0x42, 0x36, 0x71, 0x55, 0x0f, 0x84, 0x8d, 0xb6, 0x97, 0x50, 0x9a, 0x3d, 0xf5,
-	0x4d, 0xdb, 0x13, 0xd6, 0x91, 0x41, 0x8e, 0x8d, 0x61, 0xa7, 0x2e, 0xd4, 0xa2, 0xf9, 0xcf, 0x21,
-	0x39, 0xfb, 0x73, 0xee, 0x17, 0x05, 0x97, 0xa5, 0x6b, 0xf6, 0xff, 0x07, 0xf0, 0x6f, 0x3c, 0x80,
-	0xf7, 0x1f, 0xbf, 0x6d, 0xc3, 0xe0, 0x7e, 0x1b, 0x06, 0x3f, 0xb6, 0x61, 0xf0, 0x75, 0x17, 0x0e,
-	0xee, 0x77, 0xe1, 0xe0, 0xfb, 0x2e, 0x1c, 0x7c, 0x7a, 0x97, 0x4b, 0x5c, 0x37, 0x69, 0x24, 0x54,
-	0x19, 0xfb, 0x39, 0xbd, 0xea, 0xe6, 0xd6, 0x61, 0xbf, 0x6a, 0xee, 0xf6, 0xfb, 0xcb, 0xae, 0x1b,
-	0x93, 0x8e, 0xdc, 0xb1, 0xb7, 0xbf, 0x03, 0x00, 0x00, 0xff, 0xff, 0xce, 0x00, 0xea, 0x21, 0xe3,
-	0x04, 0x00, 0x00,
+	// 501 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x54, 0x4f, 0x6f, 0xd3, 0x30,
+	0x14, 0x6f, 0xa0, 0x94, 0xd5, 0x2d, 0x3b, 0x58, 0x08, 0x59, 0x1d, 0x64, 0x51, 0x0f, 0xa8, 0x97,
+	0x25, 0x0c, 0x0e, 0xdc, 0x37, 0x54, 0xad, 0x37, 0x88, 0x7a, 0xe2, 0x52, 0x39, 0xce, 0x23, 0xb5,
+	0x9a, 0xc4, 0xc1, 0x76, 0xa6, 0xf5, 0x5b, 0xf0, 0xa9, 0xd0, 0x8e, 0xbb, 0x20, 0x21, 0x0e, 0x13,
+	0x6a, 0xbf, 0x08, 0x8a, 0x9d, 0xb4, 0x99, 0x90, 0x10, 0xda, 0x79, 0x97, 0xc4, 0xef, 0xf7, 0xfe,
+	0xfa, 0xf7, 0x7e, 0x32, 0xf2, 0xa5, 0x28, 0x35, 0x48, 0xb6, 0xa4, 0x3c, 0x0f, 0x2e, 0xc5, 0x9a,
+	0x26, 0x20, 0x83, 0x2f, 0x65, 0x1e, 0x2f, 0x62, 0x28, 0x84, 0xe2, 0x7a, 0x21, 0xe1, 0x6b, 0x09,
+	0x4a, 0xfb, 0x85, 0x14, 0x5a, 0xe0, 0xb1, 0x8d, 0x37, 0x06, 0x13, 0x69, 0x3b, 0xdd, 0xaf, 0xd3,
+	0x47, 0x47, 0x59, 0x99, 0x6a, 0x6e, 0x4b, 0x9a, 0xef, 0x42, 0xaf, 0x0b, 0xb0, 0x05, 0x46, 0x2e,
+	0x13, 0x2a, 0x13, 0x2a, 0x88, 0xa8, 0x82, 0xe0, 0xf2, 0x34, 0x02, 0x4d, 0x4f, 0x03, 0x26, 0x78,
+	0x5e, 0xfb, 0x9f, 0x27, 0x22, 0x11, 0xe6, 0x18, 0x54, 0x27, 0x8b, 0x8e, 0x7f, 0x74, 0x11, 0x9e,
+	0x96, 0x79, 0xfc, 0xc1, 0x0e, 0x15, 0xda, 0x99, 0xb0, 0x8b, 0x90, 0x92, 0xec, 0xbc, 0xea, 0x31,
+	0x8b, 0x89, 0xe3, 0x39, 0x93, 0x7e, 0xd8, 0x42, 0xf0, 0x1c, 0x0d, 0x1b, 0x6b, 0xbe, 0x2e, 0x80,
+	0x3c, 0xf2, 0x9c, 0xc9, 0xe1, 0xdb, 0x37, 0xfe, 0x3f, 0x2e, 0xb1, 0x9f, 0xdd, 0xdf, 0xe5, 0x85,
+	0x77, 0xaa, 0xe0, 0x97, 0xa8, 0xaf, 0x24, 0x9b, 0x5f, 0x5d, 0x50, 0xb5, 0x24, 0x8f, 0x4d, 0xd3,
+	0x3d, 0x80, 0xc7, 0xa6, 0xe7, 0x9c, 0x67, 0xa0, 0x34, 0xcd, 0x0a, 0xd2, 0xf5, 0x9c, 0x49, 0x37,
+	0xbc, 0x83, 0xe1, 0x11, 0x3a, 0x60, 0x22, 0xd7, 0x92, 0x32, 0x4d, 0x9e, 0x98, 0x02, 0x3b, 0x1b,
+	0xbf, 0x42, 0xa8, 0xa1, 0x9e, 0xc7, 0xa4, 0x67, 0xb2, 0xfb, 0x35, 0x32, 0x8b, 0xb1, 0x87, 0x06,
+	0x51, 0x2a, 0xd8, 0xea, 0x02, 0x78, 0xb2, 0xd4, 0xe4, 0xa9, 0xf1, 0xb7, 0xa1, 0x2a, 0x22, 0x06,
+	0xa5, 0x1b, 0x56, 0x0e, 0x3c, 0x67, 0x32, 0x0c, 0xdb, 0x10, 0x9e, 0xa2, 0x1e, 0xcd, 0x44, 0x99,
+	0x6b, 0xd2, 0xaf, 0x9a, 0x9f, 0xf9, 0xd7, 0xb7, 0xc7, 0x9d, 0x5f, 0xb7, 0xc7, 0xaf, 0x13, 0xae,
+	0x97, 0x65, 0xe4, 0x33, 0x91, 0x05, 0xf5, 0x9a, 0xec, 0xef, 0x44, 0xc5, 0xab, 0xa0, 0x5a, 0xa2,
+	0xf2, 0x67, 0xb9, 0x0e, 0xeb, 0x6c, 0xfc, 0x11, 0x0d, 0x24, 0xa4, 0x74, 0x0d, 0x72, 0x0a, 0xa0,
+	0x08, 0xba, 0x57, 0xb1, 0x76, 0x89, 0x8a, 0x98, 0x8a, 0x28, 0xb1, 0x82, 0x9c, 0x0c, 0x2c, 0x31,
+	0x8d, 0x5d, 0xd1, 0x2e, 0x81, 0xf1, 0x82, 0x43, 0xae, 0xc9, 0xd0, 0xdc, 0x6a, 0x0f, 0x54, 0xde,
+	0x9a, 0x24, 0x21, 0xc9, 0x33, 0xbb, 0x94, 0x1d, 0x80, 0x5f, 0xa0, 0x9e, 0xd2, 0x54, 0x97, 0x8a,
+	0x1c, 0x1a, 0x57, 0x6d, 0x8d, 0xbf, 0x77, 0xd1, 0xd1, 0xdf, 0xba, 0x3a, 0x4f, 0x29, 0xcf, 0xcc,
+	0x32, 0x1f, 0x04, 0xf6, 0x20, 0xb0, 0xff, 0x11, 0xd8, 0xd9, 0xa7, 0xeb, 0x8d, 0xeb, 0xdc, 0x6c,
+	0x5c, 0xe7, 0xf7, 0xc6, 0x75, 0xbe, 0x6d, 0xdd, 0xce, 0xcd, 0xd6, 0xed, 0xfc, 0xdc, 0xba, 0x9d,
+	0xcf, 0xef, 0x5b, 0x63, 0x5a, 0x1d, 0x9c, 0x34, 0xba, 0x68, 0x6c, 0xfb, 0x54, 0x5e, 0xed, 0xde,
+	0x5f, 0x33, 0x7b, 0xd4, 0x33, 0x61, 0xef, 0xfe, 0x04, 0x00, 0x00, 0xff, 0xff, 0xb3, 0x59, 0x4d,
+	0x2e, 0xa3, 0x05, 0x00, 0x00,
 }
 
 func (m *FundDepositRequest) Marshal() (dAtA []byte, err error) {
@@ -404,16 +379,26 @@ func (m *FundDepositRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x5a
 	}
-	if m.RelayerFees != 0 {
-		i = encodeVarintFundDepositRequest(dAtA, i, uint64(m.RelayerFees))
-		i--
-		dAtA[i] = 0x50
+	{
+		size := m.RelayerFees.Size()
+		i -= size
+		if _, err := m.RelayerFees.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintFundDepositRequest(dAtA, i, uint64(size))
 	}
-	if m.Amount != 0 {
-		i = encodeVarintFundDepositRequest(dAtA, i, uint64(m.Amount))
-		i--
-		dAtA[i] = 0x48
+	i--
+	dAtA[i] = 0x52
+	{
+		size := m.Amount.Size()
+		i -= size
+		if _, err := m.Amount.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintFundDepositRequest(dAtA, i, uint64(size))
 	}
+	i--
+	dAtA[i] = 0x4a
 	if len(m.DestChainId) > 0 {
 		i -= len(m.DestChainId)
 		copy(dAtA[i:], m.DestChainId)
@@ -506,16 +491,26 @@ func (m *FundDepositRequestClaimHash) MarshalToSizedBuffer(dAtA []byte) (int, er
 		i--
 		dAtA[i] = 0x5a
 	}
-	if m.RelayerFees != 0 {
-		i = encodeVarintFundDepositRequest(dAtA, i, uint64(m.RelayerFees))
-		i--
-		dAtA[i] = 0x50
+	{
+		size := m.RelayerFees.Size()
+		i -= size
+		if _, err := m.RelayerFees.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintFundDepositRequest(dAtA, i, uint64(size))
 	}
-	if m.Amount != 0 {
-		i = encodeVarintFundDepositRequest(dAtA, i, uint64(m.Amount))
-		i--
-		dAtA[i] = 0x48
+	i--
+	dAtA[i] = 0x52
+	{
+		size := m.Amount.Size()
+		i -= size
+		if _, err := m.Amount.MarshalTo(dAtA[i:]); err != nil {
+			return 0, err
+		}
+		i = encodeVarintFundDepositRequest(dAtA, i, uint64(size))
 	}
+	i--
+	dAtA[i] = 0x4a
 	if len(m.DestChainId) > 0 {
 		i -= len(m.DestChainId)
 		copy(dAtA[i:], m.DestChainId)
@@ -612,12 +607,10 @@ func (m *FundDepositRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovFundDepositRequest(uint64(l))
 	}
-	if m.Amount != 0 {
-		n += 1 + sovFundDepositRequest(uint64(m.Amount))
-	}
-	if m.RelayerFees != 0 {
-		n += 1 + sovFundDepositRequest(uint64(m.RelayerFees))
-	}
+	l = m.Amount.Size()
+	n += 1 + l + sovFundDepositRequest(uint64(l))
+	l = m.RelayerFees.Size()
+	n += 1 + l + sovFundDepositRequest(uint64(l))
 	l = len(m.SrcToken)
 	if l > 0 {
 		n += 1 + l + sovFundDepositRequest(uint64(l))
@@ -671,12 +664,10 @@ func (m *FundDepositRequestClaimHash) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovFundDepositRequest(uint64(l))
 	}
-	if m.Amount != 0 {
-		n += 1 + sovFundDepositRequest(uint64(m.Amount))
-	}
-	if m.RelayerFees != 0 {
-		n += 1 + sovFundDepositRequest(uint64(m.RelayerFees))
-	}
+	l = m.Amount.Size()
+	n += 1 + l + sovFundDepositRequest(uint64(l))
+	l = m.RelayerFees.Size()
+	n += 1 + l + sovFundDepositRequest(uint64(l))
 	l = len(m.SrcToken)
 	if l > 0 {
 		n += 1 + l + sovFundDepositRequest(uint64(l))
@@ -934,10 +925,10 @@ func (m *FundDepositRequest) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 9:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
 			}
-			m.Amount = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowFundDepositRequest
@@ -947,16 +938,31 @@ func (m *FundDepositRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Amount |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Amount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 10:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RelayerFees", wireType)
 			}
-			m.RelayerFees = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowFundDepositRequest
@@ -966,11 +972,26 @@ func (m *FundDepositRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.RelayerFees |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.RelayerFees.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcToken", wireType)
@@ -1358,10 +1379,10 @@ func (m *FundDepositRequestClaimHash) Unmarshal(dAtA []byte) error {
 			}
 			iNdEx = postIndex
 		case 9:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
 			}
-			m.Amount = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowFundDepositRequest
@@ -1371,16 +1392,31 @@ func (m *FundDepositRequestClaimHash) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.Amount |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Amount.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 10:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field RelayerFees", wireType)
 			}
-			m.RelayerFees = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowFundDepositRequest
@@ -1390,11 +1426,26 @@ func (m *FundDepositRequestClaimHash) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.RelayerFees |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthFundDepositRequest
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.RelayerFees.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
 		case 11:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field SrcToken", wireType)

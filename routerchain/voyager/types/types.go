@@ -1,6 +1,7 @@
 package types
 
 import (
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
@@ -13,8 +14,8 @@ func NewFundDepositRequest(
 	depositId uint64,
 	blockHeight uint64,
 	destChainId []byte,
-	amount uint64,
-	relayerFees uint64,
+	amount sdk.Int,
+	relayerFees sdk.Int,
 	srcToken string,
 	recipient []byte,
 	depositor string) *FundDepositRequest {
@@ -65,8 +66,8 @@ func NewFundDepositRequestClaimHash(
 	depositId uint64,
 	blockHeight uint64,
 	destChainId []byte,
-	amount uint64,
-	relayerFees uint64,
+	amount sdk.Int,
+	relayerFees sdk.Int,
 	srcToken string,
 	recipient []byte,
 	depositor string) *FundDepositRequestClaimHash {

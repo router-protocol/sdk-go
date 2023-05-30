@@ -16,9 +16,9 @@ message EventFundDepositRequestCreated {
   string contract = 6; 
   uint64 deposit_id = 7; 
   uint64 blockHeight = 8; 
-  bytes destChainId = 9; 
-  uint64 amount = 10; 
-  uint64 relayerFees = 11; 
+  bytes destChainId = 9;   
+  string                                          amount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          relayerFees  = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string srcToken = 12; 
   bytes recipient = 13; 
   string depositor = 14; 
