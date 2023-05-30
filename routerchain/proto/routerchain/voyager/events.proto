@@ -20,10 +20,15 @@ message EventFundDepositRequestCreated {
   uint64 amount = 10; 
   uint64 relayerFees = 11; 
   string srcToken = 12; 
-  string recipient = 13; 
+  bytes recipient = 13; 
   string depositor = 14; 
 }
 
+message EventFundDepositRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 deposit_id = 3;  
+}
 
 message EventFundDepositRequestExecuted {
   bytes attestation_id = 1;
@@ -55,6 +60,12 @@ message EventFundPaidRequestCreated {
   bytes forwarderRouterAddr = 11;
 }
 
+
+message EventFundPaidRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 eventNonce = 3;  
+}
 
 message EventFundPaidRequestExecuted {
   bytes attestation_id = 1;

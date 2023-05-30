@@ -26,7 +26,7 @@ message MsgFundsDeposited {
   uint64                                          amount       = 10;
   uint64                                          relayerFees  = 11;
   string                                          srcToken     = 12;
-  string                                          recipient    = 13;
+  bytes                                          recipient    = 13;
   string                                          depositor    = 14;
 }
 

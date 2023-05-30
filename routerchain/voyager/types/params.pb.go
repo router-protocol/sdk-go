@@ -25,6 +25,10 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 // Params defines the parameters for the module.
 type Params struct {
+	VoyagerContractAddress string `protobuf:"bytes,1,opt,name=voyagerContractAddress,proto3" json:"voyagerContractAddress,omitempty"`
+	FundDepositGasLimit    uint64 `protobuf:"varint,2,opt,name=fundDepositGasLimit,proto3" json:"fundDepositGasLimit,omitempty"`
+	FundPaidGasLimit       uint64 `protobuf:"varint,3,opt,name=fundPaidGasLimit,proto3" json:"fundPaidGasLimit,omitempty"`
+	VoyagerGasPrice        uint64 `protobuf:"varint,4,opt,name=voyagerGasPrice,proto3" json:"voyagerGasPrice,omitempty"`
 }
 
 func (m *Params) Reset()      { *m = Params{} }
@@ -59,6 +63,34 @@ func (m *Params) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Params proto.InternalMessageInfo
 
+func (m *Params) GetVoyagerContractAddress() string {
+	if m != nil {
+		return m.VoyagerContractAddress
+	}
+	return ""
+}
+
+func (m *Params) GetFundDepositGasLimit() uint64 {
+	if m != nil {
+		return m.FundDepositGasLimit
+	}
+	return 0
+}
+
+func (m *Params) GetFundPaidGasLimit() uint64 {
+	if m != nil {
+		return m.FundPaidGasLimit
+	}
+	return 0
+}
+
+func (m *Params) GetVoyagerGasPrice() uint64 {
+	if m != nil {
+		return m.VoyagerGasPrice
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Params)(nil), "routerprotocol.routerchain.voyager.Params")
 }
@@ -66,18 +98,24 @@ func init() {
 func init() { proto.RegisterFile("routerchain/voyager/params.proto", fileDescriptor_6c93c46e811c84b7) }
 
 var fileDescriptor_6c93c46e811c84b7 = []byte{
-	// 162 bytes of a gzipped FileDescriptorProto
+	// 263 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x28, 0xca, 0x2f, 0x2d,
 	0x49, 0x2d, 0x4a, 0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x2f, 0xcb, 0xaf, 0x4c, 0x4c, 0x4f, 0x2d, 0xd2,
 	0x2f, 0x48, 0x2c, 0x4a, 0xcc, 0x2d, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x52, 0x82, 0xa8,
 	0x00, 0x73, 0x92, 0xf3, 0x73, 0xf4, 0x90, 0x34, 0xe8, 0x41, 0x35, 0x48, 0x89, 0xa4, 0xe7, 0xa7,
-	0xe7, 0x83, 0x55, 0xe8, 0x83, 0x58, 0x10, 0x9d, 0x4a, 0x7c, 0x5c, 0x6c, 0x01, 0x60, 0x93, 0xac,
-	0x58, 0x66, 0x2c, 0x90, 0x67, 0x70, 0x0a, 0x3c, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39, 0xc6,
-	0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63, 0x39,
-	0x86, 0x28, 0xf3, 0xf4, 0xcc, 0x92, 0x8c, 0xd2, 0x24, 0xbd, 0xe4, 0xfc, 0x5c, 0x7d, 0x88, 0xf9,
-	0xba, 0x30, 0xfb, 0x60, 0x7c, 0x88, 0x0b, 0x2b, 0xe0, 0x6e, 0x2c, 0xa9, 0x2c, 0x48, 0x2d, 0x4e,
-	0x62, 0x03, 0x2b, 0x33, 0x06, 0x04, 0x00, 0x00, 0xff, 0xff, 0xff, 0x44, 0x0e, 0x9f, 0xc7, 0x00,
-	0x00, 0x00,
+	0xe7, 0x83, 0x55, 0xe8, 0x83, 0x58, 0x10, 0x9d, 0x4a, 0xe7, 0x18, 0xb9, 0xd8, 0x02, 0xc0, 0x46,
+	0x09, 0x99, 0x71, 0x89, 0x41, 0xd5, 0x3a, 0xe7, 0xe7, 0x95, 0x14, 0x25, 0x26, 0x97, 0x38, 0xa6,
+	0xa4, 0x14, 0xa5, 0x16, 0x17, 0x4b, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0xe1, 0x90, 0x15, 0x32,
+	0xe0, 0x12, 0x4e, 0x2b, 0xcd, 0x4b, 0x71, 0x49, 0x2d, 0xc8, 0x2f, 0xce, 0x2c, 0x71, 0x4f, 0x2c,
+	0xf6, 0xc9, 0xcc, 0xcd, 0x2c, 0x91, 0x60, 0x52, 0x60, 0xd4, 0x60, 0x09, 0xc2, 0x26, 0x25, 0xa4,
+	0xc5, 0x25, 0x00, 0x12, 0x0e, 0x48, 0xcc, 0x4c, 0x81, 0x2b, 0x67, 0x06, 0x2b, 0xc7, 0x10, 0x17,
+	0xd2, 0xe0, 0xe2, 0x87, 0xda, 0xeb, 0x9e, 0x58, 0x1c, 0x50, 0x94, 0x99, 0x9c, 0x2a, 0xc1, 0x02,
+	0x56, 0x8a, 0x2e, 0x6c, 0xc5, 0x32, 0x63, 0x81, 0x3c, 0x83, 0x53, 0xe0, 0x89, 0x47, 0x72, 0x8c,
+	0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72,
+	0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x99, 0xa7, 0x67, 0x96, 0x64, 0x94, 0x26, 0xe9, 0x25, 0xe7,
+	0xe7, 0xea, 0x43, 0x02, 0x48, 0x17, 0x16, 0x60, 0x30, 0x3e, 0x24, 0x88, 0x2b, 0xe0, 0x81, 0x5c,
+	0x52, 0x59, 0x90, 0x5a, 0x9c, 0xc4, 0x06, 0x56, 0x66, 0x0c, 0x08, 0x00, 0x00, 0xff, 0xff, 0x51,
+	0xf1, 0x77, 0x15, 0x88, 0x01, 0x00, 0x00,
 }
 
 func (m *Params) Marshal() (dAtA []byte, err error) {
@@ -100,6 +138,28 @@ func (m *Params) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	_ = i
 	var l int
 	_ = l
+	if m.VoyagerGasPrice != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.VoyagerGasPrice))
+		i--
+		dAtA[i] = 0x20
+	}
+	if m.FundPaidGasLimit != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.FundPaidGasLimit))
+		i--
+		dAtA[i] = 0x18
+	}
+	if m.FundDepositGasLimit != 0 {
+		i = encodeVarintParams(dAtA, i, uint64(m.FundDepositGasLimit))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.VoyagerContractAddress) > 0 {
+		i -= len(m.VoyagerContractAddress)
+		copy(dAtA[i:], m.VoyagerContractAddress)
+		i = encodeVarintParams(dAtA, i, uint64(len(m.VoyagerContractAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -120,6 +180,19 @@ func (m *Params) Size() (n int) {
 	}
 	var l int
 	_ = l
+	l = len(m.VoyagerContractAddress)
+	if l > 0 {
+		n += 1 + l + sovParams(uint64(l))
+	}
+	if m.FundDepositGasLimit != 0 {
+		n += 1 + sovParams(uint64(m.FundDepositGasLimit))
+	}
+	if m.FundPaidGasLimit != 0 {
+		n += 1 + sovParams(uint64(m.FundPaidGasLimit))
+	}
+	if m.VoyagerGasPrice != 0 {
+		n += 1 + sovParams(uint64(m.VoyagerGasPrice))
+	}
 	return n
 }
 
@@ -158,6 +231,95 @@ func (m *Params) Unmarshal(dAtA []byte) error {
 			return fmt.Errorf("proto: Params: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VoyagerContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthParams
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthParams
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.VoyagerContractAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FundDepositGasLimit", wireType)
+			}
+			m.FundDepositGasLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.FundDepositGasLimit |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 3:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field FundPaidGasLimit", wireType)
+			}
+			m.FundPaidGasLimit = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.FundPaidGasLimit |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field VoyagerGasPrice", wireType)
+			}
+			m.VoyagerGasPrice = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowParams
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.VoyagerGasPrice |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipParams(dAtA[iNdEx:])

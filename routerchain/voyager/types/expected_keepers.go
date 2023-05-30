@@ -18,6 +18,11 @@ type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
 }
 
+type WasmKeeper interface {
+	// Methods imported from wasmd should be defined here
+	Sudo(ctx sdk.Context, contractAddress sdk.AccAddress, msg []byte) ([]byte, error)
+}
+
 type PricefeedKeeper interface {
 	// Methods imported from pricefeed should be defined here
 }

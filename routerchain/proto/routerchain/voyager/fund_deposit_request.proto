@@ -19,7 +19,7 @@ message FundDepositRequest {
   uint64 amount = 9; 
   uint64 relayerFees = 10; 
   string srcToken = 11; 
-  string recipient = 12; 
+  bytes recipient = 12; 
   string depositor = 13; 
   string status = 14; 
   
@@ -37,6 +37,6 @@ message FundDepositRequestClaimHash {
   uint64 amount = 9; 
   uint64 relayerFees = 10; 
   string srcToken = 11; 
-  string recipient = 12; 
+  bytes recipient = 12; 
   string depositor = 13; 
 }
