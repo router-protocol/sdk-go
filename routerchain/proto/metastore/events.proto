@@ -12,7 +12,7 @@ import "gogoproto/gogo.proto";
 message EventMetadataRequestCreated {  
   bytes attestation_id = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2;
-  string chainId = 3; 
+  string chainId = 3;    
   uint64 eventNonce = 4; 
   uint64 blockHeight = 5;
   string daapAddress  = 6;

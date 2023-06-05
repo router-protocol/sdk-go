@@ -297,6 +297,290 @@ func (m *QueryAllChainConfigResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetContractConfigRequest struct {
+	ChainId         string `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+	ContractAddress string `protobuf:"bytes,2,opt,name=contract_address,json=contractAddress,proto3" json:"contract_address,omitempty"`
+}
+
+func (m *QueryGetContractConfigRequest) Reset()         { *m = QueryGetContractConfigRequest{} }
+func (m *QueryGetContractConfigRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetContractConfigRequest) ProtoMessage()    {}
+func (*QueryGetContractConfigRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_232e36992b7f3d2c, []int{6}
+}
+func (m *QueryGetContractConfigRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetContractConfigRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetContractConfigRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetContractConfigRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetContractConfigRequest.Merge(m, src)
+}
+func (m *QueryGetContractConfigRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetContractConfigRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetContractConfigRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetContractConfigRequest proto.InternalMessageInfo
+
+func (m *QueryGetContractConfigRequest) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *QueryGetContractConfigRequest) GetContractAddress() string {
+	if m != nil {
+		return m.ContractAddress
+	}
+	return ""
+}
+
+type QueryGetContractConfigResponse struct {
+	ContractConfig ContractConfig `protobuf:"bytes,1,opt,name=contractConfig,proto3" json:"contractConfig"`
+}
+
+func (m *QueryGetContractConfigResponse) Reset()         { *m = QueryGetContractConfigResponse{} }
+func (m *QueryGetContractConfigResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetContractConfigResponse) ProtoMessage()    {}
+func (*QueryGetContractConfigResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_232e36992b7f3d2c, []int{7}
+}
+func (m *QueryGetContractConfigResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetContractConfigResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetContractConfigResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetContractConfigResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetContractConfigResponse.Merge(m, src)
+}
+func (m *QueryGetContractConfigResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetContractConfigResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetContractConfigResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetContractConfigResponse proto.InternalMessageInfo
+
+func (m *QueryGetContractConfigResponse) GetContractConfig() ContractConfig {
+	if m != nil {
+		return m.ContractConfig
+	}
+	return ContractConfig{}
+}
+
+type QueryAllContractConfigByChainIdRequest struct {
+	ChainId string `protobuf:"bytes,1,opt,name=chain_id,json=chainId,proto3" json:"chain_id,omitempty"`
+}
+
+func (m *QueryAllContractConfigByChainIdRequest) Reset() {
+	*m = QueryAllContractConfigByChainIdRequest{}
+}
+func (m *QueryAllContractConfigByChainIdRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllContractConfigByChainIdRequest) ProtoMessage()    {}
+func (*QueryAllContractConfigByChainIdRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_232e36992b7f3d2c, []int{8}
+}
+func (m *QueryAllContractConfigByChainIdRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllContractConfigByChainIdRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllContractConfigByChainIdRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllContractConfigByChainIdRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllContractConfigByChainIdRequest.Merge(m, src)
+}
+func (m *QueryAllContractConfigByChainIdRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllContractConfigByChainIdRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllContractConfigByChainIdRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllContractConfigByChainIdRequest proto.InternalMessageInfo
+
+func (m *QueryAllContractConfigByChainIdRequest) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+type QueryAllContractConfigByChainIdResponse struct {
+	ContractConfig []ContractConfig `protobuf:"bytes,1,rep,name=contractConfig,proto3" json:"contractConfig"`
+}
+
+func (m *QueryAllContractConfigByChainIdResponse) Reset() {
+	*m = QueryAllContractConfigByChainIdResponse{}
+}
+func (m *QueryAllContractConfigByChainIdResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllContractConfigByChainIdResponse) ProtoMessage()    {}
+func (*QueryAllContractConfigByChainIdResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_232e36992b7f3d2c, []int{9}
+}
+func (m *QueryAllContractConfigByChainIdResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllContractConfigByChainIdResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllContractConfigByChainIdResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllContractConfigByChainIdResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllContractConfigByChainIdResponse.Merge(m, src)
+}
+func (m *QueryAllContractConfigByChainIdResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllContractConfigByChainIdResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllContractConfigByChainIdResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllContractConfigByChainIdResponse proto.InternalMessageInfo
+
+func (m *QueryAllContractConfigByChainIdResponse) GetContractConfig() []ContractConfig {
+	if m != nil {
+		return m.ContractConfig
+	}
+	return nil
+}
+
+type QueryAllContractConfigRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllContractConfigRequest) Reset()         { *m = QueryAllContractConfigRequest{} }
+func (m *QueryAllContractConfigRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllContractConfigRequest) ProtoMessage()    {}
+func (*QueryAllContractConfigRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_232e36992b7f3d2c, []int{10}
+}
+func (m *QueryAllContractConfigRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllContractConfigRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllContractConfigRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllContractConfigRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllContractConfigRequest.Merge(m, src)
+}
+func (m *QueryAllContractConfigRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllContractConfigRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllContractConfigRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllContractConfigRequest proto.InternalMessageInfo
+
+func (m *QueryAllContractConfigRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllContractConfigResponse struct {
+	ContractConfig []ContractConfig    `protobuf:"bytes,1,rep,name=contractConfig,proto3" json:"contractConfig"`
+	Pagination     *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllContractConfigResponse) Reset()         { *m = QueryAllContractConfigResponse{} }
+func (m *QueryAllContractConfigResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllContractConfigResponse) ProtoMessage()    {}
+func (*QueryAllContractConfigResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_232e36992b7f3d2c, []int{11}
+}
+func (m *QueryAllContractConfigResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllContractConfigResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllContractConfigResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllContractConfigResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllContractConfigResponse.Merge(m, src)
+}
+func (m *QueryAllContractConfigResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllContractConfigResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllContractConfigResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllContractConfigResponse proto.InternalMessageInfo
+
+func (m *QueryAllContractConfigResponse) GetContractConfig() []ContractConfig {
+	if m != nil {
+		return m.ContractConfig
+	}
+	return nil
+}
+
+func (m *QueryAllContractConfigResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "routerprotocol.routerchain.multichain.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "routerprotocol.routerchain.multichain.QueryParamsResponse")
@@ -304,45 +588,64 @@ func init() {
 	proto.RegisterType((*QueryGetChainConfigResponse)(nil), "routerprotocol.routerchain.multichain.QueryGetChainConfigResponse")
 	proto.RegisterType((*QueryAllChainConfigRequest)(nil), "routerprotocol.routerchain.multichain.QueryAllChainConfigRequest")
 	proto.RegisterType((*QueryAllChainConfigResponse)(nil), "routerprotocol.routerchain.multichain.QueryAllChainConfigResponse")
+	proto.RegisterType((*QueryGetContractConfigRequest)(nil), "routerprotocol.routerchain.multichain.QueryGetContractConfigRequest")
+	proto.RegisterType((*QueryGetContractConfigResponse)(nil), "routerprotocol.routerchain.multichain.QueryGetContractConfigResponse")
+	proto.RegisterType((*QueryAllContractConfigByChainIdRequest)(nil), "routerprotocol.routerchain.multichain.QueryAllContractConfigByChainIdRequest")
+	proto.RegisterType((*QueryAllContractConfigByChainIdResponse)(nil), "routerprotocol.routerchain.multichain.QueryAllContractConfigByChainIdResponse")
+	proto.RegisterType((*QueryAllContractConfigRequest)(nil), "routerprotocol.routerchain.multichain.QueryAllContractConfigRequest")
+	proto.RegisterType((*QueryAllContractConfigResponse)(nil), "routerprotocol.routerchain.multichain.QueryAllContractConfigResponse")
 }
 
 func init() { proto.RegisterFile("multichain/query.proto", fileDescriptor_232e36992b7f3d2c) }
 
 var fileDescriptor_232e36992b7f3d2c = []byte{
-	// 523 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x93, 0xcf, 0x8b, 0x13, 0x31,
-	0x14, 0xc7, 0x9b, 0x75, 0xad, 0x9a, 0x82, 0x87, 0xb8, 0xf8, 0x63, 0xd4, 0x51, 0x06, 0xfc, 0x81,
-	0xb0, 0x09, 0xad, 0x48, 0x71, 0x41, 0xb0, 0x5d, 0x70, 0x15, 0x2f, 0x6b, 0xf1, 0xb4, 0x17, 0xc9,
-	0x4c, 0x63, 0x36, 0x30, 0x9d, 0xcc, 0x4e, 0x32, 0x62, 0x11, 0x2f, 0xfe, 0x05, 0x82, 0xff, 0x8c,
-	0x67, 0x4f, 0x7b, 0x5c, 0x10, 0xc4, 0xd3, 0x22, 0xad, 0x7f, 0x86, 0x07, 0x69, 0x92, 0xd2, 0xac,
-	0x3b, 0x6a, 0x5b, 0xbd, 0x94, 0x26, 0x79, 0xef, 0xfb, 0xbe, 0x9f, 0x79, 0xef, 0xc1, 0xf3, 0x83,
-	0x32, 0xd5, 0x22, 0xd9, 0xa5, 0x22, 0x23, 0x7b, 0x25, 0x2b, 0x86, 0x38, 0x2f, 0xa4, 0x96, 0xe8,
-	0x46, 0x21, 0x4b, 0xcd, 0x0a, 0x73, 0x48, 0x64, 0x8a, 0xed, 0xd1, 0xc4, 0xe1, 0x59, 0x4a, 0xb0,
-	0xc6, 0x25, 0x97, 0x26, 0x88, 0x4c, 0xfe, 0xd9, 0xe4, 0xe0, 0x0a, 0x97, 0x92, 0xa7, 0x8c, 0xd0,
-	0x5c, 0x10, 0x9a, 0x65, 0x52, 0x53, 0x2d, 0x64, 0xa6, 0xdc, 0xeb, 0x9d, 0x44, 0xaa, 0x81, 0x54,
-	0x24, 0xa6, 0x8a, 0xd9, 0x9a, 0xe4, 0x55, 0x33, 0x66, 0x9a, 0x36, 0x49, 0x4e, 0xb9, 0xc8, 0x4c,
-	0xb0, 0x8b, 0xbd, 0xe0, 0xd9, 0xcb, 0x69, 0x41, 0x07, 0x53, 0x91, 0xab, 0xde, 0x83, 0xf9, 0x7d,
-	0x91, 0xc8, 0xec, 0xa5, 0xe0, 0xf6, 0x39, 0x5a, 0x83, 0xe8, 0xd9, 0x44, 0x79, 0xdb, 0xe4, 0xf4,
-	0xd8, 0x5e, 0xc9, 0x94, 0x8e, 0x62, 0x78, 0xee, 0xc8, 0xad, 0xca, 0x65, 0xa6, 0x18, 0x7a, 0x0a,
-	0xeb, 0x56, 0xfb, 0x22, 0xb8, 0x0e, 0x6e, 0x37, 0x5a, 0xeb, 0x78, 0x2e, 0x78, 0x6c, 0x65, 0xba,
-	0xab, 0xfb, 0x87, 0xd7, 0x6a, 0x3d, 0x27, 0x11, 0xb5, 0x61, 0x60, 0x6a, 0x6c, 0x31, 0xbd, 0x39,
-	0x89, 0xda, 0x34, 0xb6, 0x9c, 0x03, 0x74, 0x09, 0x9e, 0xb6, 0x6e, 0x45, 0xdf, 0x14, 0x3b, 0xd3,
-	0x3b, 0x65, 0xce, 0x4f, 0xfa, 0xd1, 0x10, 0x5e, 0xae, 0x4c, 0x74, 0x26, 0x77, 0x60, 0x23, 0x99,
-	0x5d, 0x3b, 0xa7, 0xad, 0x39, 0x9d, 0x7a, 0x82, 0xce, 0xae, 0x2f, 0x16, 0xf5, 0x9d, 0xe7, 0x4e,
-	0x9a, 0x56, 0x78, 0x7e, 0x04, 0xe1, 0xac, 0x2f, 0xae, 0xf0, 0x4d, 0x6c, 0x9b, 0x88, 0x27, 0x4d,
-	0xc4, 0x76, 0x70, 0x5c, 0x13, 0xf1, 0x36, 0xe5, 0xcc, 0xe5, 0xf6, 0xbc, 0xcc, 0xe8, 0x13, 0x70,
-	0x84, 0xbf, 0x96, 0xf9, 0x1d, 0xe1, 0x89, 0xff, 0x46, 0x88, 0xb6, 0x8e, 0x30, 0xac, 0x18, 0x86,
-	0x5b, 0x7f, 0x65, 0xb0, 0xc6, 0x7c, 0x88, 0xd6, 0x8f, 0x55, 0x78, 0xd2, 0x40, 0xa0, 0x8f, 0x00,
-	0xd6, 0xed, 0x04, 0xa0, 0xfb, 0x73, 0x9a, 0x3c, 0x3e, 0x92, 0xc1, 0xc6, 0x32, 0xa9, 0xd6, 0x57,
-	0xd4, 0x7e, 0xf7, 0xf9, 0xfb, 0x87, 0x95, 0x26, 0x22, 0xc4, 0x26, 0xad, 0x4f, 0x45, 0xa6, 0x67,
-	0xbb, 0x1e, 0xc7, 0x56, 0x08, 0x1d, 0x02, 0xd8, 0xf0, 0x3e, 0x18, 0xea, 0x2c, 0x62, 0xa2, 0x72,
-	0xb0, 0x83, 0xee, 0xbf, 0x48, 0x38, 0x9e, 0xc7, 0x86, 0xa7, 0x8b, 0x1e, 0xce, 0xcd, 0xe3, 0x6f,
-	0x3e, 0x79, 0x33, 0xdd, 0xac, 0xb7, 0xe8, 0x0b, 0x80, 0x67, 0xbd, 0x0a, 0x9d, 0x34, 0x5d, 0x8c,
-	0xb1, 0x72, 0x11, 0x16, 0x63, 0xac, 0x1e, 0xf2, 0xe8, 0x81, 0x61, 0x6c, 0xa3, 0x7b, 0x4b, 0x31,
-	0x76, 0x9f, 0xef, 0x8f, 0x42, 0x70, 0x30, 0x0a, 0xc1, 0xb7, 0x51, 0x08, 0xde, 0x8f, 0xc3, 0xda,
-	0xc1, 0x38, 0xac, 0x7d, 0x1d, 0x87, 0xb5, 0x9d, 0x0d, 0x2e, 0xf4, 0x6e, 0x19, 0xe3, 0x44, 0x0e,
-	0xfe, 0x2c, 0xfd, 0xda, 0x17, 0xd7, 0xc3, 0x9c, 0xa9, 0xb8, 0x6e, 0x22, 0xef, 0xfe, 0x0c, 0x00,
-	0x00, 0xff, 0xff, 0x90, 0x53, 0x78, 0x79, 0x0d, 0x06, 0x00, 0x00,
+	// 728 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x55, 0x41, 0x6b, 0xd4, 0x40,
+	0x14, 0xde, 0x69, 0xb5, 0xda, 0x29, 0x54, 0x1d, 0x8b, 0xd5, 0x68, 0xa3, 0x04, 0x6c, 0x55, 0x68,
+	0x42, 0x2b, 0xa5, 0x5a, 0x10, 0xba, 0xbb, 0xad, 0x55, 0x8a, 0x52, 0x17, 0x11, 0xe9, 0xc1, 0x32,
+	0x9b, 0x1d, 0xd3, 0x40, 0x36, 0x93, 0x26, 0xb3, 0xe2, 0x52, 0x7a, 0x11, 0x7a, 0x15, 0xc1, 0x3f,
+	0xe3, 0xd9, 0x53, 0x4f, 0x52, 0x10, 0xc4, 0x53, 0x91, 0xad, 0x17, 0x7f, 0x84, 0x20, 0x99, 0x99,
+	0xb4, 0x49, 0x37, 0xdb, 0x66, 0xb7, 0xc1, 0xcb, 0xb2, 0x33, 0xf3, 0xde, 0xf7, 0xbe, 0xef, 0xbd,
+	0x97, 0xf7, 0xe0, 0x95, 0x7a, 0xc3, 0x61, 0xb6, 0xb9, 0x8e, 0x6d, 0xd7, 0xd8, 0x68, 0x10, 0xbf,
+	0xa9, 0x7b, 0x3e, 0x65, 0x14, 0xdd, 0xf6, 0x69, 0x83, 0x11, 0x9f, 0x1f, 0x4c, 0xea, 0xe8, 0xe2,
+	0xc8, 0xed, 0xf4, 0x43, 0x17, 0x65, 0xc4, 0xa2, 0x16, 0xe5, 0x46, 0x46, 0xf8, 0x4f, 0x38, 0x2b,
+	0x37, 0x2c, 0x4a, 0x2d, 0x87, 0x18, 0xd8, 0xb3, 0x0d, 0xec, 0xba, 0x94, 0x61, 0x66, 0x53, 0x37,
+	0x90, 0xaf, 0xf7, 0x4c, 0x1a, 0xd4, 0x69, 0x60, 0x54, 0x71, 0x40, 0x44, 0x4c, 0xe3, 0xdd, 0x54,
+	0x95, 0x30, 0x3c, 0x65, 0x78, 0xd8, 0xb2, 0x5d, 0x6e, 0x2c, 0x6d, 0x47, 0x63, 0xf4, 0x3c, 0xec,
+	0xe3, 0x7a, 0x04, 0x32, 0x16, 0x7b, 0xe0, 0xbf, 0x6b, 0x26, 0x75, 0xdf, 0xda, 0x96, 0x78, 0xd6,
+	0x46, 0x20, 0x7a, 0x11, 0x22, 0xaf, 0x70, 0x9f, 0x0a, 0xd9, 0x68, 0x90, 0x80, 0x69, 0x55, 0x78,
+	0x39, 0x71, 0x1b, 0x78, 0xd4, 0x0d, 0x08, 0x5a, 0x86, 0x03, 0x02, 0xfb, 0x2a, 0xb8, 0x05, 0xee,
+	0x0c, 0x4d, 0x4f, 0xea, 0x99, 0xc4, 0xeb, 0x02, 0xa6, 0x74, 0x66, 0x67, 0xef, 0x66, 0xa1, 0x22,
+	0x21, 0xb4, 0x59, 0xa8, 0xf0, 0x18, 0x4b, 0x84, 0x95, 0x43, 0xab, 0x32, 0xa7, 0x25, 0x19, 0xa0,
+	0x6b, 0xf0, 0xbc, 0x60, 0x6b, 0xd7, 0x78, 0xb0, 0xc1, 0xca, 0x39, 0x7e, 0x7e, 0x5a, 0xd3, 0x9a,
+	0xf0, 0x7a, 0xaa, 0xa3, 0x24, 0xb9, 0x0a, 0x87, 0xcc, 0xc3, 0x6b, 0xc9, 0x74, 0x3a, 0x23, 0xd3,
+	0x18, 0xa0, 0xa4, 0x1b, 0x07, 0xd3, 0x6a, 0x92, 0x73, 0xd1, 0x71, 0x52, 0x38, 0x3f, 0x86, 0xf0,
+	0xb0, 0x2e, 0x32, 0xf0, 0xb8, 0x2e, 0x8a, 0xa8, 0x87, 0x45, 0xd4, 0x45, 0xe3, 0xc8, 0x22, 0xea,
+	0x2b, 0xd8, 0x22, 0xd2, 0xb7, 0x12, 0xf3, 0xd4, 0xbe, 0x02, 0xa9, 0xf0, 0x68, 0x98, 0x4e, 0x0a,
+	0xfb, 0x73, 0x53, 0x88, 0x96, 0x12, 0x1a, 0xfa, 0xb8, 0x86, 0x89, 0x13, 0x35, 0x08, 0x62, 0x09,
+	0x11, 0x04, 0x8e, 0x1d, 0x54, 0x89, 0xba, 0xcc, 0xc7, 0x26, 0xcb, 0x5a, 0x61, 0x74, 0x17, 0x5e,
+	0x34, 0xa5, 0xcf, 0x1a, 0xae, 0xd5, 0x7c, 0x12, 0x04, 0x9c, 0xca, 0x60, 0xe5, 0x42, 0x74, 0x5f,
+	0x14, 0xd7, 0xda, 0x36, 0x80, 0x6a, 0xa7, 0x38, 0x32, 0x5d, 0x26, 0x1c, 0x36, 0x13, 0x2f, 0xb2,
+	0x34, 0x33, 0x59, 0x33, 0x96, 0x70, 0x96, 0x49, 0x3b, 0x02, 0xa9, 0x95, 0xe1, 0xf8, 0x41, 0xc9,
+	0x92, 0xf6, 0xcd, 0xb2, 0x50, 0x95, 0xa1, 0xb3, 0x3f, 0x02, 0x38, 0x71, 0x22, 0xca, 0x31, 0xaa,
+	0xfa, 0xf3, 0x56, 0x65, 0xc9, 0x22, 0xb6, 0xf1, 0xc9, 0xbb, 0xe5, 0xbf, 0x45, 0x65, 0x4c, 0x89,
+	0xf4, 0x1f, 0x05, 0xe7, 0xd6, 0xfe, 0xd3, 0x7f, 0x20, 0x3c, 0xcb, 0x05, 0xa1, 0x2f, 0x00, 0x0e,
+	0x88, 0x01, 0x88, 0x1e, 0x66, 0xa4, 0xda, 0x3e, 0x91, 0x95, 0xb9, 0x5e, 0x5c, 0x05, 0x2f, 0x6d,
+	0xf6, 0xc3, 0xf7, 0xdf, 0x9f, 0xfb, 0xa6, 0x90, 0x61, 0x08, 0xa7, 0xc9, 0x08, 0x24, 0x3a, 0x8b,
+	0xed, 0xd0, 0xb6, 0x41, 0xd0, 0x1e, 0x80, 0x43, 0xb1, 0x79, 0x81, 0x8a, 0xdd, 0x90, 0x48, 0x9d,
+	0xeb, 0x4a, 0xe9, 0x34, 0x10, 0x52, 0xcf, 0x13, 0xae, 0xa7, 0x84, 0xe6, 0x33, 0xeb, 0x89, 0x2f,
+	0x3e, 0x63, 0x33, 0xfa, 0xfc, 0xb6, 0xd0, 0x0f, 0x00, 0x87, 0x63, 0x11, 0x8a, 0x8e, 0xd3, 0x9d,
+	0xc6, 0xd4, 0x3d, 0xd0, 0x9d, 0xc6, 0xf4, 0x19, 0xaf, 0x3d, 0xe2, 0x1a, 0x67, 0xd1, 0x4c, 0x4f,
+	0x1a, 0xd1, 0xdf, 0x50, 0x58, 0xb2, 0xb5, 0x17, 0xba, 0xcd, 0x7c, 0xda, 0x07, 0xaf, 0x2c, 0x9e,
+	0x12, 0x45, 0xca, 0x7b, 0xc3, 0xe5, 0xbd, 0x46, 0xaf, 0xb2, 0xcb, 0x8b, 0x16, 0x42, 0x5b, 0x15,
+	0x8d, 0xcd, 0xa3, 0xcb, 0x62, 0x0b, 0x6d, 0xf7, 0xc1, 0xd1, 0x0e, 0x13, 0x14, 0x3d, 0xeb, 0xb6,
+	0x3c, 0xc7, 0xce, 0x73, 0xe5, 0x79, 0x5e, 0x70, 0x32, 0x35, 0xcb, 0x3c, 0x35, 0x8b, 0xa8, 0x9c,
+	0x43, 0x6a, 0x50, 0x0b, 0xc0, 0x4b, 0xc9, 0x80, 0x61, 0x8f, 0x2f, 0x9c, 0x8a, 0x72, 0x4f, 0xad,
+	0xd0, 0x71, 0xae, 0x6b, 0xf3, 0x5c, 0xef, 0x1c, 0x7a, 0xd0, 0xab, 0xde, 0xd2, 0xcb, 0x9d, 0x96,
+	0x0a, 0x76, 0x5b, 0x2a, 0xf8, 0xd5, 0x52, 0xc1, 0xa7, 0x7d, 0xb5, 0xb0, 0xbb, 0xaf, 0x16, 0x7e,
+	0xee, 0xab, 0x85, 0xd5, 0x39, 0xcb, 0x66, 0xeb, 0x8d, 0xaa, 0x6e, 0xd2, 0xfa, 0xf1, 0xe8, 0xef,
+	0xe3, 0xf8, 0xac, 0xe9, 0x91, 0xa0, 0x3a, 0xc0, 0x2d, 0xef, 0xff, 0x0b, 0x00, 0x00, 0xff, 0xff,
+	0x74, 0xd6, 0xf9, 0x92, 0xf9, 0x0b, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -363,6 +666,12 @@ type QueryClient interface {
 	ChainConfig(ctx context.Context, in *QueryGetChainConfigRequest, opts ...grpc.CallOption) (*QueryGetChainConfigResponse, error)
 	// Queries a list of ChainConfig items.
 	ChainConfigAll(ctx context.Context, in *QueryAllChainConfigRequest, opts ...grpc.CallOption) (*QueryAllChainConfigResponse, error)
+	// Queries a ContractConfig by chain_id and address.
+	ContractConfig(ctx context.Context, in *QueryGetContractConfigRequest, opts ...grpc.CallOption) (*QueryGetContractConfigResponse, error)
+	// Queries a ContractConfig by chain_id.
+	ContractConfigByChainId(ctx context.Context, in *QueryAllContractConfigByChainIdRequest, opts ...grpc.CallOption) (*QueryAllContractConfigByChainIdResponse, error)
+	// Queries a list of ContractConfig items.
+	ContractConfigAll(ctx context.Context, in *QueryAllContractConfigRequest, opts ...grpc.CallOption) (*QueryAllContractConfigResponse, error)
 }
 
 type queryClient struct {
@@ -400,6 +709,33 @@ func (c *queryClient) ChainConfigAll(ctx context.Context, in *QueryAllChainConfi
 	return out, nil
 }
 
+func (c *queryClient) ContractConfig(ctx context.Context, in *QueryGetContractConfigRequest, opts ...grpc.CallOption) (*QueryGetContractConfigResponse, error) {
+	out := new(QueryGetContractConfigResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.multichain.Query/ContractConfig", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ContractConfigByChainId(ctx context.Context, in *QueryAllContractConfigByChainIdRequest, opts ...grpc.CallOption) (*QueryAllContractConfigByChainIdResponse, error) {
+	out := new(QueryAllContractConfigByChainIdResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.multichain.Query/ContractConfigByChainId", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) ContractConfigAll(ctx context.Context, in *QueryAllContractConfigRequest, opts ...grpc.CallOption) (*QueryAllContractConfigResponse, error) {
+	out := new(QueryAllContractConfigResponse)
+	err := c.cc.Invoke(ctx, "/routerprotocol.routerchain.multichain.Query/ContractConfigAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // QueryServer is the server API for Query service.
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
@@ -408,6 +744,12 @@ type QueryServer interface {
 	ChainConfig(context.Context, *QueryGetChainConfigRequest) (*QueryGetChainConfigResponse, error)
 	// Queries a list of ChainConfig items.
 	ChainConfigAll(context.Context, *QueryAllChainConfigRequest) (*QueryAllChainConfigResponse, error)
+	// Queries a ContractConfig by chain_id and address.
+	ContractConfig(context.Context, *QueryGetContractConfigRequest) (*QueryGetContractConfigResponse, error)
+	// Queries a ContractConfig by chain_id.
+	ContractConfigByChainId(context.Context, *QueryAllContractConfigByChainIdRequest) (*QueryAllContractConfigByChainIdResponse, error)
+	// Queries a list of ContractConfig items.
+	ContractConfigAll(context.Context, *QueryAllContractConfigRequest) (*QueryAllContractConfigResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -422,6 +764,15 @@ func (*UnimplementedQueryServer) ChainConfig(ctx context.Context, req *QueryGetC
 }
 func (*UnimplementedQueryServer) ChainConfigAll(ctx context.Context, req *QueryAllChainConfigRequest) (*QueryAllChainConfigResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChainConfigAll not implemented")
+}
+func (*UnimplementedQueryServer) ContractConfig(ctx context.Context, req *QueryGetContractConfigRequest) (*QueryGetContractConfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ContractConfig not implemented")
+}
+func (*UnimplementedQueryServer) ContractConfigByChainId(ctx context.Context, req *QueryAllContractConfigByChainIdRequest) (*QueryAllContractConfigByChainIdResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ContractConfigByChainId not implemented")
+}
+func (*UnimplementedQueryServer) ContractConfigAll(ctx context.Context, req *QueryAllContractConfigRequest) (*QueryAllContractConfigResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ContractConfigAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -482,6 +833,60 @@ func _Query_ChainConfigAll_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Query_ContractConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetContractConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ContractConfig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.multichain.Query/ContractConfig",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ContractConfig(ctx, req.(*QueryGetContractConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ContractConfigByChainId_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllContractConfigByChainIdRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ContractConfigByChainId(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.multichain.Query/ContractConfigByChainId",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ContractConfigByChainId(ctx, req.(*QueryAllContractConfigByChainIdRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_ContractConfigAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllContractConfigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).ContractConfigAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/routerprotocol.routerchain.multichain.Query/ContractConfigAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).ContractConfigAll(ctx, req.(*QueryAllContractConfigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Query_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "routerprotocol.routerchain.multichain.Query",
 	HandlerType: (*QueryServer)(nil),
@@ -497,6 +902,18 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChainConfigAll",
 			Handler:    _Query_ChainConfigAll_Handler,
+		},
+		{
+			MethodName: "ContractConfig",
+			Handler:    _Query_ContractConfig_Handler,
+		},
+		{
+			MethodName: "ContractConfigByChainId",
+			Handler:    _Query_ContractConfigByChainId_Handler,
+		},
+		{
+			MethodName: "ContractConfigAll",
+			Handler:    _Query_ContractConfigAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -706,6 +1123,227 @@ func (m *QueryAllChainConfigResponse) MarshalToSizedBuffer(dAtA []byte) (int, er
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetContractConfigRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetContractConfigRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetContractConfigRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractAddress) > 0 {
+		i -= len(m.ContractAddress)
+		copy(dAtA[i:], m.ContractAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ContractAddress)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetContractConfigResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetContractConfigResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetContractConfigResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.ContractConfig.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllContractConfigByChainIdRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllContractConfigByChainIdRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllContractConfigByChainIdRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllContractConfigByChainIdResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllContractConfigByChainIdResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllContractConfigByChainIdResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractConfig) > 0 {
+		for iNdEx := len(m.ContractConfig) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContractConfig[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllContractConfigRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllContractConfigRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllContractConfigRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllContractConfigResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllContractConfigResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllContractConfigResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.ContractConfig) > 0 {
+		for iNdEx := len(m.ContractConfig) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.ContractConfig[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -782,6 +1420,94 @@ func (m *QueryAllChainConfigResponse) Size() (n int) {
 	_ = l
 	if len(m.ChainConfig) > 0 {
 		for _, e := range m.ChainConfig {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetContractConfigRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	l = len(m.ContractAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetContractConfigResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.ContractConfig.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllContractConfigByChainIdRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllContractConfigByChainIdResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ContractConfig) > 0 {
+		for _, e := range m.ContractConfig {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	return n
+}
+
+func (m *QueryAllContractConfigRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllContractConfigResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.ContractConfig) > 0 {
+		for _, e := range m.ContractConfig {
 			l = e.Size()
 			n += 1 + l + sovQuery(uint64(l))
 		}
@@ -1243,6 +1969,575 @@ func (m *QueryAllChainConfigResponse) Unmarshal(dAtA []byte) error {
 			}
 			m.ChainConfig = append(m.ChainConfig, ChainConfig{})
 			if err := m.ChainConfig[len(m.ChainConfig)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetContractConfigRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetContractConfigRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetContractConfigRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetContractConfigResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetContractConfigResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetContractConfigResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.ContractConfig.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllContractConfigByChainIdRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllContractConfigByChainIdRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllContractConfigByChainIdRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllContractConfigByChainIdResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllContractConfigByChainIdResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllContractConfigByChainIdResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractConfig = append(m.ContractConfig, ContractConfig{})
+			if err := m.ContractConfig[len(m.ContractConfig)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllContractConfigRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllContractConfigRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllContractConfigRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllContractConfigResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllContractConfigResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllContractConfigResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractConfig = append(m.ContractConfig, ContractConfig{})
+			if err := m.ContractConfig[len(m.ContractConfig)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

@@ -14,14 +14,16 @@ import (
 
 type MultichainKeeper interface {
 	// Methods imported from multichain should be defined here
-	GetLastObservedEventNonce(ctx sdk.Context, chainId string) uint64
-	SetLastObservedEventNonce(ctx sdk.Context, chainId string, nonce uint64)
-	GetLastObservedEventBlockHeight(ctx sdk.Context, chainId string) uint64
-	SetLastObservedEventBlockHeight(ctx sdk.Context, chainId string, blockHeight uint64)
+	GetLastObservedEventNonce(ctx sdk.Context, chainId string, contract string) uint64
+	SetLastObservedEventNonce(ctx sdk.Context, chainId string, contract string, nonce uint64)
+	GetLastObservedEventBlockHeight(ctx sdk.Context, contract string, chainId string) uint64
+	SetLastObservedEventBlockHeight(ctx sdk.Context, chainId string, contract string, blockHeight uint64)
 	SetLastObservedValsetNonce(ctx sdk.Context, chainId string, nonce uint64)
 	GetLastObservedValsetNonce(ctx sdk.Context, chainId string) uint64
 	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
+	GetAllContractConfig(ctx sdk.Context) (list []multichainTypes.ContractConfig)
 	GetChainConfig(ctx sdk.Context, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
+	GetContractConfig(ctx sdk.Context, chainId string, contract string) (val multichainTypes.ContractConfig, found bool)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

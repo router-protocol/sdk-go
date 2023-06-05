@@ -7,6 +7,7 @@ import (
 
 func NewCrosschainRequest(
 	srcChainId string,
+	contract string,
 	requestIdentifier uint64,
 	srcBlockHeight uint64,
 	sourceTxHash string,
@@ -23,6 +24,7 @@ func NewCrosschainRequest(
 ) *CrosschainRequest {
 	return &CrosschainRequest{
 		SrcChainId:        srcChainId,
+		Contract:          contract,
 		RequestIdentifier: requestIdentifier,
 		BlockHeight:       srcBlockHeight,
 		SourceTxHash:      sourceTxHash,
@@ -45,6 +47,7 @@ func NewCrosschainRequestFromMsg(
 ) *CrosschainRequest {
 	return &CrosschainRequest{
 		SrcChainId:        msg.SrcChainId,
+		Contract:          msg.Contract,
 		RequestIdentifier: msg.RequestIdentifier,
 		BlockHeight:       msg.BlockHeight,
 		SourceTxHash:      msg.SourceTxHash,
@@ -64,6 +67,7 @@ func NewCrosschainRequestFromMsg(
 
 func NewCrosschainRequestClaimHash(
 	srcChainId string,
+	contract string,
 	requestIdentifier uint64,
 	blockHeight uint64,
 	sourceTxHash string,
@@ -80,6 +84,7 @@ func NewCrosschainRequestClaimHash(
 ) *CrosschainRequestClaimHash {
 	return &CrosschainRequestClaimHash{
 		SrcChainId:        srcChainId,
+		Contract:          contract,
 		RequestIdentifier: requestIdentifier,
 		BlockHeight:       blockHeight,
 		SourceTxHash:      sourceTxHash,
@@ -112,6 +117,7 @@ func NewCrosschainAckRequestFromMsg(
 ) *CrosschainAckRequest {
 	return &CrosschainAckRequest{
 		AckSrcChainId:        msg.AckSrcChainId,
+		Contract:             msg.Contract,
 		AckRequestIdentifier: msg.AckRequestIdentifier,
 		BlockHeight:          msg.BlockHeight,
 		DestTxHash:           msg.DestTxHash,
@@ -133,6 +139,7 @@ func NewCrosschainAckRequestFromMsg(
 
 func NewCrosschainAckRequestClaimHash(
 	ackSrcChainId string,
+	contract string,
 	ackRequestIdentifier uint64,
 	blockHeight uint64,
 	destTxHash string,
@@ -148,6 +155,7 @@ func NewCrosschainAckRequestClaimHash(
 ) *CrosschainAckRequestClaimHash {
 	return &CrosschainAckRequestClaimHash{
 		AckSrcChainId:        ackSrcChainId,
+		Contract:             contract,
 		AckRequestIdentifier: ackRequestIdentifier,
 		BlockHeight:          blockHeight,
 		DestTxHash:           destTxHash,
@@ -179,6 +187,7 @@ func NewCrosschainAckReceiptFromMsg(
 ) *CrosschainAckReceipt {
 	return &CrosschainAckReceipt{
 		AckReceiptSrcChainId:  msg.AckReceiptSrcChainId,
+		Contract:              msg.Contract,
 		AckReceiptIdentifier:  msg.AckReceiptIdentifier,
 		AckReceiptBlockHeight: msg.AckReceiptBlockHeight,
 		AckReceiptTxHash:      msg.AckReceiptTxHash,
@@ -195,6 +204,7 @@ func NewCrosschainAckReceiptFromMsg(
 
 func NewCrosschainAckReceiptClaimHash(
 	ackReceiptSrcChainId string,
+	contract string,
 	ackReceiptIdentifier uint64,
 	ackReceiptBlockHeight uint64,
 	ackReceiptTxHash string,
@@ -208,6 +218,7 @@ func NewCrosschainAckReceiptClaimHash(
 ) *CrosschainAckReceiptClaimHash {
 	return &CrosschainAckReceiptClaimHash{
 		AckReceiptSrcChainId:  ackReceiptSrcChainId,
+		Contract:              contract,
 		AckReceiptIdentifier:  ackReceiptIdentifier,
 		AckReceiptBlockHeight: ackReceiptBlockHeight,
 		AckReceiptTxHash:      ackReceiptTxHash,

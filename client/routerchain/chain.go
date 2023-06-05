@@ -38,6 +38,7 @@ import (
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
+	voyagerTypes "github.com/router-protocol/sdk-go/routerchain/voyager/types"
 )
 
 const (
@@ -77,13 +78,16 @@ type ChainClient interface {
 	// MultiChain
 	GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error)
 	GetChainConfig(ctx context.Context, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error)
+	GetContractConfig(ctx context.Context, chainId string, contract string) (*multichainTypes.QueryGetContractConfigResponse, error)
+	GetAllContractConfig(ctx context.Context) (*multichainTypes.QueryAllContractConfigResponse, error)
+	GetAllContractConfigByChainId(ctx context.Context, chainId string) (*multichainTypes.QueryAllContractConfigByChainIdResponse, error)
 
 	// Attestation
 	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
 	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
 	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
 	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
-	GetLastEventByValidator(ctx context.Context, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
+	GetLastEventByValidator(ctx context.Context, chainId string, contract string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
@@ -147,6 +151,7 @@ type chainClient struct {
 	wasmQueryClient        wasmTypes.QueryClient
 	metastoreQueryClient   metastoreTypes.QueryClient
 	crosschainQueryClient  crosschainTypes.QueryClient
+	voyagerQueryClient     voyagerTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -266,6 +271,7 @@ func NewChainClient(
 		pricefeedQueryClient:   pricefeedTypes.NewQueryClient(conn),
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 		crosschainQueryClient:  crosschainTypes.NewQueryClient(conn),
+		voyagerQueryClient:     voyagerTypes.NewQueryClient(conn),
 	}
 
 	if cc.canSign {
@@ -478,9 +484,9 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 	return c.bankQueryClient.Balance(ctx, req)
 }
 
-/////////////////////////////////
-////    Wasm           //////////
-////////////////////////////////
+// ///////////////////////////////
+// //    Wasm           //////////
+// //////////////////////////////
 func (c *chainClient) SmartContractState(ctx context.Context, contractAddress string, queryData []byte) (*wasmTypes.QuerySmartContractStateResponse, error) {
 	return c.wasmQueryClient.SmartContractState(
 		ctx,
@@ -655,9 +661,9 @@ func (c *chainClient) ExecuteContract(amountStr string, sender sdk.AccAddress, c
 	return nil
 }
 
-/////////////////////////////////
-////    Multichain           ////
-////////////////////////////////
+// ///////////////////////////////
+// //    Multichain           ////
+// //////////////////////////////
 func (c *chainClient) GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error) {
 	req := &multichainTypes.QueryAllChainConfigRequest{}
 	return c.multichainQueryClient.ChainConfigAll(ctx, req)
@@ -668,6 +674,26 @@ func (c *chainClient) GetChainConfig(ctx context.Context, chainId string) (*mult
 		ChainId: chainId,
 	}
 	return c.multichainQueryClient.ChainConfig(ctx, req)
+}
+
+func (c *chainClient) GetContractConfig(ctx context.Context, chainId string, contract string) (*multichainTypes.QueryGetContractConfigResponse, error) {
+	req := &multichainTypes.QueryGetContractConfigRequest{
+		ChainId:         chainId,
+		ContractAddress: contract,
+	}
+	return c.multichainQueryClient.ContractConfig(ctx, req)
+}
+
+func (c *chainClient) GetAllContractConfig(ctx context.Context) (*multichainTypes.QueryAllContractConfigResponse, error) {
+	req := &multichainTypes.QueryAllContractConfigRequest{}
+	return c.multichainQueryClient.ContractConfigAll(ctx, req)
+}
+
+func (c *chainClient) GetAllContractConfigByChainId(ctx context.Context, chainId string) (*multichainTypes.QueryAllContractConfigByChainIdResponse, error) {
+	req := &multichainTypes.QueryAllContractConfigByChainIdRequest{
+		ChainId: chainId,
+	}
+	return c.multichainQueryClient.ContractConfigByChainId(ctx, req)
 }
 
 /////////////////////////////////
@@ -709,9 +735,9 @@ func (c *chainClient) GetMetaInfo(ctx context.Context, chainId string, dappAddre
 // 	return
 // }
 
-/////////////////////////////////
-////     Attestation           ////
-////////////////////////////////
+// ///////////////////////////////
+// //     Attestation           ////
+// //////////////////////////////
 func (c *chainClient) GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error) {
 	req := &attestationTypes.QueryAllValsetRequest{Pagination: pagination}
 	return c.attestationQueryClient.ValsetAll(ctx, req)
@@ -733,9 +759,10 @@ func (c *chainClient) GetValsetByNonce(ctx context.Context, valsetNonce uint64) 
 	}
 	return c.attestationQueryClient.Valset(ctx, req)
 }
-func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
+func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId string, contract string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error) {
 	req := &attestationTypes.QueryLastEventNonceRequest{
 		ChainId:          chainId,
+		Contract:         contract,
 		ValidatorAddress: validator.String(),
 	}
 	return c.attestationQueryClient.LastEventNonce(ctx, req)
@@ -766,9 +793,9 @@ func (c *chainClient) GetOrchestratorValidator(ctx context.Context, orchestrator
 	return c.attestationQueryClient.FetchOrchestratorValidator(ctx, req)
 }
 
-/////////////////////////////////
-////     Crosschain           ////
-////////////////////////////////
+// ///////////////////////////////
+// //     Crosschain           ////
+// //////////////////////////////
 func (c *chainClient) GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error) {
 	req := &crosschainTypes.QueryAllCrosschainRequestRequest{Pagination: pagination}
 	return c.crosschainQueryClient.CrosschainRequestAll(ctx, req)
@@ -890,9 +917,9 @@ func (c *chainClient) SimulateMsg(clientCtx client.Context, msgs ...sdk.Msg) (*t
 	return simRes, nil
 }
 
-//AsyncBroadcastMsg sends Tx to chain and doesn't wait until Tx is included in block. This method
-//cannot be used for rapid Tx sending, it is expected that you wait for transaction status with
-//external tools. If you want sdk to wait for it, use SyncBroadcastMsg.
+// AsyncBroadcastMsg sends Tx to chain and doesn't wait until Tx is included in block. This method
+// cannot be used for rapid Tx sending, it is expected that you wait for transaction status with
+// external tools. If you want sdk to wait for it, use SyncBroadcastMsg.
 func (c *chainClient) AsyncBroadcastMsg(msgs ...sdk.Msg) (*txtypes.BroadcastTxResponse, error) {
 	c.syncMux.Lock()
 	defer c.syncMux.Unlock()
@@ -1031,8 +1058,8 @@ func (c *chainClient) broadcastTx(
 	}
 }
 
-//QueueBroadcastMsg enqueues a list of messages. Messages will added to the queue
-//and grouped into Txns in chunks. Use this method to mass broadcast Txns with efficiency.
+// QueueBroadcastMsg enqueues a list of messages. Messages will added to the queue
+// and grouped into Txns in chunks. Use this method to mass broadcast Txns with efficiency.
 func (c *chainClient) QueueBroadcastMsg(msgs ...sdk.Msg) error {
 	if !c.canSign {
 		return ErrReadOnly

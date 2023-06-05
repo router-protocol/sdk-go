@@ -12,10 +12,11 @@ const TypeMsgCreateMetadataRequest = "set_metadata_request"
 
 var _ sdk.Msg = &MsgCreateMetadataRequest{}
 
-func NewMsgCreateMetadataRequest(orchestrator string, chainId string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MsgCreateMetadataRequest {
+func NewMsgCreateMetadataRequest(orchestrator string, chainId string, contract string, eventNonce uint64, blockHeight uint64, daapAddress string, feePayer string) *MsgCreateMetadataRequest {
 	return &MsgCreateMetadataRequest{
 		Orchestrator: orchestrator,
 		ChainId:      chainId,
+		Contract:     contract,
 		EventNonce:   eventNonce,
 		BlockHeight:  blockHeight,
 		DaapAddress:  daapAddress,
@@ -69,6 +70,7 @@ func (msg *MsgCreateMetadataRequest) GetType() attestationTypes.ClaimType {
 func (msg *MsgCreateMetadataRequest) ClaimHash() ([]byte, error) {
 	metadataRequestClaimHash := NewMetadataRequestClaimHash(
 		msg.ChainId,
+		msg.Contract,
 		msg.EventNonce,
 		msg.BlockHeight,
 		msg.DaapAddress,

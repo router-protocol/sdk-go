@@ -14,6 +14,8 @@ type Claim interface {
 
 	GetChainId() string
 
+	GetContract() string
+
 	// The block height that the claimed event occurred on. This EventNonce provides sufficient
 	// ordering for the execution of all claims. The block height is used only for batchTimeouts + logicTimeouts
 	// when we go to create a new batch we set the timeout some number of batches out from the last

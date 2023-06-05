@@ -1,0 +1,43 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+import "multichain/chain_type.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+message FundDepositRequest {
+  string srcChainId = 1; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 2; 
+  string srcTxHash = 3; 
+  uint64 srcTimestamp = 4; 
+  string contract = 5; 
+  uint64 deposit_id = 6; 
+  uint64 blockHeight = 7; 
+  bytes destChainId = 8; 
+  
+  string                                          amount       = 9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          relayerFees  = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string srcToken = 11; 
+  bytes recipient = 12; 
+  string depositor = 13; 
+  string status = 14; 
+  
+}
+
+message FundDepositRequestClaimHash {
+  string srcChainId = 1; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 2; 
+  string srcTxHash = 3; 
+  uint64 srcTimestamp = 4; 
+  string contract = 5; 
+  uint64 deposit_id = 6; 
+  uint64 blockHeight = 7; 
+  bytes destChainId = 8; 
+  string                                          amount       = 9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          relayerFees  = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string srcToken = 11; 
+  bytes recipient = 12; 
+  string depositor = 13; 
+}
