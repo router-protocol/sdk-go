@@ -6,6 +6,23 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/ty
 import "multichain/chain_type.proto"; 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum ContractType {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  GATEWAY = 0 [(gogoproto.enumvalue_customname) = "GATEWAY"];
+  VOYAGER = 1 [(gogoproto.enumvalue_customname) = "VOYAGER"];  
+}
+
+message ContractConfig {  
+  string chainId = 1; 
+  string contractAddress = 2; 
+  uint64 contractHeight = 3;
+  uint64 lastObservedEventNonce = 4;
+  uint64 lastObservedEventBlockHeight = 5; 
+  ContractType contractType = 6;
+}
 
 message ChainConfig {
   string chainId = 1; 
@@ -13,12 +30,7 @@ message ChainConfig {
   string symbol = 3;   
   int64 native_decimals = 4; 
   ChainType chainType = 5; 
-  uint64 confirmationsRequired = 6; 
-  string gatewayContractAddress = 7; 
-  uint64 gatewayContractHeight = 8; 
-  string routerContractAddress = 9; 
-  uint64 lastObservedEventNonce = 10;
-  uint64 lastObservedEventBlockHeight = 11; 
-  uint64 lastObservedValsetNonce = 12; 
-  bool chain_enabled = 13;   
+  uint64 confirmationsRequired = 6;   
+  uint64 lastObservedValsetNonce = 7; 
+  bool chain_enabled = 8;   
 }

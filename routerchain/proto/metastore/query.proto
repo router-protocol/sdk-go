@@ -99,8 +99,8 @@ message QueryAllMetaInfoResponse {
 }
 
 message QueryGetMetadataRequestRequest {
-	  string chain_id = 1;
-	  uint64 event_nonce = 2;
+	  string chain_id = 1;    
+	  uint64 event_nonce = 3;
 }
 
 message QueryGetMetadataRequestResponse {

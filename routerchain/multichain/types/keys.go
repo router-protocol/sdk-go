@@ -15,6 +15,8 @@ const (
 
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_multichain"
+
+	RouterchainGatewayContract = "0x0000000000000000000000000000000000000001"
 )
 
 func KeyPrefix(p string) []byte {

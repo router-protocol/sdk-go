@@ -20,6 +20,7 @@ func (c CrosschainAckReceipt) ValidateBasic() error {
 func (msg *CrosschainAckReceipt) ClaimHash() ([]byte, error) {
 	crosschainAckReceiptClaimHash := NewCrosschainAckReceiptClaimHash(
 		msg.AckReceiptSrcChainId,
+		msg.Contract,
 		msg.AckReceiptIdentifier,
 		msg.AckReceiptBlockHeight,
 		msg.AckReceiptTxHash,

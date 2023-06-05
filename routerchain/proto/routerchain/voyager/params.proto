@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  string voyagerContractAddress = 1;
+  uint64 fundDepositGasLimit = 2;
+  uint64 fundPaidGasLimit = 3;
+  uint64 voyagerGasPrice = 4;
+}

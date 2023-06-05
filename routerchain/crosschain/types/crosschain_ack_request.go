@@ -21,6 +21,7 @@ func (c CrosschainAckRequest) ValidateBasic() error {
 func (msg *CrosschainAckRequest) ClaimHash() ([]byte, error) {
 	crosschainAckRequestClaimHash := NewCrosschainAckRequestClaimHash(
 		msg.AckSrcChainId,
+		msg.Contract,
 		msg.AckRequestIdentifier,
 		msg.BlockHeight,
 		msg.DestTxHash,

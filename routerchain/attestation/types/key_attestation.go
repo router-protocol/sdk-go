@@ -23,11 +23,12 @@ var (
 // AttestationKey returns the store key to retrieve a Attestation from the index fields
 func AttestationKey(
 	chainId string,
+	contract string,
 	eventNonce uint64,
 	claimHash []byte,
 ) []byte {
 
-	return util.AppendBytes([]byte(chainId), util.UInt64Bytes(eventNonce), claimHash)
+	return util.AppendBytes([]byte(chainId), []byte(contract), util.UInt64Bytes(eventNonce), claimHash)
 }
 
 // GetPastEthSignatureCheckpointKey returns the following key format

@@ -23,3 +23,22 @@ message MultichainDeleteChainConfigProposal {
     string chainId = 3;
     ChainType chainType = 4;
 }
+
+message MultichainCreateContractConfigProposal {
+    string title = 1;
+    string description = 2;
+    ContractConfig contractConfig = 3;
+}
+
+message MultichainUpdateContractConfigProposal {
+    string title = 1;
+    string description = 2;
+    ContractConfig contractConfig = 3;
+}
+
+message MultichainDeleteContractConfigProposal {
+    string title = 1;
+    string description = 2;
+    string chainId = 3;
+    string contractAddress = 4;
+}

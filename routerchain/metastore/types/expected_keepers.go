@@ -15,7 +15,7 @@ type AttestationKeeper interface {
 }
 
 type MultichainKeeper interface {
-	GetLastObservedEventNonce(ctx sdk.Context, chainId string) uint64
+	GetLastObservedEventNonce(ctx sdk.Context, chainId string, contract string) uint64
 	// Methods imported from multichain should be defined here
 }
 

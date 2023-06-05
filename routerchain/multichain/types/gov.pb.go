@@ -210,16 +210,213 @@ func (m *MultichainDeleteChainConfigProposal) GetChainType() ChainType {
 	return CHAIN_TYPE_NONE
 }
 
+type MultichainCreateContractConfigProposal struct {
+	Title          string          `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description    string          `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	ContractConfig *ContractConfig `protobuf:"bytes,3,opt,name=contractConfig,proto3" json:"contractConfig,omitempty"`
+}
+
+func (m *MultichainCreateContractConfigProposal) Reset() {
+	*m = MultichainCreateContractConfigProposal{}
+}
+func (m *MultichainCreateContractConfigProposal) String() string { return proto.CompactTextString(m) }
+func (*MultichainCreateContractConfigProposal) ProtoMessage()    {}
+func (*MultichainCreateContractConfigProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_688d3dacb0497fdf, []int{3}
+}
+func (m *MultichainCreateContractConfigProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MultichainCreateContractConfigProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MultichainCreateContractConfigProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MultichainCreateContractConfigProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MultichainCreateContractConfigProposal.Merge(m, src)
+}
+func (m *MultichainCreateContractConfigProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MultichainCreateContractConfigProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MultichainCreateContractConfigProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MultichainCreateContractConfigProposal proto.InternalMessageInfo
+
+func (m *MultichainCreateContractConfigProposal) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MultichainCreateContractConfigProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MultichainCreateContractConfigProposal) GetContractConfig() *ContractConfig {
+	if m != nil {
+		return m.ContractConfig
+	}
+	return nil
+}
+
+type MultichainUpdateContractConfigProposal struct {
+	Title          string          `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description    string          `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	ContractConfig *ContractConfig `protobuf:"bytes,3,opt,name=contractConfig,proto3" json:"contractConfig,omitempty"`
+}
+
+func (m *MultichainUpdateContractConfigProposal) Reset() {
+	*m = MultichainUpdateContractConfigProposal{}
+}
+func (m *MultichainUpdateContractConfigProposal) String() string { return proto.CompactTextString(m) }
+func (*MultichainUpdateContractConfigProposal) ProtoMessage()    {}
+func (*MultichainUpdateContractConfigProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_688d3dacb0497fdf, []int{4}
+}
+func (m *MultichainUpdateContractConfigProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MultichainUpdateContractConfigProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MultichainUpdateContractConfigProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MultichainUpdateContractConfigProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MultichainUpdateContractConfigProposal.Merge(m, src)
+}
+func (m *MultichainUpdateContractConfigProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MultichainUpdateContractConfigProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MultichainUpdateContractConfigProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MultichainUpdateContractConfigProposal proto.InternalMessageInfo
+
+func (m *MultichainUpdateContractConfigProposal) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MultichainUpdateContractConfigProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MultichainUpdateContractConfigProposal) GetContractConfig() *ContractConfig {
+	if m != nil {
+		return m.ContractConfig
+	}
+	return nil
+}
+
+type MultichainDeleteContractConfigProposal struct {
+	Title           string `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description     string `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	ChainId         string `protobuf:"bytes,3,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	ContractAddress string `protobuf:"bytes,4,opt,name=contractAddress,proto3" json:"contractAddress,omitempty"`
+}
+
+func (m *MultichainDeleteContractConfigProposal) Reset() {
+	*m = MultichainDeleteContractConfigProposal{}
+}
+func (m *MultichainDeleteContractConfigProposal) String() string { return proto.CompactTextString(m) }
+func (*MultichainDeleteContractConfigProposal) ProtoMessage()    {}
+func (*MultichainDeleteContractConfigProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_688d3dacb0497fdf, []int{5}
+}
+func (m *MultichainDeleteContractConfigProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MultichainDeleteContractConfigProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MultichainDeleteContractConfigProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MultichainDeleteContractConfigProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MultichainDeleteContractConfigProposal.Merge(m, src)
+}
+func (m *MultichainDeleteContractConfigProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MultichainDeleteContractConfigProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MultichainDeleteContractConfigProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MultichainDeleteContractConfigProposal proto.InternalMessageInfo
+
+func (m *MultichainDeleteContractConfigProposal) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MultichainDeleteContractConfigProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MultichainDeleteContractConfigProposal) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *MultichainDeleteContractConfigProposal) GetContractAddress() string {
+	if m != nil {
+		return m.ContractAddress
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*MultichainCreateChainConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainCreateChainConfigProposal")
 	proto.RegisterType((*MultichainUpdateChainConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainUpdateChainConfigProposal")
 	proto.RegisterType((*MultichainDeleteChainConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainDeleteChainConfigProposal")
+	proto.RegisterType((*MultichainCreateContractConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainCreateContractConfigProposal")
+	proto.RegisterType((*MultichainUpdateContractConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainUpdateContractConfigProposal")
+	proto.RegisterType((*MultichainDeleteContractConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainDeleteContractConfigProposal")
 }
 
 func init() { proto.RegisterFile("multichain/gov.proto", fileDescriptor_688d3dacb0497fdf) }
 
 var fileDescriptor_688d3dacb0497fdf = []byte{
-	// 303 bytes of a gzipped FileDescriptorProto
+	// 377 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0xc9, 0x2d, 0xcd, 0x29,
 	0xc9, 0x4c, 0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x4f, 0xcf, 0x2f, 0xd3, 0x2b, 0x28, 0xca, 0x2f, 0xc9,
 	0x17, 0x52, 0x2d, 0xca, 0x2f, 0x2d, 0x49, 0x2d, 0x02, 0x73, 0x92, 0xf3, 0x73, 0xf4, 0x20, 0x5c,
@@ -234,11 +431,16 @@ var fileDescriptor_688d3dacb0497fdf = []byte{
 	0xea, 0xe3, 0x28, 0xae, 0x76, 0x49, 0xcd, 0x49, 0xa5, 0xae, 0xab, 0x25, 0xb8, 0xd8, 0xc1, 0x26,
 	0x7b, 0xa6, 0x80, 0x5d, 0xcc, 0x19, 0x04, 0xe3, 0x0a, 0xf9, 0x71, 0x71, 0x82, 0x99, 0x21, 0x95,
 	0x05, 0xa9, 0x12, 0x2c, 0x0a, 0x8c, 0x1a, 0x7c, 0x46, 0x06, 0xa4, 0xf8, 0x06, 0xa4, 0x2f, 0x08,
-	0x61, 0x84, 0x53, 0xc8, 0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7,
-	0x38, 0xe1, 0xb1, 0x1c, 0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x59, 0xa5,
-	0x67, 0x96, 0x64, 0x94, 0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0x43, 0x4c, 0xd4, 0x85, 0xd9, 0x00,
-	0xe3, 0x43, 0x52, 0x62, 0x85, 0x3e, 0x52, 0xb2, 0x04, 0x25, 0xc8, 0xe2, 0x24, 0x36, 0xb0, 0x4a,
-	0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xc6, 0x30, 0x2e, 0x47, 0x0d, 0x03, 0x00, 0x00,
+	0x61, 0x84, 0xd2, 0x7e, 0x46, 0x2e, 0x35, 0x8c, 0x54, 0x93, 0x9f, 0x57, 0x52, 0x94, 0x98, 0x5c,
+	0x42, 0x25, 0xcf, 0xc4, 0x72, 0xf1, 0x25, 0xa3, 0x98, 0x08, 0x8d, 0x05, 0x53, 0x62, 0xdd, 0x8d,
+	0xa2, 0x39, 0x08, 0xcd, 0x30, 0x34, 0x1f, 0x40, 0x53, 0xd0, 0x90, 0xf2, 0xc1, 0x12, 0x14, 0x1f,
+	0x40, 0x53, 0x13, 0x75, 0x7d, 0x80, 0x3b, 0x41, 0x69, 0x70, 0xf1, 0xc3, 0x9c, 0xe3, 0x98, 0x92,
+	0x52, 0x94, 0x5a, 0x5c, 0x0c, 0x4e, 0x56, 0x9c, 0x41, 0xe8, 0xc2, 0x4e, 0x21, 0x27, 0x1e, 0xc9,
+	0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c, 0x17, 0x1e,
+	0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0x65, 0x95, 0x9e, 0x59, 0x92, 0x51, 0x9a, 0xa4, 0x97,
+	0x9c, 0x9f, 0xab, 0x0f, 0x09, 0x02, 0x5d, 0x58, 0x90, 0xc0, 0xf8, 0x90, 0x42, 0xab, 0x42, 0x1f,
+	0xa9, 0x04, 0x03, 0x95, 0x5d, 0xc5, 0x49, 0x6c, 0x60, 0x95, 0xc6, 0x80, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0xb3, 0x92, 0x59, 0xd2, 0x38, 0x05, 0x00, 0x00,
 }
 
 func (m *MultichainCreateChainConfigProposal) Marshal() (dAtA []byte, err error) {
@@ -388,6 +590,155 @@ func (m *MultichainDeleteChainConfigProposal) MarshalToSizedBuffer(dAtA []byte) 
 	return len(dAtA) - i, nil
 }
 
+func (m *MultichainCreateContractConfigProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MultichainCreateContractConfigProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MultichainCreateContractConfigProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ContractConfig != nil {
+		{
+			size, err := m.ContractConfig.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGov(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MultichainUpdateContractConfigProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MultichainUpdateContractConfigProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MultichainUpdateContractConfigProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ContractConfig != nil {
+		{
+			size, err := m.ContractConfig.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGov(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MultichainDeleteContractConfigProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MultichainDeleteContractConfigProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MultichainDeleteContractConfigProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.ContractAddress) > 0 {
+		i -= len(m.ContractAddress)
+		copy(dAtA[i:], m.ContractAddress)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.ContractAddress)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintGov(dAtA []byte, offset int, v uint64) int {
 	offset -= sovGov(v)
 	base := offset
@@ -461,6 +812,73 @@ func (m *MultichainDeleteChainConfigProposal) Size() (n int) {
 	}
 	if m.ChainType != 0 {
 		n += 1 + sovGov(uint64(m.ChainType))
+	}
+	return n
+}
+
+func (m *MultichainCreateContractConfigProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	if m.ContractConfig != nil {
+		l = m.ContractConfig.Size()
+		n += 1 + l + sovGov(uint64(l))
+	}
+	return n
+}
+
+func (m *MultichainUpdateContractConfigProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	if m.ContractConfig != nil {
+		l = m.ContractConfig.Size()
+		n += 1 + l + sovGov(uint64(l))
+	}
+	return n
+}
+
+func (m *MultichainDeleteContractConfigProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.ContractAddress)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
 	}
 	return n
 }
@@ -915,6 +1333,484 @@ func (m *MultichainDeleteChainConfigProposal) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGov(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGov
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MultichainCreateContractConfigProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGov
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MultichainCreateContractConfigProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MultichainCreateContractConfigProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ContractConfig == nil {
+				m.ContractConfig = &ContractConfig{}
+			}
+			if err := m.ContractConfig.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGov(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGov
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MultichainUpdateContractConfigProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGov
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MultichainUpdateContractConfigProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MultichainUpdateContractConfigProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.ContractConfig == nil {
+				m.ContractConfig = &ContractConfig{}
+			}
+			if err := m.ContractConfig.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGov(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGov
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MultichainDeleteContractConfigProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGov
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MultichainDeleteContractConfigProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MultichainDeleteContractConfigProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ContractAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ContractAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGov(dAtA[iNdEx:])
