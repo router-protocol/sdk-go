@@ -72,6 +72,26 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_receipt";
   
   }
+  
+  // Queries a list of BlockedCrosschainRequest items.
+  rpc BlockedCrosschainRequest    (QueryGetBlockedCrosschainRequestRequest) returns (QueryGetBlockedCrosschainRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/blocked_crosschain_request/{sourceChainId}/{requestIdentifier}";
+  
+  }
+  rpc BlockedCrosschainRequestAll (QueryAllBlockedCrosschainRequestRequest) returns (QueryAllBlockedCrosschainRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/blocked_crosschain_request";
+  
+  }
+  
+  // Queries a list of BlockedCrosschainAckRequest items.
+  rpc BlockedCrosschainAckRequest    (QueryGetBlockedCrosschainAckRequestRequest) returns (QueryGetBlockedCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/blocked_crosschain_ack_request/{ackSrcChainId}/{ackRequestIdentifier}";
+  
+  }
+  rpc BlockedCrosschainAckRequestAll (QueryAllBlockedCrosschainAckRequestRequest) returns (QueryAllBlockedCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/blocked_crosschain_ack_request";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -91,7 +111,6 @@ message QueryGetCrosschainRequestRequest {
 message QueryGetCrosschainRequestResponse {
   repeated CrosschainRequest                      crosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination        = 2;
-
 }
 
 message QueryAllCrosschainRequestRequest {
@@ -127,7 +146,7 @@ message QueryAllCrosschainRequestConfirmResponse {
 }
 
 message QueryGetCrosschainAckRequestRequest {
-  string ackSrcChainId          = 1;
+  string ackSrcChainId        = 1;
   uint64 ackRequestIdentifier = 2;
 }
 
@@ -146,7 +165,7 @@ message QueryAllCrosschainAckRequestResponse {
 }
 
 message QueryGetCrosschainAckRequestConfirmRequest {
-  string ackSrcChainId          = 1;
+  string ackSrcChainId        = 1;
   uint64 ackRequestIdentifier = 2;
   bytes  claimHash            = 3;
   string orchestrator         = 4;
@@ -157,7 +176,7 @@ message QueryGetCrosschainAckRequestConfirmResponse {
 }
 
 message QueryAllCrosschainAckRequestConfirmRequest {
-  string                                ackSrcChainId          = 1;
+  string                                ackSrcChainId        = 1;
   uint64                                ackRequestIdentifier = 2;
   bytes                                 claimHash            = 3;
   cosmos.base.query.v1beta1.PageRequest pagination           = 4;
@@ -169,7 +188,7 @@ message QueryAllCrosschainAckRequestConfirmResponse {
 }
 
 message QueryGetCrosschainAckReceiptRequest {
-  string ackReceiptSrcChainId          = 1;
+  string ackReceiptSrcChainId = 1;
   uint64 ackReceiptIdentifier = 2;
 }
 
@@ -185,5 +204,43 @@ message QueryAllCrosschainAckReceiptRequest {
 message QueryAllCrosschainAckReceiptResponse {
   repeated CrosschainAckReceipt                   crosschainAckReceipt = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination           = 2;
+}
+
+message QueryGetBlockedCrosschainRequestRequest {
+  string sourceChainId     = 1;
+  uint64 requestIdentifier = 2;
+}
+
+message QueryGetBlockedCrosschainRequestResponse {
+  repeated CrosschainRequest                      blockedCrosschainRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                = 2;
+}
+
+message QueryAllBlockedCrosschainRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBlockedCrosschainRequestResponse {
+  repeated CrosschainRequest                      blockedCrosschainRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                = 2;
+}
+
+message QueryGetBlockedCrosschainAckRequestRequest {
+    string ackSrcChainId        = 1;
+    uint64 ackRequestIdentifier = 2;
+}
+
+message QueryGetBlockedCrosschainAckRequestResponse {
+    repeated CrosschainAckRequest                   blockedCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+    cosmos.base.query.v1beta1.PageResponse pagination           = 2;
+}
+
+message QueryAllBlockedCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllBlockedCrosschainAckRequestResponse {
+    repeated CrosschainAckRequest                   blockedCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+    cosmos.base.query.v1beta1.PageResponse pagination           = 2;
 }
 

@@ -53,6 +53,12 @@ message EventCrosschainReadyToExecute {
   cosmos.base.v1beta1.Coin relayer_incentive_in_route = 8 [(gogoproto.nullable) = false];
 }
 
+message EventCrosschainRequestBlocked {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 request_identifier = 3;  
+}
+
 message EventCrosschainExecuted {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
@@ -119,6 +125,12 @@ message EventCrosschainAckRequestConfirm {
   string eth_signer = 4; 
   string signature = 5; 
   string orchestrator = 6;
+}
+
+message EventCrosschainAckRequestBlocked {
+  bytes attestation_id = 1;
+  string ack_src_chain_id = 2; 
+  uint64 ack_request_identifier = 3;  
 }
 
 message EventCrosschainAckReadyToExecute {  

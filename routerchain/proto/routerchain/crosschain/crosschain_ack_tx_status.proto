@@ -11,6 +11,7 @@ enum CrosschainAckTxStatus {
 
   CROSSCHAIN_ACK_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_TX_CREATED"];
   CROSSCHAIN_ACK_TX_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_TX_VALIDATED"];
+  CROSSCHAIN_ACK_TX_BLOCKED = 2 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_TX_BLOCKED"];
   CROSSCHAIN_ACK_TX_READY_TO_EXECUTE = 3 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_TX_READY_TO_EXECUTE"];
   CROSSCHAIN_ACK_TX_EXECUTED = 4 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_TX_EXECUTED"];
   CROSSCHAIN_ACK_TX_EXECUTION_FAILED = 5 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_ACK_TX_EXECUTION_FAILED"];
