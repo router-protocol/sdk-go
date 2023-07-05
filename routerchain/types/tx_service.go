@@ -2,7 +2,6 @@ package types
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/cosmos/cosmos-sdk/client"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
@@ -47,7 +46,6 @@ func (s routerTxServer) GetTx(ctx context.Context, req *GetTxRequest) (*GetTxRes
 }
 
 func (s routerTxServer) PrepareTx(ctx context.Context, req *PrepareTxRequest) (*PrepareTxResponse, error) {
-	fmt.Println("Received PrepareTx reqeust", req)
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "request cannot be nil")
 	}
@@ -81,7 +79,6 @@ func RegisterRouterTxService(
 // RegisterGRPCGatewayRoutes mounts the tx service's GRPC-gateway routes on the
 // given Mux.
 func RegisterGRPCGatewayRoutes(clientConn gogogrpc.ClientConn, mux *runtime.ServeMux) {
-	fmt.Println("Register tx service grpc routes")
 	RegisterRouterTxRpcHandlerClient(context.Background(), mux, NewRouterTxRpcClient(clientConn))
 }
 

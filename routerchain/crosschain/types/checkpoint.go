@@ -56,13 +56,11 @@ func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) ([]byte, e
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iReceive gateway call  /////
 	//////////////////////////////////////////////////////////////////////
-	fmt.Println("Get EvmCheckpoint")
 	metadata := DecodeEvmContractMetadata(&msg)
 	requestPacket, err := DecodeRouterCrosschainPacket(&msg)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Decoded Metadata", metadata)
 
 	methodNameBytes := []uint8("iReceive")
 	var crosschainMethodName [32]uint8
@@ -106,19 +104,19 @@ func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) ([]byte, e
 		metadata.IsReadCall,
 	)
 
-	fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
-	fmt.Println("Checkpoint-routeAmount", routeAmount)
-	fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
-	fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
-	fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
-	fmt.Println("Checkpoint-routeRecipient", routeRecipient)
-	fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
-	fmt.Println("Checkpoint-asmAddress", asmAddress)
-	fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
+	// fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
+	// fmt.Println("Checkpoint-routeAmount", routeAmount)
+	// fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
+	// fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
+	// fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
+	// fmt.Println("Checkpoint-routeRecipient", routeRecipient)
+	// fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
+	// fmt.Println("Checkpoint-asmAddress", asmAddress)
+	// fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
 
-	fmt.Println("Checkpoint-handler", handler)
-	fmt.Println("Checkpoint-Payload", requestPacket.Payload)
-	fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
+	// fmt.Println("Checkpoint-handler", handler)
+	// fmt.Println("Checkpoint-Payload", requestPacket.Payload)
+	// fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
 
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
@@ -136,13 +134,11 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) ([]byte, er
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iReceive gateway call  /////
 	//////////////////////////////////////////////////////////////////////
-	fmt.Println("Get EvmCheckpoint")
 	metadata := DecodeEvmContractMetadata(&msg)
 	requestPacket, err := DecodeRouterCrosschainPacket(&msg)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Decoded Metadata", metadata)
 
 	methodNameBytes := []uint8("iReceive")
 	var crosschainMethodName [32]uint8
@@ -186,19 +182,19 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) ([]byte, er
 		metadata.IsReadCall,
 	)
 
-	fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
-	fmt.Println("Checkpoint-routeAmount", routeAmount)
-	fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
-	fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
-	fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
-	fmt.Println("Checkpoint-routeRecipient", routeRecipient)
-	fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
-	fmt.Println("Checkpoint-asmAddress", asmAddress)
-	fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
+	// fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
+	// fmt.Println("Checkpoint-routeAmount", routeAmount)
+	// fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
+	// fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
+	// fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
+	// fmt.Println("Checkpoint-routeRecipient", routeRecipient)
+	// fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
+	// fmt.Println("Checkpoint-asmAddress", asmAddress)
+	// fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
 
-	fmt.Println("Checkpoint-handler", handler)
-	fmt.Println("Checkpoint-Payload", requestPacket.Payload)
-	fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
+	// fmt.Println("Checkpoint-handler", handler)
+	// fmt.Println("Checkpoint-Payload", requestPacket.Payload)
+	// fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
 
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.

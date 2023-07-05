@@ -27,12 +27,10 @@ type IContractMetadata interface {
 }
 
 func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
-	fmt.Println("sdk-go GetCheckpoint", "Decode Evm checkpoint")
 	metadata := EvmContractMetadata{}
 	requestMetadataStr := hex.EncodeToString(msg.GetRequestMetadata())
 
 	if len(requestMetadataStr) < 100 {
-		fmt.Println("Encoding Error")
 		return &metadata
 	}
 
@@ -71,7 +69,6 @@ func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 	// Convert hexadecimal string to bytes
 	asmAddressByte, err := hex.DecodeString(chunk8)
 	if err != nil {
-		fmt.Println("Error while decoding asmAddress", err)
 		return &metadata
 	}
 	asmAddress := string(asmAddressByte)
@@ -87,6 +84,5 @@ func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 		AsmAddress:   asmAddress,
 	}
 
-	fmt.Println("sdk-go GetCheckpoint", "crosschainMetadata", "metadata", metadata, "asmADdress", metadata.AsmAddress)
 	return &metadata
 }

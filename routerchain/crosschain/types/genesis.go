@@ -1,9 +1,5 @@
 package types
 
-import (
-	"fmt"
-)
-
 // DefaultIndex is the default global index
 const DefaultIndex uint64 = 1
 
@@ -15,6 +11,7 @@ func DefaultGenesis() *GenesisState {
 		CrosschainAckRequestList:        []CrosschainAckRequest{},
 		CrosschainAckRequestConfirmList: []CrosschainAckRequestConfirm{},
 		CrosschainAckReceiptList:        []CrosschainAckReceipt{},
+		// BlockedCrosschainAckRequestList: []BlockedCrosschainAckRequest{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -23,7 +20,6 @@ func DefaultGenesis() *GenesisState {
 // Validate performs basic genesis state validation returning an error upon any
 // failure.
 func (gs GenesisState) Validate() error {
-	fmt.Println("validate")
 	// Check for duplicated index in crosschainRequest
 	// crosschainRequestIndexMap := make(map[string]struct{})
 
@@ -73,6 +69,26 @@ func (gs GenesisState) Validate() error {
 	// 		return fmt.Errorf("duplicated index for crosschainAckReceipt")
 	// 	}
 	// 	crosschainAckReceiptIndexMap[index] = struct{}{}
+	// }
+	// Check for duplicated index in blockedCrosschainRequest
+	// blockedCrosschainRequestIndexMap := make(map[string]struct{})
+
+	// for _, elem := range gs.BlockedCrosschainRequestList {
+	// 	index := string(BlockedCrosschainRequestKey(elem.Index))
+	// 	if _, ok := blockedCrosschainRequestIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for blockedCrosschainRequest")
+	// 	}
+	// 	blockedCrosschainRequestIndexMap[index] = struct{}{}
+	// }
+	// Check for duplicated index in blockedCrosschainAckRequest
+	// blockedCrosschainAckRequestIndexMap := make(map[string]struct{})
+
+	// for _, elem := range gs.BlockedCrosschainAckRequestList {
+	// 	index := string(BlockedCrosschainAckRequestKey(elem.Index))
+	// 	if _, ok := blockedCrosschainAckRequestIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for blockedCrosschainAckRequest")
+	// 	}
+	// 	blockedCrosschainAckRequestIndexMap[index] = struct{}{}
 	// }
 	// this line is used by starport scaffolding # genesis/types/validate
 

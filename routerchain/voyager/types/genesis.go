@@ -1,9 +1,5 @@
 package types
 
-import (
-	fmt "fmt"
-)
-
 // DefaultIndex is the default global index
 const DefaultIndex uint64 = 1
 
@@ -20,7 +16,7 @@ func DefaultGenesis() *GenesisState {
 // Validate performs basic genesis state validation returning an error upon any
 // failure.
 func (gs GenesisState) Validate() error {
-	fmt.Println("validate")
+	// fmt.Println("validate")
 	// Check for duplicated index in fundDepositRequest
 	// fundDepositRequestIndexMap := make(map[string]struct{})
 

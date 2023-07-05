@@ -1,8 +1,6 @@
 package types
 
 import (
-	fmt "fmt"
-
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	proto "github.com/gogo/protobuf/proto"
@@ -49,7 +47,6 @@ func (msg *MsgValsetUpdatedClaim) GetSignBytes() []byte {
 }
 
 func (msg *MsgValsetUpdatedClaim) ValidateBasic() error {
-	fmt.Println("Validate MsgValsetUpdatedClaim", "chainID", msg.ChainId, "msg.EventNonce", msg.EventNonce, "msg.ValsetNonce", msg.ValsetNonce)
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)

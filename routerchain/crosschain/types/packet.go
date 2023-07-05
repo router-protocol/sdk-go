@@ -2,7 +2,6 @@ package types
 
 import (
 	"errors"
-	fmt "fmt"
 
 	"github.com/ethereum/go-ethereum/accounts/abi"
 )
@@ -21,12 +20,10 @@ type RouterCrosschainPacket interface {
 }
 
 func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) (*CrosschainRouterPacket, error) {
-	fmt.Println("sdk-go Get packet", "Decode router packet")
 
 	packet := CrosschainRouterPacket{}
 
 	if len(msg.GetRequestPacket()) < 100 {
-		fmt.Println("Encoding Error")
 		return nil, errors.New("Insufficient request packet length")
 	}
 
@@ -50,14 +47,11 @@ func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) (*CrosschainRouter
 	// // Print the decoded values
 	handlerContractAddress := data[0].(string)
 	payload := data[1].([]byte)
-	fmt.Printf("Data 1: %v\n", handlerContractAddress)
-	fmt.Printf("Data 2: %v\n", (payload))
 
 	packet = CrosschainRouterPacket{
 		Handler: handlerContractAddress,
 		Payload: payload,
 	}
 
-	fmt.Println("sdk-go GetCheckpoint", "crosschainpacket", "packet", packet)
 	return &packet, nil
 }
