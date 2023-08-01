@@ -22,7 +22,8 @@ message FundDepositRequest {
   string srcToken = 11; 
   bytes recipient = 12; 
   string depositor = 13; 
-  string status = 14; 
+  uint64 widget_id = 14;
+  string status = 15; 
   
 }
 
@@ -39,5 +40,6 @@ message FundDepositRequestClaimHash {
   string                                          relayerFees  = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string srcToken = 11; 
   bytes recipient = 12; 
-  string depositor = 13; 
+  string depositor = 13;
+  uint64 widget_id = 14; 
 }

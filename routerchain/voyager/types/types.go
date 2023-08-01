@@ -18,7 +18,8 @@ func NewFundDepositRequest(
 	relayerFees sdk.Int,
 	srcToken string,
 	recipient []byte,
-	depositor string) *FundDepositRequest {
+	depositor string,
+	widgetId uint64) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -33,6 +34,7 @@ func NewFundDepositRequest(
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,
+		WidgetId:     widgetId,
 		Status:       "fund_deposit_request_created",
 	}
 }
@@ -53,6 +55,7 @@ func NewFundsDepositedFromMsg(
 		SrcToken:     msg.SrcToken,
 		Recipient:    msg.Recipient,
 		Depositor:    msg.Depositor,
+		WidgetId:     msg.WidgetId,
 		Status:       "fund_deposit_request_created",
 	}
 }
@@ -70,7 +73,8 @@ func NewFundDepositRequestClaimHash(
 	relayerFees sdk.Int,
 	srcToken string,
 	recipient []byte,
-	depositor string) *FundDepositRequestClaimHash {
+	depositor string,
+	widgetID uint64) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -85,6 +89,7 @@ func NewFundDepositRequestClaimHash(
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,
+		WidgetId:     widgetID,
 	}
 }
 
