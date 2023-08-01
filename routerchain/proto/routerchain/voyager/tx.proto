@@ -28,6 +28,7 @@ message MsgFundsDeposited {
   string                                          srcToken     = 12;
   bytes                                          recipient    = 13;
   string                                          depositor    = 14;
+  uint64                                          widget_id = 15;
 }
 
 message MsgFundsDepositedResponse {}
