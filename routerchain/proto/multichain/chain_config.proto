@@ -22,6 +22,14 @@ message ContractConfig {
   uint64 lastObservedEventNonce = 4;
   uint64 lastObservedEventBlockHeight = 5; 
   ContractType contractType = 6;
+  bool contract_enabled = 7;   
+  bool claimSlashingEnabled = 8;
+  uint64 claimSlashingWindow = 9;
+  bytes slash_fraction_missing_claim = 10
+    [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  bytes slash_fraction_conflicting_claim = 11
+    [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
 }
 
 message ChainConfig {
