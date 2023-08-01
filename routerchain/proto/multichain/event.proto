@@ -4,6 +4,10 @@ package routerprotocol.routerchain.multichain;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
 import "multichain/chain_type.proto"; 
 import "multichain/chain_config.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
 
 message EventCreateChainConfig {
   string chainId = 1; 
@@ -40,6 +44,13 @@ message EventCreateContractConfig {
   uint64 lastObservedEventNonce = 4;
   uint64 lastObservedEventBlockHeight = 5; 
   ContractType ContractType = 6;
+  bool contract_enabled = 7;
+  bool claimSlashingEnabled = 8;
+  uint64 claimSlashingWindow = 9;
+  bytes slash_fraction_missing_claim = 10
+    [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  bytes slash_fraction_conflicting_claim = 11
+    [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
 }
 
 message EventUpdatedContractConfig {
@@ -49,6 +60,14 @@ message EventUpdatedContractConfig {
   uint64 lastObservedEventNonce = 4;
   uint64 lastObservedEventBlockHeight = 5; 
   ContractType ContractType = 6;
+  bool contract_enabled = 7;
+  bool claimSlashingEnabled = 8;
+  uint64 claimSlashingWindow = 9;
+  bytes slash_fraction_missing_claim = 10
+    [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+  bytes slash_fraction_conflicting_claim = 11
+    [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (gogoproto.nullable) = false];
+
 }
 
 message EventDeletedContractConfig {
