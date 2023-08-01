@@ -15,11 +15,11 @@ func NewFundDepositRequest(
 	blockHeight uint64,
 	destChainId []byte,
 	amount sdk.Int,
-	relayerFees sdk.Int,
+	destAmount sdk.Int,
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	widgetId uint64) *FundDepositRequest {
+	widgetId sdk.Int) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -30,7 +30,7 @@ func NewFundDepositRequest(
 		BlockHeight:  blockHeight,
 		DestChainId:  destChainId,
 		Amount:       amount,
-		RelayerFees:  relayerFees,
+		DestAmount:   destAmount,
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,
@@ -51,7 +51,7 @@ func NewFundsDepositedFromMsg(
 		BlockHeight:  msg.BlockHeight,
 		DestChainId:  msg.DestChainId,
 		Amount:       msg.Amount,
-		RelayerFees:  msg.RelayerFees,
+		DestAmount:   msg.DestAmount,
 		SrcToken:     msg.SrcToken,
 		Recipient:    msg.Recipient,
 		Depositor:    msg.Depositor,
@@ -70,11 +70,11 @@ func NewFundDepositRequestClaimHash(
 	blockHeight uint64,
 	destChainId []byte,
 	amount sdk.Int,
-	relayerFees sdk.Int,
+	destAmount sdk.Int,
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	widgetID uint64) *FundDepositRequestClaimHash {
+	widgetID sdk.Int) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -85,7 +85,7 @@ func NewFundDepositRequestClaimHash(
 		BlockHeight:  blockHeight,
 		DestChainId:  destChainId,
 		Amount:       amount,
-		RelayerFees:  relayerFees,
+		DestAmount:   destAmount,
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,

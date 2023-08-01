@@ -12,9 +12,10 @@ type HandleFundDeposit struct {
 	DestChainIdBytes string  `json:"dest_chain_id_bytes"`
 	SrcToken         string  `json:"src_token"`
 	Depositor        string  `json:"depositor"`
-	RelayerFeePct    sdk.Int `json:"relayer_fee_pct"`
+	DestAmount       sdk.Int `json:"dest_amount"`
 	Amount           sdk.Int `json:"amount"`
 	Recipient        string  `json:"recipient"`
+	WidgetId         sdk.Int `json:"widget_id"`
 }
 
 type SudoFundsPaidMsg struct {
