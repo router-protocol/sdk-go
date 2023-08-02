@@ -44,7 +44,7 @@ message MsgFundsPaid {
   uint64 blockHeight         =  8;
   bytes messageHash         =  9;
   string forwarder           = 10;
-  bytes forwarderRouterAddr = 11;
+  string forwarderRouterAddr = 11;
 }
 
 message MsgFundsPaidResponse {}

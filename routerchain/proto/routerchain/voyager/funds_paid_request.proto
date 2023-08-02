@@ -18,7 +18,7 @@ message FundsPaidRequest {
   uint64 blockHeight = 7; 
   bytes messageHash = 8; 
   string forwarder = 9; 
-  bytes forwarderRouterAddr = 10; 
+  string forwarderRouterAddr = 10; 
   string status = 11; 
   
 }
@@ -34,5 +34,5 @@ message FundsPaidRequestClaimHash {
   uint64 blockHeight = 7; 
   bytes messageHash = 8; 
   string forwarder = 9; 
-  bytes forwarderRouterAddr = 10; 
+  string forwarderRouterAddr = 10; 
 }

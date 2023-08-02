@@ -13,7 +13,7 @@ const TypeMsgFundsPaid = "funds_paid"
 
 var _ sdk.Msg = &MsgFundsPaid{}
 
-func NewMsgFundsPaid(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, eventNonce uint64, blockHeight uint64, messageHash []byte, forwarder string, forwarderRouterAddr []byte) *MsgFundsPaid {
+func NewMsgFundsPaid(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, eventNonce uint64, blockHeight uint64, messageHash []byte, forwarder string, forwarderRouterAddr string) *MsgFundsPaid {
 	return &MsgFundsPaid{
 		Orchestrator:        orchestrator,
 		SrcChainId:          srcChainId,
