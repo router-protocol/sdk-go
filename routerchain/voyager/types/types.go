@@ -103,7 +103,7 @@ func NewFundPaidRequest(
 	blockHeight uint64,
 	messageHash []byte,
 	forwarder string,
-	forwarderRouterAddr []byte) *FundsPaidRequest {
+	forwarderRouterAddr string) *FundsPaidRequest {
 	return &FundsPaidRequest{
 		SrcChainId:          srcChainId,
 		SrcChainType:        srcChainType,
@@ -146,7 +146,7 @@ func NewFundPaidRequestClaimHash(
 	blockHeight uint64,
 	messageHash []byte,
 	forwarder string,
-	forwarderRouterAddr []byte) *FundsPaidRequestClaimHash {
+	forwarderRouterAddr string) *FundsPaidRequestClaimHash {
 	return &FundsPaidRequestClaimHash{
 		SrcChainId:          srcChainId,
 		SrcChainType:        srcChainType,
