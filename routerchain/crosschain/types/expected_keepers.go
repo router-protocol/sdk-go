@@ -2,7 +2,6 @@ package types
 
 import (
 	context "context"
-	"math/big"
 
 	"cosmossdk.io/math"
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
@@ -46,7 +45,7 @@ type MultichainKeeper interface {
 
 type PriceFeedKeeper interface {
 	// Methods imported from oracle should be defined here
-	GetTokenPriceState(ctx sdk.Context, symbol string) (*big.Int, error)
+	GetTokenPriceState(ctx sdk.Context, symbol string) (*pricefeedTypes.Price, error)
 	GetGasPriceState(ctx sdk.Context, chainID string) (pricefeedTypes.GasPrice, error)
 	ConvertNativeTokenFeeToRouter(ctx sdk.Context, chainId string, feeConsumedInDecimals math.Int) (sdk.Coin, error)
 }

@@ -22,7 +22,7 @@ message EventFundDepositRequestCreated {
   string srcToken = 12; 
   bytes recipient = 13; 
   string depositor = 14; 
-  string                                          widget_id = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];  
+  string                                          partner_id = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];  
 }
 
 message EventFundDepositRequestValidated {
