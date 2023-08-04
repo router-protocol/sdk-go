@@ -19,7 +19,7 @@ func NewFundDepositRequest(
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	widgetId sdk.Int) *FundDepositRequest {
+	partnerId sdk.Int) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -34,7 +34,7 @@ func NewFundDepositRequest(
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,
-		WidgetId:     widgetId,
+		PartnerId:    partnerId,
 		Status:       "fund_deposit_request_created",
 	}
 }
@@ -55,7 +55,7 @@ func NewFundsDepositedFromMsg(
 		SrcToken:     msg.SrcToken,
 		Recipient:    msg.Recipient,
 		Depositor:    msg.Depositor,
-		WidgetId:     msg.WidgetId,
+		PartnerId:    msg.PartnerId,
 		Status:       "fund_deposit_request_created",
 	}
 }
@@ -74,7 +74,7 @@ func NewFundDepositRequestClaimHash(
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	widgetID sdk.Int) *FundDepositRequestClaimHash {
+	partnerID sdk.Int) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -89,7 +89,7 @@ func NewFundDepositRequestClaimHash(
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,
-		WidgetId:     widgetID,
+		PartnerId:    partnerID,
 	}
 }
 

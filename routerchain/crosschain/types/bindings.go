@@ -19,5 +19,6 @@ type TokenPrice struct {
 }
 
 type TokenPriceResponse struct {
-	TokenPrice string `json:"token_price"`
+	TokenPrice   string `json:"token_price"`
+	TokenDecimal uint64 `json:"token_decimal"`
 }

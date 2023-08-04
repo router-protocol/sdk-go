@@ -13,7 +13,7 @@ const TypeMsgFundsDeposited = "funds_deposited"
 
 var _ sdk.Msg = &MsgFundsDeposited{}
 
-func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, amount sdk.Int, destAmount sdk.Int, srcToken string, recipient []byte, depositor string, widgetID sdk.Int) *MsgFundsDeposited {
+func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, amount sdk.Int, destAmount sdk.Int, srcToken string, recipient []byte, depositor string, partnerID sdk.Int) *MsgFundsDeposited {
 	return &MsgFundsDeposited{
 		Orchestrator: orchestrator,
 		SrcChainId:   srcChainId,
@@ -29,7 +29,7 @@ func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType m
 		SrcToken:     srcToken,
 		Recipient:    recipient,
 		Depositor:    depositor,
-		WidgetId:     widgetID,
+		PartnerId:    partnerID,
 	}
 }
 
@@ -99,7 +99,7 @@ func (msg *MsgFundsDeposited) ClaimHash() ([]byte, error) {
 		msg.SrcToken,
 		msg.Recipient,
 		msg.Depositor,
-		msg.WidgetId,
+		msg.PartnerId,
 	)
 
 	out, err := proto.Marshal(fundDepositRequestClaimHash)

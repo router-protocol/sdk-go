@@ -7,15 +7,16 @@ type SudoFundDepositMsg struct {
 }
 
 type HandleFundDeposit struct {
-	SourceChainId    string  `json:"src_chain_id"`
-	DepositId        uint64  `json:"deposit_id"`
-	DestChainIdBytes string  `json:"dest_chain_id_bytes"`
-	SrcToken         string  `json:"src_token"`
-	Depositor        string  `json:"depositor"`
-	DestAmount       sdk.Int `json:"dest_amount"`
-	Amount           sdk.Int `json:"amount"`
-	Recipient        string  `json:"recipient"`
-	WidgetId         sdk.Int `json:"widget_id"`
+	SourceChainId          string  `json:"src_chain_id"`
+	VoyagerContractAddress string  `json:"voyager_contract_address"`
+	DepositId              uint64  `json:"deposit_id"`
+	DestChainIdBytes       string  `json:"dest_chain_id_bytes"`
+	SrcToken               string  `json:"src_token"`
+	Depositor              string  `json:"depositor"`
+	DestAmount             sdk.Int `json:"dest_amount"`
+	Amount                 sdk.Int `json:"amount"`
+	Recipient              string  `json:"recipient"`
+	PartnerId              sdk.Int `json:"partner_id"`
 }
 
 type SudoFundsPaidMsg struct {
@@ -24,6 +25,7 @@ type SudoFundsPaidMsg struct {
 
 type HandleFundsPaid struct {
 	SourceChainId          string `json:"src_chain_id"`
+	VoyagerContractAddress string `json:"voyager_contract_address"`
 	RequestIdentifier      uint64 `json:"request_identifier"`
 	MessageHash            string `json:"message_hash"`
 	ForwarderAddress       string `json:"forwarder_address"`

@@ -11,5 +11,6 @@ message Price {
   string price_feeder =1;
   string symbol = 2; 
   string price = 3 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false]; 
-  int64 resolveTime = 4;   
+  int64 resolveTime = 4;
+  uint64 decimals = 5;   
 }
