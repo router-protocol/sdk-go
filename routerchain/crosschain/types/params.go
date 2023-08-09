@@ -8,13 +8,17 @@ import (
 )
 
 const (
-	DefaultInboundGasPrice    = uint64(50000000)
-	DefaultMinimumRelayerFees = uint64(25000000000000000)
+	DefaultInboundGasPrice      = uint64(50000000)
+	DefaultMinimumRelayerFees   = uint64(25000000000000000)
+	DefaultCleanupInterval      = int64(100)
+	DefaultBlockedRetryInterval = int64(355)
 )
 
 var (
-	KeyInboundGasPrice    = []byte("InboundGasPrice")
-	KeyMinimumRelayerFees = []byte("MinimumRelayerFees")
+	KeyInboundGasPrice      = []byte("InboundGasPrice")
+	KeyMinimumRelayerFees   = []byte("MinimumRelayerFees")
+	KeyCleanupInterval      = []byte("CleanupInterval")
+	KeyBlockedRetryInterval = []byte("BlockedRetryInterval")
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)
@@ -28,10 +32,14 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams(
 	inboundGasPrice uint64,
 	minimumRelayerFees uint64,
+	cleanupInterval int64,
+	blockedRetryInterval int64,
 ) Params {
 	return Params{
-		InboundGasPrice:    inboundGasPrice,
-		MinimumRelayerFees: minimumRelayerFees,
+		InboundGasPrice:      inboundGasPrice,
+		MinimumRelayerFees:   minimumRelayerFees,
+		CleanupInterval:      cleanupInterval,
+		BlockedRetryInterval: blockedRetryInterval,
 	}
 }
 
@@ -40,6 +48,8 @@ func DefaultParams() Params {
 	return NewParams(
 		DefaultInboundGasPrice,
 		DefaultMinimumRelayerFees,
+		DefaultCleanupInterval,
+		DefaultBlockedRetryInterval,
 	)
 }
 
@@ -48,6 +58,8 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(KeyInboundGasPrice, &p.InboundGasPrice, validateUint64("InboundGasPrice", true)),
 		paramtypes.NewParamSetPair(KeyMinimumRelayerFees, &p.MinimumRelayerFees, validateUint64("MinimumRelayerFees", true)),
+		paramtypes.NewParamSetPair(KeyCleanupInterval, &p.CleanupInterval, validateInt64("CleanupInterval", true)),
+		paramtypes.NewParamSetPair(KeyBlockedRetryInterval, &p.BlockedRetryInterval, validateInt64("BlockedRetryInterval", true)),
 	}
 }
 
@@ -59,6 +71,19 @@ func (p Params) Validate() error {
 func validateUint64(name string, positiveOnly bool) func(interface{}) error {
 	return func(i interface{}) error {
 		v, ok := i.(uint64)
+		if !ok {
+			return fmt.Errorf("invalid parameter type: %T", i)
+		}
+		if v <= 0 && positiveOnly {
+			return fmt.Errorf("%s must be positive: %d", name, v)
+		}
+		return nil
+	}
+}
+
+func validateInt64(name string, positiveOnly bool) func(interface{}) error {
+	return func(i interface{}) error {
+		v, ok := i.(int64)
 		if !ok {
 			return fmt.Errorf("invalid parameter type: %T", i)
 		}

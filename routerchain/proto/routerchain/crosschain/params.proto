@@ -10,4 +10,6 @@ message Params {
   option (gogoproto.goproto_stringer) = false;
   uint64 inboundGasPrice = 1;
   uint64 minimumRelayerFees = 2;
+  int64 cleanup_interval = 3;
+  int64 blocked_retry_interval = 4;
 }

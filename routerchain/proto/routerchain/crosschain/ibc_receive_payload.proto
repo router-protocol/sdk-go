@@ -1,0 +1,65 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+message ReceivePayload {
+  uint64 version = 1;
+  uint64 route_amount = 2;
+  uint64 request_identifier = 3;
+  string request_sender  = 4;
+  string src_chain_id = 5;
+  string dest_chain_id = 6;
+  string route_recipient = 7;
+  string gateway_contract_address = 8;
+  bytes request_metadata = 9;
+  bytes request_packet = 10;
+  uint64 block_height = 11;
+  uint64 src_timestamp = 12;
+}
+
+message ReceiveMetadata {
+  string fee_payer_address = 1;
+  string chain_id = 2;
+  string gateway_contract_address = 3;
+  string dapp_address = 4;
+  uint64 request_identifier = 5;
+  uint64 block_height = 6;
+}
+
+message AckReceivePayload {
+  uint64 request_identifier = 1;
+  uint64 ack_request_identifier = 2;
+  string src_chain_id = 3;
+  string dest_chain_id    = 4;
+  string request_sender  = 5;
+  bytes exec_data = 6;
+  bool exec_status = 7;
+  uint64 block_height = 8;
+}
+
+message AckReceiptPayload {
+  uint64 ack_receipt_identifier = 1;
+  uint64 ack_request_identifier = 2;
+  uint64 request_identifier = 3;
+  string ack_receipt_src_chain_id = 4;
+  string ack_src_chain_id = 5;
+  bytes ack_exec_data = 6;
+  bool ack_exec_status = 7;
+  uint64 block_height = 8;
+}
+  
+
+message IBCAckReceivePayload {
+  oneof receive {
+    AckReceivePayload ack_receive_payload = 1;
+    AckReceiptPayload ack_receipt_payload = 2;
+  }
+}
+
+message IBCReceivePayload {
+  oneof receive {
+    ReceivePayload receive_payload = 1;
+    ReceiveMetadata receive_metadata = 2;
+  }
+}

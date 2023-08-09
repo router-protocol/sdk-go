@@ -1,0 +1,17 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+
+enum VoyagerFundPaidStatus {
+  option (gogoproto.goproto_enum_prefix) = false;
+  
+  VOYAGER_FUND_PAID_REQUEST_CREATED = 0 [(gogoproto.enumvalue_customname) = "VOYAGER_FUND_PAID_REQUEST_CREATED"];
+  VOYAGER_FUND_PAID_REQUEST_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "VOYAGER_FUND_PAID_REQUEST_VALIDATED"];
+  VOYAGER_FUND_PAID_REQUEST_EXECUTED = 2 [(gogoproto.enumvalue_customname) = "VOYAGER_FUND_PAID_REQUEST_EXECUTED"];  
+}

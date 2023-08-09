@@ -1,0 +1,39 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+import "gogoproto/gogo.proto"; 
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+message AckRequestPayload {
+  uint64 request_identifier = 1;
+  uint64 ack_request_identifier = 2;
+  string src_chain_id = 3;
+  string dest_chain_id    = 4;
+  string request_sender  = 5;
+  bytes exec_data = 6;
+  bool exec_status = 7;
+  uint64 block_height = 8;
+}
+
+message RequestPayload {
+  string route_amount = 1 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string route_recipient =  2;
+  uint64 request_identifier = 3;
+  uint64 request_timestamp   =  4;
+  string asm_address = 5;
+  string src_chain_id     =  6;
+  string dest_chain_id    = 7;
+  string request_sender  = 8;
+  string handler_address = 9;
+  bytes request_packet   = 10;
+  bool is_read_call = 11;
+}
+
+message IBCRequestPayload {
+  oneof send {
+    RequestPayload request_payload = 1;
+    AckRequestPayload ack_request_payload = 2;
+  }
+}
+

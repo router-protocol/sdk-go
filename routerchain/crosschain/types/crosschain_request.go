@@ -1,6 +1,9 @@
 package types
 
 import (
+	"github.com/cosmos/cosmos-sdk/codec"
+	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	proto "github.com/gogo/protobuf/proto"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
@@ -122,4 +125,10 @@ func (msg *CrosschainRequest) AckValidationType() ValidationType {
 	default:
 		return ORCHESTRATOR_VALIDATION
 	}
+}
+
+// GetBytes is a helper for serialising
+func (msg *CrosschainRequest) GetBytes() []byte {
+	cdc := codec.NewProtoCodec(codectypes.NewInterfaceRegistry())
+	return sdk.MustSortJSON(cdc.MustMarshalJSON(msg))
 }

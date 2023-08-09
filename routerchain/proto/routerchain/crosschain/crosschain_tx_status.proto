@@ -18,4 +18,5 @@ enum CrosschainTxStatus {
   CROSSCHAIN_TX_EXECUTION_FAILED = 6 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_EXECUTION_FAILED"];
   CROSSCHAIN_TX_FEES_SETTLED = 7 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_FEES_SETTLED"];
   CROSSCHAIN_TX_COMPLETED = 8 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_COMPLETED"];
+  CROSSCHAIN_IBC_TRANSFERRED = 9 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_IBC_TRANSFERRED"];
 }

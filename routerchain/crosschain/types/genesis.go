@@ -1,5 +1,7 @@
 package types
 
+import fmt "fmt"
+
 // DefaultIndex is the default global index
 const DefaultIndex uint64 = 1
 
@@ -7,11 +9,13 @@ const DefaultIndex uint64 = 1
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		// CrosschainRequestList: []CrosschainRequest{},
+		PortId:                          PortID,
 		CrosschainRequestConfirmList:    []CrosschainRequestConfirm{},
 		CrosschainAckRequestList:        []CrosschainAckRequest{},
 		CrosschainAckRequestConfirmList: []CrosschainAckRequestConfirm{},
 		CrosschainAckReceiptList:        []CrosschainAckReceipt{},
 		// BlockedCrosschainAckRequestList: []BlockedCrosschainAckRequest{},
+		RelayerConfigList: []RelayerConfig{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -91,6 +95,16 @@ func (gs GenesisState) Validate() error {
 	// 	blockedCrosschainAckRequestIndexMap[index] = struct{}{}
 	// }
 	// this line is used by starport scaffolding # genesis/types/validate
+	// Check for duplicated index in relayerConfig
+	relayerConfigIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.RelayerConfigList {
+		index := string(RelayerConfigKey(elem.ChainId))
+		if _, ok := relayerConfigIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for relayerConfig")
+		}
+		relayerConfigIndexMap[index] = struct{}{}
+	}
 
 	return gs.Params.Validate()
 }
