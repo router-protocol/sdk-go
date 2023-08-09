@@ -35,7 +35,7 @@ func NewFundDepositRequest(
 		Recipient:    recipient,
 		Depositor:    depositor,
 		PartnerId:    partnerId,
-		Status:       "fund_deposit_request_created",
+		Status:       VOYAGER_FUND_DEPOSIT_REQUEST_CREATED,
 	}
 }
 
@@ -56,7 +56,7 @@ func NewFundsDepositedFromMsg(
 		Recipient:    msg.Recipient,
 		Depositor:    msg.Depositor,
 		PartnerId:    msg.PartnerId,
-		Status:       "fund_deposit_request_created",
+		Status:       VOYAGER_FUND_DEPOSIT_REQUEST_CREATED,
 	}
 }
 
@@ -115,7 +115,7 @@ func NewFundPaidRequest(
 		MessageHash:         messageHash,
 		Forwarder:           forwarder,
 		ForwarderRouterAddr: forwarderRouterAddr,
-		Status:              "fund_paid_request_created",
+		Status:              VOYAGER_FUND_PAID_REQUEST_CREATED,
 	}
 }
 
@@ -132,7 +132,7 @@ func NewFundsPaidFromMsg(
 		MessageHash:         msg.MessageHash,
 		Forwarder:           msg.Forwarder,
 		ForwarderRouterAddr: msg.ForwarderRouterAddr,
-		Status:              "fund_paid_request_created",
+		Status:              VOYAGER_FUND_PAID_REQUEST_CREATED,
 	}
 }
 

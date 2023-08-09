@@ -12,6 +12,17 @@ const (
 
 	// MemStoreKey defines the in-memory store key
 	MemStoreKey = "mem_crosschain"
+
+	// Version defines the current version the IBC module supports
+	Version = "ibc-reflect-v1"
+
+	// PortID is the default port id that module binds to
+	PortID = "crosschain"
+)
+
+var (
+	// PortKey defines the key to store the port ID in store
+	PortKey = KeyPrefix("crosschain-port-")
 )
 
 func KeyPrefix(p string) []byte {

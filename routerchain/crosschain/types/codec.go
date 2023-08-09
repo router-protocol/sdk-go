@@ -13,6 +13,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCrosschainAckRequest{}, "crosschain/CrosschainAckRequest", nil)
 	cdc.RegisterConcrete(&MsgConfirmCrosschainAckRequest{}, "crosschain/ConfirmCrosschainAckRequest", nil)
 	cdc.RegisterConcrete(&MsgCrosschainAckReceipt{}, "crosschain/CrosschainAckReceipt", nil)
+	cdc.RegisterConcrete(&MsgCreateRelayerConfig{}, "crosschain/CreateRelayerConfig", nil)
+	cdc.RegisterConcrete(&MsgUpdateRelayerConfig{}, "crosschain/UpdateRelayerConfig", nil)
+	cdc.RegisterConcrete(&MsgDeleteRelayerConfig{}, "crosschain/DeleteRelayerConfig", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -31,6 +34,11 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCrosschainAckReceipt{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateRelayerConfig{},
+		&MsgUpdateRelayerConfig{},
+		&MsgDeleteRelayerConfig{},
 	)
 	// this line is used by starport scaffolding # 3
 

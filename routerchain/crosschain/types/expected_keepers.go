@@ -7,6 +7,7 @@ import (
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	ibcfeetypes "github.com/cosmos/ibc-go/v6/modules/apps/29-fee/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
@@ -29,6 +30,8 @@ type AttestationKeeper interface {
 
 type MetastoreKeeper interface {
 	GetMetaInfo(ctx sdk.Context, chainId string, dappAddress string) (val metastoreTypes.MetaInfo, found bool)
+	GetMetadataRequest(ctx sdk.Context, chainId string, eventNonce uint64, claimHash []byte) (val metastoreTypes.MetadataRequest, found bool)
+	SetMetadataRequest(ctx sdk.Context, claimHash []byte, metadataRequest metastoreTypes.MetadataRequest)
 }
 
 type MultichainKeeper interface {
@@ -82,4 +85,11 @@ type EVMKeeper interface {
 	ApplyMessage(ctx sdk.Context, msg core.Message, tracer vm.EVMLogger, commit bool) (*evmtypes.MsgEthereumTxResponse, error)
 	ApplyTransaction(ctx sdk.Context, tx *ethtypes.Transaction) (*evmtypes.MsgEthereumTxResponse, error)
 	ApplyInternalMessage(ctx sdk.Context, msg core.Message, tracer vm.EVMLogger) (*evmtypes.MsgEthereumTxResponse, error)
+}
+
+// EVMKeeper defines the expected EVM keeper interface used on erc20
+type IBCFeeKeeper interface {
+	TotalRecvFees(goCtx context.Context, req *ibcfeetypes.QueryTotalRecvFeesRequest) (*ibcfeetypes.QueryTotalRecvFeesResponse, error)
+	TotalAckFees(goCtx context.Context, req *ibcfeetypes.QueryTotalAckFeesRequest) (*ibcfeetypes.QueryTotalAckFeesResponse, error)
+	TotalTimeoutFees(goCtx context.Context, req *ibcfeetypes.QueryTotalTimeoutFeesRequest) (*ibcfeetypes.QueryTotalTimeoutFeesResponse, error)
 }

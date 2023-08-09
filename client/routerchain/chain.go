@@ -272,6 +272,7 @@ func NewChainClient(
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 		crosschainQueryClient:  crosschainTypes.NewQueryClient(conn),
 		voyagerQueryClient:     voyagerTypes.NewQueryClient(conn),
+		wasmQueryClient:        wasmTypes.NewQueryClient(conn),
 	}
 
 	if cc.canSign {
