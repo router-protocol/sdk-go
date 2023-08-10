@@ -19,7 +19,9 @@ message FundsPaidRequest {
   bytes messageHash = 8; 
   string forwarder = 9; 
   string forwarderRouterAddr = 10; 
-  VoyagerFundPaidStatus status = 11; 
+  bytes  execData             = 11;
+  bool   execStatus           = 12;
+  VoyagerFundPaidStatus status = 13; 
   
 }
 
@@ -35,4 +37,6 @@ message FundsPaidRequestClaimHash {
   bytes messageHash = 8; 
   string forwarder = 9; 
   string forwarderRouterAddr = 10; 
+  bytes  execData             = 11;
+  bool   execStatus           = 12;
 }

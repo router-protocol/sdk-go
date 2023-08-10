@@ -60,6 +60,8 @@ message EventFundPaidRequestCreated {
   bytes messageHash         =  9;
   string forwarder           = 10;
   string forwarderRouterAddr = 11;
+  bytes  execData             = 12;
+  bool   execStatus           = 13;
 }
 
 

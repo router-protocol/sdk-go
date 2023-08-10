@@ -28,7 +28,9 @@ func (msg *FundsPaidRequest) ClaimHash() ([]byte, error) {
 		msg.BlockHeight,
 		msg.MessageHash,
 		msg.Forwarder,
-		msg.ForwarderRouterAddr)
+		msg.ForwarderRouterAddr,
+		msg.ExecData,
+		msg.ExecStatus)
 
 	out, err := proto.Marshal(fundDepositRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err

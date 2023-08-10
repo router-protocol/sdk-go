@@ -13,7 +13,7 @@ const TypeMsgFundsPaid = "funds_paid"
 
 var _ sdk.Msg = &MsgFundsPaid{}
 
-func NewMsgFundsPaid(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, eventNonce uint64, blockHeight uint64, messageHash []byte, forwarder string, forwarderRouterAddr string) *MsgFundsPaid {
+func NewMsgFundsPaid(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, eventNonce uint64, blockHeight uint64, messageHash []byte, forwarder string, forwarderRouterAddr string, execData []byte, execStatus bool) *MsgFundsPaid {
 	return &MsgFundsPaid{
 		Orchestrator:        orchestrator,
 		SrcChainId:          srcChainId,
@@ -26,6 +26,8 @@ func NewMsgFundsPaid(orchestrator string, srcChainId string, srcChainType multic
 		MessageHash:         messageHash,
 		Forwarder:           forwarder,
 		ForwarderRouterAddr: forwarderRouterAddr,
+		ExecData:            execData,
+		ExecStatus:          execStatus,
 	}
 }
 
@@ -88,6 +90,8 @@ func (msg *MsgFundsPaid) ClaimHash() ([]byte, error) {
 		msg.MessageHash,
 		msg.Forwarder,
 		msg.ForwarderRouterAddr,
+		msg.ExecData,
+		msg.ExecStatus,
 	)
 
 	out, err := proto.Marshal(fundPaidRequestClaimHash)
