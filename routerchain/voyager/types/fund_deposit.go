@@ -32,7 +32,8 @@ func (msg *FundDepositRequest) ClaimHash() ([]byte, error) {
 		msg.SrcToken,
 		msg.Recipient,
 		msg.Depositor,
-		msg.PartnerId)
+		msg.PartnerId,
+		msg.Message)
 
 	out, err := proto.Marshal(fundDepositRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err

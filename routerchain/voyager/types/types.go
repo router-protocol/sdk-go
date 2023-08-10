@@ -19,7 +19,8 @@ func NewFundDepositRequest(
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	partnerId sdk.Int) *FundDepositRequest {
+	partnerId sdk.Int,
+	message []byte) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -35,6 +36,7 @@ func NewFundDepositRequest(
 		Recipient:    recipient,
 		Depositor:    depositor,
 		PartnerId:    partnerId,
+		Message:      message,
 		Status:       VOYAGER_FUND_DEPOSIT_REQUEST_CREATED,
 	}
 }
@@ -56,6 +58,7 @@ func NewFundsDepositedFromMsg(
 		Recipient:    msg.Recipient,
 		Depositor:    msg.Depositor,
 		PartnerId:    msg.PartnerId,
+		Message:      msg.Message,
 		Status:       VOYAGER_FUND_DEPOSIT_REQUEST_CREATED,
 	}
 }
@@ -74,7 +77,8 @@ func NewFundDepositRequestClaimHash(
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	partnerID sdk.Int) *FundDepositRequestClaimHash {
+	partnerID sdk.Int,
+	message []byte) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:   srcChainId,
 		SrcChainType: srcChainType,
@@ -90,6 +94,7 @@ func NewFundDepositRequestClaimHash(
 		Recipient:    recipient,
 		Depositor:    depositor,
 		PartnerId:    partnerID,
+		Message:      message,
 	}
 }
 

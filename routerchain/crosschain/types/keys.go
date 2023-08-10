@@ -14,7 +14,7 @@ const (
 	MemStoreKey = "mem_crosschain"
 
 	// Version defines the current version the IBC module supports
-	Version = "ibc-reflect-v1"
+	Version = "router-ibc-v1"
 
 	// PortID is the default port id that module binds to
 	PortID = "crosschain"

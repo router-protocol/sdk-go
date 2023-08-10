@@ -198,3 +198,11 @@ message EventCrosschainReceiptCompleted {
   uint64 ack_receipt_identifier = 2;   
   bytes claim_hash = 3;   
 }
+
+message EventCreateIBCConfig {
+  string port_id = 1;
+}
+
+message EventUpdateIBCConfig {
+  string port_id = 1;
+}
