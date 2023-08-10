@@ -29,6 +29,7 @@ message MsgFundsDeposited {
   bytes                                          recipient    = 13;
   string                                          depositor    = 14;  
   string                                          partner_id  = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes                                          message    = 16;
 }
 
 message MsgFundsDepositedResponse {}

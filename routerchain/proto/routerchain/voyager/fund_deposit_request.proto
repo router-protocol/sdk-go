@@ -24,7 +24,8 @@ message FundDepositRequest {
   bytes recipient = 12; 
   string depositor = 13; 
   string                                          partner_id  = 14 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  VoyagerFundDepositStatus status = 15; 
+  bytes                                          message    = 15;
+  VoyagerFundDepositStatus status = 16; 
   
 }
 
@@ -42,5 +43,6 @@ message FundDepositRequestClaimHash {
   string srcToken = 11; 
   bytes recipient = 12; 
   string depositor = 13;
-  string                                          partner_id  = 14 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes                                          message    = 14;
+  string                                          partner_id  = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
 }

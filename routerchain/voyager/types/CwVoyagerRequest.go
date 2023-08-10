@@ -17,6 +17,7 @@ type HandleFundDeposit struct {
 	Amount                 sdk.Int `json:"amount"`
 	Recipient              string  `json:"recipient"`
 	PartnerId              sdk.Int `json:"partner_id"`
+	Message                string  `json:"message"`
 }
 
 type SudoFundsPaidMsg struct {

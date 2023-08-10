@@ -100,6 +100,7 @@ func (msg *MsgFundsDeposited) ClaimHash() ([]byte, error) {
 		msg.Recipient,
 		msg.Depositor,
 		msg.PartnerId,
+		msg.Message,
 	)
 
 	out, err := proto.Marshal(fundDepositRequestClaimHash)
