@@ -32,3 +32,17 @@ type HandleFundsPaid struct {
 	ForwarderAddress       string `json:"forwarder_address"`
 	ForwarderRouterAddress string `json:"forwarder_router_address"`
 }
+
+type SudoHandleDepositInfoUpdateMsg struct {
+	HandleDepositInfoUpdate HandleDepositInfoUpdate `json:"handle_deposit_info_update"`
+}
+
+type HandleDepositInfoUpdate struct {
+	SourceChainId          string  `json:"src_chain_id"`
+	VoyagerContractAddress string  `json:"voyager_contract_address"`
+	SrcToken               string  `json:"src_token"`
+	FeeAmount              sdk.Int `json:"fee_amount"`
+	DepositId              uint64  `json:"deposit_id"`
+	EventNonce             uint64  `json:"event_nonce"`
+	InitiateWithdrawal     bool    `json:"initiate_withdrawal"`
+}

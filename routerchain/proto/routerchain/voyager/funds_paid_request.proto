@@ -40,3 +40,5 @@ message FundsPaidRequestClaimHash {
   bytes  execData             = 11;
   bool   execStatus           = 12;
 }
+// this line is used by starport scaffolding # genesis/types/import
+

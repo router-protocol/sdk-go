@@ -8,6 +8,9 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "routerchain/voyager/params.proto";
 import "routerchain/voyager/fund_deposit_request.proto";
 import "routerchain/voyager/funds_paid_request.proto";
+import "routerchain/voyager/deposit_update_info_request.proto";
+
+// this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
 
@@ -37,6 +40,16 @@ service Query {
   }
   rpc FundsPaidRequestAll (QueryAllFundsPaidRequestRequest) returns (QueryAllFundsPaidRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/voyager/funds_paid_request";
+  
+  }
+  
+  // Queries a list of DepositUpdateInfoRequest items.
+  rpc DepositUpdateInfoRequest    (QueryGetDepositUpdateInfoRequestRequest) returns (QueryGetDepositUpdateInfoRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/voyager/deposit_update_info_request/{srcChainId}/{eventNonce}";
+  
+  }
+  rpc DepositUpdateInfoRequestAll (QueryAllDepositUpdateInfoRequestRequest) returns (QueryAllDepositUpdateInfoRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/voyager/deposit_update_info_request";
   
   }
 }
@@ -84,5 +97,24 @@ message QueryAllFundsPaidRequestRequest {
 message QueryAllFundsPaidRequestResponse {
   repeated FundsPaidRequest                       fundsPaidRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination       = 2;
+}
+
+message QueryGetDepositUpdateInfoRequestRequest {
+  string srcChainId = 1;
+  uint64 eventNonce = 2;
+}
+
+message QueryGetDepositUpdateInfoRequestResponse {  
+    repeated DepositUpdateInfoRequest               depositUpdateInfoRequest = 1 [(gogoproto.nullable) = false];
+    cosmos.base.query.v1beta1.PageResponse pagination               = 2;
+}
+
+message QueryAllDepositUpdateInfoRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllDepositUpdateInfoRequestResponse {
+  repeated DepositUpdateInfoRequest               depositUpdateInfoRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination               = 2;
 }
 

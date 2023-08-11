@@ -84,3 +84,41 @@ message EventFundPaidRequestExecutionFailed {
   uint64 eventNonce = 3;
   bytes exec_err_response = 4;
 }
+
+
+
+message EventDepositInfoUpdatedRequestCreated {
+  bytes attestation_id = 1;
+  string srcChainId         =  2;
+  routerprotocol.routerchain.multichain.ChainType srcChainType        =  3;
+  string srcTxHash          =  4;
+  uint64 srcTimestamp       =  5;
+  uint64 depositId          =  6;
+  string contract           =  7;
+  uint64 eventNonce         =  8;
+  uint64 blockHeight        =  9;  
+  string                                          feeAmount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bool   initiatewithdrawal = 11;
+  string srcToken = 12; 
+}
+
+message EventDepositInfoUpdatedRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 eventNonce = 3;  
+}
+
+message EventDepositInfoUpdatedRequestExecuted {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 eventNonce = 3;  
+  bytes exec_response = 4;
+}
+
+message EventDepositInfoUpdatedRequestExecutionFailed {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 eventNonce = 3;  
+  bytes exec_err_response = 4;
+}
+  

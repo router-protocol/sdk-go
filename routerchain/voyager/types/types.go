@@ -169,3 +169,77 @@ func NewFundPaidRequestClaimHash(
 		ForwarderRouterAddr: forwarderRouterAddr,
 	}
 }
+
+func NewDepositInfoUpdatedRequest(
+	srcChainId string,
+	srcChainType multichainTypes.ChainType,
+	srcTxHash string,
+	srcTimestamp uint64,
+	depositId uint64,
+	contract string,
+	eventNonce uint64,
+	blockHeight uint64,
+	feeAmount sdk.Int,
+	initiatewithdrawal bool,
+	srcToken string) *DepositUpdateInfoRequest {
+
+	return &DepositUpdateInfoRequest{
+		SrcChainId:         srcChainId,
+		SrcChainType:       srcChainType,
+		SrcTxHash:          srcTxHash,
+		SrcTimestamp:       srcTimestamp,
+		DepositId:          depositId,
+		Contract:           contract,
+		EventNonce:         eventNonce,
+		BlockHeight:        blockHeight,
+		FeeAmount:          feeAmount,
+		Initiatewithdrawal: initiatewithdrawal,
+		SrcToken:           srcToken,
+		Status:             "deposit_info_created",
+	}
+}
+
+func NewDepositInfoUpdatedRequestFromMsg(
+	msg *MsgDepositInfoUpdated) *DepositUpdateInfoRequest {
+	return &DepositUpdateInfoRequest{
+		SrcChainId:         msg.SrcChainId,
+		SrcChainType:       msg.SrcChainType,
+		SrcTxHash:          msg.SrcTxHash,
+		SrcTimestamp:       msg.SrcTimestamp,
+		DepositId:          msg.DepositId,
+		Contract:           msg.Contract,
+		EventNonce:         msg.EventNonce,
+		BlockHeight:        msg.BlockHeight,
+		FeeAmount:          msg.FeeAmount,
+		Initiatewithdrawal: msg.Initiatewithdrawal,
+		SrcToken:           msg.SrcToken,
+		Status:             "deposit_info_created",
+	}
+}
+
+func NewDepositInfoUpdatedRequestClaimHash(
+	srcChainId string,
+	srcChainType multichainTypes.ChainType,
+	srcTxHash string,
+	srcTimestamp uint64,
+	depositId uint64,
+	contract string,
+	eventNonce uint64,
+	blockHeight uint64,
+	feeAmount sdk.Int,
+	initiatewithdrawal bool,
+	srcToken string) *DepositUpdateInfoRequestClaimHash {
+	return &DepositUpdateInfoRequestClaimHash{
+		SrcChainId:         srcChainId,
+		SrcChainType:       srcChainType,
+		SrcTxHash:          srcTxHash,
+		SrcTimestamp:       srcTimestamp,
+		DepositId:          depositId,
+		Contract:           contract,
+		EventNonce:         eventNonce,
+		BlockHeight:        blockHeight,
+		FeeAmount:          feeAmount,
+		SrcToken:           srcToken,
+		Initiatewithdrawal: initiatewithdrawal,
+	}
+}

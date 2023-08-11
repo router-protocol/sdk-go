@@ -10,8 +10,9 @@ import "gogoproto/gogo.proto";
 
 // Msg defines the Msg service.
 service Msg {
-  rpc FundsDeposited (MsgFundsDeposited) returns (MsgFundsDepositedResponse);
-  rpc FundsPaid      (MsgFundsPaid     ) returns (MsgFundsPaidResponse     );
+  rpc FundsDeposited     (MsgFundsDeposited    ) returns (MsgFundsDepositedResponse    );
+  rpc FundsPaid          (MsgFundsPaid         ) returns (MsgFundsPaidResponse         );
+  rpc DepositInfoUpdated (MsgDepositInfoUpdated) returns (MsgDepositInfoUpdatedResponse);
 }
 message MsgFundsDeposited {
   string                                          orchestrator =  1;
@@ -24,31 +25,48 @@ message MsgFundsDeposited {
   uint64                                          blockHeight  =  8;
   bytes                                           destChainId  =  9;
   string                                          amount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  string                                          destAmount  = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          destAmount   = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string                                          srcToken     = 12;
-  bytes                                          recipient    = 13;
-  string                                          depositor    = 14;  
-  string                                          partner_id  = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
-  bytes                                          message    = 16;
+  bytes                                           recipient    = 13;
+  string                                          depositor    = 14;
+  string                                          partner_id   = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bytes                                           message      = 16;
 }
 
 message MsgFundsDepositedResponse {}
 
 message MsgFundsPaid {
-  string orchestrator        =  1;
-  string srcChainId          =  2;  
-  routerprotocol.routerchain.multichain.ChainType srcChainType =  3;
-  string srcTxHash           =  4;
-  uint64 srcTimestamp        =  5;
-  string contract            =  6;
-  uint64 eventNonce          =  7;
-  uint64 blockHeight         =  8;
-  bytes messageHash         =  9;
-  string forwarder           = 10;
-  string forwarderRouterAddr = 11;
-  bytes  execData             = 12;
-  bool   execStatus           = 13;
+  string                                          orchestrator        =  1;
+  string                                          srcChainId          =  2;
+  routerprotocol.routerchain.multichain.ChainType srcChainType        =  3;
+  string                                          srcTxHash           =  4;
+  uint64                                          srcTimestamp        =  5;
+  string                                          contract            =  6;
+  uint64                                          eventNonce          =  7;
+  uint64                                          blockHeight         =  8;
+  bytes                                           messageHash         =  9;
+  string                                          forwarder           = 10;
+  string                                          forwarderRouterAddr = 11;
+  bytes                                           execData            = 12;
+  bool                                            execStatus          = 13;
 }
 
 message MsgFundsPaidResponse {}
+
+message MsgDepositInfoUpdated {
+  string orchestrator       =  1;
+  string srcChainId         =  2;
+  routerprotocol.routerchain.multichain.ChainType srcChainType        =  3;
+  string srcTxHash          =  4;
+  uint64 srcTimestamp       =  5;
+  uint64 depositId          =  6;
+  string contract           =  7;
+  uint64 eventNonce         =  8;
+  uint64 blockHeight        =  9;  
+  string                                          feeAmount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bool   initiatewithdrawal = 11;
+  string srcToken = 12; 
+}
+
+message MsgDepositInfoUpdatedResponse {}
 

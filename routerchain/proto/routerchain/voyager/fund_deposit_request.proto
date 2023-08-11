@@ -46,3 +46,5 @@ message FundDepositRequestClaimHash {
   bytes                                          message    = 14;
   string                                          partner_id  = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
 }
+
+// this line is used by starport scaffolding # genesis/types/import
