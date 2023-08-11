@@ -15,3 +15,4 @@ enum VoyagerFundPaidStatus {
   VOYAGER_FUND_PAID_REQUEST_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "VOYAGER_FUND_PAID_REQUEST_VALIDATED"];
   VOYAGER_FUND_PAID_REQUEST_EXECUTED = 2 [(gogoproto.enumvalue_customname) = "VOYAGER_FUND_PAID_REQUEST_EXECUTED"];  
 }
+
