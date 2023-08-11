@@ -195,7 +195,7 @@ func NewDepositInfoUpdatedRequest(
 		FeeAmount:          feeAmount,
 		Initiatewithdrawal: initiatewithdrawal,
 		SrcToken:           srcToken,
-		Status:             "deposit_info_created",
+		Status:             VOYAGER_DEPOSIT_UPDATE_INFO_REQUEST_CREATED,
 	}
 }
 
@@ -213,7 +213,7 @@ func NewDepositInfoUpdatedRequestFromMsg(
 		FeeAmount:          msg.FeeAmount,
 		Initiatewithdrawal: msg.Initiatewithdrawal,
 		SrcToken:           msg.SrcToken,
-		Status:             "deposit_info_created",
+		Status:             VOYAGER_DEPOSIT_UPDATE_INFO_REQUEST_CREATED,
 	}
 }
 
