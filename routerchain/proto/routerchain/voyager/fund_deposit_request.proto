@@ -26,6 +26,7 @@ message FundDepositRequest {
   string                                          partner_id  = 14 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes                                          message    = 15;
   VoyagerFundDepositStatus status = 16; 
+  bool                                            deposit_with_message = 17;
   
 }
 
@@ -45,6 +46,7 @@ message FundDepositRequestClaimHash {
   string depositor = 13;
   bytes                                          message    = 14;
   string                                          partner_id  = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bool                                            deposit_with_message = 16;
 }
 
 // this line is used by starport scaffolding # genesis/types/import
