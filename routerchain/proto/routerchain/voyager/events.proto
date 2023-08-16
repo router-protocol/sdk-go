@@ -24,6 +24,7 @@ message EventFundDepositRequestCreated {
   string depositor = 14; 
   bytes                                          message    = 15;
   string                                          partner_id = 16 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];  
+  bool                                           deposit_with_message = 17;
 }
 
 message EventFundDepositRequestValidated {

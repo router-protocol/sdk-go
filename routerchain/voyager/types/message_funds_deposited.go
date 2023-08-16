@@ -13,24 +13,25 @@ const TypeMsgFundsDeposited = "funds_deposited"
 
 var _ sdk.Msg = &MsgFundsDeposited{}
 
-func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, amount sdk.Int, destAmount sdk.Int, srcToken string, recipient []byte, depositor string, partnerID sdk.Int, message []byte) *MsgFundsDeposited {
+func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, amount sdk.Int, destAmount sdk.Int, srcToken string, recipient []byte, depositor string, partnerID sdk.Int, message []byte, depositWithMessage bool) *MsgFundsDeposited {
 	return &MsgFundsDeposited{
-		Orchestrator: orchestrator,
-		SrcChainId:   srcChainId,
-		SrcChainType: srcChainType,
-		SrcTxHash:    srcTxHash,
-		SrcTimestamp: srcTimestamp,
-		Contract:     contract,
-		DepositId:    depositId,
-		BlockHeight:  blockHeight,
-		DestChainId:  destChainId,
-		Amount:       amount,
-		DestAmount:   destAmount,
-		SrcToken:     srcToken,
-		Recipient:    recipient,
-		Depositor:    depositor,
-		PartnerId:    partnerID,
-		Message:      message,
+		Orchestrator:       orchestrator,
+		SrcChainId:         srcChainId,
+		SrcChainType:       srcChainType,
+		SrcTxHash:          srcTxHash,
+		SrcTimestamp:       srcTimestamp,
+		Contract:           contract,
+		DepositId:          depositId,
+		BlockHeight:        blockHeight,
+		DestChainId:        destChainId,
+		Amount:             amount,
+		DestAmount:         destAmount,
+		SrcToken:           srcToken,
+		Recipient:          recipient,
+		Depositor:          depositor,
+		PartnerId:          partnerID,
+		Message:            message,
+		DepositWithMessage: depositWithMessage,
 	}
 }
 
@@ -102,6 +103,7 @@ func (msg *MsgFundsDeposited) ClaimHash() ([]byte, error) {
 		msg.Depositor,
 		msg.PartnerId,
 		msg.Message,
+		msg.DepositWithMessage,
 	)
 
 	out, err := proto.Marshal(fundDepositRequestClaimHash)
