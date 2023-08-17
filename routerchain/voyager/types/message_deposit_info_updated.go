@@ -13,7 +13,7 @@ const TypeMsgDepositInfoUpdated = "deposit_info_updated"
 
 var _ sdk.Msg = &MsgDepositInfoUpdated{}
 
-func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, depositId uint64, contract string, eventNonce uint64, blockHeight uint64, feeAmount sdk.Int, initiatewithdrawal bool) *MsgDepositInfoUpdated {
+func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, depositId uint64, contract string, eventNonce uint64, blockHeight uint64, feeAmount sdk.Int, initiatewithdrawal bool, srcToken string) *MsgDepositInfoUpdated {
 	return &MsgDepositInfoUpdated{
 		Orchestrator:       orchestrator,
 		SrcChainId:         srcChainId,
@@ -26,6 +26,7 @@ func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainTy
 		BlockHeight:        blockHeight,
 		FeeAmount:          feeAmount,
 		Initiatewithdrawal: initiatewithdrawal,
+		SrcToken:           srcToken,
 	}
 }
 
