@@ -113,7 +113,9 @@ func NewFundPaidRequest(
 	blockHeight uint64,
 	messageHash []byte,
 	forwarder string,
-	forwarderRouterAddr string) *FundsPaidRequest {
+	forwarderRouterAddr string,
+	execData []byte,
+	execStatus bool) *FundsPaidRequest {
 	return &FundsPaidRequest{
 		SrcChainId:          srcChainId,
 		SrcChainType:        srcChainType,
@@ -125,6 +127,8 @@ func NewFundPaidRequest(
 		MessageHash:         messageHash,
 		Forwarder:           forwarder,
 		ForwarderRouterAddr: forwarderRouterAddr,
+		ExecData:            execData,
+		ExecStatus:          execStatus,
 		Status:              VOYAGER_FUND_PAID_REQUEST_CREATED,
 	}
 }
@@ -186,20 +190,22 @@ func NewDepositInfoUpdatedRequest(
 	blockHeight uint64,
 	feeAmount sdk.Int,
 	initiatewithdrawal bool,
-	srcToken string) *DepositUpdateInfoRequest {
+	srcToken string,
+	depositor string) *DepositUpdateInfoRequest {
 
 	return &DepositUpdateInfoRequest{
+		DepositId:          depositId,
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
 		SrcTxHash:          srcTxHash,
 		SrcTimestamp:       srcTimestamp,
-		DepositId:          depositId,
 		Contract:           contract,
 		EventNonce:         eventNonce,
 		BlockHeight:        blockHeight,
 		FeeAmount:          feeAmount,
 		Initiatewithdrawal: initiatewithdrawal,
 		SrcToken:           srcToken,
+		Depositor:          depositor,
 		Status:             VOYAGER_DEPOSIT_UPDATE_INFO_REQUEST_CREATED,
 	}
 }
@@ -218,6 +224,7 @@ func NewDepositInfoUpdatedRequestFromMsg(
 		FeeAmount:          msg.FeeAmount,
 		Initiatewithdrawal: msg.Initiatewithdrawal,
 		SrcToken:           msg.SrcToken,
+		Depositor:          msg.Depositor,
 		Status:             VOYAGER_DEPOSIT_UPDATE_INFO_REQUEST_CREATED,
 	}
 }
@@ -233,7 +240,8 @@ func NewDepositInfoUpdatedRequestClaimHash(
 	blockHeight uint64,
 	feeAmount sdk.Int,
 	initiatewithdrawal bool,
-	srcToken string) *DepositUpdateInfoRequestClaimHash {
+	srcToken string,
+	depositor string) *DepositUpdateInfoRequestClaimHash {
 	return &DepositUpdateInfoRequestClaimHash{
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
@@ -245,6 +253,7 @@ func NewDepositInfoUpdatedRequestClaimHash(
 		BlockHeight:        blockHeight,
 		FeeAmount:          feeAmount,
 		SrcToken:           srcToken,
+		Depositor:          depositor,
 		Initiatewithdrawal: initiatewithdrawal,
 	}
 }

@@ -13,7 +13,7 @@ const TypeMsgDepositInfoUpdated = "deposit_info_updated"
 
 var _ sdk.Msg = &MsgDepositInfoUpdated{}
 
-func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, depositId uint64, contract string, eventNonce uint64, blockHeight uint64, feeAmount sdk.Int, initiatewithdrawal bool, srcToken string) *MsgDepositInfoUpdated {
+func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, depositId uint64, contract string, eventNonce uint64, blockHeight uint64, feeAmount sdk.Int, initiatewithdrawal bool, srcToken string, depositor string) *MsgDepositInfoUpdated {
 	return &MsgDepositInfoUpdated{
 		Orchestrator:       orchestrator,
 		SrcChainId:         srcChainId,
@@ -27,6 +27,7 @@ func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainTy
 		FeeAmount:          feeAmount,
 		Initiatewithdrawal: initiatewithdrawal,
 		SrcToken:           srcToken,
+		Depositor:          depositor,
 	}
 }
 
@@ -78,7 +79,7 @@ func (msg *MsgDepositInfoUpdated) GetChainId() string {
 // note that the Orchestrator is the only field excluded from this hash, this is because that value is used higher up in the store
 // structure for who has made what claim and is verified by the msg ante-handler for signatures
 func (msg *MsgDepositInfoUpdated) ClaimHash() ([]byte, error) {
-	fundDepositRequestClaimHash := NewDepositInfoUpdatedRequest(
+	fundDepositRequestClaimHash := NewDepositInfoUpdatedRequestClaimHash(
 		msg.SrcChainId,
 		msg.SrcChainType,
 		msg.SrcTxHash,
@@ -90,6 +91,7 @@ func (msg *MsgDepositInfoUpdated) ClaimHash() ([]byte, error) {
 		msg.FeeAmount,
 		msg.Initiatewithdrawal,
 		msg.SrcToken,
+		msg.Depositor,
 	)
 
 	out, err := proto.Marshal(fundDepositRequestClaimHash)

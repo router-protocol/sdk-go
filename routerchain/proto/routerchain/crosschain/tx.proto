@@ -43,6 +43,7 @@ message MsgCrosschainRequest {
 
 message MsgCrosschainRequestResponse {
   uint64 request_identifier = 1;
+  cosmos.base.v1beta1.Coin fee_deducted = 2 [(gogoproto.nullable) = false];
 }
 
 message MsgConfirmCrosschainRequest {
