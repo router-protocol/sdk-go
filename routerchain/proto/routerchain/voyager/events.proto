@@ -101,6 +101,7 @@ message EventDepositInfoUpdatedRequestCreated {
   string                                          feeAmount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bool   initiatewithdrawal = 11;
   string srcToken = 12; 
+  string depositor = 13;
 }
 
 message EventDepositInfoUpdatedRequestValidated {

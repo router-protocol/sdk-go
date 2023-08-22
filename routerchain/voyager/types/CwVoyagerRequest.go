@@ -46,4 +46,5 @@ type HandleDepositInfoUpdate struct {
 	DepositId              uint64  `json:"deposit_id"`
 	EventNonce             uint64  `json:"event_nonce"`
 	InitiateWithdrawal     bool    `json:"initiate_withdrawal"`
+	Depositor              string  `json:"depositor"`
 }

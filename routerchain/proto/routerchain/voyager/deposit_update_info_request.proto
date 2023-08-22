@@ -21,7 +21,8 @@ message DepositUpdateInfoRequest {
   string                                          feeAmount  = 9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bool initiatewithdrawal = 10; 
   string srcToken = 11; 
-  VoyagerDepositUpdateInfoStatus status = 12; 
+  string depositor = 12;
+  VoyagerDepositUpdateInfoStatus status = 13; 
   
 }
 
@@ -37,7 +38,8 @@ message DepositUpdateInfoRequestClaimHash {
   uint64 blockHeight = 8; 
   string                                          feeAmount  = 9 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   string srcToken = 10; 
-  bool initiatewithdrawal = 11;   
+  string depositor = 11;
+  bool initiatewithdrawal = 12;   
 }
 
 

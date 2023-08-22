@@ -29,7 +29,8 @@ func (msg *DepositUpdateInfoRequest) ClaimHash() ([]byte, error) {
 		msg.BlockHeight,
 		msg.FeeAmount,
 		msg.Initiatewithdrawal,
-		msg.SrcToken)
+		msg.SrcToken,
+		msg.Depositor)
 
 	out, err := proto.Marshal(depositInfoUpdatedRequestClaimHash)
 	return tmhash.Sum([]byte(out)), err
