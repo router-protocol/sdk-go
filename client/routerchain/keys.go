@@ -178,7 +178,7 @@ func InitCosmosKeyring(
 
 var emptyEthAddress = ethcmn.Address{}
 
-func initEthereumAccountsManager(
+func InitEthereumAccountsManager(
 	ethChainID uint64,
 	ethKeystoreDir *string,
 	ethKeyFrom *string,
@@ -354,6 +354,142 @@ func initEthereumAccountsManager(
 	default:
 		err := errors.New("insufficient ethereum key details provided")
 		return emptyEthAddress, nil, nil, err
+	}
+}
+
+func InitEthereumSginerAccountManager(
+	ethKeystoreDir *string,
+	ethKeyFrom *string,
+	ethPassphrase *string,
+	ethPrivKey *string,
+	ethUseLedger *bool,
+) (
+	ethKeyFromAddress ethcmn.Address,
+	personalSignFn keystore.PersonalSignFn,
+	err error,
+) {
+	switch {
+	case *ethUseLedger:
+		if ethKeyFrom == nil {
+			err := errors.New("cannot use Ledger without from address specified")
+			return emptyEthAddress, nil, err
+		}
+
+		ethKeyFromAddress = ethcmn.HexToAddress(*ethKeyFrom)
+		if ethKeyFromAddress == (ethcmn.Address{}) {
+			err = errors.Wrap(err, "failed to parse Ethereum from address")
+			return emptyEthAddress, nil, err
+		}
+
+		ledgerBackend, err := usbwallet.NewLedgerHub()
+		if err != nil {
+			err = errors.Wrap(err, "failed to connect with Ethereum app on Ledger device")
+			return emptyEthAddress, nil, err
+		}
+
+		personalSignFn = func(from ethcmn.Address, data []byte) (sig []byte, err error) {
+			acc := accounts.Account{
+				Address: from,
+			}
+
+			wallets := ledgerBackend.Wallets()
+			for _, w := range wallets {
+				if err := w.Open(""); err != nil {
+					err = errors.Wrap(err, "failed to connect to wallet on Ledger device")
+					return nil, err
+				}
+
+				if !w.Contains(acc) {
+					if err := w.Close(); err != nil {
+						err = errors.Wrap(err, "failed to disconnect the wallet on Ledger device")
+						return nil, err
+					}
+
+					continue
+				}
+
+				sig, err = w.SignText(acc, data)
+				_ = w.Close()
+				return sig, err
+			}
+
+			return nil, errors.Errorf("account %s not found on Ledger", from.String())
+		}
+
+		return ethKeyFromAddress, personalSignFn, nil
+
+	case len(*ethPrivKey) > 0:
+		ethPk, err := crypto.HexToECDSA(*ethPrivKey)
+		if err != nil {
+			err = errors.Wrap(err, "failed to hex-decode Ethereum ECDSA Private Key")
+			return emptyEthAddress, nil, err
+		}
+
+		ethAddressFromPk := ethcrypto.PubkeyToAddress(ethPk.PublicKey)
+
+		if len(*ethKeyFrom) > 0 {
+			addr := ethcmn.HexToAddress(*ethKeyFrom)
+			if addr == (ethcmn.Address{}) {
+				err = errors.Wrap(err, "failed to parse Ethereum from address")
+				return emptyEthAddress, nil, err
+			} else if addr != ethAddressFromPk {
+				err = errors.Wrap(err, "Ethereum from address does not match address from ECDSA Private Key")
+				return emptyEthAddress, nil, err
+			}
+		}
+
+		personalSignFn, err := keystore.PrivateKeyPersonalSignFn(ethPk)
+		if err != nil {
+			err = errors.New("failed to init PrivateKeyPersonalSignFn")
+			return emptyEthAddress, nil, err
+		}
+
+		return ethAddressFromPk, personalSignFn, nil
+
+	case len(*ethKeystoreDir) > 0:
+		if ethKeyFrom == nil {
+			err := errors.New("cannot use Ethereum keystore without from address specified")
+			return emptyEthAddress, nil, err
+		}
+
+		ethKeyFromAddress = ethcmn.HexToAddress(*ethKeyFrom)
+		if ethKeyFromAddress == (ethcmn.Address{}) {
+			err = errors.Wrap(err, "failed to parse Ethereum from address")
+			return emptyEthAddress, nil, err
+		}
+
+		if info, err := os.Stat(*ethKeystoreDir); err != nil || !info.IsDir() {
+			err = errors.New("failed to locate keystore dir")
+			return emptyEthAddress, nil, err
+		}
+
+		ks, err := keystore.New(*ethKeystoreDir)
+		if err != nil {
+			err = errors.Wrap(err, "failed to load keystore")
+			return emptyEthAddress, nil, err
+		}
+
+		var pass string
+		if len(*ethPassphrase) > 0 {
+			pass = *ethPassphrase
+		} else {
+			pass, err = ethPassFromStdin()
+			if err != nil {
+				return emptyEthAddress, nil, err
+			}
+		}
+
+		personalSignFn, err := ks.PersonalSignFn(ethKeyFromAddress, pass)
+		if err != nil {
+			err = errors.Wrapf(err, "failed to load key for %s", ethKeyFromAddress)
+			return emptyEthAddress, nil, err
+		}
+
+		return ethKeyFromAddress, personalSignFn, nil
+
+	default:
+		err := errors.New("insufficient ethereum key details provided")
+		return emptyEthAddress, nil, err
 	}
 }
 
