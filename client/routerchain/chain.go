@@ -157,7 +157,7 @@ type chainClient struct {
 	canSign bool
 }
 
-func InitialiseChainClient(networkName string, keyringFrom string, passphrase string, privateKey string) ChainClient {
+func InitialiseChainClient(networkName string, keyringFrom string, passphrase string, privateKey string, keyringDir string) ChainClient {
 	network := common.LoadNetwork(networkName, "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
@@ -165,9 +165,12 @@ func InitialiseChainClient(networkName string, keyringFrom string, passphrase st
 		fmt.Println(err)
 	}
 
-	fmt.Println("Network", network)
+	fmt.Println("InitialiseChainClient|Network: ", network)
+	if keyringDir == "" {
+		keyringDir = os.Getenv("HOME") + "/.routerd"
+	}
 	senderAddress, cosmosKeyring, err := InitCosmosKeyring(
-		os.Getenv("HOME")+"/.routerd",
+		keyringDir,
 		"routerd",
 		"file",
 		keyringFrom,
