@@ -15,13 +15,17 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 
 // GenesisState defines the crosschain module's genesis state.
 message GenesisState {
-           Params                      params                          = 1 [(gogoproto.nullable) = false];
-           string                      port_id                         = 2;
-  repeated CrosschainRequest           crosschainRequestList           = 3 [(gogoproto.nullable) = false];
-  repeated CrosschainRequestConfirm    crosschainRequestConfirmList    = 4 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest        crosschainAckRequestList        = 5 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequestConfirm crosschainAckRequestConfirmList = 6 [(gogoproto.nullable) = false];
-  repeated CrosschainAckReceipt        crosschainAckReceiptList        = 7 [(gogoproto.nullable) = false];
-  repeated RelayerConfig               relayerConfigList               = 8 [(gogoproto.nullable) = false];
+           Params                      params                          =  1 [(gogoproto.nullable) = false];
+           string                      port_id                         =  2;
+  repeated CrosschainRequest           crosschainRequestList           =  3 [(gogoproto.nullable) = false];
+  repeated CrosschainRequestConfirm    crosschainRequestConfirmList    =  4 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest        crosschainAckRequestList        =  5 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequestConfirm crosschainAckRequestConfirmList =  6 [(gogoproto.nullable) = false];
+  repeated CrosschainAckReceipt        crosschainAckReceiptList        =  7 [(gogoproto.nullable) = false];
+  repeated RelayerConfig               relayerConfigList               =  8 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest           blockedCrosschainRequestList    =  9 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest        blockedCrosschainAckRequestList = 10 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest           expiredCrosschainRequestList    = 11 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest expiredCrosschainAckRequestList = 12 [(gogoproto.nullable) = false];
 }
 

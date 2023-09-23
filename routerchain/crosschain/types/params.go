@@ -8,17 +8,19 @@ import (
 )
 
 const (
-	DefaultInboundGasPrice      = uint64(50000000)
-	DefaultMinimumRelayerFees   = uint64(25000000000000000)
-	DefaultCleanupInterval      = int64(100)
-	DefaultBlockedRetryInterval = int64(355)
+	DefaultInboundGasPrice       = uint64(50000000)
+	DefaultMinimumRelayerFees    = uint64(25000000000000000)
+	DefaultCleanupInterval       = int64(100)
+	DefaultBlockedRetryInterval  = int64(355)
+	DefaultBlockedExpiryInterval = int64(710)
 )
 
 var (
-	KeyInboundGasPrice      = []byte("InboundGasPrice")
-	KeyMinimumRelayerFees   = []byte("MinimumRelayerFees")
-	KeyCleanupInterval      = []byte("CleanupInterval")
-	KeyBlockedRetryInterval = []byte("BlockedRetryInterval")
+	KeyInboundGasPrice       = []byte("InboundGasPrice")
+	KeyMinimumRelayerFees    = []byte("MinimumRelayerFees")
+	KeyCleanupInterval       = []byte("CleanupInterval")
+	KeyBlockedRetryInterval  = []byte("BlockedRetryInterval")
+	KeyBlockedExpiryInterval = []byte("BlockedExpiryInterval")
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)
@@ -34,12 +36,14 @@ func NewParams(
 	minimumRelayerFees uint64,
 	cleanupInterval int64,
 	blockedRetryInterval int64,
+	blockedExpiryInterval int64,
 ) Params {
 	return Params{
-		InboundGasPrice:      inboundGasPrice,
-		MinimumRelayerFees:   minimumRelayerFees,
-		CleanupInterval:      cleanupInterval,
-		BlockedRetryInterval: blockedRetryInterval,
+		InboundGasPrice:       inboundGasPrice,
+		MinimumRelayerFees:    minimumRelayerFees,
+		CleanupInterval:       cleanupInterval,
+		BlockedRetryInterval:  blockedRetryInterval,
+		BlockedExpiryInterval: blockedExpiryInterval,
 	}
 }
 
@@ -50,6 +54,7 @@ func DefaultParams() Params {
 		DefaultMinimumRelayerFees,
 		DefaultCleanupInterval,
 		DefaultBlockedRetryInterval,
+		DefaultBlockedExpiryInterval,
 	)
 }
 
@@ -60,6 +65,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyMinimumRelayerFees, &p.MinimumRelayerFees, validateUint64("MinimumRelayerFees", true)),
 		paramtypes.NewParamSetPair(KeyCleanupInterval, &p.CleanupInterval, validateInt64("CleanupInterval", true)),
 		paramtypes.NewParamSetPair(KeyBlockedRetryInterval, &p.BlockedRetryInterval, validateInt64("BlockedRetryInterval", true)),
+		paramtypes.NewParamSetPair(KeyBlockedExpiryInterval, &p.BlockedExpiryInterval, validateInt64("BlockedExpiryInterval", true)),
 	}
 }
 

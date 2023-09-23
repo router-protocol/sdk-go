@@ -12,4 +12,5 @@ message Params {
   uint64 minimumRelayerFees = 2;
   int64 cleanup_interval = 3;
   int64 blocked_retry_interval = 4;
+  int64 blocked_expiry_interval = 5;
 }
