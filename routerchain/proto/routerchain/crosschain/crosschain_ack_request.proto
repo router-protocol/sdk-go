@@ -30,6 +30,7 @@ message CrosschainAckRequest {
   cosmos.base.v1beta1.Coin ack_fee_deducted = 19 [(gogoproto.nullable) = false];
   cosmos.base.v1beta1.Coin ack_relayer_incentive = 20 [(gogoproto.nullable) = false];  
   CrosschainAckTxStatus status = 21; 
+  uint64 blocked_expiry_height = 22;
 }
 
 message CrosschainAckRequestClaimHash {

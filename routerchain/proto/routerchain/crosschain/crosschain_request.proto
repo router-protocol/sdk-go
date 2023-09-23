@@ -29,6 +29,7 @@ message CrosschainRequest {
   routerprotocol.routerchain.multichain.ChainType dest_chain_type = 18; 
   cosmos.base.v1beta1.Coin dest_tx_fee_deducted = 19 [(gogoproto.nullable) = false];
   CrosschainTxStatus status = 20; 
+  uint64 blocked_expiry_height = 21;
 }
 
 message CrosschainRequestClaimHash {  
