@@ -12,23 +12,24 @@ func CalculateGas(base, each, n uint64) uint64 {
 }
 
 func ComputeOracleTasks(symbols []SymbolRequest, blockHeight int64) []OracleTask {
-	symbolsOsMap := make(map[uint64][]string)
+	symbolMap := make(map[uint64][]string)
+	// stays the same
 	for _, symbol := range symbols {
 		if symbol.BlockInterval != 0 && blockHeight%int64(symbol.BlockInterval) == 0 {
-			symbolsOsMap[symbol.OracleScriptID] = append(symbolsOsMap[symbol.OracleScriptID], symbol.Symbol)
+			symbolMap[symbol.OracleScriptID] = append(symbolMap[symbol.OracleScriptID], symbol.Symbol)
 		}
 	}
-
-	ids := make([]uint64, 0, len(symbolsOsMap))
-	for id := range symbolsOsMap {
-		ids = append(ids, id)
+	tasks := make([]OracleTask, 0, len(symbolMap))
+	// directly create tasks
+	for oracleScriptID, symbols := range symbolMap {
+		tasks = append(tasks, OracleTask{
+			OracleScriptID: oracleScriptID,
+			Symbols:        symbols,
+		})
 	}
-	sort.Slice(ids, func(i, j int) bool { return ids[i] < ids[j] })
-
-	tasks := make([]OracleTask, len(symbolsOsMap))
-	for i, id := range ids {
-		tasks[i] = OracleTask{OracleScriptID: id, Symbols: symbolsOsMap[id]}
-	}
-
+	// sort them
+	sort.Slice(tasks, func(i, j int) bool {
+		return tasks[i].OracleScriptID < tasks[j].OracleScriptID
+	})
 	return tasks
 }

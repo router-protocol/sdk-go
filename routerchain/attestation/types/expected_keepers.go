@@ -35,6 +35,7 @@ type AccountKeeper interface {
 // StakingKeeper defines the expected staking keeper methods
 type StakingKeeper interface {
 	GetBondedValidatorsByPower(ctx sdk.Context) []stakingtypes.Validator
+	GetAllValidators(ctx sdk.Context) (validators []stakingtypes.Validator)
 	GetLastValidatorPower(ctx sdk.Context, operator sdk.ValAddress) int64
 	GetLastTotalPower(ctx sdk.Context) (power sdk.Int)
 	ValidatorQueueIterator(ctx sdk.Context, endTime time.Time, endHeight int64) sdk.Iterator

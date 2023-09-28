@@ -4,7 +4,6 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	proto "github.com/gogo/protobuf/proto"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
@@ -12,7 +11,7 @@ const TypeMsgValsetUpdatedClaim = "valset_updated_claim"
 
 var _ sdk.Msg = &MsgValsetUpdatedClaim{}
 
-func NewMsgValsetUpdatedClaim(orchestrator string, chainType multichainTypes.ChainType, chainId string, contract string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, srcTxHash string, members []BridgeValidator) *MsgValsetUpdatedClaim {
+func NewMsgValsetUpdatedClaim(orchestrator string, chainId string, contract string, eventNonce uint64, valsetNonce uint64, blockHeight uint64, srcTxHash string, members []BridgeValidator) *MsgValsetUpdatedClaim {
 	return &MsgValsetUpdatedClaim{
 		Orchestrator: orchestrator,
 		ChainId:      chainId,
