@@ -27,14 +27,15 @@ type IContractMetadata interface {
 }
 
 func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
-	metadata := EvmContractMetadata{}
+	metadata := &EvmContractMetadata{
+		RelayerFees: big.NewInt(0),
+	}
 	requestMetadataStr := hex.EncodeToString(msg.GetRequestMetadata())
 
 	if len(requestMetadataStr) < 100 {
-		return &metadata
+		return metadata
 	}
 
-	// Slice the string into required chunks and store them in separate variables
 	var (
 		chunk1 = requestMetadataStr[:16]
 		chunk2 = requestMetadataStr[16:32]
@@ -46,43 +47,50 @@ func DecodeEvmContractMetadata(msg IContractMetadata) *EvmContractMetadata {
 		chunk8 = requestMetadataStr[100:]
 	)
 
-	// Convert hexadecimal string to uint64
-	destGasLimit, _ := hex.DecodeString(chunk1)
-	destGasPrice, _ := hex.DecodeString(chunk2)
-	ackGasLimit, _ := hex.DecodeString(chunk3)
-	ackGasPrice, _ := hex.DecodeString(chunk4)
+	destGasLimit, err := hex.DecodeString(chunk1)
+	if err != nil {
+		destGasLimit = make([]byte, 8)
+	}
+	destGasPrice, err := hex.DecodeString(chunk2)
+	if err != nil {
+		destGasPrice = make([]byte, 8)
+	}
+	ackGasLimit, err := hex.DecodeString(chunk3)
+	if err != nil {
+		ackGasLimit = make([]byte, 8)
+	}
+	ackGasPrice, err := hex.DecodeString(chunk4)
+	if err != nil {
+		ackGasPrice = make([]byte, 8)
+	}
 
-	// Convert hexadecimal string to *big.Int for 128-bit integer
-	relayerFees := new(big.Int)
-	relayerFees.SetString(chunk5, 16)
+	if _, ok := metadata.RelayerFees.SetString(chunk5, 16); !ok {
+		metadata.RelayerFees.SetInt64(0) // Set to zero if there's an issue
+	}
 
-	// Convert hexadecimal string to uint8
 	var ackType uint8
-	fmt.Sscanf(chunk6, "%x", &ackType)
+	if _, err := fmt.Sscanf(chunk6, "%x", &ackType); err != nil {
+		ackType = 0
+	}
 
-	// Convert hexadecimal string to bool
 	var isReadCall bool
 	if chunk7 == "01" {
 		isReadCall = true
 	}
 
-	// Convert hexadecimal string to bytes
 	asmAddressByte, err := hex.DecodeString(chunk8)
 	if err != nil {
-		return &metadata
+		asmAddressByte = make([]byte, 0)
 	}
 	asmAddress := string(asmAddressByte)
 
-	metadata = EvmContractMetadata{
-		DestGasLimit: binary.BigEndian.Uint64(destGasLimit),
-		DestGasPrice: binary.BigEndian.Uint64(destGasPrice),
-		AckGasLimit:  binary.BigEndian.Uint64(ackGasLimit),
-		AckGasPrice:  binary.BigEndian.Uint64(ackGasPrice),
-		RelayerFees:  relayerFees,
-		AckType:      ackType,
-		IsReadCall:   isReadCall,
-		AsmAddress:   asmAddress,
-	}
+	metadata.DestGasLimit = binary.BigEndian.Uint64(destGasLimit)
+	metadata.DestGasPrice = binary.BigEndian.Uint64(destGasPrice)
+	metadata.AckGasLimit = binary.BigEndian.Uint64(ackGasLimit)
+	metadata.AckGasPrice = binary.BigEndian.Uint64(ackGasPrice)
+	metadata.AckType = ackType
+	metadata.IsReadCall = isReadCall
+	metadata.AsmAddress = asmAddress
 
-	return &metadata
+	return metadata
 }

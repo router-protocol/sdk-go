@@ -12,7 +12,7 @@ const (
 	DefaultMinimumRelayerFees    = uint64(25000000000000000)
 	DefaultCleanupInterval       = int64(100)
 	DefaultBlockedRetryInterval  = int64(355)
-	DefaultBlockedExpiryInterval = int64(710)
+	DefaultBlockedExpiryInterval = int64(3550)
 )
 
 var (
