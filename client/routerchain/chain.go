@@ -157,9 +157,15 @@ type chainClient struct {
 	canSign bool
 }
 
-func InitialiseChainClient(networkName string, keyringFrom string, passphrase string, privateKey string, keyringDir string) ChainClient {
+func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyringFrom string, passphrase string, privateKey string, keyringDir string) ChainClient {
 	network := common.LoadNetwork(networkName, "k8s")
-	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
+
+	tmEndpoint := network.TmEndpoint
+	if networkTmRpc != "" {
+		tmEndpoint = networkTmRpc
+	}
+
+	tmRPC, err := rpchttp.New(tmEndpoint, "/websocket")
 
 	if err != nil {
 		fmt.Println(err)
@@ -194,11 +200,16 @@ func InitialiseChainClient(networkName string, keyringFrom string, passphrase st
 		fmt.Println(err)
 	}
 
-	clientCtx = clientCtx.WithNodeURI(network.TmEndpoint).WithClient(tmRPC)
+	clientCtx = clientCtx.WithNodeURI(tmEndpoint).WithClient(tmRPC)
+
+	chainGrpcEndpoint := network.ChainGrpcEndpoint
+	if networkGRpc != "" {
+		chainGrpcEndpoint = networkGRpc
+	}
 
 	routerchainClient, err := NewChainClient(
 		clientCtx,
-		network.ChainGrpcEndpoint,
+		chainGrpcEndpoint,
 		// common.OptionTLSCert(network.ChainTlsCert),
 		common.OptionGasPrices("500000000route"),
 	)
