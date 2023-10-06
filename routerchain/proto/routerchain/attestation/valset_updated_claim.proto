@@ -1,0 +1,29 @@
+syntax = "proto3";
+package routerprotocol.routerchain.attestation;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
+
+import "routerchain/multichain/chain_type.proto"; 
+import "routerchain/attestation/bridge_validator.proto";
+import "routerchain/attestation/valset_updated_claim_status.proto"; 
+import "gogoproto/gogo.proto";
+
+message ValsetUpdatedClaim {
+  string chainId = 1; 
+  string contract = 2; 
+  uint64 eventNonce = 3; 
+  uint64 valsetNonce = 4; 
+  uint64 blockHeight = 5; 
+  string sourceTxHash = 6;
+  ValsetUpdatedClaimStatus status = 7;   
+}
+
+message ValsetUpdatedClaimHash {  
+  string chainId = 1; 
+  string contract = 2; 
+  uint64 eventNonce = 3; 
+  uint64 valsetNonce = 4; 
+  uint64 blockHeight = 5; 
+  repeated BridgeValidator members = 6 [(gogoproto.nullable) = false];
+  string sourceTxHash = 7;  
+}

@@ -3,7 +3,7 @@ package routerprotocol.routerchain.crosschain;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
-import "multichain/chain_type.proto";
+import "routerchain/multichain/chain_type.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
 
@@ -23,6 +23,12 @@ message EventCrosschainRequestCreated {
   bytes                                           request_packet   = 14;
   routerprotocol.routerchain.multichain.ChainType src_chain_type   = 15;
   routerprotocol.routerchain.multichain.ChainType dest_chain_type  = 16;
+}
+
+message EventCrosschainRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  uint64 request_identifier = 3;   
 }
 
 message EventCrosschainRequestConfirm {  
@@ -80,6 +86,11 @@ message EventCrosschainExecutionFailed {
   string src_chain_id = 2; 
   uint64 request_identifier = 3;
   bytes exec_err_response = 4;
+}
+
+message EventCrosschainIBCTransferred {
+  string src_chain_id = 2; 
+  uint64 request_identifier = 3;
 }
   
 message EventCrosschainFeePayerUpdated {    
@@ -176,6 +187,11 @@ message EventCrosschainAckExecutionFailed {
   bytes ack_exec_err_response = 4;  
 }
 
+
+message EventCrosschainAckIBCTransferred {
+  string ack_src_chain_id = 1; 
+  uint64 ack_request_identifier = 2;  
+}
 
 message EventCrosschainAckFeeSettlement {  
   string ack_src_chain_id = 1; 

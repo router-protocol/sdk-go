@@ -1,0 +1,35 @@
+syntax = "proto3";
+package routerprotocol.routerchain.metastore;
+
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
+
+import "routerchain/metastore/meta_tx_status.proto"; 
+import "routerchain/multichain/chain_type.proto"; 
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto"; 
+
+message EventMetadataRequestCreated {  
+  bytes attestation_id = 1;
+  routerprotocol.routerchain.multichain.ChainType chainType = 2;
+  string chainId = 3;    
+  uint64 eventNonce = 4; 
+  uint64 blockHeight = 5;
+  string daapAddress  = 6;
+  string feePayer     = 7;  
+}
+
+
+message EventMetaInfoCreated {    
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;
+  string chainId = 2; 
+  string daapAddress  = 3;
+  string feePayer = 4; 
+}
+
+message EventFeePayerApproved {    
+  routerprotocol.routerchain.multichain.ChainType chainType = 1;
+  string chainId = 2; 
+  string daapAddress  = 3;
+  string feePayer = 4; 
+}

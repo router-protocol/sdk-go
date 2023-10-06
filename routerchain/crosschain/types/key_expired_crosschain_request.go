@@ -17,9 +17,8 @@ const (
 func ExpiredCrosschainRequestKey(
 	srcChainId string,
 	requestIdentifier uint64,
-	claimHash []byte,
 ) []byte {
-	crosschainRequestKey := util.AppendBytes([]byte(srcChainId), util.UInt64Bytes(requestIdentifier), claimHash)
+	crosschainRequestKey := util.AppendBytes([]byte(srcChainId), util.UInt64Bytes(requestIdentifier))
 
 	return crosschainRequestKey
 }

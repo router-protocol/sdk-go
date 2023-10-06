@@ -3,6 +3,7 @@ package types
 import (
 	fmt "fmt"
 
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
 )
@@ -13,6 +14,7 @@ const (
 	DefaultCleanupInterval       = int64(100)
 	DefaultBlockedRetryInterval  = int64(355)
 	DefaultBlockedExpiryInterval = int64(3550)
+	DefaultRouterAdmin           = "router1xw62qplveq9un9tccxx6qld8qnz5qv3kj8cnja"
 )
 
 var (
@@ -21,6 +23,7 @@ var (
 	KeyCleanupInterval       = []byte("CleanupInterval")
 	KeyBlockedRetryInterval  = []byte("BlockedRetryInterval")
 	KeyBlockedExpiryInterval = []byte("BlockedExpiryInterval")
+	KeyRouterAdmin           = []byte("RouterAdmin")
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)
@@ -37,6 +40,7 @@ func NewParams(
 	cleanupInterval int64,
 	blockedRetryInterval int64,
 	blockedExpiryInterval int64,
+	routerAdmin string,
 ) Params {
 	return Params{
 		InboundGasPrice:       inboundGasPrice,
@@ -44,6 +48,7 @@ func NewParams(
 		CleanupInterval:       cleanupInterval,
 		BlockedRetryInterval:  blockedRetryInterval,
 		BlockedExpiryInterval: blockedExpiryInterval,
+		RouterAdmin:           routerAdmin,
 	}
 }
 
@@ -55,6 +60,7 @@ func DefaultParams() Params {
 		DefaultCleanupInterval,
 		DefaultBlockedRetryInterval,
 		DefaultBlockedExpiryInterval,
+		DefaultRouterAdmin,
 	)
 }
 
@@ -66,6 +72,7 @@ func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 		paramtypes.NewParamSetPair(KeyCleanupInterval, &p.CleanupInterval, validateInt64("CleanupInterval", true)),
 		paramtypes.NewParamSetPair(KeyBlockedRetryInterval, &p.BlockedRetryInterval, validateInt64("BlockedRetryInterval", true)),
 		paramtypes.NewParamSetPair(KeyBlockedExpiryInterval, &p.BlockedExpiryInterval, validateInt64("BlockedExpiryInterval", true)),
+		paramtypes.NewParamSetPair(KeyRouterAdmin, &p.RouterAdmin, validateAddress("RouterAdmin")),
 	}
 }
 
@@ -96,6 +103,21 @@ func validateInt64(name string, positiveOnly bool) func(interface{}) error {
 		if v <= 0 && positiveOnly {
 			return fmt.Errorf("%s must be positive: %d", name, v)
 		}
+		return nil
+	}
+}
+
+func validateAddress(name string) func(interface{}) error {
+	return func(i interface{}) error {
+		v, ok := i.(string)
+		if !ok {
+			return fmt.Errorf("invalid parameter type: %T", i)
+		}
+		_, err := sdk.AccAddressFromBech32(v)
+		if err != nil {
+			return fmt.Errorf("%s is not a valid address: %s", name, v)
+		}
+
 		return nil
 	}
 }

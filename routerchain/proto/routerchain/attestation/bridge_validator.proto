@@ -1,0 +1,10 @@
+syntax = "proto3";
+package routerprotocol.routerchain.attestation;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
+
+message BridgeValidator {
+  
+  uint64 power = 1; 
+  string ethereumAddress = 2; 
+}

@@ -14,10 +14,10 @@ enum CrosschainTxStatus {
   NATIVE_TOKEN_TRANFERRED = 2 [(gogoproto.enumvalue_customname) = "NATIVE_TOKEN_TRANFERRED"];
   CROSSCHAIN_TX_BLOCKED = 3 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_BLOCKED"];
   CROSSCHAIN_TX_READY_TO_EXECUTE = 4 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_READY_TO_EXECUTE"];
-  CROSSCHAIN_TX_EXECUTED = 5 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_EXECUTED"];
+  CROSSCHAIN_TX_EXECUTION_SUCCESS = 5 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_EXECUTION_SUCCESS"];
   CROSSCHAIN_TX_EXECUTION_FAILED = 6 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_EXECUTION_FAILED"];
   CROSSCHAIN_TX_FEES_SETTLED = 7 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_FEES_SETTLED"];
   CROSSCHAIN_TX_COMPLETED = 8 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_COMPLETED"];
-  CROSSCHAIN_IBC_TRANSFERRED = 9 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_IBC_TRANSFERRED"];
+  CROSSCHAIN_TX_IBC_TRANSFERRED = 9 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_IBC_TRANSFERRED"];
   CROSSCHAIN_TX_EXPIRED = 10 [(gogoproto.enumvalue_customname) = "CROSSCHAIN_TX_EXPIRED"];
 }

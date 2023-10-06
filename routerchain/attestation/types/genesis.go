@@ -17,10 +17,11 @@ var (
 // DefaultGenesis returns the default Capability genesis state
 func DefaultGenesis() *GenesisState {
 	return &GenesisState{
-		ValsetList:             []Valset{},
-		AttestationList:        []Attestation{},
-		ValsetConfirmationList: []ValsetConfirmation{},
-		ValsetUpdatedClaimList: []ValsetUpdatedClaim{},
+		ValsetList:              []Valset{},
+		AttestationList:         []Attestation{},
+		ValsetConfirmationList:  []ValsetConfirmation{},
+		ValsetUpdatedClaimList:  []ValsetUpdatedClaim{},
+		ObservedAttestationList: []Attestation{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -72,6 +73,16 @@ func (gs GenesisState) Validate() error {
 	// 		return fmt.Errorf("duplicated index for valsetUpdatedClaim")
 	// 	}
 	// 	valsetUpdatedClaimIndexMap[index] = struct{}{}
+	// }
+	// Check for duplicated index in observedAttestation
+	// observedAttestationIndexMap := make(map[string]struct{})
+
+	// for _, elem := range gs.ObservedAttestationList {
+	// 	index := string(ObservedAttestationKey(elem.Index))
+	// 	if _, ok := observedAttestationIndexMap[index]; ok {
+	// 		return fmt.Errorf("duplicated index for observedAttestation")
+	// 	}
+	// 	observedAttestationIndexMap[index] = struct{}{}
 	// }
 	// this line is used by starport scaffolding # genesis/types/validate
 

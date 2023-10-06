@@ -525,7 +525,6 @@ func (*IBCAckReceivePayload) XXX_OneofWrappers() []interface{} {
 
 type IBCReceivePayload struct {
 	// Types that are valid to be assigned to Receive:
-	//
 	//	*IBCReceivePayload_ReceivePayload
 	//	*IBCReceivePayload_ReceiveMetadata
 	Receive isIBCReceivePayload_Receive `protobuf_oneof:"receive"`
