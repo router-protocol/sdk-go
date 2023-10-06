@@ -1,0 +1,13 @@
+syntax = "proto3";
+package routerprotocol.routerchain.metastore;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
+
+message MetaInfo {    
+  string chainId = 1; 
+  string dappAddress = 2; 
+  string feePayer = 3; 
+  bool feePayerApproved = 4; 
+  
+}
+

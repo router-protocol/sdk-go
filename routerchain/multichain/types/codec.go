@@ -7,7 +7,6 @@ import (
 	//sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
-	grpc "google.golang.org/grpc"
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
@@ -32,15 +31,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	)
 
 	// this line is used by starport scaffolding # 3
-	msgservice.RegisterMsgServiceDesc(registry, &serviceDesc)
-}
-
-var serviceDesc = grpc.ServiceDesc{
-	ServiceName: "routerprotocol.routerchain.multichain.Msg",
-	HandlerType: (*MsgServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "multichain/tx.proto",
+	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)
 }
 
 var (

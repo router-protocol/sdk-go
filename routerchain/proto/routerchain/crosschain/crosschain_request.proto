@@ -1,7 +1,7 @@
 syntax = "proto3";
 package routerprotocol.routerchain.crosschain;
 
-import "multichain/chain_type.proto"; 
+import "routerchain/multichain/chain_type.proto"; 
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto"; 
 import "routerchain/crosschain/crosschain_tx_status.proto"; 

@@ -12,6 +12,9 @@ service Msg {
   rpc InstantiateCwContract (MsgInstantiateCwContract) returns (MsgInstantiateCwContractResponse);
   rpc CwStoreCode           (MsgCwStoreCode          ) returns (MsgCwStoreCodeResponse          );
   rpc MigrateCwContract     (MsgMigrateCwContract    ) returns (MsgMigrateCwContractResponse    );
+  rpc InstantiateCwContract2  (MsgInstantiateCwContract2) returns (MsgInstantiateCwContract2Response);
+  rpc UpdateAdmin (MsgUpdateAdmin) returns (MsgUpdateAdminResponse);
+  rpc ClearAdmin (MsgClearAdmin) returns (MsgClearAdminResponse);
 }
 message MsgExecuteCwContract {
   
@@ -50,6 +53,25 @@ message MsgInstantiateCwContractResponse {
   bytes data = 2;
 }
 
+message MsgInstantiateCwContract2 {
+  string sender  = 1;
+  string admin   = 2;
+  uint64 code_id = 3;
+  string label   = 4;
+  string msg     = 5;
+  string funds   = 6;
+  string salt    = 7;
+  bool fix_msg = 8;
+}
+
+// MsgInstantiateContract2Response return instantiation result data
+message MsgInstantiateCwContract2Response {
+  // Address is the bech32 address of the new contract instance.
+  string address = 1;
+  // Data contains bytes to returned from the contract
+  bytes data = 2;
+}
+
 message MsgCwStoreCode {
   string sender         = 1;
   string wasm_byte_code = 2;
@@ -74,4 +96,28 @@ message MsgMigrateCwContract {
 message MsgMigrateCwContractResponse {
   bytes data = 1;
 }
+
+// MsgUpdateAdmin sets a new admin for a smart contract
+message MsgUpdateAdmin {
+  // Sender is the that actor that signed the messages
+  string sender = 1;
+  // NewAdmin address to be set
+  string new_admin = 2;
+  // Contract is the address of the smart contract
+  string contract = 3;
+}
+
+// MsgUpdateAdminResponse returns empty data
+message MsgUpdateAdminResponse {}
+
+// MsgClearAdmin removes any admin stored for a smart contract
+message MsgClearAdmin {
+  // Sender is the that actor that signed the messages
+  string sender = 1;
+  // Contract is the address of the smart contract
+  string contract = 3;
+}
+
+// MsgClearAdminResponse returns empty data
+message MsgClearAdminResponse {}
 

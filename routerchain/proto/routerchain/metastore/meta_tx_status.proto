@@ -1,0 +1,15 @@
+syntax = "proto3";
+package routerprotocol.routerchain.metastore;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
+
+import "gogoproto/gogo.proto";
+import "google/protobuf/any.proto";
+
+enum MetaTxStatus {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  META_TX_CREATED = 0 [(gogoproto.enumvalue_customname) = "META_TX_CREATED"];
+  META_TX_VALIDATED = 1 [(gogoproto.enumvalue_customname) = "META_TX_VALIDATED"];
+  META_TX_COMPLETED = 2 [(gogoproto.enumvalue_customname) = "META_TX_COMPLETED"];
+}
