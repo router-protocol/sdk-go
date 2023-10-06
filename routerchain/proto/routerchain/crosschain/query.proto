@@ -168,7 +168,6 @@ service Query {
   
   }
   
-  
   // Queries a list of FeesSettledCrosschainRequest items.
   rpc FeesSettledCrosschainRequest    (QueryGetFeesSettledCrosschainRequestRequest) returns (QueryGetFeesSettledCrosschainRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/fees_settled_crosschain_request/{sourceChainId}/{requestIdentifier}";
@@ -189,6 +188,55 @@ service Query {
   
   }
   
+  // Queries a list of ValidCrosschainAckRequest items.
+  rpc ValidCrosschainAckRequest    (QueryGetValidCrosschainAckRequestRequest) returns (QueryGetValidCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/valid_crosschain_ack_request/{ackSrcChainId}/{ackRequestIdentifier}";
+  
+  }
+  rpc ValidCrosschainAckRequestAll (QueryAllValidCrosschainAckRequestRequest) returns (QueryAllValidCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/valid_crosschain_ack_request";
+  
+  }
+  
+  // Queries a list of ReadyToExecuteCrosschainAckRequest items.
+  rpc ReadyToExecuteCrosschainAckRequest    (QueryGetReadyToExecuteCrosschainAckRequestRequest) returns (QueryGetReadyToExecuteCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/ready_to_execute_crosschain_ack_request/{ackSrcChainId}/{ackRequestIdentifier}";
+  
+  }
+  rpc ReadyToExecuteCrosschainAckRequestAll (QueryAllReadyToExecuteCrosschainAckRequestRequest) returns (QueryAllReadyToExecuteCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/ready_to_execute_crosschain_ack_request";
+  
+  }
+  
+  // Queries a list of ExecutedCrosschainAckRequest items.
+  rpc ExecutedCrosschainAckRequest    (QueryGetExecutedCrosschainAckRequestRequest) returns (QueryGetExecutedCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/executed_crosschain_ack_request/{ackSrcChainId}/{ackRequestIdentifier}";
+  
+  }
+  rpc ExecutedCrosschainAckRequestAll (QueryAllExecutedCrosschainAckRequestRequest) returns (QueryAllExecutedCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/executed_crosschain_ack_request";
+  
+  }
+  
+  // Queries a list of FeesSettledCrosschainAckRequest items.
+  rpc FeesSettledCrosschainAckRequest    (QueryGetFeesSettledCrosschainAckRequestRequest) returns (QueryGetFeesSettledCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/fees_settled_crosschain_ack_request/{ackSrcChainId}/{ackRequestIdentifier}";
+  
+  }
+  rpc FeesSettledCrosschainAckRequestAll (QueryAllFeesSettledCrosschainAckRequestRequest) returns (QueryAllFeesSettledCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/fees_settled_crosschain_ack_request";
+  
+  }
+  
+  // Queries a list of CompletedCrosschainAckRequest items.
+  rpc CompletedCrosschainAckRequest    (QueryGetCompletedCrosschainAckRequestRequest) returns (QueryGetCompletedCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/completed_crosschain_ack_request/{ackSrcChainId}/{ackRequestIdentifier}";
+  
+  }
+  rpc CompletedCrosschainAckRequestAll (QueryAllCompletedCrosschainAckRequestRequest) returns (QueryAllCompletedCrosschainAckRequestResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/completed_crosschain_ack_request";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -326,7 +374,7 @@ message QueryGetBlockedCrosschainRequestRequest {
 }
 
 message QueryGetBlockedCrosschainRequestResponse {
-           CrosschainRequest blockedCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  CrosschainRequest blockedCrosschainRequest = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllBlockedCrosschainRequestRequest {
@@ -344,8 +392,8 @@ message QueryGetBlockedCrosschainAckRequestRequest {
 }
 
 message QueryGetBlockedCrosschainAckRequestResponse {
-  repeated CrosschainAckRequest                   blockedCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination                   = 2;
+  CrosschainAckRequest                   blockedCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+           
 }
 
 message QueryAllBlockedCrosschainAckRequestRequest {
@@ -370,7 +418,6 @@ message QueryGetExpiredCrosschainRequestRequest {
 
 message QueryGetExpiredCrosschainRequestResponse {
   CrosschainRequest expiredCrosschainRequest = 1 [(gogoproto.nullable) = false];
-  
 }
 
 message QueryAllExpiredCrosschainRequestRequest {
@@ -388,8 +435,8 @@ message QueryGetExpiredCrosschainAckRequestRequest {
 }
 
 message QueryGetExpiredCrosschainAckRequestResponse {
-  repeated CrosschainAckRequest                   expiredCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination                   = 2;
+  CrosschainAckRequest                   expiredCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+  
 }
 
 message QueryAllExpiredCrosschainAckRequestRequest {
@@ -415,7 +462,7 @@ message QueryAllValidCrosschainRequestRequest {
 }
 
 message QueryAllValidCrosschainRequestResponse {
-  repeated CrosschainRequest                 validCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                      validCrosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination             = 2;
 }
 
@@ -433,7 +480,7 @@ message QueryAllNativeTransferedCrosschainRequestRequest {
 }
 
 message QueryAllNativeTransferedCrosschainRequestResponse {
-  repeated CrosschainRequest      nativeTransferedCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                      nativeTransferedCrosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination                        = 2;
 }
 
@@ -451,7 +498,7 @@ message QueryAllReadyToExecuteCrosschainRequestRequest {
 }
 
 message QueryAllReadyToExecuteCrosschainRequestResponse {
-  repeated CrosschainRequest        readyToExecuteCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                      readyToExecuteCrosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination                      = 2;
 }
 
@@ -469,10 +516,9 @@ message QueryAllExecutedCrosschainRequestRequest {
 }
 
 message QueryAllExecutedCrosschainRequestResponse {
-  repeated CrosschainRequest              executedCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                      executedCrosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination                = 2;
 }
-
 
 message QueryGetFeesSettledCrosschainRequestRequest {
   string sourceChainId     = 1;
@@ -488,7 +534,7 @@ message QueryAllFeesSettledCrosschainRequestRequest {
 }
 
 message QueryAllFeesSettledCrosschainRequestResponse {
-  repeated CrosschainRequest           feesSettledCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                      feesSettledCrosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination                   = 2;
 }
 
@@ -506,8 +552,97 @@ message QueryAllCompletedCrosschainRequestRequest {
 }
 
 message QueryAllCompletedCrosschainRequestResponse {
-  repeated CrosschainRequest             completedCrosschainRequest = 1 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                      completedCrosschainRequest = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination                 = 2;
 }
 
+message QueryGetValidCrosschainAckRequestRequest {
+    string ackSrcChainId        = 1;
+  uint64 ackRequestIdentifier = 2;
+}
+
+message QueryGetValidCrosschainAckRequestResponse {
+  CrosschainAckRequest validCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllValidCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllValidCrosschainAckRequestResponse {
+  repeated CrosschainAckRequest              validCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                = 2;
+}
+
+message QueryGetReadyToExecuteCrosschainAckRequestRequest {
+    string ackSrcChainId        = 1;
+  uint64 ackRequestIdentifier = 2;
+}
+
+message QueryGetReadyToExecuteCrosschainAckRequestResponse {
+  CrosschainAckRequest readyToExecuteCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllReadyToExecuteCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllReadyToExecuteCrosschainAckRequestResponse {
+  repeated CrosschainAckRequest     readyToExecuteCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                         = 2;
+}
+
+message QueryGetExecutedCrosschainAckRequestRequest {
+    string ackSrcChainId        = 1;
+  uint64 ackRequestIdentifier = 2;
+}
+
+message QueryGetExecutedCrosschainAckRequestResponse {
+  CrosschainAckRequest executedCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllExecutedCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllExecutedCrosschainAckRequestResponse {
+  repeated CrosschainAckRequest           executedCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                   = 2;
+}
+
+message QueryGetFeesSettledCrosschainAckRequestRequest {
+    string ackSrcChainId        = 1;
+  uint64 ackRequestIdentifier = 2;
+}
+
+message QueryGetFeesSettledCrosschainAckRequestResponse {
+  CrosschainAckRequest feesSettledCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllFeesSettledCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllFeesSettledCrosschainAckRequestResponse {
+  repeated CrosschainAckRequest        feesSettledCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                      = 2;
+}
+
+message QueryGetCompletedCrosschainAckRequestRequest {
+    string ackSrcChainId        = 1;
+  uint64 ackRequestIdentifier = 2;
+}
+
+message QueryGetCompletedCrosschainAckRequestResponse {
+  CrosschainAckRequest completedCrosschainAckRequest = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCompletedCrosschainAckRequestRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCompletedCrosschainAckRequestResponse {
+  repeated CrosschainAckRequest          completedCrosschainAckRequests = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                    = 2;
+}
 

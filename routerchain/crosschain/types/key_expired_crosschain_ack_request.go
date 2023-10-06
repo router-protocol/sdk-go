@@ -17,9 +17,8 @@ const (
 func ExpiredCrosschainAckRequestKey(
 	ackSrcChainId string,
 	ackRequestIdentifier uint64,
-	ackClaimHash []byte,
 ) []byte {
-	crosschainAckRequestKey := util.AppendBytes([]byte(ackSrcChainId), util.UInt64Bytes(ackRequestIdentifier), ackClaimHash)
+	crosschainAckRequestKey := util.AppendBytes([]byte(ackSrcChainId), util.UInt64Bytes(ackRequestIdentifier))
 
 	return crosschainAckRequestKey
 }
