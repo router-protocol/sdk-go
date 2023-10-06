@@ -9,12 +9,12 @@ import (
 var _ binary.ByteOrder
 
 const (
-	// BlockedCrosschainAckRequestKeyPrefix is the prefix to retrieve all BlockedCrosschainAckRequest
-	BlockedCrosschainAckRequestKeyPrefix = "BlockedCrosschainAckRequest/value/"
+	// ExecutedCrosschainAckRequestKeyPrefix is the prefix to retrieve all ExecutedCrosschainAckRequest
+	ExecutedCrosschainAckRequestKeyPrefix = "ExecutedCrosschainAckRequest/value/"
 )
 
-// BlockedCrosschainAckRequestKey returns the store key to retrieve a BlockedCrosschainAckRequest from the index fields
-func BlockedCrosschainAckRequestKey(
+// ExecutedCrosschainAckRequestKey returns the store key to retrieve a ExecutedCrosschainAckRequest from the index fields
+func ExecutedCrosschainAckRequestKey(
 	ackSrcChainId string,
 	ackRequestIdentifier uint64,
 ) []byte {

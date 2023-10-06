@@ -22,7 +22,7 @@ func DefaultGenesis() *GenesisState {
 		// BlockedCrosschainAckRequestList: []BlockedCrosschainAckRequest{},
 		RelayerConfigList:            []RelayerConfig{},
 		ExpiredCrosschainRequestList: []CrosschainRequest{},
-		// ExpiredCrosschainAckRequestList: []ExpiredCrosschainAckRequest{},
+
 		ValidCrosschainRequestList:            []CrosschainRequest{},
 		NativeTransferedCrosschainRequestList: []CrosschainRequest{},
 		BlockedCrosschainRequestList:          []CrosschainRequest{},
@@ -31,6 +31,12 @@ func DefaultGenesis() *GenesisState {
 		FeesSettledCrosschainRequestList:      []CrosschainRequest{},
 		CompletedCrosschainRequestList:        []CrosschainRequest{},
 
+		ValidCrosschainAckRequestList:          []CrosschainAckRequest{},
+		ReadyToExecuteCrosschainAckRequestList: []CrosschainAckRequest{},
+		ExecutedCrosschainAckRequestList:       []CrosschainAckRequest{},
+		FeesSettledCrosschainAckRequestList:    []CrosschainAckRequest{},
+		CompletedCrosschainAckRequestList:      []CrosschainAckRequest{},
+		ExpiredCrosschainAckRequestList:        []CrosschainAckRequest{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -105,45 +111,45 @@ func (gs GenesisState) Validate() error {
 		crosschainAckReceiptIndexMap[index] = struct{}{}
 	}
 	// // Check for duplicated index in blockedCrosschainRequest
-	// blockedCrosschainRequestIndexMap := make(map[string]struct{})
+	blockedCrosschainRequestIndexMap := make(map[string]struct{})
 
-	// for _, elem := range gs.BlockedCrosschainRequestList {
-	// 	index := string(BlockedCrosschainRequestKey(elem.SrcChainId, elem.RequestIdentifier, ))
-	// 	if _, ok := blockedCrosschainRequestIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for blockedCrosschainRequest")
-	// 	}
-	// 	blockedCrosschainRequestIndexMap[index] = struct{}{}
-	// }
-	// // Check for duplicated index in blockedCrosschainAckRequest
-	// blockedCrosschainAckRequestIndexMap := make(map[string]struct{})
+	for _, elem := range gs.BlockedCrosschainRequestList {
+		index := string(BlockedCrosschainRequestKey(elem.SrcChainId, elem.RequestIdentifier))
+		if _, ok := blockedCrosschainRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for blockedCrosschainRequest")
+		}
+		blockedCrosschainRequestIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in blockedCrosschainAckRequest
+	blockedCrosschainAckRequestIndexMap := make(map[string]struct{})
 
-	// for _, elem := range gs.BlockedCrosschainAckRequestList {
-	// 	index := string(BlockedCrosschainAckRequestKey(elem.Index))
-	// 	if _, ok := blockedCrosschainAckRequestIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for blockedCrosschainAckRequest")
-	// 	}
-	// 	blockedCrosschainAckRequestIndexMap[index] = struct{}{}
-	// }
+	for _, elem := range gs.BlockedCrosschainAckRequestList {
+		index := string(BlockedCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := blockedCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for blockedCrosschainAckRequest")
+		}
+		blockedCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
 	// Check for duplicated index in expiredCrosschainRequest
-	// expiredCrosschainRequestIndexMap := make(map[string]struct{})
+	expiredCrosschainRequestIndexMap := make(map[string]struct{})
 
-	// for _, elem := range gs.ExpiredCrosschainRequestList {
-	// 	index := string(ExpiredCrosschainRequestKey(elem.Index))
-	// 	if _, ok := expiredCrosschainRequestIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for expiredCrosschainRequest")
-	// 	}
-	// 	expiredCrosschainRequestIndexMap[index] = struct{}{}
-	// }
+	for _, elem := range gs.ExpiredCrosschainRequestList {
+		index := string(ExpiredCrosschainRequestKey(elem.SrcChainId, elem.RequestIdentifier))
+		if _, ok := expiredCrosschainRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for expiredCrosschainRequest")
+		}
+		expiredCrosschainRequestIndexMap[index] = struct{}{}
+	}
 	// Check for duplicated index in expiredCrosschainAckRequest
-	// expiredCrosschainAckRequestIndexMap := make(map[string]struct{})
+	expiredCrosschainAckRequestIndexMap := make(map[string]struct{})
 
-	// for _, elem := range gs.ExpiredCrosschainAckRequestList {
-	// 	index := string(ExpiredCrosschainAckRequestKey(elem.Index))
-	// 	if _, ok := expiredCrosschainAckRequestIndexMap[index]; ok {
-	// 		return fmt.Errorf("duplicated index for expiredCrosschainAckRequest")
-	// 	}
-	// 	expiredCrosschainAckRequestIndexMap[index] = struct{}{}
-	// }
+	for _, elem := range gs.ExpiredCrosschainAckRequestList {
+		index := string(ExpiredCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := expiredCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for expiredCrosschainAckRequest")
+		}
+		expiredCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
 	// Check for duplicated index in validCrosschainRequest
 	validCrosschainRequestIndexMap := make(map[string]struct{})
 
@@ -206,6 +212,56 @@ func (gs GenesisState) Validate() error {
 		completedCrosschainRequestIndexMap[index] = struct{}{}
 	}
 
+	// Check for duplicated index in validCrosschainAckRequest
+	validCrosschainAckRequestIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.ValidCrosschainAckRequestList {
+		index := string(ValidCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := validCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for validCrosschainAckRequest")
+		}
+		validCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in readyToExecuteCrosschainAckRequest
+	readyToExecuteCrosschainAckRequestIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.ReadyToExecuteCrosschainAckRequestList {
+		index := string(ReadyToExecuteCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := readyToExecuteCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for readyToExecuteCrosschainAckRequest")
+		}
+		readyToExecuteCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in executedCrosschainAckRequest
+	executedCrosschainAckRequestIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.ExecutedCrosschainAckRequestList {
+		index := string(ExecutedCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := executedCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for executedCrosschainAckRequest")
+		}
+		executedCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in feesSettledCrosschainAckRequest
+	feesSettledCrosschainAckRequestIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.FeesSettledCrosschainAckRequestList {
+		index := string(FeesSettledCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := feesSettledCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for feesSettledCrosschainAckRequest")
+		}
+		feesSettledCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in completedCrosschainAckRequest
+	completedCrosschainAckRequestIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.CompletedCrosschainAckRequestList {
+		index := string(CompletedCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		if _, ok := completedCrosschainAckRequestIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for completedCrosschainAckRequest")
+		}
+		completedCrosschainAckRequestIndexMap[index] = struct{}{}
+	}
 	// this line is used by starport scaffolding # genesis/types/validate
 	// Check for duplicated index in relayerConfig
 	relayerConfigIndexMap := make(map[string]struct{})
