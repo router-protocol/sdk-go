@@ -94,14 +94,30 @@ type ChainClient interface {
 	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
 
 	// Crosschain
+	GetCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainRequestResponse, error)
 	GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error)
+	GetValidatedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetValidCrosschainRequestResponse, error)
+	GetAllValidCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllValidCrosschainRequestResponse, error)
+	GetNativeTransferedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetNativeTransferedCrosschainRequestResponse, error)
+	GetAllNativeTransferedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllNativeTransferedCrosschainRequestResponse, error)
+	GetReadyToExecuteCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetReadyToExecuteCrosschainRequestResponse, error)
+	GetAllReadyToExecuteCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllReadyToExecuteCrosschainRequestResponse, error)
+	GetBlockedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetBlockedCrosschainRequestResponse, error)
+	GetAllBlockedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllBlockedCrosschainRequestResponse, error)
+	GetExecutedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExecutedCrosschainRequestResponse, error)
+	GetAllExecutedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllExecutedCrosschainRequestResponse, error)
+	GetFeesSettledCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetFeesSettledCrosschainRequestResponse, error)
+	GetAllFeesSettledCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllFeesSettledCrosschainRequestResponse, error)
+	GetCompletedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCompletedCrosschainRequestResponse, error)
+	GetAllCompletedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCompletedCrosschainRequestResponse, error)
+
 	GetAllCrosschainRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainRequestConfirmResponse, error)
 	GetAllCrosschainAckRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainAckRequestResponse, error)
 	GetAllCrosschainRequestAckConfirmations(ctx context.Context, pagination *query.PageRequest, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainAckRequestConfirmResponse, error)
 	GetCrosschainRequestConfirmation(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainRequestConfirmResponse, error)
 	GetCrosschainAckRequestConfirmation(ctx context.Context, pagination *query.PageRequest, ackSrcChainId string, ackRequestIdentifier uint64, claimHash []byte, orchestrator string) (*crosschainTypes.QueryGetCrosschainAckRequestConfirmResponse, error)
 	GetCrosschainAckRequest(ctx context.Context, ackSrcChainId string, ackRequestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainAckRequestResponse, error)
-	GetCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainRequestResponse, error)
+
 	GetCrosschainAckReceipt(ctx context.Context, ackReceiptSrcChainId string, ackReceiptIdentifier uint64) (*crosschainTypes.QueryGetCrosschainAckReceiptResponse, error)
 
 	// MetaStore
@@ -811,14 +827,84 @@ func (c *chainClient) GetOrchestratorValidator(ctx context.Context, orchestrator
 // ///////////////////////////////
 // //     Crosschain           ////
 // //////////////////////////////
+func (c *chainClient) GetCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.CrosschainRequest(ctx, req)
+}
+
 func (c *chainClient) GetAllCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCrosschainRequestResponse, error) {
 	req := &crosschainTypes.QueryAllCrosschainRequestRequest{Pagination: pagination}
 	return c.crosschainQueryClient.CrosschainRequestAll(ctx, req)
 }
 
-func (c *chainClient) GetCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainRequestResponse, error) {
-	req := &crosschainTypes.QueryGetCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
-	return c.crosschainQueryClient.CrosschainRequest(ctx, req)
+func (c *chainClient) GetValidatedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetValidCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetValidCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.ValidCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllValidCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllValidCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllValidCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.ValidCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetNativeTransferedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetNativeTransferedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetNativeTransferedCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.NativeTransferedCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllNativeTransferedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllNativeTransferedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllNativeTransferedCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.NativeTransferedCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetReadyToExecuteCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetReadyToExecuteCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetReadyToExecuteCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.ReadyToExecuteCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllReadyToExecuteCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllReadyToExecuteCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllReadyToExecuteCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.ReadyToExecuteCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetBlockedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetBlockedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetBlockedCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.BlockedCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllBlockedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllBlockedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllBlockedCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.BlockedCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetExecutedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExecutedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetExecutedCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.ExecutedCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllExecutedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllExecutedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllExecutedCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.ExecutedCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetFeesSettledCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetFeesSettledCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetFeesSettledCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.FeesSettledCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllFeesSettledCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllFeesSettledCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllFeesSettledCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.FeesSettledCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetCompletedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCompletedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetCompletedCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.CompletedCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllCompletedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllCompletedCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllCompletedCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.CompletedCrosschainRequestAll(ctx, req)
 }
 
 func (c *chainClient) GetAllCrosschainRequestConfirmations(ctx context.Context, pagination *query.PageRequest, sourceChainId string, requestIdentifier uint64, claimHash []byte) (*crosschainTypes.QueryAllCrosschainRequestConfirmResponse, error) {
