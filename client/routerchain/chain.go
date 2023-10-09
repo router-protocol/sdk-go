@@ -92,6 +92,8 @@ type ChainClient interface {
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
 	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
 	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
+	GetAllAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllAttestationResponse, error)
+	GetAllObservedAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllObservedAttestationResponse, error)
 
 	// Crosschain
 	GetCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainRequestResponse, error)
@@ -837,6 +839,16 @@ func (c *chainClient) GetOrchestratorValidator(ctx context.Context, orchestrator
 		OrchestratorAddress: orchestratorAddr.String(),
 	}
 	return c.attestationQueryClient.FetchOrchestratorValidator(ctx, req)
+}
+
+func (c *chainClient) GetAllAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllAttestationResponse, error) {
+	req := &attestationTypes.QueryAllAttestationRequest{Pagination: pagination}
+	return c.attestationQueryClient.AttestationAll(ctx, req)
+}
+
+func (c *chainClient) GetAllObservedAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllObservedAttestationResponse, error) {
+	req := &attestationTypes.QueryAllObservedAttestationRequest{Pagination: pagination}
+	return c.attestationQueryClient.ObservedAttestationAll(ctx, req)
 }
 
 // ///////////////////////////////
