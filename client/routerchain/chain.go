@@ -110,6 +110,8 @@ type ChainClient interface {
 	GetAllReadyToExecuteCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllReadyToExecuteCrosschainRequestResponse, error)
 	GetBlockedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetBlockedCrosschainRequestResponse, error)
 	GetAllBlockedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllBlockedCrosschainRequestResponse, error)
+	GetExpiredCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExpiredCrosschainRequestResponse, error)
+	GetAllExpiredCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllExpiredCrosschainRequestResponse, error)
 	GetExecutedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExecutedCrosschainRequestResponse, error)
 	GetAllExecutedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllExecutedCrosschainRequestResponse, error)
 	GetFeesSettledCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetFeesSettledCrosschainRequestResponse, error)
@@ -915,6 +917,16 @@ func (c *chainClient) GetBlockedCrosschainRequest(ctx context.Context, srcChainI
 func (c *chainClient) GetAllBlockedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllBlockedCrosschainRequestResponse, error) {
 	req := &crosschainTypes.QueryAllBlockedCrosschainRequestRequest{Pagination: pagination}
 	return c.crosschainQueryClient.BlockedCrosschainRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetExpiredCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExpiredCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryGetExpiredCrosschainRequestRequest{SourceChainId: srcChainId, RequestIdentifier: requestIdentifier}
+	return c.crosschainQueryClient.ExpiredCrosschainRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllExpiredCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllExpiredCrosschainRequestResponse, error) {
+	req := &crosschainTypes.QueryAllExpiredCrosschainRequestRequest{Pagination: pagination}
+	return c.crosschainQueryClient.ExpiredCrosschainRequestAll(ctx, req)
 }
 
 func (c *chainClient) GetExecutedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExecutedCrosschainRequestResponse, error) {
