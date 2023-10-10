@@ -20,8 +20,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
-	authztypes "github.com/cosmos/cosmos-sdk/x/authz"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
+	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/pkg/errors"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 	log "github.com/xlab/suplog"
@@ -71,9 +71,13 @@ type ChainClient interface {
 	SyncBroadcastMsg(msgs ...sdk.Msg) (*txtypes.BroadcastTxResponse, error)
 	QueueBroadcastMsg(msgs ...sdk.Msg) error
 
+	// bank
 	GetBankBalances(ctx context.Context, address string) (*banktypes.QueryAllBalancesResponse, error)
 	GetBankBalance(ctx context.Context, address string, denom string) (*banktypes.QueryBalanceResponse, error)
 	GetAccount(ctx context.Context, address string) (*authtypes.QueryAccountResponse, error)
+
+	// staking
+	GetAllValidators(ctx context.Context, status string, pagination *query.PageRequest) (*stakingtypes.QueryValidatorsResponse, error)
 
 	// MultiChain
 	GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error)
@@ -172,10 +176,10 @@ type chainClient struct {
 	sessionCookie  string
 	sessionEnabled bool
 
-	txClient         txtypes.ServiceClient
-	authQueryClient  authtypes.QueryClient
-	bankQueryClient  banktypes.QueryClient
-	authzQueryClient authztypes.QueryClient
+	txClient           txtypes.ServiceClient
+	authQueryClient    authtypes.QueryClient
+	bankQueryClient    banktypes.QueryClient
+	stakingQueryClient stakingtypes.QueryClient
 
 	// Custom Query clients
 	multichainQueryClient  multichainTypes.QueryClient
@@ -308,10 +312,10 @@ func NewChainClient(
 
 		sessionEnabled: stickySessionEnabled,
 
-		txClient:         txtypes.NewServiceClient(conn),
-		authQueryClient:  authtypes.NewQueryClient(conn),
-		bankQueryClient:  banktypes.NewQueryClient(conn),
-		authzQueryClient: authztypes.NewQueryClient(conn),
+		txClient:           txtypes.NewServiceClient(conn),
+		authQueryClient:    authtypes.NewQueryClient(conn),
+		bankQueryClient:    banktypes.NewQueryClient(conn),
+		stakingQueryClient: stakingtypes.NewQueryClient(conn),
 
 		multichainQueryClient:  multichainTypes.NewQueryClient(conn),
 		attestationQueryClient: attestationTypes.NewQueryClient(conn),
@@ -530,6 +534,15 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 		Denom:   denom,
 	}
 	return c.bankQueryClient.Balance(ctx, req)
+}
+
+// Staking
+func (c *chainClient) GetAllValidators(ctx context.Context, status string, pagination *query.PageRequest) (*stakingtypes.QueryValidatorsResponse, error) {
+	req := &stakingtypes.QueryValidatorsRequest{
+		Status:     status,
+		Pagination: pagination,
+	}
+	return c.stakingQueryClient.Validators(ctx, req)
 }
 
 // ///////////////////////////////
