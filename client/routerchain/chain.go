@@ -77,6 +77,7 @@ type ChainClient interface {
 	GetAccount(ctx context.Context, address string) (*authtypes.QueryAccountResponse, error)
 
 	// staking
+	GetValidator(ctx context.Context, validatorAddr string) (*stakingtypes.QueryValidatorResponse, error)
 	GetAllValidators(ctx context.Context, status string, pagination *query.PageRequest) (*stakingtypes.QueryValidatorsResponse, error)
 
 	// MultiChain
@@ -539,6 +540,13 @@ func (c *chainClient) GetBankBalance(ctx context.Context, address string, denom 
 }
 
 // Staking
+func (c *chainClient) GetValidator(ctx context.Context, validatorAddr string) (*stakingtypes.QueryValidatorResponse, error) {
+	req := &stakingtypes.QueryValidatorRequest{
+		ValidatorAddr: validatorAddr,
+	}
+	return c.stakingQueryClient.Validator(ctx, req)
+}
+
 func (c *chainClient) GetAllValidators(ctx context.Context, status string, pagination *query.PageRequest) (*stakingtypes.QueryValidatorsResponse, error) {
 	req := &stakingtypes.QueryValidatorsRequest{
 		Status:     status,
