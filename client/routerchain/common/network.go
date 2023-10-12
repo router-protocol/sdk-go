@@ -63,10 +63,10 @@ func LoadNetwork(name string, node string) Network {
 		network.ChainEvmRpcEndpoint = "https://evm.rpc.testnet-eu.routerchain.dev/"
 		network.ChainGrpcEndpoint = "tcp://grpc.testnet-eu.routerchain.dev:9090"
 	} else if name == "load-test" {
-		network.ApiEndpoint = "http://3.110.53.116:1317"
-		network.TmEndpoint = "http://3.110.53.116:26657"
-		network.ChainEvmRpcEndpoint = "http://3.110.53.116:8545"
-		network.ChainGrpcEndpoint = "tcp://3.110.53.116:9090"
+		network.ApiEndpoint = "http://13.235.76.78:1317"
+		network.TmEndpoint = "http://13.235.76.78:26657"
+		network.ChainEvmRpcEndpoint = "http://13.235.76.78:8545"
+		network.ChainGrpcEndpoint = "tcp://13.235.76.78:9090"
 	} else if name == "devnet-internal" {
 		network.ApiEndpoint = "http://65.0.127.255:1317"
 		network.TmEndpoint = "http://65.0.127.255:26657"
