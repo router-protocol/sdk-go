@@ -174,7 +174,7 @@ func (gs GenesisState) Validate() error {
 	readyToExecuteCrosschainRequestIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.ReadyToExecuteCrosschainRequestList {
-		index := string(ReadyToExecuteCrosschainRequestKey(elem.SrcChainId, elem.RequestIdentifier))
+		index := string(ReadyToExecuteCrosschainRequestKey(elem.WorkflowType(), elem.RelayerType(), elem.SrcChainId, elem.RequestIdentifier))
 		if _, ok := readyToExecuteCrosschainRequestIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for readyToExecuteCrosschainRequest")
 		}
@@ -226,7 +226,7 @@ func (gs GenesisState) Validate() error {
 	readyToExecuteCrosschainAckRequestIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.ReadyToExecuteCrosschainAckRequestList {
-		index := string(ReadyToExecuteCrosschainAckRequestKey(elem.AckSrcChainId, elem.AckRequestIdentifier))
+		index := string(ReadyToExecuteCrosschainAckRequestKey(elem.WorkflowType(), elem.RelayerType(), elem.AckSrcChainId, elem.AckRequestIdentifier))
 		if _, ok := readyToExecuteCrosschainAckRequestIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for readyToExecuteCrosschainAckRequest")
 		}
