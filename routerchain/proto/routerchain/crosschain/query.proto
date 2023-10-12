@@ -157,6 +157,15 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/ready_to_execute_crosschain_request";
   
   }
+
+rpc ReadyToExecuteCrosschainRequestByWorkflow (QueryAllReadyToExecuteCrosschainRequestByWorkflow) returns (QueryAllReadyToExecuteCrosschainRequestByWorkflowResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/ready_to_execute_crosschain_request/{workflowType}";
+  }
+  
+
+  rpc ReadyToExecuteCrosschainRequestByWorkflowAndRelayer (QueryAllReadyToExecuteCrosschainRequestByWorkflowAndRelayer) returns (QueryAllReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/crosschain/ready_to_execute_crosschain_request/{workflowType}/{relayerType}";
+  }
   
   // Queries a list of ExecutedCrosschainRequest items.
   rpc ExecutedCrosschainRequest    (QueryGetExecutedCrosschainRequestRequest) returns (QueryGetExecutedCrosschainRequestResponse) {
@@ -492,6 +501,30 @@ message QueryGetReadyToExecuteCrosschainRequestRequest {
 message QueryGetReadyToExecuteCrosschainRequestResponse {
   CrosschainRequest readyToExecuteCrosschainRequest = 1 [(gogoproto.nullable) = false];
 }
+
+message QueryAllReadyToExecuteCrosschainRequestByWorkflow {
+  uint64 workflowType     = 1;
+  cosmos.base.query.v1beta1.PageRequest pagination = 2;  
+}
+
+message QueryAllReadyToExecuteCrosschainRequestByWorkflowResponse {
+  repeated CrosschainRequest                      readyToExecuteCrosschainRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                      = 2;
+}
+
+
+message QueryAllReadyToExecuteCrosschainRequestByWorkflowAndRelayer {
+  uint64 workflowType     = 1;  
+  uint64 relayerType     = 2;  
+  cosmos.base.query.v1beta1.PageRequest pagination = 3;  
+}
+
+message QueryAllReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse {
+  repeated CrosschainRequest                      readyToExecuteCrosschainRequest = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination                      = 2;
+}
+
+
 
 message QueryAllReadyToExecuteCrosschainRequestRequest {
   cosmos.base.query.v1beta1.PageRequest pagination = 1;
