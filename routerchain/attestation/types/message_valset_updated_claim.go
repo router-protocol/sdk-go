@@ -76,8 +76,8 @@ func (msg *MsgValsetUpdatedClaim) ClaimHash() ([]byte, error) {
 		msg.GetChainId(),
 		msg.GetContract(),
 		msg.GetEventNonce(),
-		msg.GetValsetNonce(),
 		msg.GetBlockHeight(),
+		msg.GetValsetNonce(),
 		msg.GetSourceTxHash(),
 		msg.GetMembers(),
 	)
