@@ -14,6 +14,8 @@ enum ChainType {
   CHAIN_TYPE_EVM = 2 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_EVM"];
   CHAIN_TYPE_COSMOS = 3 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_COSMOS"];
   CHAIN_TYPE_POLKADOT = 4 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_POLKADOT"];
-  CHAIN_TYPE_SOLANO = 5 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_SOLANO"];
+  CHAIN_TYPE_SOLANA = 5 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_SOLANA"];
   CHAIN_TYPE_NEAR = 6 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_NEAR"];
+  CHAIN_TYPE_TRON = 7 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_TRON"];
+  CHAIN_TYPE_STARKNET = 8 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_STARKNET"];
 }
