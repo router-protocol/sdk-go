@@ -1,0 +1,20 @@
+syntax = "proto3";
+package routerprotocol.routerchain.pricefeed;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/pricefeed/types";
+
+import "gogoproto/gogo.proto";
+
+message Channels {
+  repeated string channel = 1;
+}
+
+message CreateWhitelistedIBCChannelProposal {
+  option (gogoproto.goproto_getters) = false;
+
+  string title = 1;
+  string description = 2;
+
+  Channels channels = 3 [ (gogoproto.nullable) = false ];
+}
+

@@ -30,21 +30,24 @@ message EventFundDepositRequestCreated {
 message EventFundDepositRequestValidated {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 deposit_id = 3;  
+  string contract = 3; 
+  uint64 deposit_id = 4;  
 }
 
 message EventFundDepositRequestExecuted {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 deposit_id = 3;
-  bytes exec_response = 4;
+  string contract = 3; 
+  uint64 deposit_id = 4;
+  bytes exec_response = 5;
 }
 
 message EventFundDepositRequestExecutionFailed {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 deposit_id = 3;
-  bytes exec_err_response = 4;
+  string contract = 3; 
+  uint64 deposit_id = 4;
+  bytes exec_err_response = 5;
 }
   
 
@@ -69,21 +72,24 @@ message EventFundPaidRequestCreated {
 message EventFundPaidRequestValidated {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 eventNonce = 3;  
+  string contract = 3; 
+  uint64 eventNonce = 4;  
 }
 
 message EventFundPaidRequestExecuted {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 eventNonce = 3;
-  bytes exec_response = 4;
+  string contract = 3; 
+  uint64 eventNonce = 4;
+  bytes exec_response = 5;
 }
 
 message EventFundPaidRequestExecutionFailed {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 eventNonce = 3;
-  bytes exec_err_response = 4;
+  string contract = 3; 
+  uint64 eventNonce = 4;
+  bytes exec_err_response = 5;
 }
 
 
@@ -107,20 +113,23 @@ message EventDepositInfoUpdatedRequestCreated {
 message EventDepositInfoUpdatedRequestValidated {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 eventNonce = 3;  
+  string contract = 3; 
+  uint64 eventNonce = 4;  
 }
 
 message EventDepositInfoUpdatedRequestExecuted {
   bytes attestation_id = 1;
-  string src_chain_id = 2; 
-  uint64 eventNonce = 3;  
-  bytes exec_response = 4;
+  string src_chain_id = 2;
+  string contract = 3;  
+  uint64 eventNonce = 4;  
+  bytes exec_response = 5;
 }
 
 message EventDepositInfoUpdatedRequestExecutionFailed {
   bytes attestation_id = 1;
   string src_chain_id = 2; 
-  uint64 eventNonce = 3;  
-  bytes exec_err_response = 4;
+  string contract = 3; 
+  uint64 eventNonce = 4;  
+  bytes exec_err_response = 5;
 }
   

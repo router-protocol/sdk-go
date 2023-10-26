@@ -11,25 +11,28 @@ import "gogoproto/gogo.proto";
 
 message EventMetadataRequestCreated {  
   bytes attestation_id = 1;
-  routerprotocol.routerchain.multichain.ChainType chainType = 2;
-  string chainId = 3;    
-  uint64 eventNonce = 4; 
-  uint64 blockHeight = 5;
-  string daapAddress  = 6;
-  string feePayer     = 7;  
+  string chainId = 2;    
+  uint64 eventNonce = 3; 
+  uint64 blockHeight = 4;
+  string daapAddress  = 5;
+  string feePayer     = 6;  
 }
 
 
-message EventMetaInfoCreated {    
-  routerprotocol.routerchain.multichain.ChainType chainType = 1;
-  string chainId = 2; 
-  string daapAddress  = 3;
-  string feePayer = 4; 
+message EventMetaInfoCreated {      
+  string chainId = 1; 
+  string daapAddress  = 2;
+  string feePayer = 3; 
 }
 
 message EventFeePayerApproved {    
-  routerprotocol.routerchain.multichain.ChainType chainType = 1;
-  string chainId = 2; 
-  string daapAddress  = 3;
-  string feePayer = 4; 
+  string chainId = 1; 
+  string daapAddress  = 2;
+  string feePayer = 3; 
+}
+
+message EventFeePayerRevoked {    
+  string chainId = 1; 
+  string daapAddress  = 2;
+  string feePayer = 3; 
 }

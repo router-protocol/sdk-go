@@ -18,6 +18,7 @@ var (
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateMetadataRequest{}, "metastore/CreateMetadataRequest", nil)
 	cdc.RegisterConcrete(&MsgApproveFeepayerRequest{}, "metastore/ApproveFeepayerRequest", nil)
+	cdc.RegisterConcrete(&MsgRevokeFeepayerRequest{}, "metastore/RevokeFeepayerRequest", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -32,6 +33,9 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgApproveFeepayerRequest{},
 	)
 
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgRevokeFeepayerRequest{},
+	)
 	// this line is used by starport scaffolding # 3
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)

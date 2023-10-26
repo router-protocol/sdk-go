@@ -28,6 +28,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		(*govtypes.Content)(nil),
 		&UpdateSymbolRequestProposal{},
 		&UpdatePriceFeederInfoProposal{},
+		&CreateWhitelistedIBCChannelProposal{},
 	)
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)

@@ -61,6 +61,11 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/pricefeed/gas_price";
   
   }
+
+  rpc WhitelistedIBCChannels (QueryWhitelistedIBCChannelsRequest) returns (QueryWhitelistedIBCChannelsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/whitelisted_channels";
+  
+  }
 }
 // QueryParamsRequest is request type for the Query/Params RPC method.
 message QueryParamsRequest {}
@@ -140,3 +145,8 @@ message QueryAllGasPriceResponse {
            cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
+message QueryWhitelistedIBCChannelsRequest {}
+
+message QueryWhitelistedIBCChannelsResponse {
+  repeated string channels = 1;
+}
