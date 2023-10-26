@@ -14,8 +14,9 @@ message EventAttestationVote {
   bytes attestation_id = 2;
   routerprotocol.routerchain.multichain.ChainType chainType = 3;
   string chainId = 4;    
-  uint64 eventNonce = 5;
-  string voter = 6;
+  string contract = 5; 
+  uint64 eventNonce = 6;
+  string voter = 7;
 }
 
 message EventAttestationObserved {
@@ -23,7 +24,8 @@ message EventAttestationObserved {
   bytes attestation_id = 2;
   routerprotocol.routerchain.multichain.ChainType chainType = 3;
   string chainId = 4; 
-  uint64 eventNonce = 5;
+  string contract = 5; 
+  uint64 eventNonce = 6;
 }
 
 message EventSetOrchestratorAddresses {
@@ -50,9 +52,10 @@ message EventValsetUpdatedClaimCreated {
   bytes attestation_id = 1;
   routerprotocol.routerchain.multichain.ChainType chainType = 2;
   string chainId = 3;   
-  uint64 eventNonce = 4;
-  uint64 valset_nonce = 5;  
-  uint64 event_height = 6;
-  string src_tx_hash = 7; 
-  repeated BridgeValidator valset_members = 8[(gogoproto.nullable) = false];  
+  string contract = 4; 
+  uint64 eventNonce = 5;
+  uint64 valset_nonce = 6;  
+  uint64 event_height = 7;
+  string src_tx_hash = 8; 
+  repeated BridgeValidator valset_members = 9[(gogoproto.nullable) = false];  
 }
