@@ -32,6 +32,7 @@ type HandleFundsPaid struct {
 	MessageHash            string `json:"message_hash"`
 	ForwarderAddress       string `json:"forwarder_address"`
 	ForwarderRouterAddress string `json:"forwarder_router_address"`
+	SrcTimestamp           uint64 `json:"src_timestamp"`
 }
 
 type SudoHandleDepositInfoUpdateMsg struct {

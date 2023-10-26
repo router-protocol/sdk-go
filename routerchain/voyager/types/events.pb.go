@@ -180,7 +180,8 @@ func (m *EventFundDepositRequestCreated) GetDepositWithMessage() bool {
 type EventFundDepositRequestValidated struct {
 	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	DepositId     uint64 `protobuf:"varint,3,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
+	Contract      string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	DepositId     uint64 `protobuf:"varint,4,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
 }
 
 func (m *EventFundDepositRequestValidated) Reset()         { *m = EventFundDepositRequestValidated{} }
@@ -230,6 +231,13 @@ func (m *EventFundDepositRequestValidated) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventFundDepositRequestValidated) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventFundDepositRequestValidated) GetDepositId() uint64 {
 	if m != nil {
 		return m.DepositId
@@ -240,8 +248,9 @@ func (m *EventFundDepositRequestValidated) GetDepositId() uint64 {
 type EventFundDepositRequestExecuted struct {
 	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	DepositId     uint64 `protobuf:"varint,3,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
-	ExecResponse  []byte `protobuf:"bytes,4,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
+	Contract      string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	DepositId     uint64 `protobuf:"varint,4,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
+	ExecResponse  []byte `protobuf:"bytes,5,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
 }
 
 func (m *EventFundDepositRequestExecuted) Reset()         { *m = EventFundDepositRequestExecuted{} }
@@ -291,6 +300,13 @@ func (m *EventFundDepositRequestExecuted) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventFundDepositRequestExecuted) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventFundDepositRequestExecuted) GetDepositId() uint64 {
 	if m != nil {
 		return m.DepositId
@@ -308,8 +324,9 @@ func (m *EventFundDepositRequestExecuted) GetExecResponse() []byte {
 type EventFundDepositRequestExecutionFailed struct {
 	AttestationId   []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId      string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	DepositId       uint64 `protobuf:"varint,3,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
-	ExecErrResponse []byte `protobuf:"bytes,4,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
+	Contract        string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	DepositId       uint64 `protobuf:"varint,4,opt,name=deposit_id,json=depositId,proto3" json:"deposit_id,omitempty"`
+	ExecErrResponse []byte `protobuf:"bytes,5,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
 }
 
 func (m *EventFundDepositRequestExecutionFailed) Reset() {
@@ -357,6 +374,13 @@ func (m *EventFundDepositRequestExecutionFailed) GetAttestationId() []byte {
 func (m *EventFundDepositRequestExecutionFailed) GetSrcChainId() string {
 	if m != nil {
 		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *EventFundDepositRequestExecutionFailed) GetContract() string {
+	if m != nil {
+		return m.Contract
 	}
 	return ""
 }
@@ -518,7 +542,8 @@ func (m *EventFundPaidRequestCreated) GetExecStatus() bool {
 type EventFundPaidRequestValidated struct {
 	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	EventNonce    uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	Contract      string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce    uint64 `protobuf:"varint,4,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
 }
 
 func (m *EventFundPaidRequestValidated) Reset()         { *m = EventFundPaidRequestValidated{} }
@@ -568,6 +593,13 @@ func (m *EventFundPaidRequestValidated) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventFundPaidRequestValidated) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventFundPaidRequestValidated) GetEventNonce() uint64 {
 	if m != nil {
 		return m.EventNonce
@@ -578,8 +610,9 @@ func (m *EventFundPaidRequestValidated) GetEventNonce() uint64 {
 type EventFundPaidRequestExecuted struct {
 	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	EventNonce    uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	ExecResponse  []byte `protobuf:"bytes,4,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
+	Contract      string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce    uint64 `protobuf:"varint,4,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ExecResponse  []byte `protobuf:"bytes,5,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
 }
 
 func (m *EventFundPaidRequestExecuted) Reset()         { *m = EventFundPaidRequestExecuted{} }
@@ -629,6 +662,13 @@ func (m *EventFundPaidRequestExecuted) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventFundPaidRequestExecuted) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventFundPaidRequestExecuted) GetEventNonce() uint64 {
 	if m != nil {
 		return m.EventNonce
@@ -646,8 +686,9 @@ func (m *EventFundPaidRequestExecuted) GetExecResponse() []byte {
 type EventFundPaidRequestExecutionFailed struct {
 	AttestationId   []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId      string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	EventNonce      uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	ExecErrResponse []byte `protobuf:"bytes,4,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
+	Contract        string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce      uint64 `protobuf:"varint,4,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ExecErrResponse []byte `protobuf:"bytes,5,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
 }
 
 func (m *EventFundPaidRequestExecutionFailed) Reset()         { *m = EventFundPaidRequestExecutionFailed{} }
@@ -693,6 +734,13 @@ func (m *EventFundPaidRequestExecutionFailed) GetAttestationId() []byte {
 func (m *EventFundPaidRequestExecutionFailed) GetSrcChainId() string {
 	if m != nil {
 		return m.SrcChainId
+	}
+	return ""
+}
+
+func (m *EventFundPaidRequestExecutionFailed) GetContract() string {
+	if m != nil {
+		return m.Contract
 	}
 	return ""
 }
@@ -847,7 +895,8 @@ func (m *EventDepositInfoUpdatedRequestCreated) GetDepositor() string {
 type EventDepositInfoUpdatedRequestValidated struct {
 	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	EventNonce    uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	Contract      string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce    uint64 `protobuf:"varint,4,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
 }
 
 func (m *EventDepositInfoUpdatedRequestValidated) Reset() {
@@ -899,6 +948,13 @@ func (m *EventDepositInfoUpdatedRequestValidated) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventDepositInfoUpdatedRequestValidated) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventDepositInfoUpdatedRequestValidated) GetEventNonce() uint64 {
 	if m != nil {
 		return m.EventNonce
@@ -909,8 +965,9 @@ func (m *EventDepositInfoUpdatedRequestValidated) GetEventNonce() uint64 {
 type EventDepositInfoUpdatedRequestExecuted struct {
 	AttestationId []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId    string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	EventNonce    uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	ExecResponse  []byte `protobuf:"bytes,4,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
+	Contract      string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce    uint64 `protobuf:"varint,4,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ExecResponse  []byte `protobuf:"bytes,5,opt,name=exec_response,json=execResponse,proto3" json:"exec_response,omitempty"`
 }
 
 func (m *EventDepositInfoUpdatedRequestExecuted) Reset() {
@@ -962,6 +1019,13 @@ func (m *EventDepositInfoUpdatedRequestExecuted) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventDepositInfoUpdatedRequestExecuted) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventDepositInfoUpdatedRequestExecuted) GetEventNonce() uint64 {
 	if m != nil {
 		return m.EventNonce
@@ -979,8 +1043,9 @@ func (m *EventDepositInfoUpdatedRequestExecuted) GetExecResponse() []byte {
 type EventDepositInfoUpdatedRequestExecutionFailed struct {
 	AttestationId   []byte `protobuf:"bytes,1,opt,name=attestation_id,json=attestationId,proto3" json:"attestation_id,omitempty"`
 	SrcChainId      string `protobuf:"bytes,2,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
-	EventNonce      uint64 `protobuf:"varint,3,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
-	ExecErrResponse []byte `protobuf:"bytes,4,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
+	Contract        string `protobuf:"bytes,3,opt,name=contract,proto3" json:"contract,omitempty"`
+	EventNonce      uint64 `protobuf:"varint,4,opt,name=eventNonce,proto3" json:"eventNonce,omitempty"`
+	ExecErrResponse []byte `protobuf:"bytes,5,opt,name=exec_err_response,json=execErrResponse,proto3" json:"exec_err_response,omitempty"`
 }
 
 func (m *EventDepositInfoUpdatedRequestExecutionFailed) Reset() {
@@ -1034,6 +1099,13 @@ func (m *EventDepositInfoUpdatedRequestExecutionFailed) GetSrcChainId() string {
 	return ""
 }
 
+func (m *EventDepositInfoUpdatedRequestExecutionFailed) GetContract() string {
+	if m != nil {
+		return m.Contract
+	}
+	return ""
+}
+
 func (m *EventDepositInfoUpdatedRequestExecutionFailed) GetEventNonce() uint64 {
 	if m != nil {
 		return m.EventNonce
@@ -1066,65 +1138,65 @@ func init() {
 func init() { proto.RegisterFile("routerchain/voyager/events.proto", fileDescriptor_2a192919f6cc2e7e) }
 
 var fileDescriptor_2a192919f6cc2e7e = []byte{
-	// 920 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x57, 0xcf, 0x6f, 0x1b, 0x45,
-	0x14, 0xce, 0x90, 0x90, 0xd8, 0xaf, 0x4e, 0x4a, 0x87, 0x1e, 0x56, 0xa1, 0xdd, 0x58, 0x5b, 0xb5,
-	0xb5, 0x90, 0xb2, 0x4e, 0xe1, 0xc0, 0x39, 0x6d, 0x13, 0xd5, 0x12, 0xad, 0x60, 0x09, 0x20, 0x71,
-	0xb1, 0xc6, 0x3b, 0x2f, 0xf6, 0x28, 0xf6, 0xce, 0x32, 0x33, 0x4e, 0x9c, 0xff, 0xa0, 0x70, 0x42,
-	0xfc, 0x1d, 0x88, 0x23, 0x87, 0x8a, 0x23, 0x87, 0x1e, 0x7b, 0x44, 0x1c, 0x2a, 0x94, 0xfc, 0x23,
-	0x68, 0x66, 0x77, 0xed, 0x75, 0x70, 0x7e, 0xb4, 0xd0, 0x52, 0x89, 0x5e, 0x92, 0x7d, 0xdf, 0xdb,
-	0x79, 0xf3, 0xcd, 0x37, 0xf3, 0xbe, 0x1d, 0x43, 0x5d, 0xc9, 0xa1, 0x41, 0x15, 0xf7, 0x98, 0x48,
-	0x9a, 0xfb, 0xf2, 0x90, 0x75, 0x51, 0x35, 0x71, 0x1f, 0x13, 0xa3, 0xc3, 0x54, 0x49, 0x23, 0x69,
-	0x90, 0xbd, 0xe1, 0x82, 0x58, 0xf6, 0xc3, 0xd2, 0x80, 0x30, 0x1f, 0xb0, 0x7a, 0xbb, 0x5c, 0x65,
-	0x30, 0xec, 0x1b, 0x91, 0x3d, 0xba, 0xbf, 0x6d, 0x73, 0x98, 0x62, 0x56, 0x6c, 0xd5, 0x8f, 0xa5,
-	0x1e, 0x48, 0xdd, 0xec, 0x30, 0x8d, 0xcd, 0xfd, 0x3b, 0x1d, 0x34, 0xec, 0x4e, 0x33, 0x96, 0x22,
-	0xc9, 0xf3, 0x57, 0xbb, 0xb2, 0x2b, 0xdd, 0x63, 0xd3, 0x3e, 0x65, 0x68, 0xf0, 0xdd, 0x22, 0xf8,
-	0x5b, 0x96, 0xd3, 0xf6, 0x30, 0xe1, 0xf7, 0x31, 0x95, 0x5a, 0x98, 0x08, 0xbf, 0x1d, 0xa2, 0x36,
-	0xf7, 0x14, 0x32, 0x83, 0x9c, 0xde, 0x84, 0x15, 0x66, 0x0c, 0x6a, 0xc3, 0x8c, 0x90, 0x49, 0x5b,
-	0x70, 0x8f, 0xd4, 0x49, 0xa3, 0x16, 0x2d, 0x97, 0xd0, 0x16, 0xa7, 0x3e, 0x80, 0x56, 0xf1, 0x3d,
-	0x4b, 0xab, 0xc5, 0xbd, 0x77, 0xea, 0xa4, 0x51, 0x8d, 0x4a, 0x08, 0xdd, 0x81, 0x5a, 0x11, 0xed,
-	0x1c, 0xa6, 0xe8, 0xcd, 0xd7, 0x49, 0x63, 0xe5, 0xa3, 0x8d, 0xf0, 0x0c, 0x0d, 0x26, 0xcb, 0x0d,
-	0xc7, 0xe3, 0xa2, 0xa9, 0x2a, 0xf4, 0x1a, 0x54, 0xb5, 0x8a, 0x77, 0x46, 0x0f, 0x98, 0xee, 0x79,
-	0x0b, 0x6e, 0xd2, 0x09, 0x40, 0x03, 0x37, 0xe7, 0x8e, 0x18, 0x58, 0x9e, 0x83, 0xd4, 0x7b, 0xb7,
-	0x4e, 0x1a, 0x0b, 0xd1, 0x14, 0x46, 0x57, 0xa1, 0x12, 0xcb, 0xc4, 0x28, 0x16, 0x1b, 0x6f, 0xd1,
-	0x15, 0x18, 0xc7, 0xf4, 0x3a, 0x00, 0xcf, 0x34, 0xb1, 0xcb, 0x5e, 0x72, 0xa3, 0xab, 0x39, 0xd2,
-	0xe2, 0xb4, 0x0e, 0x97, 0x3a, 0x7d, 0x19, 0xef, 0x3d, 0x40, 0xd1, 0xed, 0x19, 0xaf, 0xe2, 0xf2,
-	0x65, 0xc8, 0xbe, 0xc1, 0xad, 0x94, 0xb9, 0x2a, 0x55, 0x27, 0x5c, 0x19, 0xa2, 0xdb, 0xb0, 0xc8,
-	0x06, 0x72, 0x98, 0x18, 0x0f, 0xec, 0xe4, 0x77, 0xc3, 0xa7, 0xcf, 0xd7, 0xe6, 0xfe, 0x78, 0xbe,
-	0x76, 0xab, 0x2b, 0x4c, 0x6f, 0xd8, 0x09, 0x63, 0x39, 0x68, 0xe6, 0x3b, 0x9b, 0xfd, 0x5b, 0xd7,
-	0x7c, 0xaf, 0x69, 0xf7, 0x5d, 0x87, 0xad, 0xc4, 0x44, 0xf9, 0x68, 0xfa, 0xc8, 0x52, 0xd5, 0x66,
-	0x33, 0xab, 0x75, 0xe9, 0xa5, 0x6a, 0x95, 0x2a, 0x58, 0x59, 0xac, 0x4c, 0x72, 0x0f, 0x13, 0xaf,
-	0x96, 0xc9, 0x52, 0xc4, 0x56, 0x74, 0x85, 0xb1, 0x48, 0x05, 0x26, 0xc6, 0x5b, 0x76, 0x6b, 0x9a,
-	0x00, 0x36, 0x9b, 0x4b, 0x24, 0x95, 0xb7, 0x92, 0x6d, 0xc9, 0x18, 0xa0, 0x1e, 0x2c, 0x0d, 0x50,
-	0x6b, 0xd6, 0x45, 0xef, 0xb2, 0x1b, 0x59, 0x84, 0xf4, 0x21, 0x40, 0xca, 0x94, 0x49, 0x50, 0x59,
-	0xb1, 0xdf, 0x7b, 0xa9, 0x15, 0x54, 0xf3, 0x0a, 0x2d, 0x4e, 0x37, 0xe0, 0x6a, 0xb1, 0x77, 0x07,
-	0xc2, 0xf4, 0xda, 0xc5, 0xac, 0x57, 0xea, 0xa4, 0x51, 0x89, 0x68, 0x9e, 0xfb, 0x5a, 0x98, 0xde,
-	0xc3, 0x2c, 0x13, 0x7c, 0x4f, 0xa0, 0x7e, 0x4a, 0x2f, 0x7c, 0xc5, 0xfa, 0x82, 0xbf, 0x48, 0x37,
-	0xd4, 0xdd, 0xc9, 0x6b, 0x67, 0x5d, 0x2a, 0x66, 0xf5, 0xc3, 0xf4, 0xd9, 0x9a, 0x3f, 0x71, 0xb6,
-	0x82, 0x9f, 0x09, 0xac, 0x9d, 0x42, 0x66, 0x6b, 0x84, 0xf1, 0xf0, 0x35, 0x72, 0xa1, 0x37, 0x60,
-	0x19, 0x47, 0x18, 0xb7, 0x15, 0xea, 0x54, 0x26, 0x1a, 0x5d, 0xa3, 0xd5, 0xa2, 0x9a, 0x05, 0xa3,
-	0x1c, 0x0b, 0x7e, 0x25, 0x70, 0xeb, 0x4c, 0xc2, 0x42, 0x26, 0xdb, 0x4c, 0xf4, 0x5f, 0x23, 0xef,
-	0x0f, 0xe1, 0x8a, 0xe3, 0x8d, 0x4a, 0x9d, 0xe4, 0x7e, 0xd9, 0x26, 0xb6, 0x94, 0x1a, 0xd3, 0x7f,
-	0xbc, 0x00, 0x1f, 0x8c, 0xe9, 0x7f, 0xc6, 0x04, 0x7f, 0xeb, 0x82, 0x85, 0x0b, 0xfa, 0x00, 0xee,
-	0xb3, 0xf5, 0x48, 0x26, 0x31, 0xe6, 0x2e, 0x58, 0x42, 0x2e, 0x66, 0x83, 0x79, 0xfb, 0x39, 0x86,
-	0xb9, 0x0d, 0x96, 0x20, 0xbb, 0x82, 0x5d, 0xa9, 0x0e, 0x98, 0xe2, 0xa8, 0x32, 0x27, 0x8c, 0x26,
-	0x00, 0xdd, 0x80, 0xf7, 0xc7, 0x41, 0xe4, 0xa4, 0xd9, 0xe4, 0x5c, 0x65, 0x2e, 0x17, 0xcd, 0x4a,
-	0xd9, 0xf5, 0xd8, 0x1d, 0xbe, 0xcf, 0x0c, 0x73, 0xf6, 0x55, 0x8b, 0xc6, 0xb1, 0x5b, 0xcf, 0x08,
-	0xe3, 0x2f, 0x0c, 0x33, 0x43, 0xed, 0xfc, 0xab, 0x12, 0x95, 0x90, 0xe0, 0x31, 0x81, 0xeb, 0xb3,
-	0x8e, 0xc2, 0x2b, 0x30, 0x81, 0x69, 0x69, 0xe7, 0x4f, 0x4a, 0x1b, 0xfc, 0x44, 0xe0, 0xda, 0x2c,
-	0x2a, 0xff, 0xbe, 0x05, 0x9c, 0xc3, 0xe4, 0x62, 0x1e, 0xf0, 0x84, 0xc0, 0x8d, 0xd3, 0xe9, 0xbe,
-	0x02, 0x03, 0x38, 0x8f, 0xf5, 0x8b, 0x38, 0xc0, 0x93, 0x05, 0xb8, 0xe9, 0xc8, 0xe7, 0xe6, 0xd5,
-	0x4a, 0x76, 0xe5, 0x97, 0xa9, 0xdb, 0xf0, 0xff, 0x97, 0x17, 0x4c, 0x3e, 0xe0, 0x2d, 0xee, 0xcc,
-	0x60, 0xca, 0x54, 0xcb, 0x4e, 0xb1, 0x74, 0xa6, 0x53, 0x54, 0xce, 0x73, 0x8a, 0xea, 0xdf, 0x9d,
-	0xe2, 0x53, 0xa8, 0xee, 0x22, 0x6e, 0xfe, 0x93, 0x1b, 0xd1, 0xa4, 0x00, 0x0d, 0x81, 0x8a, 0x44,
-	0x18, 0xc1, 0x0c, 0xda, 0x3b, 0x00, 0x57, 0xec, 0x80, 0xf5, 0x9d, 0x6d, 0x54, 0xa2, 0x19, 0x99,
-	0xf3, 0x2e, 0x3d, 0x93, 0x6b, 0xcd, 0xf2, 0x89, 0x6b, 0x4d, 0xf0, 0x23, 0x81, 0xdb, 0x67, 0x1f,
-	0x9e, 0xff, 0xc0, 0x3d, 0x7e, 0x29, 0x3e, 0xc9, 0xa7, 0x92, 0x7a, 0x43, 0x7d, 0xe4, 0x37, 0x02,
-	0xeb, 0x17, 0x21, 0xfe, 0x66, 0x3b, 0xca, 0xdd, 0xcf, 0x9f, 0x1e, 0xf9, 0xe4, 0xd9, 0x91, 0x4f,
-	0xfe, 0x3c, 0xf2, 0xc9, 0x0f, 0xc7, 0xfe, 0xdc, 0xb3, 0x63, 0x7f, 0xee, 0xf7, 0x63, 0x7f, 0xee,
-	0x9b, 0x4f, 0x4a, 0x67, 0x39, 0xeb, 0xef, 0xf5, 0xa2, 0xdf, 0x8b, 0x38, 0xfb, 0x99, 0x37, 0x1a,
-	0xff, 0x72, 0x74, 0x07, 0xbc, 0xb3, 0xe8, 0x5e, 0xfb, 0xf8, 0xaf, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0x3a, 0x47, 0x2e, 0x4c, 0x5d, 0x0e, 0x00, 0x00,
+	// 923 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x57, 0x41, 0x6f, 0x1b, 0x45,
+	0x14, 0xce, 0x52, 0x93, 0xd8, 0xaf, 0x4e, 0x4a, 0x87, 0x1e, 0x56, 0xa1, 0xdd, 0xac, 0xb6, 0x6a,
+	0x6b, 0x21, 0x65, 0x9d, 0xc2, 0x81, 0x73, 0xda, 0x26, 0xaa, 0x25, 0x5a, 0xc1, 0x12, 0x40, 0xe2,
+	0x62, 0x8d, 0x77, 0x5e, 0xec, 0x51, 0xec, 0x9d, 0x65, 0x66, 0x9c, 0x38, 0xff, 0x00, 0x6e, 0xfc,
+	0x08, 0xc4, 0x91, 0x1f, 0xc0, 0x2f, 0x88, 0x38, 0x55, 0x1c, 0x50, 0xc5, 0xa1, 0xaa, 0x92, 0x3f,
+	0x82, 0x66, 0x76, 0xd7, 0xde, 0x04, 0xc7, 0x4e, 0x8b, 0x14, 0xa5, 0x82, 0x4b, 0xb2, 0xf3, 0xbd,
+	0x9d, 0x37, 0xef, 0xfb, 0x66, 0xde, 0xe7, 0x59, 0xf0, 0xa5, 0x18, 0x6a, 0x94, 0x71, 0x8f, 0xf2,
+	0xa4, 0xb9, 0x2f, 0x0e, 0x69, 0x17, 0x65, 0x13, 0xf7, 0x31, 0xd1, 0x2a, 0x4c, 0xa5, 0xd0, 0x82,
+	0x04, 0xd9, 0x1b, 0x76, 0x10, 0x8b, 0x7e, 0x58, 0x9a, 0x10, 0xe6, 0x13, 0x56, 0x1f, 0x94, 0xb3,
+	0x0c, 0x86, 0x7d, 0xcd, 0xb3, 0x47, 0xfb, 0xb7, 0xad, 0x0f, 0x53, 0xcc, 0x92, 0xad, 0x7a, 0xb1,
+	0x50, 0x03, 0xa1, 0x9a, 0x1d, 0xaa, 0xb0, 0xb9, 0xff, 0xb0, 0x83, 0x9a, 0x3e, 0x6c, 0xc6, 0x82,
+	0x27, 0x79, 0xfc, 0x56, 0x57, 0x74, 0x85, 0x7d, 0x6c, 0x9a, 0xa7, 0x0c, 0x0d, 0x7e, 0x5c, 0x04,
+	0x6f, 0xcb, 0xd4, 0xb4, 0x3d, 0x4c, 0xd8, 0x13, 0x4c, 0x85, 0xe2, 0x3a, 0xc2, 0xef, 0x87, 0xa8,
+	0xf4, 0x63, 0x89, 0x54, 0x23, 0x23, 0xf7, 0x60, 0x85, 0x6a, 0x8d, 0x4a, 0x53, 0xcd, 0x45, 0xd2,
+	0xe6, 0xcc, 0x75, 0x7c, 0xa7, 0x51, 0x8f, 0x96, 0x4b, 0x68, 0x8b, 0x11, 0x0f, 0x40, 0xc9, 0xf8,
+	0xb1, 0x29, 0xab, 0xc5, 0xdc, 0xf7, 0x7c, 0xa7, 0x51, 0x8b, 0x4a, 0x08, 0xd9, 0x81, 0x7a, 0x31,
+	0xda, 0x39, 0x4c, 0xd1, 0xbd, 0xe6, 0x3b, 0x8d, 0x95, 0x4f, 0x36, 0xc2, 0x19, 0x1a, 0x4c, 0xe8,
+	0x86, 0xe3, 0x79, 0xd1, 0xa9, 0x2c, 0xe4, 0x36, 0xd4, 0x94, 0x8c, 0x77, 0x46, 0x4f, 0xa9, 0xea,
+	0xb9, 0x15, 0xbb, 0xe8, 0x04, 0x20, 0x81, 0x5d, 0x73, 0x87, 0x0f, 0x4c, 0x9d, 0x83, 0xd4, 0x7d,
+	0xdf, 0x77, 0x1a, 0x95, 0xe8, 0x14, 0x46, 0x56, 0xa1, 0x1a, 0x8b, 0x44, 0x4b, 0x1a, 0x6b, 0x77,
+	0xd1, 0x26, 0x18, 0x8f, 0xc9, 0x1d, 0x00, 0x96, 0x69, 0x62, 0x68, 0x2f, 0xd9, 0xd9, 0xb5, 0x1c,
+	0x69, 0x31, 0xe2, 0xc3, 0xf5, 0x4e, 0x5f, 0xc4, 0x7b, 0x4f, 0x91, 0x77, 0x7b, 0xda, 0xad, 0xda,
+	0x78, 0x19, 0x32, 0x6f, 0x30, 0x23, 0x65, 0xae, 0x4a, 0xcd, 0x0a, 0x57, 0x86, 0xc8, 0x36, 0x2c,
+	0xd2, 0x81, 0x18, 0x26, 0xda, 0x05, 0xb3, 0xf8, 0xa3, 0xf0, 0xe8, 0xd5, 0xda, 0xc2, 0x5f, 0xaf,
+	0xd6, 0xee, 0x77, 0xb9, 0xee, 0x0d, 0x3b, 0x61, 0x2c, 0x06, 0xcd, 0x7c, 0x67, 0xb3, 0x7f, 0xeb,
+	0x8a, 0xed, 0x35, 0xcd, 0xbe, 0xab, 0xb0, 0x95, 0xe8, 0x28, 0x9f, 0x4d, 0x9e, 0x9b, 0x52, 0x95,
+	0xde, 0xcc, 0x72, 0x5d, 0x7f, 0xab, 0x5c, 0xa5, 0x0c, 0x46, 0x16, 0x23, 0x93, 0xd8, 0xc3, 0xc4,
+	0xad, 0x67, 0xb2, 0x14, 0x63, 0x23, 0xba, 0xc4, 0x98, 0xa7, 0x1c, 0x13, 0xed, 0x2e, 0x5b, 0x4e,
+	0x13, 0xc0, 0x44, 0x73, 0x89, 0x84, 0x74, 0x57, 0xb2, 0x2d, 0x19, 0x03, 0xc4, 0x85, 0xa5, 0x01,
+	0x2a, 0x45, 0xbb, 0xe8, 0xde, 0xb0, 0x33, 0x8b, 0x21, 0x79, 0x06, 0x90, 0x52, 0xa9, 0x13, 0x94,
+	0x46, 0xec, 0x0f, 0xde, 0x8a, 0x41, 0x2d, 0xcf, 0xd0, 0x62, 0x64, 0x03, 0x6e, 0x15, 0x7b, 0x77,
+	0xc0, 0x75, 0xaf, 0x5d, 0xac, 0x7a, 0xd3, 0x77, 0x1a, 0xd5, 0x88, 0xe4, 0xb1, 0x6f, 0xb9, 0xee,
+	0x3d, 0xcb, 0x22, 0xc1, 0x2f, 0x0e, 0xf8, 0xe7, 0xf4, 0xc2, 0x37, 0xb4, 0xcf, 0xd9, 0x9b, 0x74,
+	0x83, 0x6f, 0x4f, 0x5e, 0x3b, 0xeb, 0x52, 0x3e, 0xad, 0x1f, 0xca, 0xe7, 0xee, 0xda, 0xcc, 0x73,
+	0x57, 0x39, 0x73, 0xee, 0x82, 0xdf, 0x1d, 0x58, 0x3b, 0xa7, 0xd0, 0xad, 0x11, 0xc6, 0xc3, 0x2b,
+	0x52, 0x27, 0xb9, 0x0b, 0xcb, 0x38, 0xc2, 0xb8, 0x2d, 0x51, 0xa5, 0x22, 0x51, 0x68, 0xfb, 0xaf,
+	0x1e, 0xd5, 0x0d, 0x18, 0xe5, 0x58, 0xf0, 0xd2, 0x81, 0xfb, 0x33, 0xc9, 0x70, 0x91, 0x6c, 0x53,
+	0xde, 0xbf, 0x22, 0x9c, 0x3e, 0x86, 0x9b, 0x96, 0x13, 0x4a, 0x79, 0x96, 0xd7, 0x0d, 0x13, 0xd8,
+	0x92, 0x72, 0x4c, 0xed, 0x87, 0x0a, 0x7c, 0x34, 0xa6, 0xf6, 0x05, 0xe5, 0xec, 0x7f, 0x67, 0x2d,
+	0x54, 0xf6, 0x00, 0xec, 0x4f, 0xe1, 0x73, 0x91, 0xc4, 0x98, 0x3b, 0x6b, 0x09, 0xb9, 0x98, 0xb5,
+	0xe6, 0x2d, 0x6d, 0x2b, 0xcc, 0xad, 0xb5, 0x04, 0x19, 0x06, 0xbb, 0x42, 0x1e, 0x50, 0xc9, 0x50,
+	0x66, 0xee, 0x1a, 0x4d, 0x00, 0xb2, 0x01, 0x1f, 0x8e, 0x07, 0x91, 0x95, 0x66, 0x93, 0x31, 0x99,
+	0x39, 0x67, 0x34, 0x2d, 0x64, 0xf8, 0x98, 0x1d, 0x7e, 0x42, 0x35, 0xb5, 0x96, 0x58, 0x8f, 0xc6,
+	0x63, 0xcb, 0x67, 0x84, 0xf1, 0x57, 0x9a, 0xea, 0xa1, 0xb2, 0x9e, 0x58, 0x8d, 0x4a, 0x48, 0xf0,
+	0xb3, 0x03, 0x77, 0xa6, 0x1d, 0x85, 0x4b, 0x36, 0x96, 0xd3, 0xb2, 0x57, 0xce, 0xca, 0x1e, 0x1c,
+	0x39, 0x70, 0x7b, 0x5a, 0x99, 0x97, 0x6b, 0x2b, 0x73, 0xaa, 0xbc, 0x98, 0xaf, 0xfc, 0xe9, 0xc0,
+	0xdd, 0xf3, 0xa9, 0x5c, 0xb2, 0xa9, 0xcc, 0x63, 0xf4, 0x26, 0xae, 0xf2, 0x5b, 0x05, 0xee, 0x59,
+	0x62, 0xb9, 0x59, 0xb6, 0x92, 0x5d, 0xf1, 0x75, 0x6a, 0x0f, 0xd1, 0x7f, 0xcb, 0x5f, 0x26, 0x17,
+	0x8d, 0x16, 0xb3, 0x06, 0x73, 0xca, 0xa8, 0xcb, 0xdb, 0xb1, 0x34, 0x73, 0x3b, 0xaa, 0xf3, 0xdc,
+	0xa7, 0xf6, 0x4f, 0xf7, 0xf9, 0x1c, 0x6a, 0xbb, 0x88, 0x9b, 0xff, 0xe6, 0xe6, 0x36, 0x49, 0x40,
+	0x42, 0x20, 0x3c, 0xe1, 0x9a, 0x53, 0x8d, 0xe6, 0xae, 0xc2, 0x24, 0x3d, 0xa0, 0x7d, 0x6b, 0x45,
+	0xd5, 0x68, 0x4a, 0x64, 0xde, 0xe5, 0x6c, 0x72, 0xfd, 0x5a, 0x3e, 0x73, 0xfd, 0x0a, 0x7e, 0x75,
+	0xe0, 0xc1, 0xec, 0xc3, 0x73, 0xc5, 0x1c, 0xe9, 0x8f, 0xe2, 0x7a, 0x70, 0x6e, 0xc1, 0xef, 0xa0,
+	0x37, 0xbd, 0x76, 0x60, 0xfd, 0x22, 0xa4, 0xde, 0x5d, 0x97, 0x7a, 0xf4, 0xe5, 0xd1, 0xb1, 0xe7,
+	0xbc, 0x38, 0xf6, 0x9c, 0xd7, 0xc7, 0x9e, 0xf3, 0xd3, 0x89, 0xb7, 0xf0, 0xe2, 0xc4, 0x5b, 0x78,
+	0x79, 0xe2, 0x2d, 0x7c, 0xf7, 0x59, 0xa9, 0x3f, 0x32, 0xcf, 0x58, 0x2f, 0x3c, 0xa4, 0x18, 0x67,
+	0x9f, 0xb8, 0xa3, 0xf1, 0x57, 0xb3, 0x6d, 0x9a, 0xce, 0xa2, 0x7d, 0xed, 0xd3, 0xbf, 0x03, 0x00,
+	0x00, 0xff, 0xff, 0x64, 0x1f, 0x16, 0x70, 0x59, 0x0f, 0x00, 0x00,
 }
 
 func (m *EventFundDepositRequestCreated) Marshal() (dAtA []byte, err error) {
@@ -1300,7 +1372,14 @@ func (m *EventFundDepositRequestValidated) MarshalToSizedBuffer(dAtA []byte) (in
 	if m.DepositId != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.DepositId))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1344,12 +1423,19 @@ func (m *EventFundDepositRequestExecuted) MarshalToSizedBuffer(dAtA []byte) (int
 		copy(dAtA[i:], m.ExecResponse)
 		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecResponse)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.DepositId != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.DepositId))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1393,12 +1479,19 @@ func (m *EventFundDepositRequestExecutionFailed) MarshalToSizedBuffer(dAtA []byt
 		copy(dAtA[i:], m.ExecErrResponse)
 		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecErrResponse)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.DepositId != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.DepositId))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1549,7 +1642,14 @@ func (m *EventFundPaidRequestValidated) MarshalToSizedBuffer(dAtA []byte) (int, 
 	if m.EventNonce != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1593,12 +1693,19 @@ func (m *EventFundPaidRequestExecuted) MarshalToSizedBuffer(dAtA []byte) (int, e
 		copy(dAtA[i:], m.ExecResponse)
 		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecResponse)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1642,12 +1749,19 @@ func (m *EventFundPaidRequestExecutionFailed) MarshalToSizedBuffer(dAtA []byte) 
 		copy(dAtA[i:], m.ExecErrResponse)
 		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecErrResponse)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1799,7 +1913,14 @@ func (m *EventDepositInfoUpdatedRequestValidated) MarshalToSizedBuffer(dAtA []by
 	if m.EventNonce != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1843,12 +1964,19 @@ func (m *EventDepositInfoUpdatedRequestExecuted) MarshalToSizedBuffer(dAtA []byt
 		copy(dAtA[i:], m.ExecResponse)
 		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecResponse)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -1892,12 +2020,19 @@ func (m *EventDepositInfoUpdatedRequestExecutionFailed) MarshalToSizedBuffer(dAt
 		copy(dAtA[i:], m.ExecErrResponse)
 		i = encodeVarintEvents(dAtA, i, uint64(len(m.ExecErrResponse)))
 		i--
-		dAtA[i] = 0x22
+		dAtA[i] = 0x2a
 	}
 	if m.EventNonce != 0 {
 		i = encodeVarintEvents(dAtA, i, uint64(m.EventNonce))
 		i--
-		dAtA[i] = 0x18
+		dAtA[i] = 0x20
+	}
+	if len(m.Contract) > 0 {
+		i -= len(m.Contract)
+		copy(dAtA[i:], m.Contract)
+		i = encodeVarintEvents(dAtA, i, uint64(len(m.Contract)))
+		i--
+		dAtA[i] = 0x1a
 	}
 	if len(m.SrcChainId) > 0 {
 		i -= len(m.SrcChainId)
@@ -2007,6 +2142,10 @@ func (m *EventFundDepositRequestValidated) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
+	l = len(m.Contract)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
 	if m.DepositId != 0 {
 		n += 1 + sovEvents(uint64(m.DepositId))
 	}
@@ -2024,6 +2163,10 @@ func (m *EventFundDepositRequestExecuted) Size() (n int) {
 		n += 1 + l + sovEvents(uint64(l))
 	}
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
@@ -2048,6 +2191,10 @@ func (m *EventFundDepositRequestExecutionFailed) Size() (n int) {
 		n += 1 + l + sovEvents(uint64(l))
 	}
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
@@ -2131,6 +2278,10 @@ func (m *EventFundPaidRequestValidated) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
+	l = len(m.Contract)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
 	if m.EventNonce != 0 {
 		n += 1 + sovEvents(uint64(m.EventNonce))
 	}
@@ -2148,6 +2299,10 @@ func (m *EventFundPaidRequestExecuted) Size() (n int) {
 		n += 1 + l + sovEvents(uint64(l))
 	}
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
@@ -2172,6 +2327,10 @@ func (m *EventFundPaidRequestExecutionFailed) Size() (n int) {
 		n += 1 + l + sovEvents(uint64(l))
 	}
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
@@ -2252,6 +2411,10 @@ func (m *EventDepositInfoUpdatedRequestValidated) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
+	l = len(m.Contract)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
 	if m.EventNonce != 0 {
 		n += 1 + sovEvents(uint64(m.EventNonce))
 	}
@@ -2269,6 +2432,10 @@ func (m *EventDepositInfoUpdatedRequestExecuted) Size() (n int) {
 		n += 1 + l + sovEvents(uint64(l))
 	}
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
@@ -2293,6 +2460,10 @@ func (m *EventDepositInfoUpdatedRequestExecutionFailed) Size() (n int) {
 		n += 1 + l + sovEvents(uint64(l))
 	}
 	l = len(m.SrcChainId)
+	if l > 0 {
+		n += 1 + l + sovEvents(uint64(l))
+	}
+	l = len(m.Contract)
 	if l > 0 {
 		n += 1 + l + sovEvents(uint64(l))
 	}
@@ -2952,6 +3123,38 @@ func (m *EventFundDepositRequestValidated) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DepositId", wireType)
 			}
@@ -3087,6 +3290,38 @@ func (m *EventFundDepositRequestExecuted) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DepositId", wireType)
 			}
@@ -3105,7 +3340,7 @@ func (m *EventFundDepositRequestExecuted) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecResponse", wireType)
 			}
@@ -3256,6 +3491,38 @@ func (m *EventFundDepositRequestExecutionFailed) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field DepositId", wireType)
 			}
@@ -3274,7 +3541,7 @@ func (m *EventFundDepositRequestExecutionFailed) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecErrResponse", wireType)
 			}
@@ -3833,6 +4100,38 @@ func (m *EventFundPaidRequestValidated) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -3968,6 +4267,38 @@ func (m *EventFundPaidRequestExecuted) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -3986,7 +4317,7 @@ func (m *EventFundPaidRequestExecuted) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecResponse", wireType)
 			}
@@ -4137,6 +4468,38 @@ func (m *EventFundPaidRequestExecutionFailed) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -4155,7 +4518,7 @@ func (m *EventFundPaidRequestExecutionFailed) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecErrResponse", wireType)
 			}
@@ -4699,6 +5062,38 @@ func (m *EventDepositInfoUpdatedRequestValidated) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -4834,6 +5229,38 @@ func (m *EventDepositInfoUpdatedRequestExecuted) Unmarshal(dAtA []byte) error {
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -4852,7 +5279,7 @@ func (m *EventDepositInfoUpdatedRequestExecuted) Unmarshal(dAtA []byte) error {
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecResponse", wireType)
 			}
@@ -5003,6 +5430,38 @@ func (m *EventDepositInfoUpdatedRequestExecutionFailed) Unmarshal(dAtA []byte) e
 			m.SrcChainId = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Contract", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowEvents
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthEvents
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthEvents
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Contract = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field EventNonce", wireType)
 			}
@@ -5021,7 +5480,7 @@ func (m *EventDepositInfoUpdatedRequestExecutionFailed) Unmarshal(dAtA []byte) e
 					break
 				}
 			}
-		case 4:
+		case 5:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field ExecErrResponse", wireType)
 			}

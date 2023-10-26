@@ -172,6 +172,10 @@ message EventCrosschainAckReadyToExecute {
   cosmos.base.v1beta1.Coin ack_relayer_incentive_in_route = 8 [(gogoproto.nullable) = false];
 }
 
+message EventCrosschainAckRequestValidated {
+  string ack_src_chain_id = 1; 
+  uint64 ack_request_identifier = 2;   
+}
 
 message EventCrosschainAckExecuted {
   bytes attestation_id = 1;

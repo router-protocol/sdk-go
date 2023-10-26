@@ -11,4 +11,5 @@ var (
 	ErrMetaInfoNotFound        = sdkerrors.Register(ModuleName, 1100, "meta info not found")
 	ErrFeePayerAlreadyApproved = sdkerrors.Register(ModuleName, 1101, "fee payer already approved")
 	ErrFeePayerMismatch        = sdkerrors.Register(ModuleName, 1102, "fee payer mismatch")
+	ErrFeePayerAlreadyRevoked  = sdkerrors.Register(ModuleName, 1103, "fee payer already revoked")
 )
