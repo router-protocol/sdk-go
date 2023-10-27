@@ -1,8 +1,6 @@
 package types
 
 import (
-	"errors"
-
 	"github.com/ethereum/go-ethereum/accounts/abi"
 )
 
@@ -19,16 +17,23 @@ type RouterCrosschainPacket interface {
 	GetRequestPacket() []byte
 }
 
-func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) (*CrosschainRouterPacket, error) {
+func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) *CrosschainRouterPacket {
 
-	packet := CrosschainRouterPacket{}
+	packet := &CrosschainRouterPacket{}
 
 	if len(msg.GetRequestPacket()) < 100 {
-		return nil, errors.New("Insufficient request packet length")
+		return packet
 	}
 
-	Bytes, _ := abi.NewType("bytes", "", nil)
-	String, _ := abi.NewType("string", "", nil)
+	Bytes, err := abi.NewType("bytes", "", nil)
+	if err != nil {
+		return packet
+	}
+
+	String, err := abi.NewType("string", "", nil)
+	if err != nil {
+		return packet
+	}
 
 	arguments := abi.Arguments{
 		{
@@ -41,17 +46,15 @@ func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) (*CrosschainRouter
 
 	data, err := arguments.Unpack(msg.GetRequestPacket())
 	if err != nil {
-		return nil, err
+		return packet
 	}
 
-	// // Print the decoded values
+	// Assign the decoded values
 	handlerContractAddress := data[0].(string)
 	payload := data[1].([]byte)
 
-	packet = CrosschainRouterPacket{
-		Handler: handlerContractAddress,
-		Payload: payload,
-	}
+	packet.Handler = handlerContractAddress
+	packet.Payload = payload
 
-	return &packet, nil
+	return packet
 }
