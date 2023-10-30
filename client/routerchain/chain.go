@@ -109,10 +109,11 @@ type ChainClient interface {
 	GetAllNativeTransferedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllNativeTransferedCrosschainRequestResponse, error)
 	GetReadyToExecuteCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetReadyToExecuteCrosschainRequestResponse, error)
 	GetAllReadyToExecuteCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllReadyToExecuteCrosschainRequestResponse, error)
-	GetAllReadyToExecuteCrosschainRequestsByWorkflow(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowResponse, error)
-	GetAllReadyToExecuteCrosschainRequestsByWorkflowAndRelayer(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse, error)
-	GetAllReadyToExecuteCrosschainAckRequestsByWorkflow(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowResponse, error)
-	GetAllReadyToExecuteCrosschainAckRequestsByWorkflowAndRelayer(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerResponse, error)
+	GetAllReadyToExecuteCrosschainRequestsByWorkflow(ctx context.Context, workflowType crosschainTypes.WorkflowType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowResponse, error)
+	GetAllReadyToExecuteCrosschainRequestsByWorkflowAndRelayer(ctx context.Context, workflowType crosschainTypes.WorkflowType, relayerType crosschainTypes.RelayerType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse, error)
+	GetAllReadyToExecuteCrosschainAckRequestsByWorkflow(ctx context.Context, ackWorkflowType crosschainTypes.WorkflowType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowResponse, error)
+	GetAllReadyToExecuteCrosschainAckRequestsByWorkflowAndRelayer(ctx context.Context, ackWorkflowType crosschainTypes.WorkflowType, ackRelayerType crosschainTypes.RelayerType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerResponse, error)
+
 	GetBlockedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetBlockedCrosschainRequestResponse, error)
 	GetAllBlockedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllBlockedCrosschainRequestResponse, error)
 	GetExpiredCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExpiredCrosschainRequestResponse, error)
@@ -219,6 +220,8 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyrin
 	if keyringDir == "" {
 		keyringDir = os.Getenv("HOME") + "/.routerd"
 	}
+
+	fmt.Println("InitCosmosKeyRing", "keyringDir", keyringDir, "keyringFrom", keyringFrom, "passphrase", passphrase)
 	senderAddress, cosmosKeyring, err := InitCosmosKeyring(
 		keyringDir,
 		"routerd",
@@ -921,23 +924,23 @@ func (c *chainClient) GetAllReadyToExecuteCrosschainRequests(ctx context.Context
 	return c.crosschainQueryClient.ReadyToExecuteCrosschainRequestAll(ctx, req)
 }
 
-func (c *chainClient) GetAllReadyToExecuteCrosschainRequestsByWorkflow(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowResponse, error) {
-	req := &crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowRequest{Pagination: pagination}
+func (c *chainClient) GetAllReadyToExecuteCrosschainRequestsByWorkflow(ctx context.Context, workflowType crosschainTypes.WorkflowType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowResponse, error) {
+	req := &crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowRequest{WorkflowType: uint64(workflowType), Pagination: pagination}
 	return c.crosschainQueryClient.ReadyToExecuteCrosschainRequestByWorkflow(ctx, req)
 }
 
-func (c *chainClient) GetAllReadyToExecuteCrosschainRequestsByWorkflowAndRelayer(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse, error) {
-	req := &crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerRequest{Pagination: pagination}
+func (c *chainClient) GetAllReadyToExecuteCrosschainRequestsByWorkflowAndRelayer(ctx context.Context, workflowType crosschainTypes.WorkflowType, relayerType crosschainTypes.RelayerType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse, error) {
+	req := &crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerRequest{WorkflowType: uint64(workflowType), RelayerType: uint64(relayerType), Pagination: pagination}
 	return c.crosschainQueryClient.ReadyToExecuteCrosschainRequestByWorkflowAndRelayer(ctx, req)
 }
 
-func (c *chainClient) GetAllReadyToExecuteCrosschainAckRequestsByWorkflow(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowResponse, error) {
-	req := &crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowRequest{Pagination: pagination}
+func (c *chainClient) GetAllReadyToExecuteCrosschainAckRequestsByWorkflow(ctx context.Context, ackWorkflowType crosschainTypes.WorkflowType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowResponse, error) {
+	req := &crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowRequest{AckWorkflowType: uint64(ackWorkflowType), Pagination: pagination}
 	return c.crosschainQueryClient.ReadyToExecuteCrosschainAckRequestByWorkflow(ctx, req)
 }
 
-func (c *chainClient) GetAllReadyToExecuteCrosschainAckRequestsByWorkflowAndRelayer(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerResponse, error) {
-	req := &crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerRequest{Pagination: pagination}
+func (c *chainClient) GetAllReadyToExecuteCrosschainAckRequestsByWorkflowAndRelayer(ctx context.Context, ackWorkflowType crosschainTypes.WorkflowType, ackRelayerType crosschainTypes.RelayerType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerResponse, error) {
+	req := &crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerRequest{AckWorkflowType: uint64(ackWorkflowType), AckRelayerType: uint64(ackRelayerType), Pagination: pagination}
 	return c.crosschainQueryClient.ReadyToExecuteCrosschainAckRequestByWorkflowAndRelayer(ctx, req)
 }
 
