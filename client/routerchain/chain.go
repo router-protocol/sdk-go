@@ -88,17 +88,28 @@ type ChainClient interface {
 	GetAllContractConfigByChainId(ctx context.Context, chainId string) (*multichainTypes.QueryAllContractConfigByChainIdResponse, error)
 
 	// Attestation
-	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
-	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
-	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
-	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
-	GetLastEventByValidator(ctx context.Context, chainId string, contract string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
-	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
-	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
-	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
+	GetValsetByNonce(c context.Context, valsetNonce uint64) (*attestationTypes.QueryGetValsetResponse, error)
+	GetLastEventByValidator(ctx context.Context, chainId string, contract string, validator sdk.ValAddress) (*attestationTypes.QueryLastEventNonceResponse, error)
+	GetLatestValset(ctx context.Context) (*attestationTypes.QueryLatestValsetResponse, error)
+	GetLatestValsetNonce(ctx context.Context) (*attestationTypes.QueryLatestValsetNonceResponse, error)
 	GetAllAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllAttestationResponse, error)
 	GetAllObservedAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllObservedAttestationResponse, error)
+	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
+	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
+	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
+	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
+
+	// PriceFeed
+	GetPriceBySymbol(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetPriceResponse, error)
+	GetAllSymbolPrices(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllPriceResponse, error)
+	GetSymbolRequest(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetSymbolRequestResponse, error)
+	GetAllSymbolRequest(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllSymbolRequestResponse, error)
+	GetPriceFeederInfo(ctx context.Context, priceFeederName string) (*pricefeedTypes.QueryGetPriceFeederInfoResponse, error)
+	GetAllPriceFeederInfo(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllPriceFeederInfoResponse, error)
+	GetGasPriceByChainId(ctx context.Context, chainId string) (*pricefeedTypes.QueryGetGasPriceResponse, error)
+	GetAllGasPrice(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllGasPriceResponse, error)
+	GetAllWhitelistedIBCChannels(ctx context.Context) (*pricefeedTypes.QueryWhitelistedIBCChannelsResponse, error)
 
 	// Crosschain
 	GetCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetCrosschainRequestResponse, error)
@@ -113,7 +124,6 @@ type ChainClient interface {
 	GetAllReadyToExecuteCrosschainRequestsByWorkflowAndRelayer(ctx context.Context, workflowType crosschainTypes.WorkflowType, relayerType crosschainTypes.RelayerType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainRequestByWorkflowAndRelayerResponse, error)
 	GetAllReadyToExecuteCrosschainAckRequestsByWorkflow(ctx context.Context, ackWorkflowType crosschainTypes.WorkflowType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowResponse, error)
 	GetAllReadyToExecuteCrosschainAckRequestsByWorkflowAndRelayer(ctx context.Context, ackWorkflowType crosschainTypes.WorkflowType, ackRelayerType crosschainTypes.RelayerType, pagination *query.PageRequest) (*crosschainTypes.QueryReadyToExecuteCrosschainAckRequestByWorkflowAndRelayerResponse, error)
-
 	GetBlockedCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetBlockedCrosschainRequestResponse, error)
 	GetAllBlockedCrosschainRequests(ctx context.Context, pagination *query.PageRequest) (*crosschainTypes.QueryAllBlockedCrosschainRequestResponse, error)
 	GetExpiredCrosschainRequest(ctx context.Context, srcChainId string, requestIdentifier uint64) (*crosschainTypes.QueryGetExpiredCrosschainRequestResponse, error)
@@ -772,6 +782,54 @@ func (c *chainClient) GetAllContractConfigByChainId(ctx context.Context, chainId
 		ChainId: chainId,
 	}
 	return c.multichainQueryClient.ContractConfigByChainId(ctx, req)
+}
+
+// ///////////////////////////////
+// //    PriceFeed           ////
+// //////////////////////////////
+func (c *chainClient) GetPriceBySymbol(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetPriceResponse, error) {
+	req := &pricefeedTypes.QueryGetPriceRequest{Symbol: symbol}
+	return c.pricefeedQueryClient.Price(ctx, req)
+}
+
+func (c *chainClient) GetAllSymbolPrices(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllPriceResponse, error) {
+	req := &pricefeedTypes.QueryAllPriceRequest{Pagination: pagination}
+	return c.pricefeedQueryClient.PriceAll(ctx, req)
+}
+
+func (c *chainClient) GetSymbolRequest(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetSymbolRequestResponse, error) {
+	req := &pricefeedTypes.QueryGetSymbolRequestRequest{Symbol: symbol}
+	return c.pricefeedQueryClient.SymbolRequest(ctx, req)
+}
+
+func (c *chainClient) GetAllSymbolRequest(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllSymbolRequestResponse, error) {
+	req := &pricefeedTypes.QueryAllSymbolRequestRequest{Pagination: pagination}
+	return c.pricefeedQueryClient.SymbolRequestAll(ctx, req)
+}
+
+func (c *chainClient) GetPriceFeederInfo(ctx context.Context, priceFeederName string) (*pricefeedTypes.QueryGetPriceFeederInfoResponse, error) {
+	req := &pricefeedTypes.QueryGetPriceFeederInfoRequest{Name: priceFeederName}
+	return c.pricefeedQueryClient.PriceFeederInfo(ctx, req)
+}
+
+func (c *chainClient) GetAllPriceFeederInfo(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllPriceFeederInfoResponse, error) {
+	req := &pricefeedTypes.QueryAllPriceFeederInfoRequest{Pagination: pagination}
+	return c.pricefeedQueryClient.PriceFeederInfoAll(ctx, req)
+}
+
+func (c *chainClient) GetGasPriceByChainId(ctx context.Context, chainId string) (*pricefeedTypes.QueryGetGasPriceResponse, error) {
+	req := &pricefeedTypes.QueryGetGasPriceRequest{ChainId: chainId}
+	return c.pricefeedQueryClient.GasPrice(ctx, req)
+}
+
+func (c *chainClient) GetAllGasPrice(ctx context.Context, pagination *query.PageRequest) (*pricefeedTypes.QueryAllGasPriceResponse, error) {
+	req := &pricefeedTypes.QueryAllGasPriceRequest{Pagination: pagination}
+	return c.pricefeedQueryClient.GasPriceAll(ctx, req)
+}
+
+func (c *chainClient) GetAllWhitelistedIBCChannels(ctx context.Context) (*pricefeedTypes.QueryWhitelistedIBCChannelsResponse, error) {
+	req := &pricefeedTypes.QueryWhitelistedIBCChannelsRequest{}
+	return c.pricefeedQueryClient.WhitelistedIBCChannels(ctx, req)
 }
 
 /////////////////////////////////
