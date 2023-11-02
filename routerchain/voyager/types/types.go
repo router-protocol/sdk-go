@@ -21,7 +21,8 @@ func NewFundDepositRequest(
 	depositor string,
 	partnerId sdk.Int,
 	message []byte,
-	depositWithMessage bool) *FundDepositRequest {
+	depositWithMessage bool,
+	isDestNative bool) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
@@ -39,6 +40,7 @@ func NewFundDepositRequest(
 		PartnerId:          partnerId,
 		Message:            message,
 		DepositWithMessage: depositWithMessage,
+		IsDestNative:       isDestNative,
 		Status:             VOYAGER_FUND_DEPOSIT_REQUEST_CREATED,
 	}
 }
@@ -62,6 +64,7 @@ func NewFundsDepositedFromMsg(
 		PartnerId:          msg.PartnerId,
 		Message:            msg.Message,
 		DepositWithMessage: msg.DepositWithMessage,
+		IsDestNative:       msg.IsDestNative,
 		Status:             VOYAGER_FUND_DEPOSIT_REQUEST_CREATED,
 	}
 }
@@ -82,7 +85,8 @@ func NewFundDepositRequestClaimHash(
 	depositor string,
 	partnerID sdk.Int,
 	message []byte,
-	depositWithMessage bool) *FundDepositRequestClaimHash {
+	depositWithMessage bool,
+	isDestNative bool) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
@@ -100,6 +104,7 @@ func NewFundDepositRequestClaimHash(
 		PartnerId:          partnerID,
 		Message:            message,
 		DepositWithMessage: depositWithMessage,
+		IsDestNative:       isDestNative,
 	}
 }
 
