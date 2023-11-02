@@ -32,6 +32,7 @@ message MsgFundsDeposited {
   string                                          partner_id   = 15 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
   bytes                                           message      = 16;
   bool                                            deposit_with_message = 17;
+  bool is_dest_native = 18;
 }
 
 message MsgFundsDepositedResponse {}
