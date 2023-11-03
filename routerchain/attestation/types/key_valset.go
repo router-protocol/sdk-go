@@ -2,6 +2,7 @@ package types
 
 import (
 	"encoding/binary"
+	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
@@ -44,5 +45,8 @@ func GetLastEventByValidatorKey(validator sdk.ValAddress, chainId string, contra
 	if err := sdk.VerifyAddressFormat(validator); err != nil {
 		panic(sdkerrors.Wrap(err, "invalid validator address"))
 	}
+
+	chainId = strings.ToLower(chainId)
+	contract = strings.ToLower(contract)
 	return util.AppendBytes(LastEventNonceByValidatorKey, []byte(chainId), []byte(contract), validator.Bytes())
 }
