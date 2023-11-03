@@ -19,7 +19,7 @@ type HandleFundDeposit struct {
 	PartnerId              sdk.Int `json:"partner_id"`
 	Message                string  `json:"message"`
 	DepositWithMessage     bool    `json:"deposit_with_message"`
-	IsDestNative           bool    `json:"is_dest_native"`
+	DestToken              string  `json:"dest_token"`
 }
 
 type SudoFundsPaidMsg struct {
