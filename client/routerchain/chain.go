@@ -81,10 +81,10 @@ type ChainClient interface {
 	GetAllValidators(ctx context.Context, status string, pagination *query.PageRequest) (*stakingtypes.QueryValidatorsResponse, error)
 
 	// MultiChain
-	GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error)
+	GetAllChainConfig(ctx context.Context, pagination *query.PageRequest) (*multichainTypes.QueryAllChainConfigResponse, error)
 	GetChainConfig(ctx context.Context, chainId string) (*multichainTypes.QueryGetChainConfigResponse, error)
 	GetContractConfig(ctx context.Context, chainId string, contract string) (*multichainTypes.QueryGetContractConfigResponse, error)
-	GetAllContractConfig(ctx context.Context) (*multichainTypes.QueryAllContractConfigResponse, error)
+	GetAllContractConfig(ctx context.Context, pagination *query.PageRequest) (*multichainTypes.QueryAllContractConfigResponse, error)
 	GetAllContractConfigByChainId(ctx context.Context, chainId string) (*multichainTypes.QueryAllContractConfigByChainIdResponse, error)
 
 	// Attestation
@@ -97,7 +97,7 @@ type ChainClient interface {
 	GetAllObservedAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllObservedAttestationResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
-	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
+	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
 	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
 
 	// PriceFeed
@@ -160,7 +160,7 @@ type ChainClient interface {
 	GetCrosschainAckReceipt(ctx context.Context, ackReceiptSrcChainId string, ackReceiptIdentifier uint64) (*crosschainTypes.QueryGetCrosschainAckReceiptResponse, error)
 
 	// MetaStore
-	GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error)
+	GetAllMetaInfo(ctx context.Context, pagination *query.PageRequest) (*metastoreTypes.QueryAllMetaInfoResponse, error)
 	GetMetaInfo(ctx context.Context, chainId string, dappAddress []byte) (*metastoreTypes.QueryAllMetaInfoResponseByChainAndAddress, error)
 
 	// Wasm
@@ -752,8 +752,8 @@ func (c *chainClient) ExecuteContract(amountStr string, sender sdk.AccAddress, c
 // ///////////////////////////////
 // //    Multichain           ////
 // //////////////////////////////
-func (c *chainClient) GetAllChainConfig(ctx context.Context) (*multichainTypes.QueryAllChainConfigResponse, error) {
-	req := &multichainTypes.QueryAllChainConfigRequest{}
+func (c *chainClient) GetAllChainConfig(ctx context.Context, pagination *query.PageRequest) (*multichainTypes.QueryAllChainConfigResponse, error) {
+	req := &multichainTypes.QueryAllChainConfigRequest{Pagination: pagination}
 	return c.multichainQueryClient.ChainConfigAll(ctx, req)
 }
 
@@ -772,8 +772,8 @@ func (c *chainClient) GetContractConfig(ctx context.Context, chainId string, con
 	return c.multichainQueryClient.ContractConfig(ctx, req)
 }
 
-func (c *chainClient) GetAllContractConfig(ctx context.Context) (*multichainTypes.QueryAllContractConfigResponse, error) {
-	req := &multichainTypes.QueryAllContractConfigRequest{}
+func (c *chainClient) GetAllContractConfig(ctx context.Context, pagination *query.PageRequest) (*multichainTypes.QueryAllContractConfigResponse, error) {
+	req := &multichainTypes.QueryAllContractConfigRequest{Pagination: pagination}
 	return c.multichainQueryClient.ContractConfigAll(ctx, req)
 }
 
@@ -836,8 +836,8 @@ func (c *chainClient) GetAllWhitelistedIBCChannels(ctx context.Context) (*pricef
 ////    MetaStore           ////
 ////////////////////////////////
 
-func (c *chainClient) GetAllMetaInfo(ctx context.Context) (*metastoreTypes.QueryAllMetaInfoResponse, error) {
-	req := &metastoreTypes.QueryAllMetaInfoRequest{}
+func (c *chainClient) GetAllMetaInfo(ctx context.Context, pagination *query.PageRequest) (*metastoreTypes.QueryAllMetaInfoResponse, error) {
+	req := &metastoreTypes.QueryAllMetaInfoRequest{Pagination: pagination}
 	return c.metastoreQueryClient.MetaInfoAll(ctx, req)
 }
 
@@ -912,8 +912,8 @@ func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, 
 	return c.attestationQueryClient.ValsetConfirmation(ctx, req)
 }
 
-func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
-	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce}
+func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
+	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce, Pagination: pagination}
 	return c.attestationQueryClient.ValsetConfirmationAll(ctx, req)
 }
 
