@@ -3,6 +3,7 @@ module github.com/router-protocol/sdk-go
 go 1.16
 
 require (
+	cosmossdk.io/errors v1.0.0-beta.7
 	cosmossdk.io/math v1.0.0-beta.4
 	github.com/CosmWasm/wasmd v0.27.0
 	github.com/bugsnag/panicwrap v1.3.4 // indirect
