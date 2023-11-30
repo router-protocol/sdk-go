@@ -231,7 +231,6 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyrin
 		keyringDir = os.Getenv("HOME") + "/.routerd"
 	}
 
-	fmt.Println("InitCosmosKeyRing", "keyringDir", keyringDir, "keyringFrom", keyringFrom, "passphrase", passphrase)
 	senderAddress, cosmosKeyring, err := InitCosmosKeyring(
 		keyringDir,
 		"routerd",
