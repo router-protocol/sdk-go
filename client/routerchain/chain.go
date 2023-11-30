@@ -212,7 +212,7 @@ type chainClient struct {
 	canSign bool
 }
 
-func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyringFrom string, passphrase string, privateKey string, keyringDir string) ChainClient {
+func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyringFrom string, passphrase string, privateKey string, keyringDir string, keyringBackend string) ChainClient {
 	network := common.LoadNetwork(networkName, "k8s")
 
 	tmEndpoint := network.TmEndpoint
@@ -235,7 +235,7 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyrin
 	senderAddress, cosmosKeyring, err := InitCosmosKeyring(
 		keyringDir,
 		"routerd",
-		"file",
+		keyringBackend,
 		keyringFrom,
 		passphrase,
 		privateKey, // keyring will be used if pk not provided
