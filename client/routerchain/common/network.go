@@ -72,6 +72,11 @@ func LoadNetwork(name string, node string) Network {
 		network.TmEndpoint = "http://65.0.127.255:26657"
 		network.ChainEvmRpcEndpoint = "http://65.0.127.255:8545"
 		network.ChainGrpcEndpoint = "tcp://65.0.127.255:9090"
+	} else if name == "mainnet" {
+		network.ApiEndpoint = "https://sentry.lcd.routerprotocol.com:443"
+		network.TmEndpoint = "https://sentry.tm.rpc.routerprotocol.com:443"
+		network.ChainEvmRpcEndpoint = "https://sentry.evm.rpc.routerprotocol.com/"
+		network.ChainGrpcEndpoint = "tcp://sentry.grpc.routerprotocol.com:9090"
 	}
 
 	//Fetch chain ID
