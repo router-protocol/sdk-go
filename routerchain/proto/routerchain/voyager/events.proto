@@ -133,4 +133,3 @@ message EventDepositInfoUpdatedRequestExecutionFailed {
   uint64 eventNonce = 4;  
   bytes exec_err_response = 5;
 }
-  

@@ -1,7 +1,6 @@
 package types
 
 import (
-	fmt "fmt"
 	"math/big"
 	"strings"
 
@@ -18,7 +17,7 @@ import (
 ///////////////////////////////////
 
 // GetCheckpoint gets the checkpoint signature from the given MsgCrosschainAckRequest
-func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
+func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, error) {
 	/**
 	     Always get checkpoint from crosschain request only.
 	 	Crosschain request is dynamic while msg is static.
@@ -29,25 +28,25 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
 	case multichainTypes.CHAIN_TYPE_NEAR:
 		return crosschainAckRequest.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
-		return nil
+		return nil, nil
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
 	}
 }
 
 // GetCheckpoint gets the checkpoint signature from the given MsgCrosschainAckRequest
-func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) []byte {
+func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, error) {
 	switch msg.AckDestChainType {
 	case multichainTypes.CHAIN_TYPE_NEAR:
 		return msg.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
-		return nil
+		return nil, nil
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
 }
 
-func (msg CrosschainAckRequest) GetNearCheckpoint(routerIDstring string) []byte {
+func (msg CrosschainAckRequest) GetNearCheckpoint(routerIDstring string) ([]byte, error) {
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iAck gateway call  /////
 	//////////////////////////////////////////////////////////////////////
@@ -68,7 +67,7 @@ func (msg CrosschainAckRequest) GetNearCheckpoint(routerIDstring string) []byte 
 	/////////////////////////////////////////////////
 	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestNearCheckpointABIJSON))
 	if err != nil {
-		panic("Bad ABI constant!")
+		return nil, err
 	}
 
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
@@ -88,16 +87,16 @@ func (msg CrosschainAckRequest) GetNearCheckpoint(routerIDstring string) []byte 
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
 	if err != nil {
-		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+		return nil, err
 	}
 
 	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
 	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
 	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
-	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
 }
 
-func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
+func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) ([]byte, error) {
 	//////////////////////////////////////////////////////////////////////
 	/////  Build data with types required for iAck gateway call  /////
 	//////////////////////////////////////////////////////////////////////
@@ -118,7 +117,7 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	/////////////////////////////////////////////////
 	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestCheckpointABIJSON))
 	if err != nil {
-		panic("Bad ABI constant!")
+		return nil, err
 	}
 
 	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
@@ -138,11 +137,11 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
 	if err != nil {
-		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+		return nil, err
 	}
 
 	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
 	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
 	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
-	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
 }

@@ -12,6 +12,5 @@ message Params {
   uint64 minimumRelayerFees = 2;
   int64 cleanup_interval = 3;
   int64 blocked_retry_interval = 4;
-  string router_admin = 5;
-  int64 blocked_expiry_interval = 6;
+  int64 blocked_expiry_interval = 5;
 }

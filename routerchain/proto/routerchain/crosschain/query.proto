@@ -11,7 +11,6 @@ import "routerchain/crosschain/crosschain_request_confirm.proto";
 import "routerchain/crosschain/crosschain_ack_request.proto";
 import "routerchain/crosschain/crosschain_ack_request_confirm.proto";
 import "routerchain/crosschain/crosschain_ack_receipt.proto";
-import "routerchain/crosschain/relayer_config.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
@@ -73,17 +72,7 @@ service Query {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/crosschain_ack_receipt";
   
   }
-  
-  // Queries a list of RelayerConfig items.
-  rpc RelayerConfig    (QueryGetRelayerConfigRequest) returns (QueryGetRelayerConfigResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/crosschain/relayer_config/{chainId}";
-  
-  }
-  rpc RelayerConfigAll (QueryAllRelayerConfigRequest) returns (QueryAllRelayerConfigResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/crosschain/relayer_config";
-  
-  }
-  
+    
   // Queries a list of BlockedCrosschainRequest items.
   rpc BlockedCrosschainRequest    (QueryGetBlockedCrosschainRequestRequest) returns (QueryGetBlockedCrosschainRequestResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/crosschain/blocked_crosschain_request/{sourceChainId}/{requestIdentifier}";
@@ -373,23 +362,6 @@ message QueryAllCrosschainAckReceiptRequest {
 message QueryAllCrosschainAckReceiptResponse {
   repeated CrosschainAckReceipt                   crosschainAckReceipt = 1 [(gogoproto.nullable) = false];
            cosmos.base.query.v1beta1.PageResponse pagination           = 2;
-}
-
-message QueryGetRelayerConfigRequest {
-  string chainId = 1;
-}
-
-message QueryGetRelayerConfigResponse {
-  RelayerConfig relayerConfig = 1 [(gogoproto.nullable) = false];
-}
-
-message QueryAllRelayerConfigRequest {
-  cosmos.base.query.v1beta1.PageRequest pagination = 1;
-}
-
-message QueryAllRelayerConfigResponse {
-  repeated RelayerConfig                          relayerConfig = 1 [(gogoproto.nullable) = false];
-           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
 }
 
 message QueryGetBlockedCrosschainRequestRequest {

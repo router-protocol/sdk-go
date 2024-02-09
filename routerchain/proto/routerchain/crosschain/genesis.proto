@@ -9,7 +9,6 @@ import "routerchain/crosschain/crosschain_request_confirm.proto";
 import "routerchain/crosschain/crosschain_ack_request.proto";
 import "routerchain/crosschain/crosschain_ack_request_confirm.proto";
 import "routerchain/crosschain/crosschain_ack_receipt.proto";
-import "routerchain/crosschain/relayer_config.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
@@ -22,21 +21,20 @@ message GenesisState {
   repeated CrosschainAckRequest               crosschainAckRequestList               =  5 [(gogoproto.nullable) = false];
   repeated CrosschainAckRequestConfirm        crosschainAckRequestConfirmList        =  6 [(gogoproto.nullable) = false];
   repeated CrosschainAckReceipt               crosschainAckReceiptList               =  7 [(gogoproto.nullable) = false];
-  repeated RelayerConfig                      relayerConfigList                      =  8 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  blockedCrosschainRequestList           =  9 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest               blockedCrosschainAckRequestList        = 10 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  expiredCrosschainRequestList           = 11 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest               expiredCrosschainAckRequestList        = 12 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  validCrosschainRequestList             = 13 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  nativeTransferedCrosschainRequestList  = 14 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  readyToExecuteCrosschainRequestList    = 15 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  executedCrosschainRequestList          = 16 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  feesSettledCrosschainRequestList       = 17 [(gogoproto.nullable) = false];
-  repeated CrosschainRequest                  completedCrosschainRequestList         = 18 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest          validCrosschainAckRequestList          = 19 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest readyToExecuteCrosschainAckRequestList = 20 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest       executedCrosschainAckRequestList       = 21 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest    feesSettledCrosschainAckRequestList    = 22 [(gogoproto.nullable) = false];
-  repeated CrosschainAckRequest      completedCrosschainAckRequestList      = 23 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  blockedCrosschainRequestList           =  8 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest               blockedCrosschainAckRequestList        = 9 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  expiredCrosschainRequestList           = 10 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest               expiredCrosschainAckRequestList        = 11 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  validCrosschainRequestList             = 12 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  nativeTransferedCrosschainRequestList  = 13 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  readyToExecuteCrosschainRequestList    = 14 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  executedCrosschainRequestList          = 15 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  feesSettledCrosschainRequestList       = 16 [(gogoproto.nullable) = false];
+  repeated CrosschainRequest                  completedCrosschainRequestList         = 17 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest          validCrosschainAckRequestList          = 18 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest readyToExecuteCrosschainAckRequestList = 19 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest       executedCrosschainAckRequestList       = 20 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest    feesSettledCrosschainAckRequestList    = 21 [(gogoproto.nullable) = false];
+  repeated CrosschainAckRequest      completedCrosschainAckRequestList      = 22 [(gogoproto.nullable) = false];
 }
 

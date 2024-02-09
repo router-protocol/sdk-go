@@ -1,17 +1,25 @@
 syntax = "proto3";
+
 package routerprotocol.routerchain.multichain;
 
 import "gogoproto/gogo.proto";
 import "routerchain/multichain/params.proto";
 import "routerchain/multichain/chain_config.proto";
+import "routerchain/multichain/ibc_relayer_config.proto";
+import "routerchain/multichain/nonce_observed_status.proto";
+
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
 
 // GenesisState defines the multichain module's genesis state.
 message GenesisState {
-  Params params = 1 [(gogoproto.nullable) = false];
-  repeated ChainConfig chainConfigList = 2 [(gogoproto.nullable) = false];
-  repeated ContractConfig contractConfigList = 3 [(gogoproto.nullable) = false];
+           Params           params               = 1 [(gogoproto.nullable) = false];
+  repeated ChainConfig      chainConfigList      = 2 [(gogoproto.nullable) = false];
+  repeated ContractConfig   contractConfigList   = 3 [(gogoproto.nullable) = false];
+  repeated IbcRelayerConfig ibcRelayerConfigList = 4 [(gogoproto.nullable) = false];
+
   // this line is used by starport scaffolding # genesis/proto/state
+  repeated NonceObservedStatus nonceObservedStatusList = 5 [(gogoproto.nullable) = false];
 }
+

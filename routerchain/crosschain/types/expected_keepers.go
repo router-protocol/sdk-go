@@ -44,6 +44,8 @@ type MultichainKeeper interface {
 	GetAllContractConfig(ctx sdk.Context) (list []multichainTypes.ContractConfig)
 	GetChainConfig(ctx sdk.Context, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
 	GetContractConfig(ctx sdk.Context, chainId string, contract string) (val multichainTypes.ContractConfig, found bool)
+	GetAllIbcRelayerConfig(ctx sdk.Context) (list []multichainTypes.IbcRelayerConfig)
+	GetIbcRelayerConfig(ctx sdk.Context, chainId string, connectionType multichainTypes.IbcRelayerConnectionType) (val multichainTypes.IbcRelayerConfig, found bool)
 }
 
 type PriceFeedKeeper interface {

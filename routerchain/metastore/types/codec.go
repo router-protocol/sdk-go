@@ -2,6 +2,7 @@ package types
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/codec/legacy"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
@@ -16,6 +17,7 @@ var (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
+
 	cdc.RegisterConcrete(&MsgCreateMetadataRequest{}, "metastore/CreateMetadataRequest", nil)
 	cdc.RegisterConcrete(&MsgApproveFeepayerRequest{}, "metastore/ApproveFeepayerRequest", nil)
 	cdc.RegisterConcrete(&MsgRevokeFeepayerRequest{}, "metastore/RevokeFeepayerRequest", nil)
@@ -23,8 +25,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 }
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) { //nolint:staticcheck
-	cdc.RegisterConcrete(&MsgCreateMetadataRequest{}, "metastore/CreateMetadataRequest", nil)
-	cdc.RegisterConcrete(&MsgApproveFeepayerRequest{}, "metastore/ApproveFeepayerRequest", nil)
+	legacy.RegisterAminoMsg(cdc, &MsgCreateMetadataRequest{}, "metastore/CreateMetadataRequest")
+	legacy.RegisterAminoMsg(cdc, &MsgApproveFeepayerRequest{}, "metastore/ApproveFeepayerRequest")
+	legacy.RegisterAminoMsg(cdc, &MsgRevokeFeepayerRequest{}, "metastore/RevokeFeepayerRequest")
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {

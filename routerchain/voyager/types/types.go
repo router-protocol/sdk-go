@@ -1,8 +1,19 @@
 package types
 
 import (
+	"crypto/sha256"
+	"fmt"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/address"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	ibctransfertypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
+	ibcexported "github.com/cosmos/ibc-go/v6/modules/core/exported"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+)
+
+var (
+	VoyagerModuleAccount = GetEscrowAddress(fmt.Sprintf("%s_%s", ModuleName, "gmp"))
 )
 
 func NewFundDepositRequest(
@@ -261,4 +272,24 @@ func NewDepositInfoUpdatedRequestClaimHash(
 		Depositor:          depositor,
 		Initiatewithdrawal: initiatewithdrawal,
 	}
+}
+
+// ToICS20Packet unmarshals IBC packet as ICS20 token packet
+func ToICS20Packet(packet ibcexported.PacketI) (ibctransfertypes.FungibleTokenPacketData, error) {
+	var data ibctransfertypes.FungibleTokenPacketData
+	if err := ibctransfertypes.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
+		return ibctransfertypes.FungibleTokenPacketData{}, sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "cannot unmarshal ICS-20 transfer packet data")
+	}
+
+	if err := data.ValidateBasic(); err != nil {
+		return ibctransfertypes.FungibleTokenPacketData{}, err
+	}
+
+	return data, nil
+}
+
+// GetEscrowAddress creates an address for an ibc denomination
+func GetEscrowAddress(denom string) sdk.AccAddress {
+	hash := sha256.Sum256([]byte(denom))
+	return hash[:address.Len]
 }

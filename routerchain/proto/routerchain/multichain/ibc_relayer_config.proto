@@ -1,0 +1,22 @@
+syntax = "proto3";
+package routerprotocol.routerchain.multichain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
+
+import "gogoproto/gogo.proto";
+
+enum IbcRelayerConnectionType {
+  option (gogoproto.goproto_enum_prefix) = false;
+
+  GATEWAY_ENDPOINT = 0 [(gogoproto.enumvalue_customname) = "GATEWAY_ENDPOINT"];
+  VOYAGER_ENDPOINT = 1 [(gogoproto.enumvalue_customname) = "VOYAGER_ENDPOINT"];  
+}
+
+message IbcRelayerConfig {
+  string chainId = 1; 
+  string relayerName = 2; 
+  string channel = 3; 
+  bool relayerEnabled = 4;
+  IbcRelayerConnectionType connectionType = 5; 
+}
+

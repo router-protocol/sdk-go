@@ -3,5 +3,10 @@ package routerprotocol.routerchain.multichain;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
 
-// Msg defines the Msg service.
-service Msg {}
+message NonceObservedStatus {
+  string chainId = 1; 
+  string contract_address = 2; 
+  uint64 nonce = 3;
+  bool is_observed = 4;
+}
+

@@ -18,12 +18,14 @@ type MultichainKeeper interface {
 	SetLastObservedEventNonce(ctx sdk.Context, chainId string, contract string, nonce uint64)
 	GetLastObservedEventBlockHeight(ctx sdk.Context, contract string, chainId string) uint64
 	SetLastObservedEventBlockHeight(ctx sdk.Context, chainId string, contract string, blockHeight uint64)
+	SetNonceObservedStatus(ctx sdk.Context, nonceObservedStatus multichainTypes.NonceObservedStatus)
 	SetLastObservedValsetNonce(ctx sdk.Context, chainId string, nonce uint64)
 	GetLastObservedValsetNonce(ctx sdk.Context, chainId string) uint64
 	GetAllChainConfig(ctx sdk.Context) (list []multichainTypes.ChainConfig)
 	GetAllContractConfig(ctx sdk.Context) (list []multichainTypes.ContractConfig)
 	GetChainConfig(ctx sdk.Context, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)
 	GetContractConfig(ctx sdk.Context, chainId string, contract string) (val multichainTypes.ContractConfig, found bool)
+	IsNonceObserved(ctx sdk.Context, chainId string, contractAddress string, nonce uint64) (isObserved bool)
 }
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)
