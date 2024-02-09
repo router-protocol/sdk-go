@@ -404,6 +404,200 @@ func (m *MultichainDeleteContractConfigProposal) GetContractAddress() string {
 	return ""
 }
 
+type MultichainCreateIbcRelayerConfigProposal struct {
+	Title            string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description      string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	IbcRelayerConfig *IbcRelayerConfig `protobuf:"bytes,3,opt,name=ibcRelayerConfig,proto3" json:"ibcRelayerConfig,omitempty"`
+}
+
+func (m *MultichainCreateIbcRelayerConfigProposal) Reset() {
+	*m = MultichainCreateIbcRelayerConfigProposal{}
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) String() string { return proto.CompactTextString(m) }
+func (*MultichainCreateIbcRelayerConfigProposal) ProtoMessage()    {}
+func (*MultichainCreateIbcRelayerConfigProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_734728e47dc167e0, []int{6}
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MultichainCreateIbcRelayerConfigProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MultichainCreateIbcRelayerConfigProposal.Merge(m, src)
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MultichainCreateIbcRelayerConfigProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MultichainCreateIbcRelayerConfigProposal proto.InternalMessageInfo
+
+func (m *MultichainCreateIbcRelayerConfigProposal) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MultichainCreateIbcRelayerConfigProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MultichainCreateIbcRelayerConfigProposal) GetIbcRelayerConfig() *IbcRelayerConfig {
+	if m != nil {
+		return m.IbcRelayerConfig
+	}
+	return nil
+}
+
+type MultichainUpdateIbcRelayerConfigProposal struct {
+	Title            string            `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description      string            `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	IbcRelayerConfig *IbcRelayerConfig `protobuf:"bytes,3,opt,name=ibcRelayerConfig,proto3" json:"ibcRelayerConfig,omitempty"`
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) Reset() {
+	*m = MultichainUpdateIbcRelayerConfigProposal{}
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) String() string { return proto.CompactTextString(m) }
+func (*MultichainUpdateIbcRelayerConfigProposal) ProtoMessage()    {}
+func (*MultichainUpdateIbcRelayerConfigProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_734728e47dc167e0, []int{7}
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MultichainUpdateIbcRelayerConfigProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MultichainUpdateIbcRelayerConfigProposal.Merge(m, src)
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MultichainUpdateIbcRelayerConfigProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MultichainUpdateIbcRelayerConfigProposal proto.InternalMessageInfo
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) GetIbcRelayerConfig() *IbcRelayerConfig {
+	if m != nil {
+		return m.IbcRelayerConfig
+	}
+	return nil
+}
+
+type MultichainDeleteIbcRelayerConfigProposal struct {
+	Title          string                   `protobuf:"bytes,1,opt,name=title,proto3" json:"title,omitempty"`
+	Description    string                   `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
+	ChainId        string                   `protobuf:"bytes,3,opt,name=chainId,proto3" json:"chainId,omitempty"`
+	ConnectionType IbcRelayerConnectionType `protobuf:"varint,4,opt,name=connectionType,proto3,enum=routerprotocol.routerchain.multichain.IbcRelayerConnectionType" json:"connectionType,omitempty"`
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) Reset() {
+	*m = MultichainDeleteIbcRelayerConfigProposal{}
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) String() string { return proto.CompactTextString(m) }
+func (*MultichainDeleteIbcRelayerConfigProposal) ProtoMessage()    {}
+func (*MultichainDeleteIbcRelayerConfigProposal) Descriptor() ([]byte, []int) {
+	return fileDescriptor_734728e47dc167e0, []int{8}
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MultichainDeleteIbcRelayerConfigProposal.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MultichainDeleteIbcRelayerConfigProposal.Merge(m, src)
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) XXX_Size() int {
+	return m.Size()
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) XXX_DiscardUnknown() {
+	xxx_messageInfo_MultichainDeleteIbcRelayerConfigProposal.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MultichainDeleteIbcRelayerConfigProposal proto.InternalMessageInfo
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) GetTitle() string {
+	if m != nil {
+		return m.Title
+	}
+	return ""
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) GetChainId() string {
+	if m != nil {
+		return m.ChainId
+	}
+	return ""
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) GetConnectionType() IbcRelayerConnectionType {
+	if m != nil {
+		return m.ConnectionType
+	}
+	return GATEWAY_ENDPOINT
+}
+
 func init() {
 	proto.RegisterType((*MultichainCreateChainConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainCreateChainConfigProposal")
 	proto.RegisterType((*MultichainUpdateChainConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainUpdateChainConfigProposal")
@@ -411,36 +605,45 @@ func init() {
 	proto.RegisterType((*MultichainCreateContractConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainCreateContractConfigProposal")
 	proto.RegisterType((*MultichainUpdateContractConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainUpdateContractConfigProposal")
 	proto.RegisterType((*MultichainDeleteContractConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainDeleteContractConfigProposal")
+	proto.RegisterType((*MultichainCreateIbcRelayerConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainCreateIbcRelayerConfigProposal")
+	proto.RegisterType((*MultichainUpdateIbcRelayerConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainUpdateIbcRelayerConfigProposal")
+	proto.RegisterType((*MultichainDeleteIbcRelayerConfigProposal)(nil), "routerprotocol.routerchain.multichain.MultichainDeleteIbcRelayerConfigProposal")
 }
 
 func init() { proto.RegisterFile("routerchain/multichain/gov.proto", fileDescriptor_734728e47dc167e0) }
 
 var fileDescriptor_734728e47dc167e0 = []byte{
-	// 378 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x28, 0xca, 0x2f, 0x2d,
-	0x49, 0x2d, 0x4a, 0xce, 0x48, 0xcc, 0xcc, 0xd3, 0xcf, 0x2d, 0xcd, 0x29, 0xc9, 0x84, 0x30, 0xd3,
-	0xf3, 0xcb, 0xf4, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2, 0x85, 0x54, 0x21, 0x2a, 0xc0, 0x9c, 0xe4, 0xfc,
-	0x1c, 0x3d, 0x24, 0x0d, 0x7a, 0x08, 0x0d, 0x52, 0x9a, 0x38, 0x0c, 0x02, 0x93, 0xf1, 0xc9, 0xf9,
-	0x79, 0x69, 0x99, 0xe9, 0x10, 0x13, 0xa5, 0xd4, 0xf1, 0x2a, 0x2d, 0xa9, 0x2c, 0x48, 0x85, 0x28,
-	0x54, 0xda, 0xcc, 0xc8, 0xa5, 0xec, 0x0b, 0x97, 0x77, 0x2e, 0x4a, 0x4d, 0x2c, 0x49, 0x75, 0x06,
-	0x33, 0xc1, 0xc6, 0x05, 0x14, 0xe5, 0x17, 0xe4, 0x17, 0x27, 0xe6, 0x08, 0x89, 0x70, 0xb1, 0x96,
-	0x64, 0x96, 0xe4, 0xa4, 0x4a, 0x30, 0x2a, 0x30, 0x6a, 0x70, 0x06, 0x41, 0x38, 0x42, 0x0a, 0x5c,
-	0xdc, 0x29, 0xa9, 0xc5, 0xc9, 0x45, 0x99, 0x05, 0x25, 0x99, 0xf9, 0x79, 0x12, 0x4c, 0x60, 0x39,
-	0x64, 0x21, 0xa1, 0x10, 0x2e, 0xee, 0x64, 0x84, 0x71, 0x12, 0xcc, 0x0a, 0x8c, 0x1a, 0xdc, 0x46,
-	0x46, 0x7a, 0x44, 0x79, 0x58, 0x0f, 0xc9, 0x21, 0x41, 0xc8, 0xc6, 0xa0, 0xb9, 0x3a, 0xb4, 0x20,
-	0x65, 0x48, 0xb8, 0xfa, 0x38, 0x8a, 0xab, 0x5d, 0x52, 0x73, 0x52, 0xa9, 0xeb, 0x6a, 0x09, 0x2e,
-	0x76, 0xb0, 0xc9, 0x9e, 0x29, 0x60, 0x17, 0x73, 0x06, 0xc1, 0xb8, 0x42, 0x7e, 0x5c, 0x9c, 0x60,
-	0x66, 0x48, 0x65, 0x41, 0xaa, 0x04, 0x8b, 0x02, 0xa3, 0x06, 0x9f, 0x91, 0x01, 0x29, 0xbe, 0x01,
-	0xe9, 0x0b, 0x42, 0x18, 0xa1, 0xb4, 0x9f, 0x91, 0x4b, 0x0d, 0x23, 0xd5, 0xe4, 0xe7, 0x95, 0x14,
-	0x25, 0x26, 0x97, 0x50, 0xc9, 0x33, 0xb1, 0x5c, 0x7c, 0xc9, 0x28, 0x26, 0x42, 0x63, 0xc1, 0x94,
-	0x58, 0x77, 0xa3, 0x68, 0x0e, 0x42, 0x33, 0x0c, 0xcd, 0x07, 0xd0, 0x14, 0x34, 0xa4, 0x7c, 0xb0,
-	0x04, 0xc5, 0x07, 0xd0, 0xd4, 0x44, 0x5d, 0x1f, 0xe0, 0x4e, 0x50, 0x1a, 0x5c, 0xfc, 0x30, 0xe7,
-	0x38, 0xa6, 0xa4, 0x14, 0xa5, 0x16, 0x17, 0x83, 0x93, 0x15, 0x67, 0x10, 0xba, 0xb0, 0x53, 0xc8,
-	0x89, 0x47, 0x72, 0x8c, 0x17, 0x1e, 0xc9, 0x31, 0x3e, 0x78, 0x24, 0xc7, 0x38, 0xe1, 0xb1, 0x1c,
-	0xc3, 0x85, 0xc7, 0x72, 0x0c, 0x37, 0x1e, 0xcb, 0x31, 0x44, 0x59, 0xa5, 0x67, 0x96, 0x64, 0x94,
-	0x26, 0xe9, 0x25, 0xe7, 0xe7, 0xea, 0x43, 0x82, 0x40, 0x17, 0x16, 0x24, 0x30, 0x3e, 0xa4, 0xd0,
-	0xaa, 0x40, 0x2e, 0xc1, 0x40, 0x65, 0x57, 0x71, 0x12, 0x1b, 0x58, 0xa5, 0x31, 0x20, 0x00, 0x00,
-	0xff, 0xff, 0x65, 0xff, 0xd4, 0x74, 0x5c, 0x05, 0x00, 0x00,
+	// 466 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x55, 0xcf, 0x8a, 0xd3, 0x40,
+	0x1c, 0xee, 0xf8, 0x97, 0x4c, 0xa1, 0x4a, 0xf0, 0x10, 0x7a, 0x08, 0xa1, 0xa2, 0xc6, 0x83, 0xa9,
+	0x54, 0x44, 0xf0, 0x22, 0x5a, 0x2f, 0x3d, 0x28, 0x32, 0xd4, 0x8b, 0x20, 0x25, 0x99, 0x8c, 0xe9,
+	0x40, 0x9a, 0x09, 0x93, 0xa9, 0xd8, 0xb7, 0xf0, 0x21, 0x7c, 0x03, 0x1f, 0xc0, 0xa3, 0x7b, 0xec,
+	0x71, 0x8f, 0x4b, 0xcb, 0xbe, 0xc7, 0x92, 0x99, 0x64, 0x9b, 0x4c, 0xc9, 0xd2, 0x5d, 0x72, 0xe9,
+	0xa5, 0xcc, 0x6f, 0xfa, 0xfd, 0xbe, 0x7c, 0xdf, 0xe4, 0xcb, 0xfc, 0xa0, 0xc3, 0xd9, 0x52, 0x10,
+	0x8e, 0xe7, 0x3e, 0x4d, 0x86, 0x8b, 0x65, 0x2c, 0xa8, 0x5a, 0x46, 0xec, 0xa7, 0x97, 0x72, 0x26,
+	0x98, 0xf9, 0x44, 0x21, 0x64, 0x81, 0x59, 0xec, 0x55, 0x1a, 0xbc, 0x5d, 0x43, 0xff, 0x79, 0x03,
+	0x91, 0xfc, 0x9d, 0x61, 0x96, 0xfc, 0xa0, 0x91, 0x62, 0xec, 0x3f, 0xbb, 0x12, 0x2a, 0x56, 0x29,
+	0x29, 0x80, 0xc3, 0x06, 0x20, 0x0d, 0xf0, 0x8c, 0x93, 0xd8, 0x5f, 0x11, 0x5e, 0x63, 0x1e, 0xfc,
+	0x05, 0xf0, 0xf1, 0xa7, 0x4b, 0xdc, 0x98, 0x13, 0x5f, 0x90, 0xb1, 0x5c, 0x4a, 0xd4, 0x17, 0xce,
+	0x52, 0x96, 0xf9, 0xb1, 0xf9, 0x08, 0xde, 0x15, 0x54, 0xc4, 0xc4, 0x02, 0x0e, 0x70, 0x0d, 0xa4,
+	0x0a, 0xd3, 0x81, 0xdd, 0x90, 0x64, 0x98, 0xd3, 0x54, 0x50, 0x96, 0x58, 0xb7, 0xe4, 0x7f, 0xd5,
+	0x2d, 0x73, 0x0a, 0xbb, 0x78, 0x47, 0x67, 0xdd, 0x76, 0x80, 0xdb, 0x1d, 0x8d, 0xbc, 0x83, 0x4e,
+	0xc8, 0xab, 0x08, 0x41, 0x55, 0x1a, 0x4d, 0xf5, 0xd7, 0x34, 0x3c, 0x0a, 0xd5, 0xff, 0x6b, 0xaa,
+	0x3f, 0x92, 0x98, 0xb4, 0xab, 0xda, 0x82, 0xf7, 0x25, 0xf3, 0x24, 0x94, 0x8a, 0x0d, 0x54, 0x96,
+	0xe6, 0x67, 0x68, 0xc8, 0xe5, 0x74, 0x95, 0x12, 0xeb, 0x8e, 0x03, 0xdc, 0xde, 0xe8, 0xe5, 0x75,
+	0xdc, 0xe4, 0x7d, 0x68, 0x47, 0x31, 0xf8, 0x07, 0xe0, 0xd3, 0xbd, 0xd4, 0xb0, 0x44, 0x70, 0x1f,
+	0x8b, 0x96, 0xcc, 0x7c, 0x87, 0x3d, 0x5c, 0x63, 0x2c, 0xde, 0xc2, 0xeb, 0x43, 0x75, 0xd7, 0x9a,
+	0x91, 0x46, 0xa6, 0x39, 0x28, 0x12, 0x74, 0x54, 0x0e, 0xfe, 0xd4, 0x1c, 0x14, 0x69, 0x6a, 0xd7,
+	0x41, 0x73, 0xa0, 0x5c, 0xf8, 0xa0, 0x94, 0xf3, 0x3e, 0x0c, 0x39, 0xc9, 0x32, 0x19, 0x2b, 0x03,
+	0xe9, 0xdb, 0x79, 0xe8, 0x5d, 0x3d, 0x2a, 0x93, 0x00, 0x23, 0x75, 0x19, 0xb5, 0x24, 0x14, 0xc3,
+	0x87, 0x54, 0xe3, 0x2c, 0x0e, 0xfb, 0xcd, 0x81, 0x87, 0xad, 0x4b, 0x42, 0x7b, 0x84, 0x9a, 0x13,
+	0x15, 0x99, 0xe3, 0x74, 0x72, 0x5e, 0x73, 0xa2, 0xa2, 0xd3, 0xba, 0x93, 0xe6, 0xf0, 0x44, 0xf2,
+	0xc3, 0x48, 0x08, 0xce, 0x71, 0x95, 0x2b, 0xe9, 0xdd, 0x4d, 0x1c, 0x56, 0x68, 0x90, 0x46, 0xfb,
+	0x61, 0x7a, 0xb2, 0xb1, 0xc1, 0x7a, 0x63, 0x83, 0xb3, 0x8d, 0x0d, 0x7e, 0x6f, 0xed, 0xce, 0x7a,
+	0x6b, 0x77, 0x4e, 0xb7, 0x76, 0xe7, 0xdb, 0xdb, 0x88, 0x8a, 0xf9, 0x32, 0xf0, 0x30, 0x5b, 0x14,
+	0x23, 0xf3, 0x45, 0xf9, 0xd4, 0xb2, 0x56, 0x83, 0xf3, 0x57, 0x75, 0x8a, 0xe6, 0x83, 0x36, 0x0b,
+	0xee, 0x49, 0xe4, 0xab, 0x8b, 0x00, 0x00, 0x00, 0xff, 0xff, 0x7e, 0xde, 0xd9, 0x37, 0x09, 0x08,
+	0x00, 0x00,
 }
 
 func (m *MultichainCreateChainConfigProposal) Marshal() (dAtA []byte, err error) {
@@ -739,6 +942,153 @@ func (m *MultichainDeleteContractConfigProposal) MarshalToSizedBuffer(dAtA []byt
 	return len(dAtA) - i, nil
 }
 
+func (m *MultichainCreateIbcRelayerConfigProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MultichainCreateIbcRelayerConfigProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MultichainCreateIbcRelayerConfigProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.IbcRelayerConfig != nil {
+		{
+			size, err := m.IbcRelayerConfig.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGov(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.IbcRelayerConfig != nil {
+		{
+			size, err := m.IbcRelayerConfig.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintGov(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.ConnectionType != 0 {
+		i = encodeVarintGov(dAtA, i, uint64(m.ConnectionType))
+		i--
+		dAtA[i] = 0x20
+	}
+	if len(m.ChainId) > 0 {
+		i -= len(m.ChainId)
+		copy(dAtA[i:], m.ChainId)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.ChainId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Title) > 0 {
+		i -= len(m.Title)
+		copy(dAtA[i:], m.Title)
+		i = encodeVarintGov(dAtA, i, uint64(len(m.Title)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintGov(dAtA []byte, offset int, v uint64) int {
 	offset -= sovGov(v)
 	base := offset
@@ -879,6 +1229,72 @@ func (m *MultichainDeleteContractConfigProposal) Size() (n int) {
 	l = len(m.ContractAddress)
 	if l > 0 {
 		n += 1 + l + sovGov(uint64(l))
+	}
+	return n
+}
+
+func (m *MultichainCreateIbcRelayerConfigProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	if m.IbcRelayerConfig != nil {
+		l = m.IbcRelayerConfig.Size()
+		n += 1 + l + sovGov(uint64(l))
+	}
+	return n
+}
+
+func (m *MultichainUpdateIbcRelayerConfigProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	if m.IbcRelayerConfig != nil {
+		l = m.IbcRelayerConfig.Size()
+		n += 1 + l + sovGov(uint64(l))
+	}
+	return n
+}
+
+func (m *MultichainDeleteIbcRelayerConfigProposal) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Title)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	l = len(m.ChainId)
+	if l > 0 {
+		n += 1 + l + sovGov(uint64(l))
+	}
+	if m.ConnectionType != 0 {
+		n += 1 + sovGov(uint64(m.ConnectionType))
 	}
 	return n
 }
@@ -1811,6 +2227,471 @@ func (m *MultichainDeleteContractConfigProposal) Unmarshal(dAtA []byte) error {
 			}
 			m.ContractAddress = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGov(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGov
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MultichainCreateIbcRelayerConfigProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGov
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MultichainCreateIbcRelayerConfigProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MultichainCreateIbcRelayerConfigProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IbcRelayerConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.IbcRelayerConfig == nil {
+				m.IbcRelayerConfig = &IbcRelayerConfig{}
+			}
+			if err := m.IbcRelayerConfig.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGov(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGov
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MultichainUpdateIbcRelayerConfigProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGov
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MultichainUpdateIbcRelayerConfigProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MultichainUpdateIbcRelayerConfigProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field IbcRelayerConfig", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.IbcRelayerConfig == nil {
+				m.IbcRelayerConfig = &IbcRelayerConfig{}
+			}
+			if err := m.IbcRelayerConfig.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipGov(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthGov
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MultichainDeleteIbcRelayerConfigProposal) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowGov
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MultichainDeleteIbcRelayerConfigProposal: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MultichainDeleteIbcRelayerConfigProposal: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Title", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Title = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ChainId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthGov
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthGov
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.ChainId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field ConnectionType", wireType)
+			}
+			m.ConnectionType = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowGov
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.ConnectionType |= IbcRelayerConnectionType(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
 		default:
 			iNdEx = preIndex
 			skippy, err := skipGov(dAtA[iNdEx:])

@@ -12,6 +12,10 @@ const (
 	ProposalTypeCreateContractConfig = "CreateContractConfig"
 	ProposalTypeDeleteContractConfig = "DeleteContractConfig"
 	ProposalTypeUpdateContractConfig = "UpdateContractConfig"
+
+	ProposalTypeCreateIbcRelayerConfig = "CreateIbcRelayerConfig"
+	ProposalTypeDeleteIbcRelayerConfig = "DeleteIbcRelayerConfig"
+	ProposalTypeUpdateIbcRelayerConfig = "UpdateIbcRelayerConfig"
 )
 
 func init() {
@@ -25,6 +29,10 @@ func init() {
 	govtypes.RegisterProposalType(ProposalTypeCreateContractConfig)
 	govtypes.RegisterProposalType(ProposalTypeDeleteContractConfig)
 	govtypes.RegisterProposalType(ProposalTypeUpdateContractConfig)
+
+	govtypes.RegisterProposalType(ProposalTypeCreateIbcRelayerConfig)
+	govtypes.RegisterProposalType(ProposalTypeDeleteIbcRelayerConfig)
+	govtypes.RegisterProposalType(ProposalTypeUpdateIbcRelayerConfig)
 }
 
 var (
@@ -35,6 +43,10 @@ var (
 	_ govtypes.Content = &MultichainCreateContractConfigProposal{}
 	_ govtypes.Content = &MultichainDeleteContractConfigProposal{}
 	_ govtypes.Content = &MultichainUpdateContractConfigProposal{}
+
+	_ govtypes.Content = &MultichainCreateIbcRelayerConfigProposal{}
+	_ govtypes.Content = &MultichainDeleteIbcRelayerConfigProposal{}
+	_ govtypes.Content = &MultichainUpdateIbcRelayerConfigProposal{}
 )
 
 func (p *MultichainCreateChainConfigProposal) ProposalRoute() string { return RouterKey }
@@ -119,6 +131,51 @@ func (p *MultichainDeleteContractConfigProposal) ProposalType() string {
 }
 
 func (p *MultichainDeleteContractConfigProposal) ValidateBasic() error {
+	err := govtypes.ValidateAbstract(p)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *MultichainCreateIbcRelayerConfigProposal) ProposalRoute() string { return RouterKey }
+
+func (p *MultichainCreateIbcRelayerConfigProposal) ProposalType() string {
+	return ProposalTypeCreateIbcRelayerConfig
+}
+
+func (p *MultichainCreateIbcRelayerConfigProposal) ValidateBasic() error {
+	err := govtypes.ValidateAbstract(p)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *MultichainUpdateIbcRelayerConfigProposal) ProposalRoute() string { return RouterKey }
+
+func (p *MultichainUpdateIbcRelayerConfigProposal) ProposalType() string {
+	return ProposalTypeUpdateIbcRelayerConfig
+}
+
+func (p *MultichainUpdateIbcRelayerConfigProposal) ValidateBasic() error {
+	err := govtypes.ValidateAbstract(p)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (p *MultichainDeleteIbcRelayerConfigProposal) ProposalRoute() string { return RouterKey }
+
+func (p *MultichainDeleteIbcRelayerConfigProposal) ProposalType() string {
+	return ProposalTypeDeleteIbcRelayerConfig
+}
+
+func (p *MultichainDeleteIbcRelayerConfigProposal) ValidateBasic() error {
 	err := govtypes.ValidateAbstract(p)
 	if err != nil {
 		return err

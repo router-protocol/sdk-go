@@ -1,0 +1,58 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+import "gogoproto/gogo.proto";
+
+message FundDepositEventPacket {
+  string src_chain_id = 1; 
+  uint64 src_timestamp = 2; 
+  string contract = 3; 
+  uint64 deposit_id = 4; 
+  uint64 block_height = 5; 
+  string dest_chain_id = 6; 
+  string amount       = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string dest_amount  = 8 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string src_token = 9; 
+  bytes recipient = 10; 
+  string depositor = 11; 
+  uint64 partner_id  = 12;
+  bytes message    = 13;
+  bool deposit_with_message = 14;
+  bytes  dest_token     = 15;
+}
+
+message FundPaidEventPacket {
+  string src_chain_id = 1; 
+  uint64 src_timestamp = 2;
+  string contract = 3; 
+  uint64 event_nonce = 4; 
+  uint64 block_height = 5; 
+  bytes message_hash = 6; 
+  string forwarder = 7; 
+  string forwarder_router_address = 8; 
+  bytes  exec_data             = 9;
+  bool   exec_status           = 10;
+}
+
+message DepositInfoUpdateEventPacket {
+  uint64 deposit_id = 1; 
+  string src_chain_id = 2; 
+  uint64 src_timestamp = 3; 
+  string contract = 4; 
+  uint64 event_nonce = 5; 
+  uint64 block_height = 6; 
+  string                                          fee_amount  = 7 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bool initiate_withdrawal = 8; 
+  string src_token = 9; 
+  string depositor = 10;
+}
+
+message IBCReceivePayload {
+  oneof request {
+    FundDepositEventPacket fund_deposit_event_packet = 1;
+    FundPaidEventPacket fund_paid_event_packet = 2;
+    DepositInfoUpdateEventPacket deposit_info_update_event_packet = 3;
+  }
+}

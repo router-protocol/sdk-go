@@ -9,6 +9,7 @@ func DefaultGenesis() *GenesisState {
 		FundDepositRequestList:       []FundDepositRequest{},
 		FundsPaidRequestList:         []FundsPaidRequest{},
 		DepositUpdateInfoRequestList: []DepositUpdateInfoRequest{},
+
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}

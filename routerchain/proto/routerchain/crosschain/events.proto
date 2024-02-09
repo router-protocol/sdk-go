@@ -230,6 +230,17 @@ message EventCrosschainAckReceiptCreated {
   uint64 request_identifier    = 7;
 }
 
+message EventCrosschainAckReceiptValidated {
+  bytes attestation_id = 1;
+  string ack_receipt_src_chain_id              = 2;
+  uint64 ack_receipt_identifier           = 3;
+  uint64 ack_receipt_block_height          = 4;
+  string ack_receipt_tx_hash               = 5;
+  string relayer_router_address = 6;
+  uint64 request_identifier    = 7;
+}
+
+
 message EventCrosschainReceiptCompleted {    
   string ack_receipt_src_chain_id = 1; 
   uint64 ack_receipt_identifier = 2;   

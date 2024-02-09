@@ -8,4 +8,5 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/ty
 // Params defines the parameters for the module.
 message Params {
 option (gogoproto.goproto_stringer) = false;
+  string router_admin = 1;
 }

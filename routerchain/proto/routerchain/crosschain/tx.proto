@@ -7,7 +7,6 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 import "routerchain/multichain/chain_type.proto";
 import "cosmos/base/v1beta1/coin.proto";
 import "gogoproto/gogo.proto";
-import "routerchain/crosschain/relayer_config.proto";
 
 // Msg defines the Msg service.
 service Msg {
@@ -16,9 +15,6 @@ service Msg {
   rpc CrosschainAckRequest        (MsgCrosschainAckRequest       ) returns (MsgCrosschainAckRequestResponse       );
   rpc ConfirmCrosschainAckRequest (MsgConfirmCrosschainAckRequest) returns (MsgConfirmCrosschainAckRequestResponse);
   rpc CrosschainAckReceipt        (MsgCrosschainAckReceipt       ) returns (MsgCrosschainAckReceiptResponse       );
-  rpc CreateRelayerConfig         (MsgCreateRelayerConfig        ) returns (MsgCreateRelayerConfigResponse        );
-  rpc UpdateRelayerConfig         (MsgUpdateRelayerConfig        ) returns (MsgUpdateRelayerConfigResponse        );
-  rpc DeleteRelayerConfig         (MsgDeleteRelayerConfig        ) returns (MsgDeleteRelayerConfigResponse        );
 }
 message MsgCrosschainRequest {
   string                                          orchestrator     =  1;
@@ -107,31 +103,4 @@ message MsgCrosschainAckReceipt {
 }
 
 message MsgCrosschainAckReceiptResponse {}
-
-message MsgCreateRelayerConfig {
-  string creator        = 1;
-  string chainId        = 2;
-  string relayerName    = 3;
-  string channel        = 4;
-  bool   relayerEnabled = 5;
-}
-
-message MsgCreateRelayerConfigResponse {}
-
-message MsgUpdateRelayerConfig {
-  string creator        = 1;
-  string chainId        = 2;
-  string relayerName    = 3;
-  string channel        = 4;
-  bool   relayerEnabled = 5;
-}
-
-message MsgUpdateRelayerConfigResponse {}
-
-message MsgDeleteRelayerConfig {
-  string creator = 1;
-  string chainId = 2;
-}
-
-message MsgDeleteRelayerConfigResponse {}
 

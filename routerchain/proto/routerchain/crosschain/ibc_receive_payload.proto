@@ -5,7 +5,7 @@ option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/ty
 
 message ReceivePayload {
   uint64 version = 1;
-  uint64 route_amount = 2;
+  string route_amount = 2;
   uint64 request_identifier = 3;
   string request_sender  = 4;
   string src_chain_id = 5;
@@ -36,6 +36,7 @@ message AckReceivePayload {
   bytes exec_data = 6;
   bool exec_status = 7;
   uint64 block_height = 8;
+  string gateway_contract_address = 9;
 }
 
 message AckReceiptPayload {
@@ -47,6 +48,7 @@ message AckReceiptPayload {
   bytes ack_exec_data = 6;
   bool ack_exec_status = 7;
   uint64 block_height = 8;
+  string gateway_contract_address = 9;
 }
   
 

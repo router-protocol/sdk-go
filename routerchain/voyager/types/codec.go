@@ -2,6 +2,7 @@ package types
 
 import (
 	"github.com/cosmos/cosmos-sdk/codec"
+	"github.com/cosmos/cosmos-sdk/codec/legacy"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
@@ -12,6 +13,12 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgFundsPaid{}, "voyager/FundsPaid", nil)
 	cdc.RegisterConcrete(&MsgDepositInfoUpdated{}, "voyager/DepositInfoUpdated", nil)
 	// this line is used by starport scaffolding # 2
+}
+
+func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) { //nolint:staticcheck
+	legacy.RegisterAminoMsg(cdc, &MsgFundsDeposited{}, "voyager/FundsDeposited")
+	legacy.RegisterAminoMsg(cdc, &MsgFundsPaid{}, "voyager/FundsPaid")
+	legacy.RegisterAminoMsg(cdc, &MsgDepositInfoUpdated{}, "voyager/DepositInfoUpdated")
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
@@ -30,6 +37,13 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 }
 
 var (
-	Amino     = codec.NewLegacyAmino()
+	amino     = codec.NewLegacyAmino()
 	ModuleCdc = codec.NewProtoCodec(cdctypes.NewInterfaceRegistry())
 )
+
+// NOTE: This is required for the GetSignBytes function
+func init() {
+	RegisterLegacyAminoCodec(amino)
+	// RegisterCrypto(amino)
+	amino.Seal()
+}

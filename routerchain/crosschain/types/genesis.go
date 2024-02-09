@@ -20,7 +20,6 @@ func DefaultGenesis() *GenesisState {
 		CrosschainAckReceiptList:        []CrosschainAckReceipt{},
 
 		// BlockedCrosschainAckRequestList: []BlockedCrosschainAckRequest{},
-		RelayerConfigList:            []RelayerConfig{},
 		ExpiredCrosschainRequestList: []CrosschainRequest{},
 
 		ValidCrosschainRequestList:            []CrosschainRequest{},
@@ -264,15 +263,6 @@ func (gs GenesisState) Validate() error {
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 	// Check for duplicated index in relayerConfig
-	relayerConfigIndexMap := make(map[string]struct{})
-
-	for _, elem := range gs.RelayerConfigList {
-		index := string(RelayerConfigKey(elem.ChainId))
-		if _, ok := relayerConfigIndexMap[index]; ok {
-			return fmt.Errorf("duplicated index for relayerConfig")
-		}
-		relayerConfigIndexMap[index] = struct{}{}
-	}
 
 	return gs.Params.Validate()
 }

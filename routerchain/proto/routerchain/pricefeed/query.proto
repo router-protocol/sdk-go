@@ -53,17 +53,22 @@ service Query {
   }
   
   // Queries a list of GasPrice items.
-  rpc GasPrice    (QueryGetGasPriceRequest) returns (QueryGetGasPriceResponse) {
+  rpc GasPrice               (QueryGetGasPriceRequest           ) returns (QueryGetGasPriceResponse           ) {
     option (google.api.http).get = "/router-protocol/router-chain/pricefeed/gas_price/{chainId}";
   
   }
-  rpc GasPriceAll (QueryAllGasPriceRequest) returns (QueryAllGasPriceResponse) {
+  rpc GasPriceAll            (QueryAllGasPriceRequest           ) returns (QueryAllGasPriceResponse           ) {
     option (google.api.http).get = "/router-protocol/router-chain/pricefeed/gas_price";
   
   }
-
   rpc WhitelistedIBCChannels (QueryWhitelistedIBCChannelsRequest) returns (QueryWhitelistedIBCChannelsResponse) {
     option (google.api.http).get = "/router-protocol/router-chain/pricefeed/whitelisted_channels";
+  
+  }
+  
+  // Queries a list of ChainNativePriceInfo items.
+  rpc ChainNativePriceInfo (QueryChainNativePriceInfoRequest) returns (QueryChainNativePriceInfoResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/pricefeed/chain_native_price_info/{chainId}";
   
   }
 }
@@ -150,3 +155,13 @@ message QueryWhitelistedIBCChannelsRequest {}
 message QueryWhitelistedIBCChannelsResponse {
   repeated string channels = 1;
 }
+
+message QueryChainNativePriceInfoRequest {
+  string chainId = 1;
+}
+
+message QueryChainNativePriceInfoResponse {  
+  GasPrice gasPrice = 1 [(gogoproto.nullable) = false];
+  Price price = 2 [(gogoproto.nullable) = false];
+}
+

@@ -1,7 +1,6 @@
 package types
 
 import (
-	"fmt"
 	math "math"
 	"math/big"
 	"sort"
@@ -218,12 +217,12 @@ func NewValset(nonce, height uint64, members InternalBridgeValidators) (*Valset,
 }
 
 // GetCheckpoint returns the checkpoint
-func (v Valset) GetCheckpoint(routerIdString string) []byte {
+func (v Valset) GetCheckpoint(routerIdString string) ([]byte, error) {
 
 	// error case here should not occur outside of testing since the above is a constant
 	contractAbi, abiErr := abi.JSON(strings.NewReader(util.ValsetCheckpointABIJSON))
 	if abiErr != nil {
-		panic("Bad ABI constant!")
+		return nil, sdkerrors.Wrap(abiErr, "invalid valset checkpoint abi")
 	}
 
 	// the contract argument is not a arbitrary length array but a fixed length 32 byte
@@ -258,14 +257,14 @@ func (v Valset) GetCheckpoint(routerIdString string) []byte {
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
 	if packErr != nil {
-		panic(fmt.Sprintf("Error packing checkpoint! %s/n", packErr))
+		return nil, sdkerrors.Wrap(packErr, "Error packing checkpoint!")
 	}
 
 	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
 	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
 	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
 	hash := crypto.Keccak256Hash(bytes[4:])
-	return hash.Bytes()
+	return hash.Bytes(), nil
 }
 
 // WithoutEmptyMembers returns a new Valset without member that have 0 power or an empty Ethereum address.
@@ -324,7 +323,7 @@ func (v Valsets) Swap(i, j int) {
 // to create transactions on Ethereum that are signed by validators.
 // The naming here could be improved.
 type EthereumSigned interface {
-	GetCheckpoint(gravityIDstring string) []byte
+	GetCheckpoint(gravityIDstring string) ([]byte, error)
 }
 
 var (

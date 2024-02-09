@@ -14,4 +14,5 @@ var (
 	ErrNoIBCRelayer   = sdkerrors.Register(ModuleName, 4, "no IBC relayer for that destination chain")
 	ErrIBCAck         = sdkerrors.Register(ModuleName, 5, "IBC acknowledgement failed")
 	ErrIBCTransfer    = sdkerrors.Register(ModuleName, 6, "IBC transfer failed")
+	ErrNotSupported   = sdkerrors.Register(ModuleName, 7, "crosschain request not supported")
 )
