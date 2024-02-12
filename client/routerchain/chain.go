@@ -787,13 +787,13 @@ func (c *chainClient) GetAllContractConfigByChainId(ctx context.Context, chainId
 func (c *chainClient) GetNonceObservedStatus(ctx sdk.Context, chainId string, contractAddress string, nonce uint64) (*multichainTypes.QueryGetNonceObservedStatusResponse, error) {
 	req := &multichainTypes.QueryGetNonceObservedStatusRequest{
 		ChainId:         chainId,
-		ContractAddress: contract,
+		ContractAddress: contractAddress,
 		EventNonce:      nonce,
 	}
 	return c.multichainQueryClient.NonceObservedStatus(ctx, req)
 }
 
-// ///////////////////////////////
+// ////////////////////	///////////
 // //    PriceFeed           ////
 // //////////////////////////////
 func (c *chainClient) GetPriceBySymbol(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetPriceResponse, error) {
