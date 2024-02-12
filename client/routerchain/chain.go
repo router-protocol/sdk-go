@@ -86,6 +86,7 @@ type ChainClient interface {
 	GetContractConfig(ctx context.Context, chainId string, contract string) (*multichainTypes.QueryGetContractConfigResponse, error)
 	GetAllContractConfig(ctx context.Context, pagination *query.PageRequest) (*multichainTypes.QueryAllContractConfigResponse, error)
 	GetAllContractConfigByChainId(ctx context.Context, chainId string) (*multichainTypes.QueryAllContractConfigByChainIdResponse, error)
+	GetNonceObservedStatus(ctx sdk.Context, chainId string, contractAddress string, nonce uint64) (*multichainTypes.QueryGetNonceObservedStatusResponse, error)
 
 	// Attestation
 	GetOrchestratorValidator(ctx context.Context, orchestratorAddr sdk.AccAddress) (*attestationTypes.QueryFetchOrchestratorValidatorResponse, error)
@@ -781,6 +782,15 @@ func (c *chainClient) GetAllContractConfigByChainId(ctx context.Context, chainId
 		ChainId: chainId,
 	}
 	return c.multichainQueryClient.ContractConfigByChainId(ctx, req)
+}
+
+func (c *chainClient) GetNonceObservedStatus(ctx sdk.Context, chainId string, contractAddress string, nonce uint64) (*multichainTypes.QueryGetNonceObservedStatusResponse, error) {
+	req := &multichainTypes.QueryGetNonceObservedStatusRequest{
+		ChainId:         chainId,
+		ContractAddress: contract,
+		EventNonce:      nonce,
+	}
+	return c.multichainQueryClient.NonceObservedStatus(ctx, req)
 }
 
 // ///////////////////////////////

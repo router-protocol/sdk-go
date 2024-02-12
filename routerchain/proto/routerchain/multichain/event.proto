@@ -19,6 +19,7 @@ message EventCreateChainConfig {
   uint64 confirmationsRequired = 6;   
   uint64 lastObservedValsetNonce = 7;   
   bool chain_enabled = 8;
+  bool is_unordered_nonces = 9;   
 }
 
 message EventUpdatedChainConfig {
@@ -30,6 +31,7 @@ message EventUpdatedChainConfig {
   uint64 confirmationsRequired = 6;   
   uint64 lastObservedValsetNonce = 7;   
   bool chain_enabled = 8;
+  bool is_unordered_nonces = 9;   
 }
 
 message EventDeletedChainConfig {
