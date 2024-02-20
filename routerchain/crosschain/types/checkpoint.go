@@ -258,7 +258,7 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 	requestIdentifier_felt := BigIntToFeltParts_newarray(requestIdentifier)
 
 	// Run through the elements of the batch and serialize them
-	method_name := "0x69526563656976650000000000000000000000000000000000000000000000"
+	method_name := "0x695265636569766500000000000000"
 	method_name_felt, _ := utils.HexToFelt(method_name)
 
 	var serialized_data []*felt.Felt

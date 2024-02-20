@@ -18,4 +18,5 @@ enum ChainType {
   CHAIN_TYPE_NEAR = 6 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_NEAR"];
   CHAIN_TYPE_TRON = 7 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_TRON"];
   CHAIN_TYPE_STARKNET = 8 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_STARKNET"];
+  CHAIN_TYPE_BITCOIN = 9 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_BITCOIN"];
 }
