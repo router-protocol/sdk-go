@@ -8,6 +8,6 @@ message GasPrice {
   string chainId = 2; 
   uint64 gasPrice = 3; 
   uint64 decimals = 4; 
-  
+  uint64 resolveTime = 5;
 }
 
