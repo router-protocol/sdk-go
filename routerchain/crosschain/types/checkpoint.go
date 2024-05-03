@@ -31,7 +31,7 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	crosschainRequest := NewCrosschainRequestFromMsg(&msg)
 
 	switch crosschainRequest.DestChainType {
-	case multichainTypes.CHAIN_TYPE_NEAR:
+	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
 		return crosschainRequest.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil
@@ -50,7 +50,7 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	**/
 
 	switch msg.DestChainType {
-	case multichainTypes.CHAIN_TYPE_NEAR:
+	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
 		return msg.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil

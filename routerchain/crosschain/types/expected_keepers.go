@@ -26,6 +26,7 @@ type AttestationKeeper interface {
 	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim) error
 	ConfirmHandlerCommon(ctx sdk.Context, ethAddress string, orchestrator sdk.AccAddress, signature string, checkpoint []byte) error
 	GetRouterID(ctx sdk.Context) string
+	TallyAttestation(ctx sdk.Context, chainId string, contract string, nonce uint64)
 }
 
 type MetastoreKeeper interface {
@@ -46,6 +47,7 @@ type MultichainKeeper interface {
 	GetContractConfig(ctx sdk.Context, chainId string, contract string) (val multichainTypes.ContractConfig, found bool)
 	GetAllIbcRelayerConfig(ctx sdk.Context) (list []multichainTypes.IbcRelayerConfig)
 	GetIbcRelayerConfig(ctx sdk.Context, chainId string, connectionType multichainTypes.IbcRelayerConnectionType) (val multichainTypes.IbcRelayerConfig, found bool)
+	IsNonceObserved(ctx sdk.Context, chainId string, contractAddress string, nonce uint64) (isObserved bool)
 }
 
 type PriceFeedKeeper interface {
