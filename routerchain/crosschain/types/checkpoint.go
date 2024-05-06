@@ -37,6 +37,8 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return nil
 	case multichainTypes.CHAIN_TYPE_STARKNET:
 		return crosschainRequest.GetStarknetCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_ALEPH_ZERO:
+		return crosschainRequest.GetAlephZeroCheckpoint("")
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}

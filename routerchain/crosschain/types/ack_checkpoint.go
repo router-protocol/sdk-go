@@ -28,6 +28,8 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 	switch crosschainAckRequest.AckDestChainType {
 	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
 		return crosschainAckRequest.GetNearCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_ALEPH_ZERO:
+		return crosschainAckRequest.GetAlephZeroCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil, nil
 	default:
