@@ -72,7 +72,7 @@ func (msg CrosschainAckRequest) GetAlephZeroCheckpoint(routerIDstring string) ([
 	ackRequestIdentifier.SetUint64(msg.AckRequestIdentifier)
 
 	var requestSender [32]uint8
-	requestSenderByte, err := hex.DecodeString(msg.RequestSender)
+	requestSenderByte, err := hex.DecodeString(strings.TrimPrefix(msg.RequestSender, "0x"))
 	if err != nil {
 		return nil, err
 	}

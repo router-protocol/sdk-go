@@ -85,21 +85,21 @@ func (msg CrosschainRequest) GetAlephZeroCheckpoint(routerIDstring string) []byt
 	requestTimestamp.SetUint64(uint64(msg.SrcTimestamp))
 
 	var routeRecipient [32]uint8
-	routeRecipientByte, err := hex.DecodeString(msg.RouteRecipient)
+	routeRecipientByte, err := hex.DecodeString(strings.TrimPrefix(msg.RouteRecipient, "0x"))
 	if err != nil {
 		return nil
 	}
 	copy(routeRecipient[:], routeRecipientByte)
 
 	var asmAddress [32]uint8
-	asmAddressByte, err := hex.DecodeString(metadata.AsmAddress)
+	asmAddressByte, err := hex.DecodeString(strings.TrimPrefix(metadata.AsmAddress, "0x"))
 	if err != nil {
 		return nil
 	}
 	copy(asmAddress[:], asmAddressByte)
 
 	var handler [32]uint8
-	handlerByte, err := hex.DecodeString(requestPacket.Handler)
+	handlerByte, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler, "0x"))
 	if err != nil {
 		return nil
 	}
