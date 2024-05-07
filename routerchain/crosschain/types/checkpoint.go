@@ -308,11 +308,30 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 }
 
 func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte {
+	fmt.Println("Inside GetStarknetCheckpoint", "reqIdentifier", msg.RequestIdentifier)
 	//SrcChainId
-	srcChainId, _ := utils.HexToFelt(msg.SrcChainId)
+	srcChainId, err := utils.HexToFelt(msg.SrcChainId)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//routeRecipient
-	routeRecipient, _ := utils.HexToFelt(msg.RouteRecipient)
+	var routeRecipient *felt.Felt
+	if msg.RouteRecipient == "" {
+		// If RouteRecipient is empty, set it to 0x0
+		var err error
+		routeRecipient, err = utils.HexToFelt("0x0")
+		if err != nil {
+			fmt.Println("Error setting routeRecipient to 0x0:", err)
+		}
+	} else {
+		// Convert msg.RouteRecipient to felt
+		var err error
+		routeRecipient, err = utils.HexToFelt(msg.RouteRecipient)
+		if err != nil {
+			fmt.Println("Error converting routeRecipient:", err)
+		}
+	}
 
 	//routeAmount
 	routeAmount := BigIntToFeltParts_newarray(msg.RouteAmount.BigInt())
@@ -325,28 +344,46 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	metadata := DecodeEvmContractMetadata(&msg)
 	//AsmAddress
-	asmAddress, _ := utils.HexToFelt(metadata.AsmAddress)
+	asmAddress, err := utils.HexToFelt(metadata.AsmAddress)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//DestchainId
-	destChainId, _ := utils.HexToFelt(msg.DestChainId)
+	destChainId, err := utils.HexToFelt(msg.DestChainId)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//RequestSender
 	requestSender_arr := splitStringIntoHalves(msg.RequestSender)
-	requestSender_felt, _ := utils.HexArrToFelt(requestSender_arr)
+	requestSender_felt, err := utils.HexArrToFelt(requestSender_arr)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	requestPacket := DecodeRouterCrosschainPacket(&msg)
 	//HandlerAddress
-	handler_address, _ := utils.HexToFelt(requestPacket.Handler)
+	handler_address, err := utils.HexToFelt(requestPacket.Handler)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//Packet
-	processed_packet, _ := processHexStrings(bytesToHexStrings(requestPacket.Payload))
+	processed_packet, err := processHexStrings(bytesToHexStrings(requestPacket.Payload))
+	if err != nil {
+		fmt.Println(err)
+	}
 	packet_felt, err := utils.HexArrToFelt(processed_packet)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	//IsReadCall
-	isReadCall, _ := utils.HexToFelt(boolToHex(metadata.IsReadCall))
+	isReadCall, err := utils.HexToFelt(boolToHex(metadata.IsReadCall))
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	requestIdentifier := &big.Int{}
 	requestIdentifier.SetUint64(msg.RequestIdentifier)
@@ -355,12 +392,18 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	// Run through the elements of the batch and serialize them
 	method_name := "0x695265636569766500000000000000"
-	method_name_felt, _ := utils.HexToFelt(method_name)
+	method_name_felt, err := utils.HexToFelt(method_name)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	var serialized_data []*felt.Felt
 
 	empty_string := "0x0"
-	empty_string_felt, _ := utils.HexToFelt(empty_string)
+	empty_string_felt, err := utils.HexToFelt(empty_string)
+	if err != nil {
+		fmt.Println(err)
+	}
 	serialized_data = append(serialized_data, empty_string_felt)
 	serialized_data = append(serialized_data, method_name_felt)
 	serialized_data = append(serialized_data, routeAmount...)
@@ -377,8 +420,13 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	new_big_int := utils.FeltArrToBigIntArr(serialized_data)
 
-	hashed_val, _ := hashSlice(new_big_int)
-	return hashed_val.Bytes()
+	hashed_val, err := hashSlice(new_big_int)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	ensure_bytes := Ensure32Bytes(hashed_val)
+	return ensure_bytes
 }
 
 func hashSlice(input []*big.Int) (*big.Int, error) {
@@ -402,8 +450,9 @@ func hashSlice(input []*big.Int) (*big.Int, error) {
 		hash = newHash // Update hash with the new hash value for the next iteration
 	}
 
-	hash, _ = starknetgo.Curve.PedersenHash([]*big.Int{hash, big.NewInt(int64(10))})
+	hash, _ = starknetgo.Curve.PedersenHash([]*big.Int{hash, big.NewInt(int64(112))})
 	hash, _ = starknetgo.Curve.PedersenHash([]*big.Int{hash, big.NewInt(int64(11))})
+	fmt.Println("Final Hash : ", hash)
 
 	return hash, nil
 }
