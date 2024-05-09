@@ -31,12 +31,14 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	crosschainRequest := NewCrosschainRequestFromMsg(&msg)
 
 	switch crosschainRequest.DestChainType {
-	case multichainTypes.CHAIN_TYPE_NEAR:
+	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
 		return crosschainRequest.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil
 	case multichainTypes.CHAIN_TYPE_STARKNET:
 		return crosschainRequest.GetStarknetCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_ALEPH_ZERO:
+		return crosschainRequest.GetAlephZeroCheckpoint("")
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}
@@ -50,15 +52,109 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 	**/
 
 	switch msg.DestChainType {
-	case multichainTypes.CHAIN_TYPE_NEAR:
+	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
 		return msg.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil
 	case multichainTypes.CHAIN_TYPE_STARKNET:
 		return msg.GetStarknetCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_ALEPH_ZERO:
+		return msg.GetAlephZeroCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
+}
+
+func (msg CrosschainRequest) GetAlephZeroCheckpoint(routerIDstring string) []byte {
+	//////////////////////////////////////////////////////////////////////
+	/////  Build data with types required for iReceive gateway call  /////
+	//////////////////////////////////////////////////////////////////////
+	metadata := DecodeEvmContractMetadata(&msg)
+	requestPacket := DecodeRouterCrosschainPacket(&msg)
+
+	methodNameBytes := []uint8("iReceive")
+	var crosschainMethodName [32]uint8
+	copy(crosschainMethodName[:], methodNameBytes)
+
+	routeAmount := msg.RouteAmount.BigInt()
+
+	requestIdentifier := &big.Int{}
+	requestIdentifier.SetUint64(msg.RequestIdentifier)
+
+	requestTimestamp := &big.Int{}
+	requestTimestamp.SetUint64(uint64(msg.SrcTimestamp))
+
+	var routeRecipient [32]uint8
+	routeRecipientByte, err := hex.DecodeString(strings.TrimPrefix(msg.RouteRecipient, "0x"))
+	if err != nil {
+		return nil
+	}
+	copy(routeRecipient[:], routeRecipientByte)
+
+	var asmAddress [32]uint8
+	asmAddressByte, err := hex.DecodeString(strings.TrimPrefix(metadata.AsmAddress, "0x"))
+	if err != nil {
+		return nil
+	}
+	copy(asmAddress[:], asmAddressByte)
+
+	var handler [32]uint8
+	handlerByte, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler, "0x"))
+	if err != nil {
+		return nil
+	}
+	copy(handler[:], handlerByte)
+
+	/////////////////////////////////////////////////
+	/////  pack abi for iReceive function  //////////
+	/////////////////////////////////////////////////
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestAlephZeroCheckpointABIJSON))
+	if err != nil {
+		panic("Bad ABI constant!")
+	}
+
+	// the methodName needs to be the same as the 'name' above in the checkpointAbiJson
+	// but other than that it's a constant that has no impact on the output. This is because
+	// it gets encoded as a function name which we must then discard.
+	abiEncodedBatch, err := abiDef.Pack("checkpoint",
+		crosschainMethodName,
+		routeAmount,
+		requestIdentifier,
+		requestTimestamp,
+		msg.SrcChainId,
+		routeRecipient,
+		msg.DestChainId,
+		asmAddress,
+		msg.RequestSender,
+		handler,
+		requestPacket.Payload,
+		metadata.IsReadCall,
+	)
+
+	// fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
+	// fmt.Println("Checkpoint-routeAmount", routeAmount)
+	// fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
+	// fmt.Println("Checkpoint-requestTimestamp", requestTimestamp)
+	// fmt.Println("Checkpoint-msg.SrcChainId", msg.SrcChainId)
+	// fmt.Println("Checkpoint-routeRecipient", routeRecipient)
+	// fmt.Println("Checkpoint-msg.DestChainId", msg.DestChainId)
+	// fmt.Println("Checkpoint-asmAddress", asmAddress)
+	// fmt.Println("Checkpoint-msg.RequestSender", msg.RequestSender)
+
+	// fmt.Println("Checkpoint-handler", handler)
+	// fmt.Println("Checkpoint-Payload", requestPacket.Payload)
+	// fmt.Println("Checkpoint-abiEncodedBatch", abiEncodedBatch)
+
+	// this should never happen outside of test since any case that could crash on encoding
+	// should be filtered above.
+	if err != nil {
+		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+	}
+
+	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
+	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
+	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
 }
 
 func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) []byte {
@@ -212,11 +308,30 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 }
 
 func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte {
+	fmt.Println("Inside GetStarknetCheckpoint", "reqIdentifier", msg.RequestIdentifier)
 	//SrcChainId
-	srcChainId, _ := utils.HexToFelt(msg.SrcChainId)
+	srcChainId, err := utils.HexToFelt(msg.SrcChainId)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//routeRecipient
-	routeRecipient, _ := utils.HexToFelt(msg.RouteRecipient)
+	var routeRecipient *felt.Felt
+	if msg.RouteRecipient == "" {
+		// If RouteRecipient is empty, set it to 0x0
+		var err error
+		routeRecipient, err = utils.HexToFelt("0x0")
+		if err != nil {
+			fmt.Println("Error setting routeRecipient to 0x0:", err)
+		}
+	} else {
+		// Convert msg.RouteRecipient to felt
+		var err error
+		routeRecipient, err = utils.HexToFelt(msg.RouteRecipient)
+		if err != nil {
+			fmt.Println("Error converting routeRecipient:", err)
+		}
+	}
 
 	//routeAmount
 	routeAmount := BigIntToFeltParts_newarray(msg.RouteAmount.BigInt())
@@ -229,28 +344,46 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	metadata := DecodeEvmContractMetadata(&msg)
 	//AsmAddress
-	asmAddress, _ := utils.HexToFelt(metadata.AsmAddress)
+	asmAddress, err := utils.HexToFelt(metadata.AsmAddress)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//DestchainId
-	destChainId, _ := utils.HexToFelt(msg.DestChainId)
+	destChainId, err := utils.HexToFelt(msg.DestChainId)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//RequestSender
 	requestSender_arr := splitStringIntoHalves(msg.RequestSender)
-	requestSender_felt, _ := utils.HexArrToFelt(requestSender_arr)
+	requestSender_felt, err := utils.HexArrToFelt(requestSender_arr)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	requestPacket := DecodeRouterCrosschainPacket(&msg)
 	//HandlerAddress
-	handler_address, _ := utils.HexToFelt(requestPacket.Handler)
+	handler_address, err := utils.HexToFelt(requestPacket.Handler)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//Packet
-	processed_packet, _ := processHexStrings(bytesToHexStrings(requestPacket.Payload))
+	processed_packet, err := processHexStrings(bytesToHexStrings(requestPacket.Payload))
+	if err != nil {
+		fmt.Println(err)
+	}
 	packet_felt, err := utils.HexArrToFelt(processed_packet)
 	if err != nil {
 		fmt.Println(err)
 	}
 
 	//IsReadCall
-	isReadCall, _ := utils.HexToFelt(boolToHex(metadata.IsReadCall))
+	isReadCall, err := utils.HexToFelt(boolToHex(metadata.IsReadCall))
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	requestIdentifier := &big.Int{}
 	requestIdentifier.SetUint64(msg.RequestIdentifier)
@@ -259,12 +392,18 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	// Run through the elements of the batch and serialize them
 	method_name := "0x695265636569766500000000000000"
-	method_name_felt, _ := utils.HexToFelt(method_name)
+	method_name_felt, err := utils.HexToFelt(method_name)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	var serialized_data []*felt.Felt
 
 	empty_string := "0x0"
-	empty_string_felt, _ := utils.HexToFelt(empty_string)
+	empty_string_felt, err := utils.HexToFelt(empty_string)
+	if err != nil {
+		fmt.Println(err)
+	}
 	serialized_data = append(serialized_data, empty_string_felt)
 	serialized_data = append(serialized_data, method_name_felt)
 	serialized_data = append(serialized_data, routeAmount...)
@@ -281,8 +420,13 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	new_big_int := utils.FeltArrToBigIntArr(serialized_data)
 
-	hashed_val, _ := hashSlice(new_big_int)
-	return hashed_val.Bytes()
+	hashed_val, err := hashSlice(new_big_int)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	ensure_bytes := Ensure32Bytes(hashed_val)
+	return ensure_bytes
 }
 
 func hashSlice(input []*big.Int) (*big.Int, error) {
@@ -306,8 +450,9 @@ func hashSlice(input []*big.Int) (*big.Int, error) {
 		hash = newHash // Update hash with the new hash value for the next iteration
 	}
 
-	hash, _ = starknetgo.Curve.PedersenHash([]*big.Int{hash, big.NewInt(int64(10))})
+	hash, _ = starknetgo.Curve.PedersenHash([]*big.Int{hash, big.NewInt(int64(112))})
 	hash, _ = starknetgo.Curve.PedersenHash([]*big.Int{hash, big.NewInt(int64(11))})
+	fmt.Println("Final Hash : ", hash)
 
 	return hash, nil
 }

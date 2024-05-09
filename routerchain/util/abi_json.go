@@ -62,6 +62,30 @@ const (
 		]
 	}]`
 
+	// CrosschainRequestAlephZeroCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkRequest message
+	CrosschainRequestAlephZeroCheckpointABIJSON = `[{
+			"name": "checkpoint",
+			"stateMutability": "nonpayable",
+			"type": "function",
+			"inputs":  [			
+				{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+				{"internalType": "uint256","name": "_routeAmount","type": "uint256"},
+				{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+				{"internalType": "uint256","name": "_requestTimestamp","type": "uint256"},
+				{ "internalType": "string", "name": "_srcChainId","type": "string" },			
+				{ "internalType": "bytes32", "name": "_routeRecipient", "type": "bytes32"},
+				{"internalType": "string","name": "_destChainId","type": "string"},
+				{ "internalType": "bytes32", "name": "_asmAddress", "type": "bytes32"},						
+				{ "internalType": "string","name": "_requestSender","type": "string"},		
+				{ "internalType": "bytes32", "name": "_handlerAddress", "type": "bytes32"},
+				{ "internalType": "bytes","name": "_packet","type": "bytes"},
+				{"internalType": "bool","name": "_isReadCall","type": "bool"}			
+			],
+			"outputs": [
+				{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+			]
+		}]`
+
 	// CrosschainAckRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
 	CrosschainAckRequestCheckpointABIJSON = `[{
 		"name": "checkpoint",
@@ -101,6 +125,26 @@ const (
 			{ "internalType": "bytes32", "name": "", "type": "bytes32" }
 		]
 	}]`
+
+	// CrosschainAckRequestNearCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
+	CrosschainAckRequestAlephZeroCheckpointABIJSON = `[{
+			"name": "checkpoint",
+			"stateMutability": "nonpayable",
+			"type": "function",
+			"inputs":  [			
+				{ "internalType": "bytes32","name": "_methodName","type": "bytes32"},
+				{ "internalType": "string", "name": "_chainId","type": "string" },
+				{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+				{"internalType": "uint256","name": "_ackRequestIdentifier","type": "uint256"},
+				{ "internalType": "string", "name": "_destChainId","type": "string" },	
+				{ "internalType": "bytes32","name": "_requestSender","type": "bytes32"},
+				{"internalType": "bytes","name": "_execData","type": "bytes"},	
+				{"internalType": "bool","name": "execFlag", "type": "bool"}				
+			],
+			"outputs": [
+				{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+			]
+		}]`
 
 	// ValsetCheckpointABIJSON checks the ETH ABI for compatibility of the Valset update message
 	ValsetCheckpointABIJSON = `[{
