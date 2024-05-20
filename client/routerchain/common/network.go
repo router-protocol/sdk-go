@@ -36,6 +36,11 @@ func LoadNetwork(name string, node string) Network {
 		Name:      name,
 	}
 
+	testnet_v2_valid_names := []string{
+		"phoenix",
+		"testnet-v2",
+	}
+
 	// Set endpoints
 	if name == "local" {
 		network.ApiEndpoint = "https://localhost:1317"
@@ -77,6 +82,11 @@ func LoadNetwork(name string, node string) Network {
 		network.TmEndpoint = "https://sentry.tm.rpc.routerprotocol.com:443"
 		network.ChainEvmRpcEndpoint = "https://sentry.evm.rpc.routerprotocol.com/"
 		network.ChainGrpcEndpoint = "tcp://sentry.grpc.routerprotocol.com:9090"
+	} else if contains(testnet_v2_valid_names, name) {
+		network.ApiEndpoint = "https://lcd.sentry.routerchain.dev:443"
+		network.TmEndpoint = "https://tmrpc.sentry.routerchain.dev:443"
+		network.ChainEvmRpcEndpoint = "https://evmrpc.sentry.routerchain.dev/"
+		network.ChainGrpcEndpoint = "tcp://grpc.sentry.routerchain.dev:9090"
 	}
 
 	//Fetch chain ID
