@@ -29,7 +29,7 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 	crosschainAckRequest := NewCrosschainAckRequestFromMsg(&msg)
 
 	switch crosschainAckRequest.AckDestChainType {
-	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
+	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT:
 		return crosschainAckRequest.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_ALEPH_ZERO:
 		return crosschainAckRequest.GetAlephZeroCheckpoint("")
@@ -45,7 +45,7 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 // GetCheckpoint gets the checkpoint signature from the given MsgCrosschainAckRequest
 func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, error) {
 	switch msg.AckDestChainType {
-	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT, multichainTypes.CHAIN_TYPE_BITCOIN:
+	case multichainTypes.CHAIN_TYPE_NEAR, multichainTypes.CHAIN_TYPE_POLKADOT:
 		return msg.GetNearCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_ALEPH_ZERO:
 		return msg.GetAlephZeroCheckpoint("")
