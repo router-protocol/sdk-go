@@ -1,14 +1,7 @@
 package main
 
 import (
-	"context"
-	"time"
-
 	ethcmn "github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/router-protocol/sdk-go/client/evm/gateway"
-	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
-	"github.com/router-protocol/sdk-go/examples/lightweight-relayer/relayer"
 )
 
 const (
@@ -31,20 +24,20 @@ var (
 
 func main() {
 	// eth client
-	ethClient, err := ethclient.Dial(ETH_RPC)
-	if err != nil {
-		panic(err)
-	}
+	// ethClient, err := ethclient.Dial(ETH_RPC)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	// INITIALIZE RELAYER
-	gatewayContractClient := gateway.NewGatewayContractClient(ETH_RPC, GATEWAY_CONTRACT_ADDRESS)
-	routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE, "")
-	relayer := relayer.NewRelayer(ethClient, gatewayContractClient, routerchainClient, RELAYER_PRIVATE_KEY, RELAYER_ETH_ADDRESS, RELAYER_ROUTER_ADDRESS)
+	// // INITIALIZE RELAYER
+	// gatewayContractClient := gateway.NewGatewayContractClient(ETH_RPC, GATEWAY_CONTRACT_ADDRESS)
+	// routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE, "")
+	// relayer := relayer.NewRelayer(ethClient, gatewayContractClient, routerchainClient, RELAYER_PRIVATE_KEY, RELAYER_ETH_ADDRESS, RELAYER_ROUTER_ADDRESS)
 
-	// TRIGGER ACTIONS
-	ctx, _ := context.WithTimeout(context.Background(), time.Minute)
-	// relayer.SubmitBatchTxToGateway(ctx, routerchainClient)
-	relayer.SubmitCrosstalkTxToGateway(ctx, routerchainClient)
+	// // TRIGGER ACTIONS
+	// ctx, _ := context.WithTimeout(context.Background(), time.Minute)
+	// // relayer.SubmitBatchTxToGateway(ctx, routerchainClient)
+	// relayer.SubmitCrosstalkTxToGateway(ctx, routerchainClient)
 	// relayer.SubmitCrosstalkAckTxToGateway(ctx, routerchainClient)
 
 }
