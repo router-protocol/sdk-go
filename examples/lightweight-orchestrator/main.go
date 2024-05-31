@@ -2,10 +2,6 @@ package main
 
 import (
 	ethcmn "github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/router-protocol/sdk-go/client/evm/gateway"
-	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
-	"github.com/router-protocol/sdk-go/examples/lightweight-orchestrator/orchestrator"
 )
 
 const (
@@ -26,19 +22,19 @@ var (
 
 func main() {
 
-	// eth client
-	ethClient, err := ethclient.Dial(ETH_RPC)
-	if err != nil {
-		panic(err)
-	}
+	// // eth client
+	// ethClient, err := ethclient.Dial(ETH_RPC)
+	// if err != nil {
+	// 	panic(err)
+	// }
 
-	// INITIALIZE ORCHESTRATOR
-	gatewayContractClient := gateway.NewGatewayContractClient(ETH_RPC, GATEWAY_CONTRACT_ADDRESS)
-	routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE, "")
-	orchestrator := orchestrator.NewOrchestrator(ethClient, gatewayContractClient, routerchainClient, ORCHESTRATOR_PRIVATE_KEY, ORCHESTRATOR_ETH_ADDRESS)
+	// // INITIALIZE ORCHESTRATOR
+	// gatewayContractClient := gateway.NewGatewayContractClient(ETH_RPC, GATEWAY_CONTRACT_ADDRESS)
+	// routerchainClient := chainclient.InitialiseChainClient(NETWORK_NAME, ORCHESTRATOR_KEYRING_FROM, PASSPHRASE, "")
+	// orchestrator := orchestrator.NewOrchestrator(ethClient, gatewayContractClient, routerchainClient, ORCHESTRATOR_PRIVATE_KEY, ORCHESTRATOR_ETH_ADDRESS)
 
-	// TRIGGER ACTIONS
-	orchestrator.FetchAndProcessGatewayEvents(startBlock, endBlock)
-	orchestrator.ConfirmOutgoingBatches()
+	// // TRIGGER ACTIONS
+	// orchestrator.FetchAndProcessGatewayEvents(startBlock, endBlock)
+	// orchestrator.ConfirmOutgoingBatches()
 
 }

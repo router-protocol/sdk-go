@@ -1,12 +1,8 @@
 package oracle
 
 import (
-	"fmt"
-	"time"
-
 	"github.com/cosmos/cosmos-sdk/client"
 	routerclient "github.com/router-protocol/sdk-go/client/routerchain"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 type OracleProvider struct {
@@ -18,7 +14,7 @@ func NewOracleProvider(routerChainClient routerclient.ChainClient) *OracleProvid
 	return &OracleProvider{
 		routerChainClient: routerChainClient,
 	}
-// }
+}
 
 // func (oracleProvider *OracleProvider) SendGasPrices() {
 // 	// Initialize
