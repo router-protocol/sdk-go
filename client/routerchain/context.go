@@ -17,7 +17,6 @@ import (
 	evmtypes "github.com/evmos/ethermint/x/evm/types"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	crosschainTypes "github.com/router-protocol/sdk-go/routerchain/crosschain/types"
-	enccodec "github.com/router-protocol/sdk-go/routerchain/encoding/codec"
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
@@ -36,9 +35,9 @@ import (
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	icatypes "github.com/cosmos/ibc-go/v6/modules/apps/27-interchain-accounts/types"
-	ibcapplicationtypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
-	ibccoretypes "github.com/cosmos/ibc-go/v6/modules/core/types"
+	icatypes "github.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/types"
+	ibcapplicationtypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
+	ibccoretypes "github.com/cosmos/ibc-go/v7/modules/core/types"
 )
 
 func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
@@ -53,7 +52,6 @@ func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 	pricefeedTypes.RegisterInterfaces(interfaceRegistry)
 	crosschainTypes.RegisterInterfaces(interfaceRegistry)
 	voyagerTypes.RegisterInterfaces(interfaceRegistry)
-	enccodec.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)

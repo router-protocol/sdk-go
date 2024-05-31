@@ -1,5 +1,5 @@
 syntax = "proto3";
-package routerprotocol.routerchain.types;
+package types;
 
 import "google/api/annotations.proto";
 import "cosmos/base/abci/v1beta1/abci.proto";
@@ -14,7 +14,7 @@ service RouterTxRpc {
 	// GetTx gets transaction details by hash.
 	rpc GetTx (GetTxRequest) returns (GetTxResponse) {
 		option (google.api.http) = {
-      		post: "/routerprotocol.routerchain.types.RouterTxRpc/GetTx"
+      		post: "/types.RouterTxRpc/GetTx"
       		body: "*"
     	};
 	}
@@ -22,7 +22,7 @@ service RouterTxRpc {
 	// PrepareTx generates a Web3-signable body for a Cosmos transaction
 	rpc PrepareTx (PrepareTxRequest) returns (PrepareTxResponse) {
 		option (google.api.http) = {
-      		post: "/routerprotocol.routerchain.types.RouterTxRpc/PrepareTx"
+      		post: "/types.RouterTxRpc/PrepareTx"
       		body: "*"
     	};
 	}
@@ -30,7 +30,7 @@ service RouterTxRpc {
 	// BroadcastTx broadcasts a signed Web3 transaction
 	rpc BroadcastTx (BroadcastTxRequest) returns (BroadcastTxResponse) {
 		option (google.api.http) = {
-      		post: "/routerprotocol.routerchain.types.RouterTxRpc/BroadcastTx"
+      		post: "/types.RouterTxRpc/BroadcastTx"
       		body: "*"
     	};
 	}

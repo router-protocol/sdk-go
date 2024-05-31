@@ -1,9 +1,11 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/router-protocol/sdk-go/routerchain/util"
+
+	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 var (
@@ -27,7 +29,7 @@ var (
 // [0x0][gravity1ahx7f8wyertuus9r20284ej0asrs085ceqtfnm]
 func GetOrchestratorAddressKey(orc sdk.AccAddress) []byte {
 	if err := sdk.VerifyAddressFormat(orc); err != nil {
-		panic(sdkerrors.Wrap(err, "invalid orchestrator address"))
+		panic(errorsmod.Wrap(err, "invalid orchestrator address"))
 	}
 	return util.AppendBytes(KeyOrchestratorAddress, orc.Bytes())
 }
@@ -37,7 +39,7 @@ func GetOrchestratorAddressKey(orc sdk.AccAddress) []byte {
 // [0x0][gravityvaloper1ahx7f8wyertuus9r20284ej0asrs085ceqtfnm]
 func GetEthAddressByValidatorKey(validator sdk.ValAddress) []byte {
 	if err := sdk.VerifyAddressFormat(validator); err != nil {
-		panic(sdkerrors.Wrap(err, "invalid validator address"))
+		panic(errorsmod.Wrap(err, "invalid validator address"))
 	}
 	return util.AppendBytes(EthAddressByValidatorKey, validator.Bytes())
 }

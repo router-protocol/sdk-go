@@ -48,7 +48,6 @@ func (p *UpdatePriceFeederInfoProposal) ValidateBasic() error {
 // ValidatePriceFeederInfo performs basic validation checks over a PriceFeederInfo. It
 // returns an error if PriceFeederInfo is invalid.
 func ValidatePriceFeederInfo(priceFeederInfo PriceFeederInfo) error {
-
 	if priceFeederInfo.Name == "" {
 		return ErrInvalidPricefeederName
 	}

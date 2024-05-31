@@ -3,8 +3,9 @@ package types
 import (
 	"encoding/binary"
 
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 var _ binary.ByteOrder

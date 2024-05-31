@@ -3,15 +3,15 @@ package types
 // DONTCOVER
 
 import (
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 // x/voyager module sentinel errors
 var (
-	ErrSample         = sdkerrors.Register(ModuleName, 1100, "sample error")
-	ErrInvalidVersion = sdkerrors.Register(ModuleName, 2, "invalid version")
-	ErrInvalidRequest = sdkerrors.Register(ModuleName, 3, "invalid request")
-	ErrNoIBCRelayer   = sdkerrors.Register(ModuleName, 4, "no IBC relayer for that destination chain")
-	ErrIBCAck         = sdkerrors.Register(ModuleName, 5, "IBC acknowledgement failed")
-	ErrIBCTransfer    = sdkerrors.Register(ModuleName, 6, "IBC transfer failed")
+	ErrSample         = errorsmod.Register(ModuleName, 1100, "sample error")
+	ErrInvalidVersion = errorsmod.Register(ModuleName, 2, "invalid version")
+	ErrInvalidRequest = errorsmod.Register(ModuleName, 3, "invalid request")
+	ErrNoIBCRelayer   = errorsmod.Register(ModuleName, 4, "no IBC relayer for that destination chain")
+	ErrIBCAck         = errorsmod.Register(ModuleName, 5, "IBC acknowledgement failed")
+	ErrIBCTransfer    = errorsmod.Register(ModuleName, 6, "IBC transfer failed")
 )

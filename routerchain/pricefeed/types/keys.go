@@ -23,10 +23,8 @@ const (
 	BAND_PRICE_FEEDER   = "band_feeder"
 )
 
-var (
-	// PortKey defines the key to store the port ID in store
-	PortKey = KeyPrefix("pricefeed-port-")
-)
+// PortKey defines the key to store the port ID in store
+var PortKey = KeyPrefix("pricefeed-port-")
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)

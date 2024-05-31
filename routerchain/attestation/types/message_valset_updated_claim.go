@@ -1,10 +1,13 @@
 package types
 
 import (
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
+
+	errorsmod "cosmossdk.io/errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	proto "github.com/gogo/protobuf/proto"
-	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 const TypeMsgValsetUpdatedClaim = "valset_updated_claim"
@@ -48,11 +51,11 @@ func (msg *MsgValsetUpdatedClaim) GetSignBytes() []byte {
 func (msg *MsgValsetUpdatedClaim) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 
 	if msg.ChainId == "" || len(msg.ChainId) == 0 {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidChainID, "invalid chain id (%s)", msg.ChainId)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidChainID, "invalid chain id (%s)", msg.ChainId)
 	}
 	return nil
 }

@@ -25,15 +25,15 @@ const (
 // PowerReduction defines the default power reduction value for staking
 var PowerReduction = sdkmath.NewIntFromBigInt(new(big.Int).Exp(big.NewInt(10), big.NewInt(BaseDenomUnit), nil))
 
-// NewRouterCoin is a utility function that returns an "router" coin with the given sdk.Int amount.
+// NewRouterCoin is a utility function that returns an "router" coin with the given sdkmath.Int amount.
 // The function will panic if the provided amount is negative.
-func NewRouterCoin(amount sdk.Int) sdk.Coin {
+func NewRouterCoin(amount sdkmath.Int) sdk.Coin {
 	return sdk.NewCoin(RouterCoin, amount)
 }
 
-// NewRouterDecCoin is a utility function that returns an "router" decimal coin with the given sdk.Int amount.
+// NewRouterDecCoin is a utility function that returns an "router" decimal coin with the given sdkmath.Int amount.
 // The function will panic if the provided amount is negative.
-func NewRouterDecCoin(amount sdk.Int) sdk.DecCoin {
+func NewRouterDecCoin(amount sdkmath.Int) sdk.DecCoin {
 	return sdk.NewDecCoin(RouterCoin, amount)
 }
 

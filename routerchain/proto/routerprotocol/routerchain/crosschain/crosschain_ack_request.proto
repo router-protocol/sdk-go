@@ -1,0 +1,51 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+import "routerprotocol/routerchain/multichain/chain_type.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+import "routerprotocol/routerchain/crosschain/crosschain_ack_tx_status.proto"; 
+
+message CrosschainAckRequest {
+  string ack_src_chain_id = 1; 
+  string contract =2;
+  uint64 ack_request_identifier = 3; 
+  uint64 blockHeight = 4; 
+  string destTxHash = 5; 
+  string relayerRouterAddress = 6; 
+  string ack_dest_chain_id = 7; 
+  string request_sender   = 8;
+  uint64 requestIdentifier = 9; 
+  routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
+  routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;
+  uint64 feeConsumed = 12;
+  bytes execData = 13; 
+  bool execStatus = 14; 
+  string ethSigner = 15; 
+  string signature = 16; 
+  uint64 ack_gas_limit = 17;
+	uint64 ack_gas_price = 18;
+  cosmos.base.v1beta1.Coin ack_fee_deducted = 19 [(gogoproto.nullable) = false];
+  cosmos.base.v1beta1.Coin ack_relayer_incentive = 20 [(gogoproto.nullable) = false];  
+  CrosschainAckTxStatus status = 21; 
+  uint64 blocked_expiry_height = 22;
+}
+
+message CrosschainAckRequestClaimHash {
+  string ack_src_chain_id = 1; 
+  string contract =2;
+  uint64 ack_request_identifier = 3; 
+  uint64 blockHeight = 4; 
+  string destTxHash = 5; 
+  string relayerRouterAddress = 6; 
+  string ack_dest_chain_id = 7; 
+  string request_sender   = 8;
+  uint64 requestIdentifier = 9; 
+  routerprotocol.routerchain.multichain.ChainType ack_src_chain_type   = 10;
+  routerprotocol.routerchain.multichain.ChainType ack_dest_chain_type  = 11;
+  uint64 feeConsumed = 12;
+  bytes execData = 13; 
+  bool execStatus = 14; 
+}

@@ -6,12 +6,12 @@ import (
 	"sort"
 	"strings"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	gethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-
 	"github.com/router-protocol/sdk-go/routerchain/util"
+
+	errorsmod "cosmossdk.io/errors"
 )
 
 //////////////////////////////////////
@@ -31,7 +31,7 @@ func (b BridgeValidators) ToInternal() (*InternalBridgeValidators, error) {
 	for i := range b {
 		ibv, err := NewInternalBridgeValidator(b[i])
 		if err != nil {
-			return nil, sdkerrors.Wrapf(err, "member %d", i)
+			return nil, errorsmod.Wrapf(err, "member %d", i)
 		}
 		ret[i] = ibv
 	}
@@ -63,7 +63,7 @@ type InternalBridgeValidator struct {
 func NewInternalBridgeValidator(bridgeValidator BridgeValidator) (*InternalBridgeValidator, error) {
 	ethAddr, err := NewEthAddress(bridgeValidator.EthereumAddress)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid bridge validator eth address")
+		return nil, errorsmod.Wrap(err, "invalid bridge validator eth address")
 	}
 
 	i := &InternalBridgeValidator{
@@ -71,14 +71,14 @@ func NewInternalBridgeValidator(bridgeValidator BridgeValidator) (*InternalBridg
 		EthereumAddress: *ethAddr,
 	}
 	if err := i.ValidateBasic(); err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid bridge validator")
+		return nil, errorsmod.Wrap(err, "invalid bridge validator")
 	}
 	return i, nil
 }
 
 func (i InternalBridgeValidator) ValidateBasic() error {
 	if err := i.EthereumAddress.ValidateBasic(); err != nil {
-		return sdkerrors.Wrap(err, "ethereum address")
+		return errorsmod.Wrap(err, "ethereum address")
 	}
 	return nil
 }
@@ -188,11 +188,11 @@ func (b InternalBridgeValidators) ValidateBasic() error {
 	}
 	for i := range b {
 		if err := b[i].ValidateBasic(); err != nil {
-			return sdkerrors.Wrapf(err, "member %d", i)
+			return errorsmod.Wrapf(err, "member %d", i)
 		}
 	}
 	if b.HasDuplicates() {
-		return sdkerrors.Wrap(ErrDuplicate, "addresses")
+		return errorsmod.Wrap(ErrDuplicate, "addresses")
 	}
 	return nil
 }
@@ -204,7 +204,7 @@ func (b InternalBridgeValidators) ValidateBasic() error {
 // NewValset returns a new valset
 func NewValset(nonce, height uint64, members InternalBridgeValidators) (*Valset, error) {
 	if err := members.ValidateBasic(); err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid members")
+		return nil, errorsmod.Wrap(err, "invalid members")
 	}
 	members.Sort()
 	var mem []BridgeValidator
@@ -218,11 +218,10 @@ func NewValset(nonce, height uint64, members InternalBridgeValidators) (*Valset,
 
 // GetCheckpoint returns the checkpoint
 func (v Valset) GetCheckpoint(routerIdString string) ([]byte, error) {
-
 	// error case here should not occur outside of testing since the above is a constant
 	contractAbi, abiErr := abi.JSON(strings.NewReader(util.ValsetCheckpointABIJSON))
 	if abiErr != nil {
-		return nil, sdkerrors.Wrap(abiErr, "invalid valset checkpoint abi")
+		return nil, errorsmod.Wrap(abiErr, "invalid valset checkpoint abi")
 	}
 
 	// the contract argument is not a arbitrary length array but a fixed length 32 byte
@@ -257,7 +256,7 @@ func (v Valset) GetCheckpoint(routerIdString string) ([]byte, error) {
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
 	if packErr != nil {
-		return nil, sdkerrors.Wrap(packErr, "Error packing checkpoint!")
+		return nil, errorsmod.Wrap(packErr, "Error packing checkpoint!")
 	}
 
 	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
@@ -288,17 +287,17 @@ func (v *Valset) WithoutEmptyMembers() *Valset {
 // Equal compares all of the valset members, additionally returning an error explaining the problem
 func (v Valset) Equal(o Valset) (bool, error) {
 	if v.Height != o.Height {
-		return false, sdkerrors.Wrap(ErrInvalid, "valset heights mismatch")
+		return false, errorsmod.Wrap(ErrInvalid, "valset heights mismatch")
 	}
 
 	if v.Nonce != o.Nonce {
-		return false, sdkerrors.Wrap(ErrInvalid, "valset nonces mismatch")
+		return false, errorsmod.Wrap(ErrInvalid, "valset nonces mismatch")
 	}
 
 	var bvs BridgeValidators = v.Members
 	var ovs BridgeValidators = o.Members
 	if !bvs.Equal(ovs) {
-		return false, sdkerrors.Wrap(ErrInvalid, "valset members mismatch")
+		return false, errorsmod.Wrap(ErrInvalid, "valset members mismatch")
 	}
 
 	return true, nil
@@ -326,6 +325,4 @@ type EthereumSigned interface {
 	GetCheckpoint(gravityIDstring string) ([]byte, error)
 }
 
-var (
-	_ EthereumSigned = &Valset{}
-)
+var _ EthereumSigned = &Valset{}

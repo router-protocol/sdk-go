@@ -5,8 +5,9 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	gethcommon "github.com/ethereum/go-ethereum/common"
+
+	errorsmod "cosmossdk.io/errors"
 )
 
 const (
@@ -38,7 +39,7 @@ func (ea *EthAddress) SetAddress(address string) error {
 
 func NewEthAddressFromBytes(address []byte) (*EthAddress, error) {
 	if err := ValidateEthAddress(hex.EncodeToString(address)); err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid input address")
+		return nil, errorsmod.Wrap(err, "invalid input address")
 	}
 
 	addr := EthAddress{gethcommon.BytesToAddress(address)}
@@ -48,7 +49,7 @@ func NewEthAddressFromBytes(address []byte) (*EthAddress, error) {
 // Creates a new EthAddress from a string, performing validation and returning any validation errors
 func NewEthAddress(address string) (*EthAddress, error) {
 	if err := ValidateEthAddress(address); err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid input address")
+		return nil, errorsmod.Wrap(err, "invalid input address")
 	}
 
 	addr := EthAddress{gethcommon.HexToAddress(address)}

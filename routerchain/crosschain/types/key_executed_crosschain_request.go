@@ -21,5 +21,4 @@ func ExecutedCrosschainRequestKey(
 	crosschainRequestKey := util.AppendBytes([]byte(srcChainId), util.UInt64Bytes(requestIdentifier))
 
 	return crosschainRequestKey
-
 }

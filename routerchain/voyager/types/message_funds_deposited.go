@@ -1,19 +1,23 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	proto "github.com/gogo/protobuf/proto"
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	"github.com/tendermint/tendermint/crypto/tmhash"
+
+	errorsmod "cosmossdk.io/errors"
+	sdkmath "cosmossdk.io/math"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgFundsDeposited = "funds_deposited"
 
 var _ sdk.Msg = &MsgFundsDeposited{}
 
-func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, amount sdk.Int, destAmount sdk.Int, srcToken string, recipient []byte, depositor string, partnerID sdk.Int, message []byte, depositWithMessage bool, destToken []byte) *MsgFundsDeposited {
+func NewMsgFundsDeposited(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, contract string, depositId uint64, blockHeight uint64, destChainId []byte, amount sdkmath.Int, destAmount sdkmath.Int, srcToken string, recipient []byte, depositor string, partnerID sdkmath.Int, message []byte, depositWithMessage bool, destToken []byte) *MsgFundsDeposited {
 	return &MsgFundsDeposited{
 		Orchestrator:       orchestrator,
 		SrcChainId:         srcChainId,
@@ -60,7 +64,7 @@ func (msg *MsgFundsDeposited) GetSignBytes() []byte {
 func (msg *MsgFundsDeposited) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
 }

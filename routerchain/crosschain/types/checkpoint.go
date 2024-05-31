@@ -6,16 +6,14 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/ethereum/go-ethereum/accounts/abi"
-	"github.com/ethereum/go-ethereum/common"
-	"github.com/ethereum/go-ethereum/crypto"
-
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	"github.com/router-protocol/sdk-go/routerchain/util"
-
 	"github.com/NethermindEth/juno/core/felt"
 	starknetgo "github.com/NethermindEth/starknet.go/curve"
 	"github.com/NethermindEth/starknet.go/utils"
+	"github.com/ethereum/go-ethereum/accounts/abi"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+	"github.com/router-protocol/sdk-go/routerchain/util"
 )
 
 ///////////////////////////////////
@@ -205,7 +203,6 @@ func (msg CrosschainRequest) GetNearCheckpoint(routerIDstring string) []byte {
 		requestPacket.Payload,
 		metadata.IsReadCall,
 	)
-
 	// fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
 	// fmt.Println("Checkpoint-routeAmount", routeAmount)
 	// fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
@@ -280,7 +277,6 @@ func (msg CrosschainRequest) GetEvmCheckpoint(routerIDstring string) []byte {
 		requestPacket.Payload,
 		metadata.IsReadCall,
 	)
-
 	// fmt.Println("Checkpoint- crosschainMethodName ", crosschainMethodName)
 	// fmt.Println("Checkpoint-routeAmount", routeAmount)
 	// fmt.Println("Checkpoint-requestIdentifier", requestIdentifier)
@@ -555,7 +551,6 @@ func BigIntToHexU128Parts(num *big.Int) (lowHex, highHex string) {
 	highHex = fmt.Sprintf("0x%04x", high)
 
 	return lowHex, highHex
-
 }
 
 func boolToHex(b bool) string {

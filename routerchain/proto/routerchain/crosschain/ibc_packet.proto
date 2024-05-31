@@ -1,8 +1,0 @@
-syntax = "proto3";
-package routerprotocol.routerchain.crosschain;
-
-option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
-
-message IbcPacket {
-  
-}

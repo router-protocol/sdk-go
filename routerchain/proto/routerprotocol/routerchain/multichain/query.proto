@@ -1,0 +1,171 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.multichain;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "routerprotocol/routerchain/multichain/params.proto";
+import "routerprotocol/routerchain/multichain/chain_config.proto";
+import "routerprotocol/routerchain/multichain/ibc_relayer_config.proto";
+import "routerprotocol/routerchain/multichain/nonce_observed_status.proto";
+
+// this line is used by starport scaffolding # 1
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/params";
+  
+  }
+  
+  // Queries a ChainConfig by chain_id.
+  rpc ChainConfig (QueryGetChainConfigRequest) returns (QueryGetChainConfigResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config/{chain_id}";
+  
+  }
+  
+  // Queries a list of ChainConfig items.
+  rpc ChainConfigAll (QueryAllChainConfigRequest) returns (QueryAllChainConfigResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/chain_config";
+  
+  }
+  
+  // Queries a ContractConfig by chain_id and address.
+  rpc ContractConfig (QueryGetContractConfigRequest) returns (QueryGetContractConfigResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config/{chain_id}/{contract_address}";
+  
+  }
+  
+  // Queries a list of IbcRelayerConfig items.
+  rpc IbcRelayerConfig    (QueryGetIbcRelayerConfigRequest) returns (QueryGetIbcRelayerConfigResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/ibc_relayer_config/{chainId}";
+  
+  }
+  rpc IbcRelayerConfigAll (QueryAllIbcRelayerConfigRequest) returns (QueryAllIbcRelayerConfigResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/ibc_relayer_config";
+  
+  }
+  
+  // Queries a ContractConfig by chain_id.
+  rpc ContractConfigByChainId (QueryAllContractConfigByChainIdRequest) returns (QueryAllContractConfigByChainIdResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config/{chain_id}";
+  
+  }
+  
+  // Queries a list of ContractConfig items.
+  rpc ContractConfigAll (QueryAllContractConfigRequest) returns (QueryAllContractConfigResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/contract_config";
+  
+  }
+
+  // this line is used by starport scaffolding # 2
+  
+  // Queries a list of NonceObservedStatus items.
+  rpc NonceObservedStatus    (QueryGetNonceObservedStatusRequest) returns (QueryGetNonceObservedStatusResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/nonce_observed_status/{chain_id}/{contract_address}/{event_nonce}";
+  
+  }
+  rpc NonceObservedStatusAll (QueryAllNonceObservedStatusRequest) returns (QueryAllNonceObservedStatusResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/multichain/nonce_observed_status/{chain_id}/{contract_address}";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetChainConfigRequest {
+  string chain_id = 1;
+}
+
+message QueryGetChainConfigResponse {
+  ChainConfig chainConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllChainConfigRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllChainConfigResponse {
+  repeated ChainConfig                            chainConfig = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination  = 2;
+}
+
+message QueryGetContractConfigRequest {
+  string chain_id         = 1;
+  string contract_address = 2;
+}
+
+message QueryGetContractConfigResponse {
+  ContractConfig contractConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllContractConfigByChainIdRequest {
+  string chain_id = 1;
+}
+
+message QueryAllContractConfigByChainIdResponse {
+  repeated ContractConfig contractConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllContractConfigRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllContractConfigResponse {
+  repeated ContractConfig                         contractConfig = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination     = 2;
+}
+
+message QueryGetIbcRelayerConfigRequest {
+  string                   chainId        = 1;
+  IbcRelayerConnectionType connectionType = 2;
+}
+
+message QueryGetIbcRelayerConfigResponse {
+  IbcRelayerConfig relayerConfig = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllIbcRelayerConfigRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllIbcRelayerConfigResponse {
+  repeated IbcRelayerConfig                       relayerConfig = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination    = 2;
+}
+
+
+// this line is used by starport scaffolding # 3
+message QueryGetNonceObservedStatusRequest {
+  string chain_id = 1;
+  string contract_address = 2;
+  uint64 event_nonce = 3;
+}
+
+message QueryGetNonceObservedStatusResponse {
+  NonceObservedStatus nonceObservedStatus = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllNonceObservedStatusRequest {
+    string chain_id = 1;
+  string contract_address = 2;
+  cosmos.base.query.v1beta1.PageRequest pagination = 3;
+}
+
+message QueryAllNonceObservedStatusResponse {
+  repeated NonceObservedStatus                    nonceObservedStatus = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination          = 2;
+}
+
