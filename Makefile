@@ -19,6 +19,9 @@ copy-chain-types:
 	cp ../router-chain/x/voyager/types/*.go routerchain/voyager/types
 	rm -rf routerchain/voyager/types/*test.go  rm -rf routerchain/voyager/types/*gw.go
 
+	cp ../router-chain/x/rwasm/types/*.go routerchain/rwasm/types
+	rm -rf routerchain/rwasm/types/*test.go  rm -rf routerchain/rwasm/types/*gw.go
+	
 	cp -r ../router-chain/types/*.go routerchain/types
 	rm -rf routerchain/types/*test.go
 

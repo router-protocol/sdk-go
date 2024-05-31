@@ -7,28 +7,28 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgExecuteCwContract = "execute_cw_contract"
+const TypeMsgMigrateCwContract = "migrate_cw_contract"
 
-var _ sdk.Msg = &MsgExecuteCwContract{}
+var _ sdk.Msg = &MsgMigrateCwContract{}
 
-func NewMsgExecuteCwContract(sender string, contract string, msg string, funds string) *MsgExecuteCwContract {
-	return &MsgExecuteCwContract{
+func NewMsgMigrateCwContract(sender string, contract string, codeId uint64, msg string) *MsgMigrateCwContract {
+	return &MsgMigrateCwContract{
 		Sender:   sender,
 		Contract: contract,
+		CodeId:   codeId,
 		Msg:      msg,
-		Funds:    funds,
 	}
 }
 
-func (msg *MsgExecuteCwContract) Route() string {
+func (msg *MsgMigrateCwContract) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgExecuteCwContract) Type() string {
-	return TypeMsgExecuteCwContract
+func (msg *MsgMigrateCwContract) Type() string {
+	return TypeMsgMigrateCwContract
 }
 
-func (msg *MsgExecuteCwContract) GetSigners() []sdk.AccAddress {
+func (msg *MsgMigrateCwContract) GetSigners() []sdk.AccAddress {
 	sender, err := sdk.AccAddressFromBech32(msg.Sender)
 	if err != nil {
 		panic(err)
@@ -36,12 +36,12 @@ func (msg *MsgExecuteCwContract) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{sender}
 }
 
-func (msg *MsgExecuteCwContract) GetSignBytes() []byte {
+func (msg *MsgMigrateCwContract) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgExecuteCwContract) ValidateBasic() error {
+func (msg *MsgMigrateCwContract) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Sender)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sender address (%s)", err)

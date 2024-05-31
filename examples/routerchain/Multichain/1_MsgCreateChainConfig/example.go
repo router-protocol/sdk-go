@@ -8,7 +8,7 @@ import (
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
+	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
