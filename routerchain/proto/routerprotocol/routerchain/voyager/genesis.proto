@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.voyager;
+
+import "gogoproto/gogo.proto";
+import "routerprotocol/routerchain/voyager/params.proto";
+import "routerprotocol/routerchain/voyager/fund_deposit_request.proto";
+import "routerprotocol/routerchain/voyager/funds_paid_request.proto";
+import "routerprotocol/routerchain/voyager/deposit_update_info_request.proto";
+
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+// GenesisState defines the voyager module's genesis state.
+message GenesisState {
+           Params             params                 = 1 [(gogoproto.nullable) = false];
+  repeated FundDepositRequest fundDepositRequestList = 2 [(gogoproto.nullable) = false];
+  repeated FundsPaidRequest   fundsPaidRequestList   = 3 [(gogoproto.nullable) = false];
+
+  // this line is used by starport scaffolding # genesis/proto/state
+  repeated DepositUpdateInfoRequest depositUpdateInfoRequestList = 4 [(gogoproto.nullable) = false];
+}
+

@@ -1,0 +1,64 @@
+syntax = "proto3";
+package routerprotocol.routerchain.multichain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/multichain/types";
+import "routerprotocol/routerchain/multichain/chain_config.proto";
+import "routerprotocol/routerchain/multichain/chain_type.proto";
+import "routerprotocol/routerchain/multichain/ibc_relayer_config.proto";
+
+message MultichainCreateChainConfigProposal {
+    string title = 1;
+    string description = 2;
+    ChainConfig chainConfig = 3;
+}
+
+message MultichainUpdateChainConfigProposal {
+    string title = 1;
+    string description = 2;
+    ChainConfig chainConfig = 3;
+}
+
+message MultichainDeleteChainConfigProposal {
+    string title = 1;
+    string description = 2;
+    string chainId = 3;
+    ChainType chainType = 4;
+}
+
+message MultichainCreateContractConfigProposal {
+    string title = 1;
+    string description = 2;
+    ContractConfig contractConfig = 3;
+}
+
+message MultichainUpdateContractConfigProposal {
+    string title = 1;
+    string description = 2;
+    ContractConfig contractConfig = 3;
+}
+
+message MultichainDeleteContractConfigProposal {
+    string title = 1;
+    string description = 2;
+    string chainId = 3;
+    string contractAddress = 4;
+}
+
+message MultichainCreateIbcRelayerConfigProposal {
+    string title = 1;
+    string description = 2;
+    IbcRelayerConfig ibcRelayerConfig = 3;
+}
+
+message MultichainUpdateIbcRelayerConfigProposal {
+    string title = 1;
+    string description = 2;
+    IbcRelayerConfig ibcRelayerConfig = 3;
+}
+
+message MultichainDeleteIbcRelayerConfigProposal {
+    string title = 1;
+    string description = 2;
+    string chainId = 3;
+    IbcRelayerConnectionType connectionType = 4;
+}

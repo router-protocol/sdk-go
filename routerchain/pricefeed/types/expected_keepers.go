@@ -1,9 +1,10 @@
 package types
 
 import (
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/auth/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 // AccountKeeper defines the expected account keeper used for simulations (noalias)

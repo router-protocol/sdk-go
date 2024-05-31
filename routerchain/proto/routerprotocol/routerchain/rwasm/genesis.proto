@@ -1,0 +1,12 @@
+syntax = "proto3";
+package routerprotocol.routerchain.rwasm;
+
+import "gogoproto/gogo.proto";
+import "routerprotocol/routerchain/rwasm/params.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/rwasm/types";
+
+// GenesisState defines the rwasm module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+}

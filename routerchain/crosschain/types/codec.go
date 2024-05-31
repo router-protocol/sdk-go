@@ -7,10 +7,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
+	attestationtypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-
 	cdc.RegisterConcrete(&MsgCrosschainRequest{}, "crosschain/CrosschainRequest", nil)
 	cdc.RegisterConcrete(&MsgConfirmCrosschainRequest{}, "crosschain/ConfirmCrosschainRequest", nil)
 	cdc.RegisterConcrete(&MsgCrosschainAckRequest{}, "crosschain/CrosschainAckRequest", nil)
@@ -28,6 +28,11 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) { //nolint:staticcheck
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
+	registry.RegisterImplementations(
+		(*attestationtypes.Claim)(nil),
+		&MsgCrosschainRequest{}, &MsgCrosschainAckRequest{}, &MsgCrosschainAckReceipt{},
+	)
+
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCrosschainRequest{},
 	)
@@ -54,13 +59,13 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 }
 
 var (
-	amino     = codec.NewLegacyAmino()
+	Amino     = codec.NewLegacyAmino()
 	ModuleCdc = codec.NewProtoCodec(cdctypes.NewInterfaceRegistry())
 )
 
 // NOTE: This is required for the GetSignBytes function
 func init() {
-	RegisterLegacyAminoCodec(amino)
+	RegisterLegacyAminoCodec(Amino)
 	// RegisterCrypto(amino)
-	amino.Seal()
+	Amino.Seal()
 }

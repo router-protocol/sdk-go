@@ -1,0 +1,17 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+import "routerprotocol/routerchain/crosschain/ibc_config.proto";
+
+message CrosschainCreateIBCConfigProposal {
+    string title = 1;
+    string description = 2;
+    IBCConfig ibcConfig = 3;
+}
+
+message CrosschainUpdateIBCConfigProposal {
+    string title = 1;
+    string description = 2;
+    IBCConfig ibcConfig = 3;
+}

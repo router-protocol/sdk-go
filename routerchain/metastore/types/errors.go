@@ -3,13 +3,13 @@ package types
 // DONTCOVER
 
 import (
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 // x/metastore module sentinel errors
 var (
-	ErrMetaInfoNotFound        = sdkerrors.Register(ModuleName, 1100, "meta info not found")
-	ErrFeePayerAlreadyApproved = sdkerrors.Register(ModuleName, 1101, "fee payer already approved")
-	ErrFeePayerMismatch        = sdkerrors.Register(ModuleName, 1102, "fee payer mismatch")
-	ErrFeePayerAlreadyRevoked  = sdkerrors.Register(ModuleName, 1103, "fee payer already revoked")
+	ErrMetaInfoNotFound        = errorsmod.Register(ModuleName, 1100, "meta info not found")
+	ErrFeePayerAlreadyApproved = errorsmod.Register(ModuleName, 1101, "fee payer already approved")
+	ErrFeePayerMismatch        = errorsmod.Register(ModuleName, 1102, "fee payer mismatch")
+	ErrFeePayerAlreadyRevoked  = errorsmod.Register(ModuleName, 1103, "fee payer already revoked")
 )

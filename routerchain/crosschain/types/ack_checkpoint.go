@@ -51,6 +51,8 @@ func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, er
 		return msg.GetAlephZeroCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_COSMOS:
 		return nil, nil
+	case multichainTypes.CHAIN_TYPE_STARKNET:
+		return msg.GetStarknetCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -149,7 +151,6 @@ func (msg CrosschainAckRequest) GetNearCheckpoint(routerIDstring string) ([]byte
 		msg.ExecData,
 		msg.ExecStatus,
 	)
-
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
 	if err != nil {
@@ -199,7 +200,6 @@ func (msg CrosschainAckRequest) GetEvmCheckpoint(routerIDstring string) ([]byte,
 		msg.ExecData,
 		msg.ExecStatus,
 	)
-
 	// this should never happen outside of test since any case that could crash on encoding
 	// should be filtered above.
 	if err != nil {

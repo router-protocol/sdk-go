@@ -49,7 +49,6 @@ func (gs GenesisState) Validate() error {
 
 	for _, elem := range gs.CrosschainRequestList {
 		hashValue, err := elem.ClaimHash()
-
 		if err != nil {
 			return fmt.Errorf("cannot calculate hash value")
 		}
@@ -74,7 +73,6 @@ func (gs GenesisState) Validate() error {
 
 	for _, elem := range gs.CrosschainAckRequestList {
 		hashValue, err := elem.ClaimHash()
-
 		if err != nil {
 			return fmt.Errorf("cannot calculate hash value")
 		}
@@ -99,7 +97,6 @@ func (gs GenesisState) Validate() error {
 
 	for _, elem := range gs.CrosschainAckReceiptList {
 		hashValue, err := elem.ClaimHash()
-
 		if err != nil {
 			return fmt.Errorf("cannot calculate hash value")
 		}

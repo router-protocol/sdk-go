@@ -18,7 +18,6 @@ type RouterCrosschainPacket interface {
 }
 
 func DecodeRouterCrosschainPacket(msg RouterCrosschainPacket) *CrosschainRouterPacket {
-
 	packet := &CrosschainRouterPacket{}
 
 	if len(msg.GetRequestPacket()) < 100 {

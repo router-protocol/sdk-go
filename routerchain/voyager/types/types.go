@@ -4,17 +4,19 @@ import (
 	"crypto/sha256"
 	"fmt"
 
+	ibctransfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
+	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+
+	errorsmod "cosmossdk.io/errors"
+	sdkmath "cosmossdk.io/math"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/address"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	ibctransfertypes "github.com/cosmos/ibc-go/v6/modules/apps/transfer/types"
-	ibcexported "github.com/cosmos/ibc-go/v6/modules/core/exported"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
-var (
-	VoyagerModuleAccount = GetEscrowAddress(fmt.Sprintf("%s_%s", ModuleName, "gmp"))
-)
+var VoyagerModuleAccount = GetEscrowAddress(fmt.Sprintf("%s_%s", ModuleName, "gmp"))
 
 func NewFundDepositRequest(
 	srcChainId string,
@@ -25,15 +27,16 @@ func NewFundDepositRequest(
 	depositId uint64,
 	blockHeight uint64,
 	destChainId []byte,
-	amount sdk.Int,
-	destAmount sdk.Int,
+	amount sdkmath.Int,
+	destAmount sdkmath.Int,
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	partnerId sdk.Int,
+	partnerId sdkmath.Int,
 	message []byte,
 	depositWithMessage bool,
-	destToken []byte) *FundDepositRequest {
+	destToken []byte,
+) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
@@ -57,7 +60,8 @@ func NewFundDepositRequest(
 }
 
 func NewFundsDepositedFromMsg(
-	msg *MsgFundsDeposited) *FundDepositRequest {
+	msg *MsgFundsDeposited,
+) *FundDepositRequest {
 	return &FundDepositRequest{
 		SrcChainId:         msg.SrcChainId,
 		SrcChainType:       msg.SrcChainType,
@@ -89,15 +93,16 @@ func NewFundDepositRequestClaimHash(
 	depositId uint64,
 	blockHeight uint64,
 	destChainId []byte,
-	amount sdk.Int,
-	destAmount sdk.Int,
+	amount sdkmath.Int,
+	destAmount sdkmath.Int,
 	srcToken string,
 	recipient []byte,
 	depositor string,
-	partnerID sdk.Int,
+	partnerID sdkmath.Int,
 	message []byte,
 	depositWithMessage bool,
-	destToken []byte) *FundDepositRequestClaimHash {
+	destToken []byte,
+) *FundDepositRequestClaimHash {
 	return &FundDepositRequestClaimHash{
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
@@ -131,7 +136,8 @@ func NewFundPaidRequest(
 	forwarder string,
 	forwarderRouterAddr string,
 	execData []byte,
-	execStatus bool) *FundsPaidRequest {
+	execStatus bool,
+) *FundsPaidRequest {
 	return &FundsPaidRequest{
 		SrcChainId:          srcChainId,
 		SrcChainType:        srcChainType,
@@ -150,7 +156,8 @@ func NewFundPaidRequest(
 }
 
 func NewFundsPaidFromMsg(
-	msg *MsgFundsPaid) *FundsPaidRequest {
+	msg *MsgFundsPaid,
+) *FundsPaidRequest {
 	return &FundsPaidRequest{
 		SrcChainId:          msg.SrcChainId,
 		SrcChainType:        msg.SrcChainType,
@@ -178,7 +185,8 @@ func NewFundPaidRequestClaimHash(
 	forwarder string,
 	forwarderRouterAddr string,
 	execData []byte,
-	execStatus bool) *FundsPaidRequestClaimHash {
+	execStatus bool,
+) *FundsPaidRequestClaimHash {
 	return &FundsPaidRequestClaimHash{
 		SrcChainId:          srcChainId,
 		SrcChainType:        srcChainType,
@@ -204,11 +212,11 @@ func NewDepositInfoUpdatedRequest(
 	contract string,
 	eventNonce uint64,
 	blockHeight uint64,
-	feeAmount sdk.Int,
+	feeAmount sdkmath.Int,
 	initiatewithdrawal bool,
 	srcToken string,
-	depositor string) *DepositUpdateInfoRequest {
-
+	depositor string,
+) *DepositUpdateInfoRequest {
 	return &DepositUpdateInfoRequest{
 		DepositId:          depositId,
 		SrcChainId:         srcChainId,
@@ -227,7 +235,8 @@ func NewDepositInfoUpdatedRequest(
 }
 
 func NewDepositInfoUpdatedRequestFromMsg(
-	msg *MsgDepositInfoUpdated) *DepositUpdateInfoRequest {
+	msg *MsgDepositInfoUpdated,
+) *DepositUpdateInfoRequest {
 	return &DepositUpdateInfoRequest{
 		SrcChainId:         msg.SrcChainId,
 		SrcChainType:       msg.SrcChainType,
@@ -254,10 +263,11 @@ func NewDepositInfoUpdatedRequestClaimHash(
 	contract string,
 	eventNonce uint64,
 	blockHeight uint64,
-	feeAmount sdk.Int,
+	feeAmount sdkmath.Int,
 	initiatewithdrawal bool,
 	srcToken string,
-	depositor string) *DepositUpdateInfoRequestClaimHash {
+	depositor string,
+) *DepositUpdateInfoRequestClaimHash {
 	return &DepositUpdateInfoRequestClaimHash{
 		SrcChainId:         srcChainId,
 		SrcChainType:       srcChainType,
@@ -278,7 +288,7 @@ func NewDepositInfoUpdatedRequestClaimHash(
 func ToICS20Packet(packet ibcexported.PacketI) (ibctransfertypes.FungibleTokenPacketData, error) {
 	var data ibctransfertypes.FungibleTokenPacketData
 	if err := ibctransfertypes.ModuleCdc.UnmarshalJSON(packet.GetData(), &data); err != nil {
-		return ibctransfertypes.FungibleTokenPacketData{}, sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "cannot unmarshal ICS-20 transfer packet data")
+		return ibctransfertypes.FungibleTokenPacketData{}, errorsmod.Wrapf(sdkerrors.ErrInvalidType, "cannot unmarshal ICS-20 transfer packet data")
 	}
 
 	if err := data.ValidateBasic(); err != nil {

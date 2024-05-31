@@ -1,5 +1,5 @@
 syntax = "proto3";
-package routerprotocol.routerchain.types;
+package types;
 
 import "gogoproto/gogo.proto";
 

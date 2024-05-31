@@ -1,0 +1,13 @@
+syntax = "proto3";
+package routerprotocol.routerchain.attestation;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
+import "routerprotocol/routerchain/attestation/bridge_validator.proto"; 
+import "gogoproto/gogo.proto";
+
+message Valset {  
+  uint64 nonce = 1;
+  repeated BridgeValidator members = 2 [(gogoproto.nullable) = false]; 
+  uint64 height = 3;  
+}
+

@@ -3,16 +3,16 @@ package types
 import (
 	"context"
 
-	"github.com/cosmos/cosmos-sdk/client"
-	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	gogogrpc "github.com/gogo/protobuf/grpc" // nolint: staticcheck
+	gogogrpc "github.com/cosmos/gogoproto/grpc" // nolint: staticcheck
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"github.com/cosmos/cosmos-sdk/client"
+	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
+
 	// nolint: staticcheck
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 )
 
 // baseAppSimulateFn is the signature of the Baseapp#Simulate function.
@@ -79,16 +79,5 @@ func RegisterRouterTxService(
 // RegisterGRPCGatewayRoutes mounts the tx service's GRPC-gateway routes on the
 // given Mux.
 func RegisterGRPCGatewayRoutes(clientConn gogogrpc.ClientConn, mux *runtime.ServeMux) {
-	RegisterRouterTxRpcHandlerClient(context.Background(), mux, NewRouterTxRpcClient(clientConn))
-}
-
-func parseOrderBy(orderBy txtypes.OrderBy) string {
-	switch orderBy {
-	case txtypes.OrderBy_ORDER_BY_ASC:
-		return "asc"
-	case txtypes.OrderBy_ORDER_BY_DESC:
-		return "desc"
-	default:
-		return "" // Defaults to Tendermint's default, which is `asc` now.
-	}
+	_ = RegisterRouterTxRpcHandlerClient(context.Background(), mux, NewRouterTxRpcClient(clientConn))
 }

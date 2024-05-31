@@ -1,25 +1,27 @@
 package types
 
-import sdk "github.com/cosmos/cosmos-sdk/types"
+import (
+	sdkmath "cosmossdk.io/math"
+)
 
 type SudoFundDepositMsg struct {
 	HandleFundDeposit HandleFundDeposit `json:"handle_fund_deposit"`
 }
 
 type HandleFundDeposit struct {
-	SourceChainId          string  `json:"src_chain_id"`
-	VoyagerContractAddress string  `json:"voyager_contract_address"`
-	DepositId              uint64  `json:"deposit_id"`
-	DestChainIdBytes       string  `json:"dest_chain_id_bytes"`
-	SrcToken               string  `json:"src_token"`
-	Depositor              string  `json:"depositor"`
-	DestAmount             sdk.Int `json:"dest_amount"`
-	Amount                 sdk.Int `json:"amount"`
-	Recipient              string  `json:"recipient"`
-	PartnerId              sdk.Int `json:"partner_id"`
-	Message                string  `json:"message"`
-	DepositWithMessage     bool    `json:"deposit_with_message"`
-	DestToken              string  `json:"dest_token"`
+	SourceChainId          string      `json:"src_chain_id"`
+	VoyagerContractAddress string      `json:"voyager_contract_address"`
+	DepositId              uint64      `json:"deposit_id"`
+	DestChainIdBytes       string      `json:"dest_chain_id_bytes"`
+	SrcToken               string      `json:"src_token"`
+	Depositor              string      `json:"depositor"`
+	DestAmount             sdkmath.Int `json:"dest_amount"`
+	Amount                 sdkmath.Int `json:"amount"`
+	Recipient              string      `json:"recipient"`
+	PartnerId              sdkmath.Int `json:"partner_id"`
+	Message                string      `json:"message"`
+	DepositWithMessage     bool        `json:"deposit_with_message"`
+	DestToken              string      `json:"dest_token"`
 }
 
 type SudoFundsPaidMsg struct {
@@ -41,12 +43,12 @@ type SudoHandleDepositInfoUpdateMsg struct {
 }
 
 type HandleDepositInfoUpdate struct {
-	SourceChainId          string  `json:"src_chain_id"`
-	VoyagerContractAddress string  `json:"voyager_contract_address"`
-	SrcToken               string  `json:"src_token"`
-	FeeAmount              sdk.Int `json:"fee_amount"`
-	DepositId              uint64  `json:"deposit_id"`
-	EventNonce             uint64  `json:"event_nonce"`
-	InitiateWithdrawal     bool    `json:"initiate_withdrawal"`
-	Depositor              string  `json:"depositor"`
+	SourceChainId          string      `json:"src_chain_id"`
+	VoyagerContractAddress string      `json:"voyager_contract_address"`
+	SrcToken               string      `json:"src_token"`
+	FeeAmount              sdkmath.Int `json:"fee_amount"`
+	DepositId              uint64      `json:"deposit_id"`
+	EventNonce             uint64      `json:"event_nonce"`
+	InitiateWithdrawal     bool        `json:"initiate_withdrawal"`
+	Depositor              string      `json:"depositor"`
 }

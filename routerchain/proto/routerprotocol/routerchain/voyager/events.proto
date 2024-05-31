@@ -1,0 +1,135 @@
+syntax = "proto3";
+package routerprotocol.routerchain.voyager;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/voyager/types";
+
+import "routerprotocol/routerchain/multichain/chain_type.proto";
+import "cosmos/base/v1beta1/coin.proto";
+import "gogoproto/gogo.proto";
+
+message EventFundDepositRequestCreated {
+  bytes attestation_id = 1;
+  string srcChainId = 2; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 3; 
+  string srcTxHash = 4; 
+  uint64 srcTimestamp = 5; 
+  string contract = 6; 
+  uint64 deposit_id = 7; 
+  uint64 blockHeight = 8; 
+  bytes destChainId = 9;   
+  string                                          amount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string                                          destAmount  = 11 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  string srcToken = 12; 
+  bytes recipient = 13; 
+  string depositor = 14; 
+  bytes                                          message    = 15;
+  string                                          partner_id = 16 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];  
+  bool                                           deposit_with_message = 17;
+  bytes                                          destToken     = 18;
+}
+
+message EventFundDepositRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 deposit_id = 4;  
+}
+
+message EventFundDepositRequestExecuted {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 deposit_id = 4;
+  bytes exec_response = 5;
+}
+
+message EventFundDepositRequestExecutionFailed {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 deposit_id = 4;
+  bytes exec_err_response = 5;
+}
+  
+
+
+message EventFundPaidRequestCreated {
+  bytes attestation_id = 1;
+  string srcChainId = 2; 
+  routerprotocol.routerchain.multichain.ChainType srcChainType = 3; 
+  string srcTxHash           =  4;
+  uint64 srcTimestamp        =  5;
+  string contract            =  6;
+  uint64 eventNonce          =  7;
+  uint64 blockHeight         =  8;
+  bytes messageHash         =  9;
+  string forwarder           = 10;
+  string forwarderRouterAddr = 11;
+  bytes  execData             = 12;
+  bool   execStatus           = 13;
+}
+
+
+message EventFundPaidRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 eventNonce = 4;  
+}
+
+message EventFundPaidRequestExecuted {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 eventNonce = 4;
+  bytes exec_response = 5;
+}
+
+message EventFundPaidRequestExecutionFailed {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 eventNonce = 4;
+  bytes exec_err_response = 5;
+}
+
+
+
+message EventDepositInfoUpdatedRequestCreated {
+  bytes attestation_id = 1;
+  string srcChainId         =  2;
+  routerprotocol.routerchain.multichain.ChainType srcChainType        =  3;
+  string srcTxHash          =  4;
+  uint64 srcTimestamp       =  5;
+  uint64 depositId          =  6;
+  string contract           =  7;
+  uint64 eventNonce         =  8;
+  uint64 blockHeight        =  9;  
+  string                                          feeAmount       = 10 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
+  bool   initiatewithdrawal = 11;
+  string srcToken = 12; 
+  string depositor = 13;
+}
+
+message EventDepositInfoUpdatedRequestValidated {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 eventNonce = 4;  
+}
+
+message EventDepositInfoUpdatedRequestExecuted {
+  bytes attestation_id = 1;
+  string src_chain_id = 2;
+  string contract = 3;  
+  uint64 eventNonce = 4;  
+  bytes exec_response = 5;
+}
+
+message EventDepositInfoUpdatedRequestExecutionFailed {
+  bytes attestation_id = 1;
+  string src_chain_id = 2; 
+  string contract = 3; 
+  uint64 eventNonce = 4;  
+  bytes exec_err_response = 5;
+}
