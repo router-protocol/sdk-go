@@ -9,8 +9,8 @@ import (
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
+	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 )
 
 func main() {

@@ -8,8 +8,8 @@ import (
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
+	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 )

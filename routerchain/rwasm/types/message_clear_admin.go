@@ -7,26 +7,26 @@ import (
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
-const TypeMsgCwStoreCode = "cw_store_code"
+const TypeMsgClearAdmin = "clear_admin"
 
-var _ sdk.Msg = &MsgCwStoreCode{}
+var _ sdk.Msg = &MsgClearAdmin{}
 
-func NewMsgCwStoreCode(sender string, wasmByteCode string) *MsgCwStoreCode {
-	return &MsgCwStoreCode{
-		Sender:       sender,
-		WasmByteCode: wasmByteCode,
+func NewMsgClearAdmin(sender string, contract string) *MsgClearAdmin {
+	return &MsgClearAdmin{
+		Sender:   sender,
+		Contract: contract,
 	}
 }
 
-func (msg *MsgCwStoreCode) Route() string {
+func (msg *MsgClearAdmin) Route() string {
 	return RouterKey
 }
 
-func (msg *MsgCwStoreCode) Type() string {
-	return TypeMsgCwStoreCode
+func (msg *MsgClearAdmin) Type() string {
+	return TypeMsgClearAdmin
 }
 
-func (msg *MsgCwStoreCode) GetSigners() []sdk.AccAddress {
+func (msg *MsgClearAdmin) GetSigners() []sdk.AccAddress {
 	sender, err := sdk.AccAddressFromBech32(msg.Sender)
 	if err != nil {
 		panic(err)
@@ -34,12 +34,12 @@ func (msg *MsgCwStoreCode) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{sender}
 }
 
-func (msg *MsgCwStoreCode) GetSignBytes() []byte {
+func (msg *MsgClearAdmin) GetSignBytes() []byte {
 	bz := ModuleCdc.MustMarshalJSON(msg)
 	return sdk.MustSortJSON(bz)
 }
 
-func (msg *MsgCwStoreCode) ValidateBasic() error {
+func (msg *MsgClearAdmin) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Sender)
 	if err != nil {
 		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sender address (%s)", err)
