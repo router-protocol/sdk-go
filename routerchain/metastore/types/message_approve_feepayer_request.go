@@ -1,6 +1,8 @@
 package types
 
 import (
+	errorsmod "cosmossdk.io/errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -41,7 +43,7 @@ func (msg *MsgApproveFeepayerRequest) GetSignBytes() []byte {
 func (msg *MsgApproveFeepayerRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.FeePayer)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid feepayer address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid feepayer address (%s)", err)
 	}
 	return nil
 }

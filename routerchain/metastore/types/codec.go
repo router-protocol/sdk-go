@@ -6,18 +6,18 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
+	attestationtypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 )
 
 var (
-	amino = codec.NewLegacyAmino()
+	Amino = codec.NewLegacyAmino()
 	// ModuleCdc = codec.NewProtoCodec(cdctypes.NewInterfaceRegistry())
 
 	// AminoCdc is a amino codec created to support amino JSON compatible msgs.
-	ModuleCdc = codec.NewAminoCodec(amino)
+	ModuleCdc = codec.NewAminoCodec(Amino)
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-
 	cdc.RegisterConcrete(&MsgCreateMetadataRequest{}, "metastore/CreateMetadataRequest", nil)
 	cdc.RegisterConcrete(&MsgApproveFeepayerRequest{}, "metastore/ApproveFeepayerRequest", nil)
 	cdc.RegisterConcrete(&MsgRevokeFeepayerRequest{}, "metastore/RevokeFeepayerRequest", nil)
@@ -31,6 +31,11 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) { //nolint:staticcheck
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
+	registry.RegisterImplementations(
+		(*attestationtypes.Claim)(nil),
+		&MsgCreateMetadataRequest{},
+	)
+
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgCreateMetadataRequest{},
 		&MsgApproveFeepayerRequest{},
@@ -46,7 +51,7 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 
 // NOTE: This is required for the GetSignBytes function
 func init() {
-	RegisterLegacyAminoCodec(amino)
+	RegisterLegacyAminoCodec(Amino)
 	// RegisterCrypto(amino)
-	amino.Seal()
+	Amino.Seal()
 }

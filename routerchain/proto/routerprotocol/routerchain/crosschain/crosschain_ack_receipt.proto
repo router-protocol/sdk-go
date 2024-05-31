@@ -1,0 +1,38 @@
+syntax = "proto3";
+package routerprotocol.routerchain.crosschain;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
+
+import "routerprotocol/routerchain/crosschain/crosschain_ack_receipt_tx_status.proto"; 
+
+message CrosschainAckReceipt {
+  string ackReceiptSrcChainId              = 1;
+  string contract =2;
+  uint64 ack_receipt_identifier = 3; 
+  uint64 ack_receipt_blockHeight          = 4;
+  string ack_receipt_txHash               = 5;
+  string relayerRouterAddress = 6; 
+  uint64 requestIdentifier = 7; 
+  CrosschainAckReceiptTxStatus status = 8; 
+  string ackSrcChainId              = 9;
+  uint64 ackRequestIdentifier              = 10;
+  bytes  ackExecData             = 11;
+  bool   ackExecStatus           = 12;
+  uint64 feeConsumed = 13;
+}
+
+
+message CrosschainAckReceiptClaimHash {
+  string ackReceiptSrcChainId              = 1; 
+  string contract =2; 
+  uint64 ack_receipt_identifier = 3; 
+  uint64 ack_receipt_blockHeight          = 4;
+  string ack_receipt_txHash               = 5;
+  string relayerRouterAddress = 6; 
+  uint64 requestIdentifier = 7; 
+  string ackSrcChainId              = 8;
+  uint64 ackRequestIdentifier              = 9;
+  bytes  ackExecData             = 10;
+  bool   ackExecStatus           = 11;
+  uint64 feeConsumed = 12;
+}

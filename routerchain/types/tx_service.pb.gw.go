@@ -315,11 +315,11 @@ func RegisterRouterTxRpcHandlerClient(ctx context.Context, mux *runtime.ServeMux
 }
 
 var (
-	pattern_RouterTxRpc_GetTx_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"routerprotocol.routerchain.types.RouterTxRpc", "GetTx"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_RouterTxRpc_GetTx_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"types.RouterTxRpc", "GetTx"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_RouterTxRpc_PrepareTx_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"routerprotocol.routerchain.types.RouterTxRpc", "PrepareTx"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_RouterTxRpc_PrepareTx_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"types.RouterTxRpc", "PrepareTx"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_RouterTxRpc_BroadcastTx_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"routerprotocol.routerchain.types.RouterTxRpc", "BroadcastTx"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_RouterTxRpc_BroadcastTx_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"types.RouterTxRpc", "BroadcastTx"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

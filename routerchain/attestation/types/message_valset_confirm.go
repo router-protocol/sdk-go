@@ -3,6 +3,8 @@ package types
 import (
 	"encoding/hex"
 
+	errorsmod "cosmossdk.io/errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
@@ -44,15 +46,15 @@ func (msg *MsgValsetConfirm) GetSignBytes() []byte {
 func (msg *MsgValsetConfirm) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 
 	if err := ValidateEthAddress(msg.EthAddress); err != nil {
-		return sdkerrors.Wrap(err, "eth signer")
+		return errorsmod.Wrap(err, "eth signer")
 	}
 
 	if _, err := hex.DecodeString(msg.Signature); err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrUnknownRequest, "Could not decode hex string %s", msg.Signature)
+		return errorsmod.Wrapf(sdkerrors.ErrUnknownRequest, "Could not decode hex string %s", msg.Signature)
 	}
 	return nil
 }

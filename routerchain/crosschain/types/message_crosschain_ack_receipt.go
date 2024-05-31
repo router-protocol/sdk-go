@@ -1,11 +1,14 @@
 package types
 
 import (
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
+	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+
+	errorsmod "cosmossdk.io/errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	proto "github.com/gogo/protobuf/proto"
-	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
-	"github.com/tendermint/tendermint/crypto/tmhash"
 )
 
 const TypeMsgCrosschainAckReceipt = "crosschain_ack_receipt"
@@ -54,7 +57,7 @@ func (msg *MsgCrosschainAckReceipt) GetSignBytes() []byte {
 func (msg *MsgCrosschainAckReceipt) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
 }

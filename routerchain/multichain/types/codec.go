@@ -4,9 +4,6 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	"github.com/cosmos/cosmos-sdk/types/msgservice"
-
-	//sdk "github.com/cosmos/cosmos-sdk/types"
-
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types/v1beta1"
 )
 
@@ -24,7 +21,6 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 }
 
 func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) { //nolint:staticcheck
-
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
@@ -47,13 +43,13 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 }
 
 var (
-	amino     = codec.NewLegacyAmino()
+	Amino     = codec.NewLegacyAmino()
 	ModuleCdc = codec.NewProtoCodec(cdctypes.NewInterfaceRegistry())
 )
 
 // NOTE: This is required for the GetSignBytes function
 func init() {
-	RegisterLegacyAminoCodec(amino)
+	RegisterLegacyAminoCodec(Amino)
 	// RegisterCrypto(amino)
-	amino.Seal()
+	Amino.Seal()
 }

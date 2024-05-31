@@ -1,0 +1,14 @@
+syntax = "proto3";
+package routerprotocol.routerchain.pricefeed;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/pricefeed/types";
+
+message GasPrice {
+  string price_feeder = 1; 
+  string chainId = 2; 
+  uint64 gasPrice = 3; 
+  uint64 decimals = 4;
+  uint64 resolveTime = 5; 
+  
+}
+

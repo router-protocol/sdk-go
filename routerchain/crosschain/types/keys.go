@@ -20,10 +20,8 @@ const (
 	PortID = "crosschain"
 )
 
-var (
-	// PortKey defines the key to store the port ID in store
-	PortKey = KeyPrefix("crosschain-port-")
-)
+// PortKey defines the key to store the port ID in store
+var PortKey = KeyPrefix("crosschain-port-")
 
 func KeyPrefix(p string) []byte {
 	return []byte(p)

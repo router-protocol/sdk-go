@@ -1,8 +1,8 @@
 package types
 
 import (
-	proto "github.com/gogo/protobuf/proto"
-	"github.com/tendermint/tendermint/crypto/tmhash"
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
 )
 
 func (msg *MetadataRequest) ClaimHash() ([]byte, error) {

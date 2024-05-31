@@ -1,11 +1,11 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/cosmos/cosmos-sdk/x/auth/types"
+	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 
 	codectypes "github.com/cosmos/cosmos-sdk/codec/types"
-	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/x/auth/types"
 )
 
 type AttestationKeeper interface {

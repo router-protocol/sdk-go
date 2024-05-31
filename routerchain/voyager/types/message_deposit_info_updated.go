@@ -1,19 +1,23 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	proto "github.com/gogo/protobuf/proto"
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	"github.com/tendermint/tendermint/crypto/tmhash"
+
+	errorsmod "cosmossdk.io/errors"
+	sdkmath "cosmossdk.io/math"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgDepositInfoUpdated = "deposit_info_updated"
 
 var _ sdk.Msg = &MsgDepositInfoUpdated{}
 
-func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, depositId uint64, contract string, eventNonce uint64, blockHeight uint64, feeAmount sdk.Int, initiatewithdrawal bool, srcToken string, depositor string) *MsgDepositInfoUpdated {
+func NewMsgDepositInfoUpdated(orchestrator string, srcChainId string, srcChainType multichainTypes.ChainType, srcTxHash string, srcTimestamp uint64, depositId uint64, contract string, eventNonce uint64, blockHeight uint64, feeAmount sdkmath.Int, initiatewithdrawal bool, srcToken string, depositor string) *MsgDepositInfoUpdated {
 	return &MsgDepositInfoUpdated{
 		Orchestrator:       orchestrator,
 		SrcChainId:         srcChainId,
@@ -55,7 +59,7 @@ func (msg *MsgDepositInfoUpdated) GetSignBytes() []byte {
 func (msg *MsgDepositInfoUpdated) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
 }

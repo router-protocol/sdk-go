@@ -19,7 +19,6 @@ func ReadyToExecuteCrosschainAckRequestKey(
 	relayerType RelayerType,
 	ackSrcChainId string,
 	ackRequestIdentifier uint64,
-
 ) []byte {
 	crosschainAckRequestKey := util.AppendBytes([]byte(ackWorkflow.String()), []byte(relayerType.String()), []byte(ackSrcChainId), util.UInt64Bytes(ackRequestIdentifier))
 
