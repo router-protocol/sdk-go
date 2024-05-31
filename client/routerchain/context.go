@@ -38,12 +38,16 @@ import (
 	icatypes "github.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/types"
 	ibcapplicationtypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
 	ibccoretypes "github.com/cosmos/ibc-go/v7/modules/core/types"
+
+	enccodec "github.com/evmos/ethermint/encoding/codec"
 )
 
 func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 
 	interfaceRegistry := types.NewInterfaceRegistry()
 	keyscodec.RegisterInterfaces(interfaceRegistry)
+	enccodec.RegisterInterfaces(interfaceRegistry)
+
 	std.RegisterInterfaces(interfaceRegistry)
 	evmtypes.RegisterInterfaces(interfaceRegistry)
 	attestationTypes.RegisterInterfaces(interfaceRegistry)
