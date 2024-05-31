@@ -1,7 +1,7 @@
 package types
 
 import (
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
+	errorsmod "cosmossdk.io/errors"
 )
 
 const (
@@ -13,11 +13,11 @@ const (
 
 var (
 	// ErrInvalidValue returns an error resulting from an invalid value.
-	ErrInvalidValue = sdkerrors.Register(RootCodespace, 2, "invalid value")
+	ErrInvalidValue = errorsmod.Register(RootCodespace, 2, "invalid value")
 
 	// ErrInvalidChainID returns an error resulting from an invalid chain ID.
-	ErrInvalidChainID = sdkerrors.Register(RootCodespace, 3, "invalid chain ID")
+	ErrInvalidChainID = errorsmod.Register(RootCodespace, 3, "invalid chain ID")
 
 	// ErrVMExecution returns an error resulting from an error in EVM execution.
-	ErrVMExecution = sdkerrors.Register(RootCodespace, 4, "error while executing evm transaction")
+	ErrVMExecution = errorsmod.Register(RootCodespace, 4, "error while executing evm transaction")
 )

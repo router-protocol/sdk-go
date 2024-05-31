@@ -1,8 +1,9 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+
+	sdkmath "cosmossdk.io/math"
 )
 
 func NewCrosschainRequest(
@@ -13,7 +14,7 @@ func NewCrosschainRequest(
 	sourceTxHash string,
 	srcTimestamp uint64,
 	srcTxOrigin string,
-	routeAmount sdk.Int,
+	routeAmount sdkmath.Int,
 	routeRecipient string,
 	destChainId string,
 	requestSender string,
@@ -73,7 +74,7 @@ func NewCrosschainRequestClaimHash(
 	sourceTxHash string,
 	srcTimestamp uint64,
 	srcTxOrigin string,
-	routeAmount sdk.Int,
+	routeAmount sdkmath.Int,
 	routeRecipient string,
 	destChainId string,
 	requestSender string,

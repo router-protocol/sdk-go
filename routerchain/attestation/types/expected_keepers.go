@@ -3,13 +3,16 @@ package types
 import (
 	"time"
 
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+
 	"cosmossdk.io/math"
+	sdkmath "cosmossdk.io/math"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	auth "github.com/cosmos/cosmos-sdk/x/auth/types"
 	"github.com/cosmos/cosmos-sdk/x/distribution/types"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 type MultichainKeeper interface {
@@ -39,7 +42,7 @@ type StakingKeeper interface {
 	GetBondedValidatorsByPower(ctx sdk.Context) []stakingtypes.Validator
 	GetAllValidators(ctx sdk.Context) (validators []stakingtypes.Validator)
 	GetLastValidatorPower(ctx sdk.Context, operator sdk.ValAddress) int64
-	GetLastTotalPower(ctx sdk.Context) (power sdk.Int)
+	GetLastTotalPower(ctx sdk.Context) (power sdkmath.Int)
 	ValidatorQueueIterator(ctx sdk.Context, endTime time.Time, endHeight int64) sdk.Iterator
 	GetParams(ctx sdk.Context) stakingtypes.Params
 	GetValidator(ctx sdk.Context, addr sdk.ValAddress) (validator stakingtypes.Validator, found bool)

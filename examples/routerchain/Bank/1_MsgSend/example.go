@@ -8,9 +8,9 @@ import (
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
+	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
 )
 
 func main() {

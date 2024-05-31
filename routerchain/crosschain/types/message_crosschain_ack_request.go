@@ -1,12 +1,15 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	proto "github.com/gogo/protobuf/proto"
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
-	"github.com/tendermint/tendermint/crypto/tmhash"
+
+	errorsmod "cosmossdk.io/errors"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
@@ -14,7 +17,8 @@ const TypeMsgCrosschainAckRequest = "crosschain_ack_request"
 var _ sdk.Msg = &MsgCrosschainAckRequest{}
 
 func NewMsgCrosschainAckRequest(orchestrator string, ackSrcChainType multichainTypes.ChainType,
-	ackSrcChainId string, contract string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainType multichainTypes.ChainType, ackDestChainId string, requestSender string, requestIdentifier uint64, feeConsumed uint64, execData []byte, execStatus bool) *MsgCrosschainAckRequest {
+	ackSrcChainId string, contract string, ackRequestIdentifier uint64, blockHeight uint64, destTxHash string, relayerRouterAddress string, ackDestChainType multichainTypes.ChainType, ackDestChainId string, requestSender string, requestIdentifier uint64, feeConsumed uint64, execData []byte, execStatus bool,
+) *MsgCrosschainAckRequest {
 	return &MsgCrosschainAckRequest{
 		Orchestrator:         orchestrator,
 		AckSrcChainId:        ackSrcChainId,
@@ -58,7 +62,7 @@ func (msg *MsgCrosschainAckRequest) GetSignBytes() []byte {
 func (msg *MsgCrosschainAckRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
 }

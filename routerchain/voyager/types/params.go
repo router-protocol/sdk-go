@@ -3,8 +3,9 @@ package types
 import (
 	fmt "fmt"
 
-	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	"gopkg.in/yaml.v2"
+
+	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
 )
 
 const (
@@ -32,7 +33,8 @@ func ParamKeyTable() paramtypes.KeyTable {
 func NewParams(voyagerContractAddress string,
 	fundDepositGasLimit uint64,
 	fundPaidGasLimit uint64,
-	voyagerGasPrice uint64) Params {
+	voyagerGasPrice uint64,
+) Params {
 	return Params{
 		VoyagerContractAddress: voyagerContractAddress,
 		FundDepositGasLimit:    fundDepositGasLimit,

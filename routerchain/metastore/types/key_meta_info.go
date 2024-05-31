@@ -18,6 +18,5 @@ func MetaInfoKey(
 	chainId string,
 	dappAddress string,
 ) []byte {
-
 	return util.AppendBytes([]byte(chainId), []byte(dappAddress))
 }

@@ -14,11 +14,9 @@ const (
 	AttestationKeyPrefix = "Attestation/value/"
 )
 
-var (
-	// PastEthSignatureCheckpointKey indexes eth signature checkpoints that have existed
-	// [0x1cbe0be407a979331b98e599eeedd09f]
-	PastEthSignatureCheckpointKey = util.HashString("PastEthSignatureCheckpointKey")
-)
+// PastEthSignatureCheckpointKey indexes eth signature checkpoints that have existed
+// [0x1cbe0be407a979331b98e599eeedd09f]
+var PastEthSignatureCheckpointKey = util.HashString("PastEthSignatureCheckpointKey")
 
 // AttestationKey returns the store key to retrieve a Attestation from the index fields
 func AttestationKey(
@@ -27,7 +25,6 @@ func AttestationKey(
 	eventNonce uint64,
 	claimHash []byte,
 ) []byte {
-
 	return util.AppendBytes([]byte(chainId), []byte(contract), util.UInt64Bytes(eventNonce), claimHash)
 }
 

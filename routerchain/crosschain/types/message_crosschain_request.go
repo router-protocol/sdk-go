@@ -1,13 +1,16 @@
 package types
 
 import (
-	sdk "github.com/cosmos/cosmos-sdk/types"
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	proto "github.com/gogo/protobuf/proto"
-	"github.com/tendermint/tendermint/crypto/tmhash"
-
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
 	attestationTypes "github.com/router-protocol/sdk-go/routerchain/attestation/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
+
+	errorsmod "cosmossdk.io/errors"
+	sdkmath "cosmossdk.io/math"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 )
 
 const TypeMsgCrosschainRequest = "crosschain_request"
@@ -23,14 +26,15 @@ func NewMsgCrosschainRequest(
 	sourceTxHash string,
 	srcTimestamp uint64,
 	srcTxOrigin string,
-	routeAmount sdk.Int,
+	routeAmount sdkmath.Int,
 	routeRecipient string,
 	destChainId string,
 	requestSender string,
 	requestMetadata []byte,
 	requestPacket []byte,
 	srcChainType multichainTypes.ChainType,
-	destChainType multichainTypes.ChainType) *MsgCrosschainRequest {
+	destChainType multichainTypes.ChainType,
+) *MsgCrosschainRequest {
 	return &MsgCrosschainRequest{
 		Orchestrator:      orchestrator,
 		SrcChainId:        srcChainId,
@@ -75,7 +79,7 @@ func (msg *MsgCrosschainRequest) GetSignBytes() []byte {
 func (msg *MsgCrosschainRequest) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Orchestrator)
 	if err != nil {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid orchestrator address (%s)", err)
 	}
 	return nil
 }

@@ -20,6 +20,5 @@ func ObservedAttestationKey(
 	eventNonce uint64,
 	claimHash []byte,
 ) []byte {
-
 	return util.AppendBytes([]byte(chainId), []byte(contract), util.UInt64Bytes(eventNonce), claimHash)
 }

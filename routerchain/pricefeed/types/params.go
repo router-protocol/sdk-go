@@ -3,10 +3,13 @@ package types
 import (
 	fmt "fmt"
 
+	"gopkg.in/yaml.v2"
+
+	errorsmod "cosmossdk.io/errors"
+
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"gopkg.in/yaml.v2"
 )
 
 const (
@@ -20,9 +23,7 @@ const (
 	DefaultSourceChannel  = "channel-0"
 )
 
-var (
-	DefaultFeeLimit = sdk.NewCoins(sdk.NewInt64Coin("uband", 1000000))
-)
+var DefaultFeeLimit = sdk.NewCoins(sdk.NewInt64Coin("uband", 1000000))
 
 var (
 	KeyAskCount       = []byte("AskCount")
@@ -129,7 +130,7 @@ func validateString(name string) func(interface{}) error {
 func validateFeeLimit(i interface{}) error {
 	_, ok := i.(sdk.Coins)
 	if !ok {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidType, "type: %T, expected sdk.Coins", i)
+		return errorsmod.Wrapf(sdkerrors.ErrInvalidType, "type: %T, expected sdk.Coins", i)
 	}
 	return nil
 }

@@ -1,13 +1,13 @@
 package types
 
 import (
-	proto "github.com/gogo/protobuf/proto"
-	"github.com/tendermint/tendermint/crypto/tmhash"
+	"github.com/cometbft/cometbft/crypto/tmhash"
+	proto "github.com/cosmos/gogoproto/proto"
 )
 
 func (c CrosschainAckReceipt) ValidateBasic() error {
-	//TODO: Validate id?
-	//TODO: Validate cosmos sender?
+	// TODO: Validate id?
+	// TODO: Validate cosmos sender?
 
 	return nil
 }
@@ -35,7 +35,6 @@ func (msg *CrosschainAckReceipt) ClaimHash() ([]byte, error) {
 
 	out, err := proto.Marshal(crosschainAckReceiptClaimHash)
 	return tmhash.Sum([]byte(out)), err
-
 }
 
 func (msg *CrosschainAckReceipt) GetChainId() string {

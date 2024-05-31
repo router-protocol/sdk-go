@@ -19,7 +19,6 @@ func ReadyToExecuteCrosschainRequestKey(
 	relayerType RelayerType,
 	srcChainId string,
 	requestIdentifier uint64,
-
 ) []byte {
 	crosschainRequestKey := util.AppendBytes([]byte(workflowType.String()), []byte(relayerType.String()), []byte(srcChainId), util.UInt64Bytes(requestIdentifier))
 	return crosschainRequestKey

@@ -28,7 +28,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
-	rpchttp "github.com/tendermint/tendermint/rpc/client/http"
+	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 
 	"github.com/CosmWasm/wasmd/x/wasm/ioutils"
 	wasmTypes "github.com/CosmWasm/wasmd/x/wasm/types"

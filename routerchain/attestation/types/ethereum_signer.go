@@ -3,8 +3,9 @@ package types
 import (
 	"crypto/ecdsa"
 
-	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/crypto"
+
+	errorsmod "cosmossdk.io/errors"
 )
 
 const (
@@ -14,7 +15,7 @@ const (
 // NewEthereumSignature creates a new signature over a given byte array
 func NewEthereumSignature(hash []byte, privateKey *ecdsa.PrivateKey) ([]byte, error) {
 	if privateKey == nil {
-		return nil, sdkerrors.Wrap(ErrEmpty, "private key")
+		return nil, errorsmod.Wrap(ErrEmpty, "private key")
 	}
 	protectedHash := crypto.Keccak256Hash(append([]uint8(signaturePrefix), hash...))
 	return crypto.Sign(protectedHash.Bytes(), privateKey)
@@ -22,7 +23,7 @@ func NewEthereumSignature(hash []byte, privateKey *ecdsa.PrivateKey) ([]byte, er
 
 func EthAddressFromSignature(hash []byte, signature []byte) (*EthAddress, error) {
 	if len(signature) < 65 {
-		return nil, sdkerrors.Wrap(ErrInvalid, "signature too short")
+		return nil, errorsmod.Wrap(ErrInvalid, "signature too short")
 	}
 	// To verify signature
 	// - use crypto.SigToPub to get the public key
@@ -46,12 +47,12 @@ func EthAddressFromSignature(hash []byte, signature []byte) (*EthAddress, error)
 
 	pubkey, err := crypto.SigToPub(protectedHash.Bytes(), signature)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "signature to public key")
+		return nil, errorsmod.Wrap(err, "signature to public key")
 	}
 
 	addr, err := NewEthAddress(crypto.PubkeyToAddress(*pubkey).Hex())
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid address from public key")
+		return nil, errorsmod.Wrap(err, "invalid address from public key")
 	}
 
 	return addr, nil
@@ -59,7 +60,7 @@ func EthAddressFromSignature(hash []byte, signature []byte) (*EthAddress, error)
 
 func EthAddressFromSignatureStarknet(hash []byte, signature []byte) (*EthAddress, error) {
 	if len(signature) < 65 {
-		return nil, sdkerrors.Wrap(ErrInvalid, "signature too short")
+		return nil, errorsmod.Wrap(ErrInvalid, "signature too short")
 	}
 	// To verify signature
 	// - use crypto.SigToPub to get the public key
@@ -81,12 +82,12 @@ func EthAddressFromSignatureStarknet(hash []byte, signature []byte) (*EthAddress
 
 	pubkey, err := crypto.SigToPub(hash, signature)
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "signature to public key")
+		return nil, errorsmod.Wrap(err, "signature to public key")
 	}
 
 	addr, err := NewEthAddress(crypto.PubkeyToAddress(*pubkey).Hex())
 	if err != nil {
-		return nil, sdkerrors.Wrap(err, "invalid address from public key")
+		return nil, errorsmod.Wrap(err, "invalid address from public key")
 	}
 
 	return addr, nil
@@ -95,11 +96,11 @@ func EthAddressFromSignatureStarknet(hash []byte, signature []byte) (*EthAddress
 func ValidateEthereumSignatureStarknet(hash []byte, signature []byte, ethAddress EthAddress) error {
 	addr, err := EthAddressFromSignatureStarknet(hash, signature)
 	if err != nil {
-		return sdkerrors.Wrap(err, "unable to get address from signature")
+		return errorsmod.Wrap(err, "unable to get address from signature")
 	}
 
 	if addr.GetAddress() != ethAddress.GetAddress() {
-		return sdkerrors.Wrap(ErrInvalid, "signature not matching")
+		return errorsmod.Wrap(ErrInvalid, "signature not matching")
 	}
 
 	return nil
@@ -108,11 +109,11 @@ func ValidateEthereumSignatureStarknet(hash []byte, signature []byte, ethAddress
 func ValidateEthereumSignature(hash []byte, signature []byte, ethAddress EthAddress) error {
 	addr, err := EthAddressFromSignature(hash, signature)
 	if err != nil {
-		return sdkerrors.Wrap(err, "unable to get address from signature")
+		return errorsmod.Wrap(err, "unable to get address from signature")
 	}
 
 	if addr.GetAddress() != ethAddress.GetAddress() {
-		return sdkerrors.Wrap(ErrInvalid, "signature not matching")
+		return errorsmod.Wrap(ErrInvalid, "signature not matching")
 	}
 
 	return nil
