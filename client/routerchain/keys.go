@@ -84,10 +84,6 @@ func InitCosmosKeyring(
 			}
 		}
 
-		if len(keyName) == 0 {
-			keyName = defaultKeyringKeyName
-		}
-
 		// wrap a PK into a Keyring
 		kb, err := KeyringForPrivKey(marshaler, keyName, cosmosAccPk)
 		return addressFromPk, kb, err
