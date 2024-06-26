@@ -214,7 +214,10 @@ type chainClient struct {
 }
 
 func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyringFrom string, passphrase string, privateKey string, keyringDir string, keyringBackend string) ChainClient {
-	network := common.LoadNetwork(networkName, "k8s")
+	network, err := common.LoadNetwork(networkName, "k8s")
+	if err != nil {
+		fmt.Println("Error while loading network from TmEndpoint ", "rpc", network.TmEndpoint)
+	}
 
 	tmEndpoint := network.TmEndpoint
 	if networkTmRpc != "" {

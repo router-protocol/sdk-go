@@ -20,7 +20,7 @@ const (
 )
 
 func main() {
-	network := common.LoadNetwork("local", "k8s")
+	network, _ := common.LoadNetwork("local", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {

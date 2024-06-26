@@ -28,7 +28,7 @@ func getFileAbsPath(relativePath string) string {
 	return path.Join(path.Dir(filename), relativePath)
 }
 
-func LoadNetwork(name string, node string) Network {
+func LoadNetwork(name string, node string) (Network, error) {
 
 	// Set default fields
 	network := Network{
@@ -92,12 +92,13 @@ func LoadNetwork(name string, node string) Network {
 	//Fetch chain ID
 	chainId, err := FetchChainID(network.TmEndpoint)
 	if err != nil {
-		fmt.Println("Error while fetching chain ID", "rpc", network.TmEndpoint)
-		panic(err)
+		fmt.Println("Error while fetching chain ID from default TmEndpoint ", "rpc", network.TmEndpoint)
+		// panic(err)
+		return Network{}, err
 	}
 
 	network.ChainId = chainId
-	return network
+	return network, nil
 }
 
 func contains(s []string, e string) bool {
