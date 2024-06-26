@@ -213,15 +213,19 @@ type chainClient struct {
 	canSign bool
 }
 
-func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyringFrom string, passphrase string, privateKey string, keyringDir string, keyringBackend string) ChainClient {
+func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, networkChainId string, keyringFrom string, passphrase string, privateKey string, keyringDir string, keyringBackend string) ChainClient {
 	network, err := common.LoadNetwork(networkName, "k8s")
 	if err != nil {
-		fmt.Println("Error while loading network from TmEndpoint ", "rpc", network.TmEndpoint)
+		fmt.Println("Error while loading network from default tmRPC Endpoint ", "rpc", network.TmEndpoint)
 	}
 
 	tmEndpoint := network.TmEndpoint
 	if networkTmRpc != "" {
 		tmEndpoint = networkTmRpc
+	}
+
+	if network.ChainId != "" {
+		networkChainId = network.ChainId
 	}
 
 	tmRPC, err := rpchttp.New(tmEndpoint, "/websocket")
@@ -251,7 +255,7 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, keyrin
 
 	// initialize grpc client
 	clientCtx, err := NewClientContext(
-		network.ChainId,
+		networkChainId,
 		senderAddress.String(),
 		cosmosKeyring,
 	)
