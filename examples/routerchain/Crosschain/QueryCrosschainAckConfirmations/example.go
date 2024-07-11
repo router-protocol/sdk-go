@@ -18,7 +18,7 @@ const (
 )
 
 func main() {
-	network := common.LoadNetwork("devnet-alpha", "k8s")
+	network, _ := common.LoadNetwork("devnet-alpha", "k8s")
 	tmRPC, err := rpchttp.New(network.TmEndpoint, "/websocket")
 
 	if err != nil {
