@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/binary"
 	"encoding/hex"
 	fmt "fmt"
 	"math/big"
@@ -37,6 +38,8 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 		return nil, nil
 	case multichainTypes.CHAIN_TYPE_STARKNET:
 		return crosschainAckRequest.GetStarknetCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SOLANA:
+		return crosschainAckRequest.GetSolanaCheckpoint("")
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
 	}
@@ -53,6 +56,8 @@ func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, er
 		return nil, nil
 	case multichainTypes.CHAIN_TYPE_STARKNET:
 		return msg.GetStarknetCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SOLANA:
+		return msg.GetSolanaCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -285,6 +290,73 @@ func (msg CrosschainAckRequest) GetStarknetCheckpoint(routerIDstring string) ([]
 	ensure_bytes := Ensure32Bytes(hashed_val)
 	return ensure_bytes, nil
 
+}
+
+func (msg CrosschainAckRequest) GetSolanaCheckpoint(routerIDstring string) ([]byte, error) {
+	const CHUNK_LIMIT = 800
+	ackSourceChainIdBytes := []byte(msg.AckSrcChainId)
+	ackDestChainIdBytes := []byte(msg.AckDestChainId)
+	handlerAddress, err := utils.HexToBytes(msg.RequestSender)
+	if err != nil {
+		return nil, err
+	}
+
+	// Calculate hash before attesting packet
+	length := 32 + 16 + 16 + len(ackDestChainIdBytes) + len(ackSourceChainIdBytes) + len(handlerAddress) + 1
+	data := make([]byte, length)
+	offset := 0
+	copy(data[offset:], []byte{105, 65, 99, 107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+	offset += 32
+	// Add AckRequestIdentifier
+	ackRequestIdentifierBytes := make([]byte, 16)
+	binary.LittleEndian.PutUint64(ackRequestIdentifierBytes, msg.AckRequestIdentifier)
+	copy(data[offset:], ackRequestIdentifierBytes)
+	offset += 16
+
+	// Add RequestIdentifier
+	requestIdentifierBytes := make([]byte, 16)
+	binary.LittleEndian.PutUint64(requestIdentifierBytes, msg.RequestIdentifier)
+	copy(data[offset:], requestIdentifierBytes)
+	offset += 16
+
+	// add chain id
+	copy(data[offset:], ackDestChainIdBytes)
+	offset += len(ackDestChainIdBytes)
+
+	// add dest chain
+	copy(data[offset:], ackSourceChainIdBytes)
+	offset += len(ackSourceChainIdBytes)
+
+	// add handler address
+	copy(data[offset:], handlerAddress)
+	offset += len(handlerAddress)
+
+	if msg.ExecStatus {
+		data[offset] = 1
+	} else {
+		data[offset] = 0
+	}
+
+	// Calculate hash after attesting packet
+	packet := msg.ExecData
+	result := crypto.Keccak256Hash(data).Bytes()
+	times := (len(packet) / CHUNK_LIMIT) + 1
+	copiedTill := 0
+
+	for i := 0; i < times; i++ {
+		to := copiedTill + CHUNK_LIMIT
+		if to > len(packet) {
+			to = len(packet)
+		}
+		chunkSize := to - copiedTill
+		buf := make([]byte, 32+chunkSize)
+		copy(buf[0:], result)
+		copy(buf[32:], packet[copiedTill:to])
+		result = crypto.Keccak256Hash(buf).Bytes()
+		copiedTill = to
+	}
+	return result, nil
 }
 
 func Ensure32Bytes(hash *big.Int) []byte {
