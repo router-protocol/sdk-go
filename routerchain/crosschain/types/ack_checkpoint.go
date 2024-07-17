@@ -40,6 +40,8 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 		return crosschainAckRequest.GetStarknetCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return crosschainAckRequest.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return crosschainAckRequest.GetSuiCheckpoint("")
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
 	}
@@ -58,6 +60,8 @@ func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, er
 		return msg.GetStarknetCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return msg.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return msg.GetSuiCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -357,6 +361,48 @@ func (msg CrosschainAckRequest) GetSolanaCheckpoint(routerIDstring string) ([]by
 		copiedTill = to
 	}
 	return result, nil
+}
+
+func (msg CrosschainAckRequest) GetSuiCheckpoint(routerIDstring string) ([]byte, error) {
+	//////////////////////////////////////////////////////////////////////
+	/////  Build data with types required for iAck gateway call  /////////
+	//////////////////////////////////////////////////////////////////////
+	methodNameBytes := make([]byte, 32)
+	copy(methodNameBytes, "iAck")
+
+	requestIdentifier := &big.Int{}
+	requestIdentifier.SetUint64(msg.RequestIdentifier)
+
+	ackRequestIdentifier := &big.Int{}
+	ackRequestIdentifier.SetUint64(msg.AckRequestIdentifier)
+
+	requestSender := common.FromHex(msg.RequestSender)
+
+	/////////////////////////////////////////////////
+	/////  pack abi for iReceive function  //////////
+	/////////////////////////////////////////////////
+
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestSuiCheckpointABIJSON))
+	if err != nil {
+		return nil, err
+	}
+
+	abiEncodedBatch, err := abiDef.Pack("checkpoint",
+		methodNameBytes,
+		msg.AckDestChainId,
+		requestIdentifier,
+		ackRequestIdentifier,
+		msg.AckSrcChainId,
+		requestSender,
+		msg.ExecData,
+		msg.ExecStatus,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
 }
 
 func Ensure32Bytes(hash *big.Int) []byte {
