@@ -40,6 +40,8 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return crosschainRequest.GetAlephZeroCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return crosschainRequest.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return crosschainRequest.GetSuiCheckpoint("")
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}
@@ -63,6 +65,8 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return msg.GetAlephZeroCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return msg.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return msg.GetSuiCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -428,6 +432,73 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 
 	ensure_bytes := Ensure32Bytes(hashed_val)
 	return ensure_bytes
+}
+
+func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
+    //////////////////////////////////////////////////////////////////////
+    /////  Build data with types required for iReceive gateway call  /////
+    //////////////////////////////////////////////////////////////////////
+    metadata := DecodeEvmContractMetadata(&msg)
+    requestPacket := DecodeRouterCrosschainPacket(&msg)
+
+    parsedABI, err := abi.JSON(strings.NewReader(util.CrosschainRequestSuiCheckpointABIJSON))
+    if err != nil {
+        panic("Bad ABI constant!")
+    }
+
+    crosschainMethodName := make([]byte, 32)
+    copy(crosschainMethodName, "iReceive")
+
+    routeAmount := msg.RouteAmount.BigInt()
+
+    requestIdentifier := new(big.Int).SetUint64(msg.RequestIdentifier)
+
+    requestTimestamp := new(big.Int).SetUint64(uint64(msg.SrcTimestamp))
+
+    srcChainID := msg.SrcChainId
+
+    destChainID := msg.DestChainId
+
+    routeRecipient := make([]byte, 32)
+    if msg.RouteRecipient != "" {
+        routeRecipient = common.HexToAddress(msg.RouteRecipient).Bytes()
+    }
+
+	asmAddress := []byte{}
+    if metadata.AsmAddress != "" {
+        asmAddress = common.HexToAddress(metadata.AsmAddress).Bytes()
+    }
+
+    requestSender := common.HexToAddress(msg.RequestSender).Hex()
+
+    handlerAddress, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler, "0x"))
+    if err != nil {
+        return nil
+    }
+
+    packet := requestPacket.Payload
+    isReadCall := metadata.IsReadCall
+
+    // Pack the arguments to generate the ABI-encoded bytes
+    abiEncodedBatch, err := parsedABI.Pack("checkpoint",
+        crosschainMethodName,
+        routeAmount,
+        requestIdentifier,
+        requestTimestamp,
+        srcChainID,
+        routeRecipient,
+        destChainID,
+        asmAddress,
+        requestSender,
+        handlerAddress,
+        packet,
+        isReadCall,
+    )
+    if err != nil {
+        panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+    }
+
+    return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
 }
 
 func hashSlice(input []*big.Int) (*big.Int, error) {
