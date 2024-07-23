@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	fmt "fmt"
+	"math"
 	"math/big"
 	"strings"
 
@@ -707,21 +708,31 @@ func (msg CrosschainRequest) GetSolanaCheckpoint(routerIDstring string) []byte {
 
 	// Calculate hash after attesting packet
 	packet := requestPacket.Payload
+	packetLength := len(packet)
 	result := crypto.Keccak256Hash(data).Bytes()
-	times := (len(packet) / CHUNK_LIMIT) + 1
-	copiedTill := 0
-
-	for i := 0; i < times; i++ {
-		to := copiedTill + CHUNK_LIMIT
-		if to > len(packet) {
-			to = len(packet)
+	times := int(math.Floor(float64(packetLength)/float64(CHUNK_LIMIT))) + func() int {
+		if packetLength%CHUNK_LIMIT == 0 {
+			return 0
 		}
-		chunkSize := to - copiedTill
-		buf := make([]byte, 32+chunkSize)
-		copy(buf[0:], result)
-		copy(buf[32:], packet[copiedTill:to])
+		return 1
+	}()
+
+	for idx := 0; idx < times; idx++ {
+		from := idx * CHUNK_LIMIT
+		to := (idx + 1) * CHUNK_LIMIT
+		if to > packetLength {
+			to = packetLength
+		}
+		buf := make([]byte, 32+to-from)
+		copy(buf[:32], result)
+		copy(buf[32:], packet[from:to])
 		result = crypto.Keccak256Hash(buf).Bytes()
-		copiedTill = to
+	}
+
+	if packetLength == 0 {
+		buf := make([]byte, 32)
+		copy(buf[:32], result)
+		result = crypto.Keccak256Hash(buf).Bytes()
 	}
 
 	return result
