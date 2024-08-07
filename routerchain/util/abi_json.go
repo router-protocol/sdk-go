@@ -149,7 +149,7 @@ const (
 		]
 	}]`
 
-	// CrosschainAckRequestNearCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
+	// CrosschainAckRequestAlephZeroCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
 	CrosschainAckRequestAlephZeroCheckpointABIJSON = `[{
 			"name": "checkpoint",
 			"stateMutability": "nonpayable",

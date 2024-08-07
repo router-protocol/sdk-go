@@ -17,6 +17,8 @@ type AttestationKeeper interface {
 
 type MultichainKeeper interface {
 	GetLastObservedEventNonce(ctx sdk.Context, chainId string, contract string) uint64
+	SetLastObservedEventNonce(ctx sdk.Context, chainId string, contract string, nonce uint64)
+	SetLastObservedEventBlockHeight(ctx sdk.Context, chainId string, contract string, blockHeight uint64)
 	GetAllIbcRelayerConfig(ctx sdk.Context) (list []multichainTypes.IbcRelayerConfig)
 	GetIbcRelayerConfig(ctx sdk.Context, chainId string, connectionType multichainTypes.IbcRelayerConnectionType) (val multichainTypes.IbcRelayerConfig, found bool)
 	GetChainConfig(ctx sdk.Context, chainId string) (chainConfig multichainTypes.ChainConfig, found bool)

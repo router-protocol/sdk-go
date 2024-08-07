@@ -98,8 +98,8 @@ type ChainClient interface {
 	GetAllObservedAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllObservedAttestationResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
-	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
-	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
+	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
+	GetValsetConfirm(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
 
 	// PriceFeed
 	GetPriceBySymbol(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetPriceResponse, error)
@@ -920,16 +920,17 @@ func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId strin
 	return c.attestationQueryClient.LastEventNonce(ctx, req)
 }
 
-func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error) {
+func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error) {
 	req := &attestationTypes.QueryGetValsetConfirmationRequest{
-		ValsetNonce:  valsetNonce,
-		Orchestrator: orchestrator,
+		ValsetNonce:   valsetNonce,
+		Orchestrator:  orchestrator,
+		DestChainType: destChainType,
 	}
 	return c.attestationQueryClient.ValsetConfirmation(ctx, req)
 }
 
-func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
-	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce, Pagination: pagination}
+func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
+	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce, DestChainType: destChainType, Pagination: pagination}
 	return c.attestationQueryClient.ValsetConfirmationAll(ctx, req)
 }
 

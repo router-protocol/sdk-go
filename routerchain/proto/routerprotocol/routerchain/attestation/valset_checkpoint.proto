@@ -5,11 +5,8 @@ import "routerprotocol/routerchain/multichain/chain_type.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
-message ValsetConfirmation {
-  uint64 valsetNonce = 1; 
-  routerprotocol.routerchain.multichain.ChainType dest_chain_type  = 2;
-  string ethAddress = 3; 
-  string signature = 4; 
-  string orchestrator = 5;
-}
 
+message ValsetCheckpoint {  
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type  = 1;  
+  string signature = 2;
+}

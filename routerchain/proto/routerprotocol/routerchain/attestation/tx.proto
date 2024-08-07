@@ -3,13 +3,15 @@ package routerprotocol.routerchain.attestation;
 
 // this line is used by starport scaffolding # proto/tx/import
 import "routerprotocol/routerchain/attestation/bridge_validator.proto";
+import "routerprotocol/routerchain/attestation/valset_checkpoint.proto";
+import "routerprotocol/routerchain/multichain/chain_type.proto";
 import "gogoproto/gogo.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
 // Msg defines the Msg service.
 service Msg {
-      rpc SetOrchestratorAddress(MsgSetOrchestratorAddress) returns (MsgSetOrchestratorAddressResponse);
+  rpc SetOrchestratorAddress(MsgSetOrchestratorAddress) returns (MsgSetOrchestratorAddressResponse);
   rpc ValsetConfirm(MsgValsetConfirm) returns (MsgValsetConfirmResponse);
   rpc ValsetUpdatedClaim(MsgValsetUpdatedClaim) returns (MsgValsetUpdatedClaimResponse);  
 // this line is used by starport scaffolding # proto/tx/rpc
@@ -28,7 +30,7 @@ message MsgValsetConfirm {
   string orchestrator = 1;
   uint64 valsetNonce = 2;
   string ethAddress = 3;
-  string signature = 4;
+  repeated ValsetCheckpoint valsetCheckpoints = 4 [(gogoproto.nullable) = false];
 }
 
 message MsgValsetConfirmResponse {

@@ -58,7 +58,7 @@ func (gs GenesisState) Validate() error {
 	valsetConfirmationIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.ValsetConfirmationList {
-		index := string(ValsetConfirmationKey(elem.ValsetNonce, sdk.AccAddress(elem.Orchestrator)))
+		index := string(ValsetConfirmationKey(elem.ValsetNonce, elem.DestChainType, sdk.AccAddress(elem.Orchestrator)))
 		if _, ok := valsetConfirmationIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for valsetConfirmation")
 		}

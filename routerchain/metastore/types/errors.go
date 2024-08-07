@@ -12,4 +12,5 @@ var (
 	ErrFeePayerAlreadyApproved = errorsmod.Register(ModuleName, 1101, "fee payer already approved")
 	ErrFeePayerMismatch        = errorsmod.Register(ModuleName, 1102, "fee payer mismatch")
 	ErrFeePayerAlreadyRevoked  = errorsmod.Register(ModuleName, 1103, "fee payer already revoked")
+	ErrUnknown                 = errorsmod.Register(ModuleName, 1104, "unknown")
 )

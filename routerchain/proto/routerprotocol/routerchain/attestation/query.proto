@@ -12,9 +12,7 @@ import "routerprotocol/routerchain/attestation/valset_confirmation.proto";
 import "routerprotocol/routerchain/attestation/tx.proto";
 import "cosmos/staking/v1beta1/staking.proto";
 import "routerprotocol/routerchain/attestation/valset_updated_claim.proto";
-
-// this line is used by starport scaffolding # 1
-import "routerprotocol/routerchain/attestation/bridge_validator.proto";
+import "routerprotocol/routerchain/multichain/chain_type.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/attestation/types";
 
@@ -53,13 +51,13 @@ service Query {
   
   // Queries a ValsetConfirmation by valset nonce.
   rpc ValsetConfirmation (QueryGetValsetConfirmationRequest) returns (QueryGetValsetConfirmationResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_confirmation/{valset_nonce}/{orchestrator}";
+    option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_confirmation/{valset_nonce}/{dest_chain_type}/{orchestrator}";
   
   }
   
   // Queries a list of ValsetConfirmation items.
   rpc ValsetConfirmationAll (QueryAllValsetConfirmationRequest) returns (QueryAllValsetConfirmationResponse) {
-    option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_confirmation/{valset_nonce}";
+    option (google.api.http).get = "/router-protocol/router-chain/attestation/valset_confirmation/{valset_nonce}/{dest_chain_type}";
   
   }
   
@@ -166,6 +164,7 @@ message QueryAllAttestationResponse {
 message QueryGetValsetConfirmationRequest {
   uint64 valset_nonce = 1;
   string orchestrator = 2;
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type  = 3;
 }
 
 message QueryGetValsetConfirmationResponse {
@@ -174,7 +173,8 @@ message QueryGetValsetConfirmationResponse {
 
 message QueryAllValsetConfirmationRequest {
   uint64                                valset_nonce = 1;
-  cosmos.base.query.v1beta1.PageRequest pagination   = 2;
+  routerprotocol.routerchain.multichain.ChainType dest_chain_type  = 2;
+  cosmos.base.query.v1beta1.PageRequest pagination   = 3;
 }
 
 message QueryAllValsetConfirmationResponse {

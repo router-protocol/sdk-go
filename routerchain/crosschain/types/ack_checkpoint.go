@@ -4,7 +4,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	fmt "fmt"
-	"math"
+	math "math"
 	"math/big"
 	"strings"
 

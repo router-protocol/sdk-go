@@ -15,4 +15,5 @@ var (
 	ErrIBCAck         = errorsmod.Register(ModuleName, 5, "IBC acknowledgement failed")
 	ErrIBCTransfer    = errorsmod.Register(ModuleName, 6, "IBC transfer failed")
 	ErrNotSupported   = errorsmod.Register(ModuleName, 7, "crosschain request not supported")
+	ErrUnknown        = errorsmod.Register(ModuleName, 8, "unknown")
 )

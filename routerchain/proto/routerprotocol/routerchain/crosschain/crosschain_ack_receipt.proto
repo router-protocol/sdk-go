@@ -4,6 +4,7 @@ package routerprotocol.routerchain.crosschain;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/crosschain/types";
 
 import "routerprotocol/routerchain/crosschain/crosschain_ack_receipt_tx_status.proto"; 
+import "routerprotocol/routerchain/multichain/chain_type.proto";
 
 message CrosschainAckReceipt {
   string ackReceiptSrcChainId              = 1;
@@ -19,6 +20,7 @@ message CrosschainAckReceipt {
   bytes  ackExecData             = 11;
   bool   ackExecStatus           = 12;
   uint64 feeConsumed = 13;
+  routerprotocol.routerchain.multichain.ChainType ack_receipt_src_chain_type   = 14;
 }
 
 
