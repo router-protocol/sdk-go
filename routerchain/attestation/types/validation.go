@@ -1,8 +1,10 @@
 package types
 
 import (
+	"encoding/binary"
 	math "math"
 	"math/big"
+	"slices"
 	"sort"
 	"strings"
 
@@ -228,52 +230,34 @@ func (v Valset) GetCheckpoint(destChainType multichainTypes.ChainType) ([]byte, 
 
 // GetCheckpoint returns the checkpoint
 func (v Valset) GetSolanaCheckpoint() ([]byte, error) {
-	// error case here should not occur outside of testing since the above is a constant
-	contractAbi, abiErr := abi.JSON(strings.NewReader(util.ValsetCheckpointABIJSON))
-	if abiErr != nil {
-		return nil, errorsmod.Wrap(abiErr, "invalid valset checkpoint abi")
+	newValsetNonce := new(big.Int).SetUint64(v.Nonce)
+	bufLength := 32 + 16 + len(v.Members)*20 + len(v.Members)*8
+	data := make([]byte, bufLength)
+	offset := 0
+	// add discriminator
+	discriminator := []byte{99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+	copy(data[offset:], discriminator)
+	offset += 32
+
+	newValsetNonceBytes := newValsetNonce.Bytes()
+	slices.Reverse(newValsetNonceBytes)
+	copy(data[offset:], newValsetNonceBytes)
+	offset += 16
+
+	for _, member := range v.Members {
+		validatorBytes := gethcommon.Hex2Bytes(member.EthereumAddress)
+		copy(data[offset:], validatorBytes)
+		offset += len(validatorBytes)
 	}
 
-	// the contract argument is not a arbitrary length array but a fixed length 32 byte
-	// array, therefore we have to utf8 encode the string (the default in this case) and
-	// then copy the variable length encoded data into a fixed length array. This function
-	// will panic if routerIDstring is too long to fit in 32 bytes
-	// routerId, err := util.StrToFixByteArray(routerIdString)
-	// if err != nil {
-	// 	panic(err)
-	// }
-
-	checkpointBytes := []uint8("checkpoint")
-	var checkpoint [32]uint8
-	copy(checkpoint[:], checkpointBytes)
-
-	memberAddresses := make([]gethcommon.Address, len(v.Members))
-	convertedPowers := make([]*big.Int, len(v.Members))
-	for i, m := range v.Members {
-		memberAddresses[i] = gethcommon.HexToAddress(m.EthereumAddress)
-		convertedPowers[i] = big.NewInt(int64(m.Power))
+	for _, member := range v.Members {
+		powerBytes := make([]byte, 8)
+		binary.LittleEndian.PutUint64(powerBytes, member.Power)
+		copy(data[offset:], powerBytes)
+		offset += 8
 	}
-	// the word 'checkpoint' needs to be the same as the 'name' above in the checkpointAbiJson
-	// but other than that it's a constant that has no impact on the output. This is because
-	// it gets encoded as a function name which we must then discard.
-	bytes, packErr := contractAbi.Pack("checkpoint",
-		checkpoint,
-		big.NewInt(int64(v.Nonce)),
-		memberAddresses,
-		convertedPowers,
-	)
-
-	// this should never happen outside of test since any case that could crash on encoding
-	// should be filtered above.
-	if packErr != nil {
-		return nil, errorsmod.Wrap(packErr, "Error packing checkpoint!")
-	}
-
-	// we hash the resulting encoded bytes discarding the first 4 bytes these 4 bytes are the constant
-	// method name 'checkpoint'. If you were to replace the checkpoint constant in this code you would
-	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
-	hash := crypto.Keccak256Hash(bytes[4:])
-	return hash.Bytes(), nil
+	return crypto.Keccak256Hash(data).Bytes(), nil
 }
 
 // GetCheckpoint returns the checkpoint
