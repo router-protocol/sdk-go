@@ -246,7 +246,7 @@ func (v Valset) GetSolanaCheckpoint() ([]byte, error) {
 	offset += 16
 
 	for _, member := range v.Members {
-		validatorBytes := gethcommon.Hex2Bytes(member.EthereumAddress)
+		validatorBytes := gethcommon.HexToAddress(member.EthereumAddress).Bytes()
 		copy(data[offset:], validatorBytes)
 		offset += len(validatorBytes)
 	}
