@@ -2,6 +2,7 @@ package common
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"strings"
 
@@ -58,6 +59,8 @@ func LoadNetwork(name string, node string) (Network, error) {
 		network.TmEndpoint = "https://tmrpc.sentry.routerchain.dev:443"
 		network.ChainEvmRpcEndpoint = "https://evmrpc.sentry.routerchain.dev/"
 		network.ChainGrpcEndpoint = "tcp://grpc.sentry.routerchain.dev:9090"
+	} else {
+		return Network{}, fmt.Errorf("network %s not supported", name)
 	}
 
 	//Fetch chain ID
