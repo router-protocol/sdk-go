@@ -5,12 +5,12 @@ package types
 
 import (
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/gogo/protobuf/gogoproto"
 	proto "github.com/gogo/protobuf/proto"
 	io "io"
 	math "math"
 	math_bits "math/bits"
+	sdkmath "cosmossdk.io/math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -26,7 +26,7 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type CrosschainIbcPacket struct {
 	Version         uint64                                 `protobuf:"varint,1,opt,name=version,proto3" json:"version,omitempty"`
-	RouteAmount     github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,2,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
+	RouteAmount     sdkmath.Int `protobuf:"bytes,2,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
 	RouteRecipient  string                                 `protobuf:"bytes,3,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
 	SrcChainId      string                                 `protobuf:"bytes,4,opt,name=src_chain_id,json=srcChainId,proto3" json:"src_chain_id,omitempty"`
 	DestChainId     string                                 `protobuf:"bytes,5,opt,name=dest_chain_id,json=destChainId,proto3" json:"dest_chain_id,omitempty"`

@@ -1,8 +1,6 @@
 package types
 
 import (
-	"encoding/hex"
-
 	errorsmod "cosmossdk.io/errors"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -13,12 +11,12 @@ const TypeMsgValsetConfirm = "valset_confirm"
 
 var _ sdk.Msg = &MsgValsetConfirm{}
 
-func NewMsgValsetConfirm(orchestrator string, valsetNonce uint64, ethAddress string, signature string) *MsgValsetConfirm {
+func NewMsgValsetConfirm(orchestrator string, valsetNonce uint64, ethAddress string, valsetCheckpoints []ValsetCheckpoint) *MsgValsetConfirm {
 	return &MsgValsetConfirm{
-		Orchestrator: orchestrator,
-		ValsetNonce:  valsetNonce,
-		EthAddress:   ethAddress,
-		Signature:    signature,
+		Orchestrator:      orchestrator,
+		ValsetNonce:       valsetNonce,
+		EthAddress:        ethAddress,
+		ValsetCheckpoints: valsetCheckpoints,
 	}
 }
 
@@ -53,8 +51,8 @@ func (msg *MsgValsetConfirm) ValidateBasic() error {
 		return errorsmod.Wrap(err, "eth signer")
 	}
 
-	if _, err := hex.DecodeString(msg.Signature); err != nil {
-		return errorsmod.Wrapf(sdkerrors.ErrUnknownRequest, "Could not decode hex string %s", msg.Signature)
-	}
+	// if _, err := hex.DecodeString(msg.Signature); err != nil {
+	// 	return errorsmod.Wrapf(sdkerrors.ErrUnknownRequest, "Could not decode hex string %s", msg.Signature)
+	// }
 	return nil
 }

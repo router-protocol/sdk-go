@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	fmt "fmt"
+	math "math"
 	"math/big"
 	"strings"
 
@@ -40,6 +41,8 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 		return crosschainAckRequest.GetStarknetCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return crosschainAckRequest.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return crosschainAckRequest.GetSuiCheckpoint("")
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
 	}
@@ -58,6 +61,8 @@ func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, er
 		return msg.GetStarknetCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return msg.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return msg.GetSuiCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -340,23 +345,75 @@ func (msg CrosschainAckRequest) GetSolanaCheckpoint(routerIDstring string) ([]by
 
 	// Calculate hash after attesting packet
 	packet := msg.ExecData
+	packetLength := len(packet)
 	result := crypto.Keccak256Hash(data).Bytes()
-	times := (len(packet) / CHUNK_LIMIT) + 1
-	copiedTill := 0
-
-	for i := 0; i < times; i++ {
-		to := copiedTill + CHUNK_LIMIT
-		if to > len(packet) {
-			to = len(packet)
+	times := int(math.Floor(float64(packetLength)/float64(CHUNK_LIMIT))) + func() int {
+		if packetLength%CHUNK_LIMIT == 0 {
+			return 0
 		}
-		chunkSize := to - copiedTill
-		buf := make([]byte, 32+chunkSize)
-		copy(buf[0:], result)
-		copy(buf[32:], packet[copiedTill:to])
+		return 1
+	}()
+
+	for idx := 0; idx < times; idx++ {
+		from := idx * CHUNK_LIMIT
+		to := (idx + 1) * CHUNK_LIMIT
+		if to > packetLength {
+			to = packetLength
+		}
+		buf := make([]byte, 32+to-from)
+		copy(buf[:32], result)
+		copy(buf[32:], packet[from:to])
 		result = crypto.Keccak256Hash(buf).Bytes()
-		copiedTill = to
+	}
+
+	if packetLength == 0 {
+		buf := make([]byte, 32)
+		copy(buf[:32], result)
+		result = crypto.Keccak256Hash(buf).Bytes()
 	}
 	return result, nil
+}
+
+func (msg CrosschainAckRequest) GetSuiCheckpoint(routerIDstring string) ([]byte, error) {
+	//////////////////////////////////////////////////////////////////////
+	/////  Build data with types required for iAck gateway call  /////////
+	//////////////////////////////////////////////////////////////////////
+	methodNameBytes := make([]byte, 32)
+	copy(methodNameBytes, "iAck")
+
+	requestIdentifier := &big.Int{}
+	requestIdentifier.SetUint64(msg.RequestIdentifier)
+
+	ackRequestIdentifier := &big.Int{}
+	ackRequestIdentifier.SetUint64(msg.AckRequestIdentifier)
+
+	requestSender := common.FromHex(msg.RequestSender)
+
+	/////////////////////////////////////////////////
+	/////  pack abi for iReceive function  //////////
+	/////////////////////////////////////////////////
+
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestSuiCheckpointABIJSON))
+	if err != nil {
+		return nil, err
+	}
+
+	abiEncodedBatch, err := abiDef.Pack("checkpoint",
+		methodNameBytes,
+		msg.AckDestChainId,
+		requestIdentifier,
+		ackRequestIdentifier,
+		msg.AckSrcChainId,
+		requestSender,
+		msg.ExecData,
+		msg.ExecStatus,
+	)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
 }
 
 func Ensure32Bytes(hash *big.Int) []byte {

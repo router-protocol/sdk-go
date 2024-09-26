@@ -3,6 +3,7 @@ package types
 import (
 	"github.com/cometbft/cometbft/crypto/tmhash"
 	proto "github.com/cosmos/gogoproto/proto"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 func (c CrosschainAckReceipt) ValidateBasic() error {
@@ -39,4 +40,17 @@ func (msg *CrosschainAckReceipt) ClaimHash() ([]byte, error) {
 
 func (msg *CrosschainAckReceipt) GetChainId() string {
 	return msg.AckReceiptSrcChainId
+}
+
+func (msg *CrosschainAckReceipt) ValidationType() ValidationType {
+	switch msg.AckReceiptSrcChainType {
+	case multichainTypes.CHAIN_TYPE_COSMOS:
+		return IBC_VALIDATION
+
+	case multichainTypes.CHAIN_TYPE_ROUTER:
+		return DEFAULT_VALIDATION
+
+	default:
+		return ORCHESTRATOR_VALIDATION
+	}
 }

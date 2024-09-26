@@ -8,6 +8,7 @@ import (
 	chainclient "github.com/router-protocol/sdk-go/client/routerchain"
 	"github.com/router-protocol/sdk-go/client/routerchain/common"
 
+	"cosmossdk.io/math"
 	rpchttp "github.com/cometbft/cometbft/rpc/client/http"
 	sdktypes "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
@@ -54,7 +55,7 @@ func main() {
 		FromAddress: senderAddress.String(),
 		ToAddress:   "router1mtp76jwymme78xaf0h73cmky8hdy3thhy0xz9a",
 		Amount: []sdktypes.Coin{{
-			Denom: "route", Amount: sdktypes.NewInt(1000000)}, // 1 router
+			Denom: "route", Amount: math.NewInt(1000000)}, // 1 router
 		},
 	}
 

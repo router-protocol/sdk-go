@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	fmt "fmt"
+	math "math"
 	"math/big"
 	"strings"
 
@@ -40,6 +41,8 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return crosschainRequest.GetAlephZeroCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return crosschainRequest.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return crosschainRequest.GetSuiCheckpoint("")
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}
@@ -63,6 +66,8 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return msg.GetAlephZeroCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return msg.GetSolanaCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return msg.GetSuiCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -430,6 +435,181 @@ func (msg CrosschainRequest) GetStarknetCheckpoint(routerIDstring string) []byte
 	return ensure_bytes
 }
 
+func (msg CrosschainRequest) GetSolanaCheckpoint(routerIDstring string) []byte {
+	//////////////////////////////////////////////////////////////////////
+	/////  Build data with types required for iReceive gateway call  /////
+	//////////////////////////////////////////////////////////////////////
+	const CHUNK_LIMIT = 800
+	metadata := DecodeEvmContractMetadata(&msg)
+	requestPacket := DecodeRouterCrosschainPacket(&msg)
+	srcChainIdBytes := []byte(msg.SrcChainId)
+	destChainIdBytes := []byte(msg.DestChainId)
+	requestSenderBytes := []byte(msg.RequestSender)
+	routeRecipientBytes, err := utils.HexToBytes(msg.RouteRecipient)
+	if err != nil {
+		panic(fmt.Sprintf("Error decoding route recipient: %s", err.Error()))
+	}
+	handlerAddressBytes, err := utils.HexToBytes(requestPacket.Handler)
+	if err != nil {
+		panic(fmt.Sprintf("Error decoding handler address: %s", err.Error()))
+	}
+	asmAddressBytes, err := utils.HexToBytes(metadata.AsmAddress)
+	if err != nil {
+		panic(fmt.Sprintf("Error decoding asm address: %s", err.Error()))
+	}
+	// Calculate hash before attesting packet
+	length := 32 + 8 + 16 + 16 + len(srcChainIdBytes) + len(routeRecipientBytes) +
+		len(destChainIdBytes) + len(asmAddressBytes) + len(requestSenderBytes) +
+		len(handlerAddressBytes) + 1
+	data := make([]byte, length)
+	offset := 0
+
+	// add method name
+	copy(data[offset:], []byte{105, 82, 101, 99, 101, 105, 118, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
+	offset += 32
+
+	// add route amount
+	binary.LittleEndian.PutUint64(data[offset:], msg.RouteAmount.Uint64())
+	offset += 8
+
+	// Add request identifier
+	requestIdentifierBytes := make([]byte, 16)
+	binary.LittleEndian.PutUint64(requestIdentifierBytes, msg.RequestIdentifier)
+	copy(data[offset:], requestIdentifierBytes)
+	offset += 16
+
+	// add request timestamp
+	requestTimestampBytes := make([]byte, 16)
+	binary.LittleEndian.PutUint64(requestTimestampBytes, msg.SrcTimestamp)
+	copy(data[offset:], requestTimestampBytes)
+	offset += 16
+
+	// add chin id
+	copy(data[offset:], srcChainIdBytes)
+	offset += len(srcChainIdBytes)
+
+	// add dest chain
+	copy(data[offset:], destChainIdBytes)
+	offset += len(destChainIdBytes)
+
+	// add asm address
+	copy(data[offset:], asmAddressBytes)
+	offset += len(asmAddressBytes)
+
+	// add request sender
+	copy(data[offset:], requestSenderBytes)
+	offset += len(requestSenderBytes)
+
+	// add handler address
+	copy(data[offset:], handlerAddressBytes)
+	offset += len(handlerAddressBytes)
+
+	if metadata.IsReadCall {
+		data[offset] = 1
+	} else {
+		data[offset] = 0
+	}
+
+	// Calculate hash after attesting packet
+	packet := requestPacket.Payload
+	packetLength := len(packet)
+	result := crypto.Keccak256Hash(data).Bytes()
+	times := int(math.Floor(float64(packetLength)/float64(CHUNK_LIMIT))) + func() int {
+		if packetLength%CHUNK_LIMIT == 0 {
+			return 0
+		}
+		return 1
+	}()
+
+	for idx := 0; idx < times; idx++ {
+		from := idx * CHUNK_LIMIT
+		to := (idx + 1) * CHUNK_LIMIT
+		if to > packetLength {
+			to = packetLength
+		}
+		buf := make([]byte, 32+to-from)
+		copy(buf[:32], result)
+		copy(buf[32:], packet[from:to])
+		result = crypto.Keccak256Hash(buf).Bytes()
+	}
+
+	if packetLength == 0 {
+		buf := make([]byte, 32)
+		copy(buf[:32], result)
+		result = crypto.Keccak256Hash(buf).Bytes()
+	}
+
+	return result
+}
+
+func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
+	//////////////////////////////////////////////////////////////////////
+	/////  Build data with types required for iReceive gateway call  /////
+	//////////////////////////////////////////////////////////////////////
+	metadata := DecodeEvmContractMetadata(&msg)
+	requestPacket := DecodeRouterCrosschainPacket(&msg)
+
+	parsedABI, err := abi.JSON(strings.NewReader(util.CrosschainRequestSuiCheckpointABIJSON))
+	if err != nil {
+		panic("Bad ABI constant!")
+	}
+
+	crosschainMethodName := make([]byte, 32)
+	copy(crosschainMethodName, "iReceive")
+
+	routeAmount := msg.RouteAmount.BigInt()
+
+	requestIdentifier := new(big.Int).SetUint64(msg.RequestIdentifier)
+
+	requestTimestamp := new(big.Int).SetUint64(uint64(msg.SrcTimestamp))
+
+	srcChainID := msg.SrcChainId
+
+	destChainID := msg.DestChainId
+
+	routeRecipient := make([]byte, 32)
+	if msg.RouteRecipient != "" {
+		routeRecipient = common.HexToAddress(msg.RouteRecipient).Bytes()
+	}
+
+	asmAddress := []byte{}
+	if metadata.AsmAddress != "" {
+		asmAddress = common.HexToAddress(metadata.AsmAddress).Bytes()
+	}
+
+	requestSender := common.HexToAddress(msg.RequestSender).Hex()
+
+	handlerAddress, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler, "0x"))
+	if err != nil {
+		return nil
+	}
+
+	packet := requestPacket.Payload
+	isReadCall := metadata.IsReadCall
+
+	// Pack the arguments to generate the ABI-encoded bytes
+	abiEncodedBatch, err := parsedABI.Pack("checkpoint",
+		crosschainMethodName,
+		routeAmount,
+		requestIdentifier,
+		requestTimestamp,
+		srcChainID,
+		routeRecipient,
+		destChainID,
+		asmAddress,
+		requestSender,
+		handlerAddress,
+		packet,
+		isReadCall,
+	)
+	if err != nil {
+		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+	}
+
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+}
+
 func hashSlice(input []*big.Int) (*big.Int, error) {
 	// Check if the input slice is empty and return an error or a specific hash value
 	if len(input) == 0 {
@@ -556,104 +736,6 @@ func BigIntToHexU128Parts(num *big.Int) (lowHex, highHex string) {
 	highHex = fmt.Sprintf("0x%04x", high)
 
 	return lowHex, highHex
-}
-
-func (msg CrosschainRequest) GetSolanaCheckpoint(routerIDstring string) []byte {
-	//////////////////////////////////////////////////////////////////////
-	/////  Build data with types required for iReceive gateway call  /////
-	//////////////////////////////////////////////////////////////////////
-	const CHUNK_LIMIT = 800
-	metadata := DecodeEvmContractMetadata(&msg)
-	requestPacket := DecodeRouterCrosschainPacket(&msg)
-	srcChainIdBytes := []byte(msg.SrcChainId)
-	destChainIdBytes := []byte(msg.DestChainId)
-	requestSenderBytes := []byte(msg.RequestSender)
-	routeRecipientBytes, err := utils.HexToBytes(msg.RouteRecipient)
-	if err != nil {
-		panic(fmt.Sprintf("Error decoding route recipient: %s", err.Error()))
-	}
-	handlerAddressBytes, err := utils.HexToBytes(requestPacket.Handler)
-	if err != nil {
-		panic(fmt.Sprintf("Error decoding handler address: %s", err.Error()))
-	}
-	asmAddressBytes, err := utils.HexToBytes(metadata.AsmAddress)
-	if err != nil {
-		panic(fmt.Sprintf("Error decoding asm address: %s", err.Error()))
-	}
-	// Calculate hash before attesting packet
-	length := 32 + 8 + 16 + 16 + len(srcChainIdBytes) + len(routeRecipientBytes) +
-		len(destChainIdBytes) + len(asmAddressBytes) + len(requestSenderBytes) +
-		len(handlerAddressBytes) + 1
-	data := make([]byte, length)
-	offset := 0
-
-	// add method name
-	copy(data[offset:], []byte{105, 82, 101, 99, 101, 105, 118, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0})
-	offset += 32
-
-	// add route amount
-	binary.LittleEndian.PutUint64(data[offset:], msg.RouteAmount.Uint64())
-	offset += 8
-
-	// Add request identifier
-	requestIdentifierBytes := make([]byte, 16)
-	binary.LittleEndian.PutUint64(requestIdentifierBytes, msg.RequestIdentifier)
-	copy(data[offset:], requestIdentifierBytes)
-	offset += 16
-
-	// add request timestamp
-	requestTimestampBytes := make([]byte, 16)
-	binary.LittleEndian.PutUint64(requestTimestampBytes, msg.SrcTimestamp)
-	copy(data[offset:], requestTimestampBytes)
-	offset += 16
-
-	// add chin id
-	copy(data[offset:], srcChainIdBytes)
-	offset += len(srcChainIdBytes)
-
-	// add dest chain
-	copy(data[offset:], destChainIdBytes)
-	offset += len(destChainIdBytes)
-
-	// add asm address
-	copy(data[offset:], asmAddressBytes)
-	offset += len(asmAddressBytes)
-
-	// add request sender
-	copy(data[offset:], requestSenderBytes)
-	offset += len(requestSenderBytes)
-
-	// add handler address
-	copy(data[offset:], handlerAddressBytes)
-	offset += len(handlerAddressBytes)
-
-	if metadata.IsReadCall {
-		data[offset] = 1
-	} else {
-		data[offset] = 0
-	}
-
-	// Calculate hash after attesting packet
-	packet := requestPacket.Payload
-	result := crypto.Keccak256Hash(data).Bytes()
-	times := (len(packet) / CHUNK_LIMIT) + 1
-	copiedTill := 0
-
-	for i := 0; i < times; i++ {
-		to := copiedTill + CHUNK_LIMIT
-		if to > len(packet) {
-			to = len(packet)
-		}
-		chunkSize := to - copiedTill
-		buf := make([]byte, 32+chunkSize)
-		copy(buf[0:], result)
-		copy(buf[32:], packet[copiedTill:to])
-		result = crypto.Keccak256Hash(buf).Bytes()
-		copiedTill = to
-	}
-
-	return result
 }
 
 func boolToHex(b bool) string {

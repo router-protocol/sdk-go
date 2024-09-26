@@ -22,6 +22,8 @@ import (
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
 	voyagerTypes "github.com/router-protocol/sdk-go/routerchain/voyager/types"
 
+	evidencetypes "cosmossdk.io/x/evidence/types"
+	upgradetypes "cosmossdk.io/x/upgrade/types"
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
 	signingtypes "github.com/cosmos/cosmos-sdk/types/tx/signing"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -30,14 +32,12 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	crisistypes "github.com/cosmos/cosmos-sdk/x/crisis/types"
 	distributiontypes "github.com/cosmos/cosmos-sdk/x/distribution/types"
-	evidencetypes "github.com/cosmos/cosmos-sdk/x/evidence/types"
 	paramproposaltypes "github.com/cosmos/cosmos-sdk/x/params/types/proposal"
 	slashingtypes "github.com/cosmos/cosmos-sdk/x/slashing/types"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	upgradetypes "github.com/cosmos/cosmos-sdk/x/upgrade/types"
-	icatypes "github.com/cosmos/ibc-go/v7/modules/apps/27-interchain-accounts/types"
-	ibcapplicationtypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
-	ibccoretypes "github.com/cosmos/ibc-go/v7/modules/core/types"
+	icatypes "github.com/cosmos/ibc-go/v8/modules/apps/27-interchain-accounts/types"
+	ibcapplicationtypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
+	ibccoretypes "github.com/cosmos/ibc-go/v8/modules/core/types"
 
 	enccodec "github.com/evmos/ethermint/encoding/codec"
 )

@@ -1,8 +1,10 @@
 package types
 
 import (
+	"encoding/binary"
 	math "math"
 	"math/big"
+	"slices"
 	"sort"
 	"strings"
 
@@ -12,6 +14,7 @@ import (
 	"github.com/router-protocol/sdk-go/routerchain/util"
 
 	errorsmod "cosmossdk.io/errors"
+	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 )
 
 //////////////////////////////////////
@@ -216,8 +219,49 @@ func NewValset(nonce, height uint64, members InternalBridgeValidators) (*Valset,
 		nil
 }
 
+func (v Valset) GetCheckpoint(destChainType multichainTypes.ChainType) ([]byte, error) {
+	switch destChainType {
+	case multichainTypes.CHAIN_TYPE_SOLANA:
+		return v.GetSolanaCheckpoint()
+	default:
+		return v.GetEvmCheckpoint()
+	}
+}
+
 // GetCheckpoint returns the checkpoint
-func (v Valset) GetCheckpoint(routerIdString string) ([]byte, error) {
+func (v Valset) GetSolanaCheckpoint() ([]byte, error) {
+	newValsetNonce := new(big.Int).SetUint64(v.Nonce)
+	bufLength := 32 + 16 + len(v.Members)*20 + len(v.Members)*8
+	data := make([]byte, bufLength)
+	offset := 0
+	// add discriminator
+	discriminator := []byte{99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+	copy(data[offset:], discriminator)
+	offset += 32
+
+	newValsetNonceBytes := newValsetNonce.Bytes()
+	slices.Reverse(newValsetNonceBytes)
+	copy(data[offset:], newValsetNonceBytes)
+	offset += 16
+
+	for _, member := range v.Members {
+		validatorBytes := gethcommon.HexToAddress(member.EthereumAddress).Bytes()
+		copy(data[offset:], validatorBytes)
+		offset += len(validatorBytes)
+	}
+
+	for _, member := range v.Members {
+		powerBytes := make([]byte, 8)
+		binary.LittleEndian.PutUint64(powerBytes, member.Power)
+		copy(data[offset:], powerBytes)
+		offset += 8
+	}
+	return crypto.Keccak256Hash(data).Bytes(), nil
+}
+
+// GetCheckpoint returns the checkpoint
+func (v Valset) GetEvmCheckpoint() ([]byte, error) {
 	// error case here should not occur outside of testing since the above is a constant
 	contractAbi, abiErr := abi.JSON(strings.NewReader(util.ValsetCheckpointABIJSON))
 	if abiErr != nil {
@@ -325,4 +369,4 @@ type EthereumSigned interface {
 	GetCheckpoint(gravityIDstring string) ([]byte, error)
 }
 
-var _ EthereumSigned = &Valset{}
+// var _ EthereumSigned = &Valset{}

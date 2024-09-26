@@ -14,4 +14,5 @@ var (
 	ErrNoIBCRelayer   = errorsmod.Register(ModuleName, 4, "no IBC relayer for that destination chain")
 	ErrIBCAck         = errorsmod.Register(ModuleName, 5, "IBC acknowledgement failed")
 	ErrIBCTransfer    = errorsmod.Register(ModuleName, 6, "IBC transfer failed")
+	ErrUnknown        = errorsmod.Register(ModuleName, 7, "unknown")
 )

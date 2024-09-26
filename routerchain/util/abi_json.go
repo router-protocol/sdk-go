@@ -86,6 +86,29 @@ const (
 			]
 		}]`
 
+	CrosschainRequestSuiCheckpointABIJSON = `[{
+			"name": "checkpoint",
+			"stateMutability": "nonpayable",
+			"type": "function",
+			"inputs":  [			
+				{ "internalType": "bytes","name": "_methodName","type": "bytes"},
+				{"internalType": "uint256","name": "_routeAmount","type": "uint256"},
+				{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+				{"internalType": "uint256","name": "_requestTimestamp","type": "uint256"},
+				{ "internalType": "string", "name": "_srcChainId","type": "string" },			
+				{ "internalType": "bytes", "name": "_routeRecipient", "type": "bytes"},
+				{"internalType": "string","name": "_destChainId","type": "string"},
+				{ "internalType": "bytes", "name": "_asmAddress", "type": "bytes"},						
+				{ "internalType": "string","name": "_requestSender","type": "string"},		
+				{ "internalType": "bytes", "name": "_handlerAddress", "type": "bytes"},
+				{ "internalType": "bytes","name": "_packet","type": "bytes"},
+				{"internalType": "bool","name": "_isReadCall","type": "bool"}			
+			],
+			"outputs": [
+				{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+		]
+	}]`
+
 	// CrosschainAckRequestCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
 	CrosschainAckRequestCheckpointABIJSON = `[{
 		"name": "checkpoint",
@@ -126,7 +149,7 @@ const (
 		]
 	}]`
 
-	// CrosschainAckRequestNearCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
+	// CrosschainAckRequestAlephZeroCheckpointABIJSON checks the ETH ABI for compatibility of the CrossTalkAckRequest message
 	CrosschainAckRequestAlephZeroCheckpointABIJSON = `[{
 			"name": "checkpoint",
 			"stateMutability": "nonpayable",
@@ -138,6 +161,25 @@ const (
 				{"internalType": "uint256","name": "_ackRequestIdentifier","type": "uint256"},
 				{ "internalType": "string", "name": "_destChainId","type": "string" },	
 				{ "internalType": "bytes32","name": "_requestSender","type": "bytes32"},
+				{"internalType": "bytes","name": "_execData","type": "bytes"},	
+				{"internalType": "bool","name": "execFlag", "type": "bool"}				
+			],
+			"outputs": [
+				{ "internalType": "bytes32", "name": "", "type": "bytes32" }
+			]
+		}]`
+
+	CrosschainAckRequestSuiCheckpointABIJSON = `[{
+			"name": "checkpoint",
+			"stateMutability": "nonpayable",
+			"type": "function",
+			"inputs":  [
+				{ "internalType": "bytes","name": "_methodName","type": "bytes"},
+				{ "internalType": "string", "name": "_chainId","type": "string" },
+				{"internalType": "uint256","name": "_requestIdentifier","type": "uint256"},
+				{"internalType": "uint256","name": "_ackRequestIdentifier","type": "uint256"},
+				{ "internalType": "string", "name": "_destChainId","type": "string" },	
+				{ "internalType": "bytes","name": "_requestSender","type": "bytes"},
 				{"internalType": "bytes","name": "_execData","type": "bytes"},	
 				{"internalType": "bool","name": "execFlag", "type": "bool"}				
 			],

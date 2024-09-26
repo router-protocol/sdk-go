@@ -3,6 +3,7 @@ package types
 import (
 	"fmt"
 
+	sdkmath "cosmossdk.io/math"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
@@ -11,7 +12,7 @@ const DefaultIndex uint64 = 1
 
 // AttestationVotesPowerThreshold threshold of votes power to succeed
 var (
-	AttestationVotesPowerThreshold = sdk.NewInt(66)
+	AttestationVotesPowerThreshold = sdkmath.NewInt(66)
 )
 
 // DefaultGenesis returns the default Capability genesis state
@@ -58,7 +59,7 @@ func (gs GenesisState) Validate() error {
 	valsetConfirmationIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.ValsetConfirmationList {
-		index := string(ValsetConfirmationKey(elem.ValsetNonce, sdk.AccAddress(elem.Orchestrator)))
+		index := string(ValsetConfirmationKey(elem.ValsetNonce, elem.DestChainType, sdk.AccAddress(elem.Orchestrator)))
 		if _, ok := valsetConfirmationIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for valsetConfirmation")
 		}
