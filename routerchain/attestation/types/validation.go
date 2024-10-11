@@ -223,6 +223,8 @@ func (v Valset) GetCheckpoint(destChainType multichainTypes.ChainType) ([]byte, 
 	switch destChainType {
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return v.GetSolanaCheckpoint()
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return v.GetSuiCheckpoint()
 	default:
 		return v.GetEvmCheckpoint()
 	}
@@ -309,6 +311,55 @@ func (v Valset) GetEvmCheckpoint() ([]byte, error) {
 	hash := crypto.Keccak256Hash(bytes[4:])
 	return hash.Bytes(), nil
 }
+
+
+func (v Valset) GetSuiCheckpoint() ([]byte, error) {
+	var checkpoint []byte
+
+	checkpoint = append(checkpoint, []byte{
+		99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}...)
+
+	serializedNonce := serializeU256(v.Nonce)
+	checkpoint = append(checkpoint, serializedNonce...)
+
+	var serializedValidators, serializedPowers []byte
+	for _, member := range v.Members {
+		serializedValidator := serializeVectorU8([]byte(member.EthereumAddress))
+		serializedValidators = append(serializedValidators, serializedValidator...)
+	}
+
+	for _, member := range v.Members {
+		powerBytes := make([]byte, 8)
+		binary.LittleEndian.PutUint64(powerBytes, member.Power) 
+		serializedPowers = append(serializedPowers, powerBytes...)
+	}
+
+	validatorsWithLength := serializeVectorU8(serializedValidators)
+	powersWithLength := serializeVectorU8(serializedPowers)
+
+	checkpoint = append(checkpoint, validatorsWithLength...)
+	checkpoint = append(checkpoint, powersWithLength...)
+
+	return 	crypto.Keccak256Hash(checkpoint).Bytes() , nil
+
+}
+
+// Serialize a 256-bit unsigned integer (u256) in Little Endian
+func serializeU256(value uint64) []byte {
+	bytes := make([]byte, 32)
+	binary.LittleEndian.PutUint64(bytes, value) // Little Endian padding
+	return bytes
+}
+
+func serializeVectorU8(data []byte) []byte {
+	length := len(data)
+	result := []byte{byte(length)} // Add the length of the vector as the first byte
+	result = append(result, data...) // Append the actual data
+	return result
+}
+
 
 // WithoutEmptyMembers returns a new Valset without member that have 0 power or an empty Ethereum address.
 func (v *Valset) WithoutEmptyMembers() *Valset {
