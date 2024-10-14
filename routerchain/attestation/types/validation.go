@@ -2,6 +2,7 @@ package types
 
 import (
 	"encoding/binary"
+	"encoding/hex"
 	math "math"
 	"math/big"
 	"slices"
@@ -326,7 +327,8 @@ func (v Valset) GetSuiCheckpoint() ([]byte, error) {
 
 	var serializedValidators, serializedPowers []byte
 	for _, member := range v.Members {
-		serializedValidator := serializeVectorU8([]byte(member.EthereumAddress))
+		val,_:= hex.DecodeString(strings.TrimPrefix(member.EthereumAddress,"0x"))
+		serializedValidator := serializeVectorU8(val)
 		serializedValidators = append(serializedValidators, serializedValidator...)
 	}
 
