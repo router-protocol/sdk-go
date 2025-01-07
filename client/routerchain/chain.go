@@ -98,8 +98,8 @@ type ChainClient interface {
 	GetAllObservedAttestations(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllObservedAttestationResponse, error)
 	GetAllOrchestrators(ctx context.Context) (*attestationTypes.QueryListOrchestratorsResponse, error)
 	GetAllValsets(ctx context.Context, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetResponse, error)
-	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
-	GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
+	GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error)
+	GetValsetConfirm(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error)
 
 	// PriceFeed
 	GetPriceBySymbol(ctx context.Context, symbol string) (*pricefeedTypes.QueryGetPriceResponse, error)
@@ -213,28 +213,22 @@ type chainClient struct {
 	canSign bool
 }
 
-func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, networkChainId string, keyringFrom string, passphrase string, privateKey string, keyringDir string, keyringBackend string) ChainClient {
-	network, err := common.LoadNetwork(networkName, "k8s")
-	if err != nil {
-		fmt.Println("Error while loading network from default tmRPC Endpoint ", "rpc", network.TmEndpoint)
-	}
+func InitialiseChainClient(network common.Network, keyringFrom string, passphrase string, privateKey string, keyringDir string, keyringBackend string) ChainClient {
+	// network, err := common.LoadNetwork(network.Name, "k8s")
+	// if err != nil {
+	// 	fmt.Println("Error while loading network from default tmRPC Endpoint ", "rpc", network.TmEndpoint)
+	// }
+	log.Infoln("InitialiseChainClient|Network: ", network)
 
+	networkChainId := network.ChainId
 	tmEndpoint := network.TmEndpoint
-	if networkTmRpc != "" {
-		tmEndpoint = networkTmRpc
-	}
-
-	if network.ChainId != "" {
-		networkChainId = network.ChainId
-	}
+	chainGrpcEndpoint := network.ChainGrpcEndpoint
 
 	tmRPC, err := rpchttp.New(tmEndpoint, "/websocket")
-
 	if err != nil {
-		fmt.Println(err)
+		log.Errorln("Error while creating tmRPC client ", err)
 	}
 
-	fmt.Println("InitialiseChainClient|Network: ", network)
 	if keyringDir == "" {
 		keyringDir = os.Getenv("HOME") + "/.routerd"
 	}
@@ -250,7 +244,7 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, networ
 	)
 
 	if err != nil {
-		panic(err)
+		log.Errorln("Error while initializing keyring ", err)
 	}
 
 	// initialize grpc client
@@ -261,15 +255,11 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, networ
 	)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Errorln("Error while initializing client context ", err)
+		panic(err)
 	}
 
 	clientCtx = clientCtx.WithNodeURI(tmEndpoint).WithClient(tmRPC)
-
-	chainGrpcEndpoint := network.ChainGrpcEndpoint
-	if networkGRpc != "" {
-		chainGrpcEndpoint = networkGRpc
-	}
 
 	routerchainClient, err := NewChainClient(
 		clientCtx,
@@ -279,7 +269,7 @@ func InitialiseChainClient(networkName string, networkTmRpc, networkGRpc, networ
 	)
 
 	if err != nil {
-		fmt.Println(err)
+		log.Errorln("Error while initializing chain client ", err)
 	}
 
 	return routerchainClient
@@ -920,16 +910,17 @@ func (c *chainClient) GetLastEventByValidator(ctx context.Context, chainId strin
 	return c.attestationQueryClient.LastEventNonce(ctx, req)
 }
 
-func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error) {
+func (c *chainClient) GetValsetConfirm(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, orchestrator string) (*attestationTypes.QueryGetValsetConfirmationResponse, error) {
 	req := &attestationTypes.QueryGetValsetConfirmationRequest{
-		ValsetNonce:  valsetNonce,
-		Orchestrator: orchestrator,
+		ValsetNonce:   valsetNonce,
+		Orchestrator:  orchestrator,
+		DestChainType: destChainType,
 	}
 	return c.attestationQueryClient.ValsetConfirmation(ctx, req)
 }
 
-func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
-	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce, Pagination: pagination}
+func (c *chainClient) GetAllValsetConfirms(ctx context.Context, valsetNonce uint64, destChainType multichainTypes.ChainType, pagination *query.PageRequest) (*attestationTypes.QueryAllValsetConfirmationResponse, error) {
+	req := &attestationTypes.QueryAllValsetConfirmationRequest{ValsetNonce: valsetNonce, DestChainType: destChainType, Pagination: pagination}
 	return c.attestationQueryClient.ValsetConfirmationAll(ctx, req)
 }
 

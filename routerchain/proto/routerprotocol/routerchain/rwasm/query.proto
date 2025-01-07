@@ -3,7 +3,6 @@ package routerprotocol.routerchain.rwasm;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
-import "cosmos/base/query/v1beta1/pagination.proto";
 import "routerprotocol/routerchain/rwasm/params.proto";
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/rwasm/types";

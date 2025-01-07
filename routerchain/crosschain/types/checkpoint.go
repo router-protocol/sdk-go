@@ -578,8 +578,6 @@ func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
 		asmAddress = common.HexToAddress(metadata.AsmAddress).Bytes()
 	}
 
-	requestSender := common.HexToAddress(msg.RequestSender).Hex()
-
 	handlerAddress, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler, "0x"))
 	if err != nil {
 		return nil
@@ -598,7 +596,7 @@ func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
 		routeRecipient,
 		destChainID,
 		asmAddress,
-		requestSender,
+		msg.RequestSender,
 		handlerAddress,
 		packet,
 		isReadCall,

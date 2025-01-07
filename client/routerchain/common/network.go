@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net"
-	"path"
-	"runtime"
 	"strings"
 
 	"google.golang.org/grpc/credentials"
@@ -23,91 +21,58 @@ type Network struct {
 	Name                string
 }
 
-func getFileAbsPath(relativePath string) string {
-	_, filename, _, _ := runtime.Caller(0)
-	return path.Join(path.Dir(filename), relativePath)
-}
-
 func LoadNetwork(name string, node string) (Network, error) {
 
+	// `node` is not used, remove in future builds
 	// Set default fields
 	network := Network{
 		Fee_denom: "route",
 		Name:      name,
 	}
 
-	testnet_v2_valid_names := []string{
-		"phoenix",
-		"testnet-v2",
-	}
+	const TESTNET_V2 = "testnet-v2"
+	const DEVNET_ALPHA = "devnet-alpha"
+	const MAINNET = "mainnet"
+	const LOCAL = "local"
 
-	// Set endpoints
-	if name == "local" {
+	if name == LOCAL {
+		network.ChainId = "router_9605-1"
 		network.ApiEndpoint = "https://localhost:1317"
 		network.TmEndpoint = "http://localhost:26657"
 		network.ChainEvmRpcEndpoint = "http://localhost:8545"
 		network.ChainGrpcEndpoint = "tcp://localhost:9090"
-	} else if name == "devnet-alpha" {
+	} else if name == DEVNET_ALPHA {
+		network.ChainId = "router_9605-1"
 		network.ApiEndpoint = "https://devnet-alpha.lcd.routerprotocol.com:443"
 		network.TmEndpoint = "https://devnet-alpha.tm.routerprotocol.com:443"
 		network.ChainEvmRpcEndpoint = "https://devnet-alpha.evm.rpc.routerprotocol.com/"
 		network.ChainGrpcEndpoint = "tcp://devnet-alpha.grpc.routerprotocol.com:9090"
-	} else if name == "devnet" {
-		network.ApiEndpoint = "https://devnet.lcd.routerprotocol.com:443"
-		network.TmEndpoint = "https://devnet.tm.routerprotocol.com:443"
-		network.ChainEvmRpcEndpoint = "https://devnet.evm.rpc.routerprotocol.com/"
-		network.ChainGrpcEndpoint = "tcp://devnet.grpc.routerprotocol.com:9090"
-	} else if name == "testnet" {
-		network.ApiEndpoint = "https://lcd.testnet.routerchain.dev:443"
-		network.TmEndpoint = "https://tm.rpc.testnet.routerchain.dev:443"
-		network.ChainEvmRpcEndpoint = "https://evm.rpc.testnet.routerchain.dev/"
-		network.ChainGrpcEndpoint = "tcp://grpc.testnet.routerchain.dev:9090"
-	} else if name == "testnet-eu" {
-		network.ApiEndpoint = "https://lcd.testnet-eu.routerchain.dev:443"
-		network.TmEndpoint = "https://tm.rpc.testnet-eu.routerchain.dev:443"
-		network.ChainEvmRpcEndpoint = "https://evm.rpc.testnet-eu.routerchain.dev/"
-		network.ChainGrpcEndpoint = "tcp://grpc.testnet-eu.routerchain.dev:9090"
-	} else if name == "load-test" {
-		network.ApiEndpoint = "https://perf.lcd.routerchain.dev:443"
-		network.TmEndpoint = "https://perf.tm.routerchain.dev:443"
-		network.ChainEvmRpcEndpoint = "https://perf.evm.rpc.routerchain.dev/"
-		network.ChainGrpcEndpoint = "tcp://perf.grpc.routerchain.dev:9090"
-	} else if name == "devnet-internal" {
-		network.ApiEndpoint = "http://65.0.127.255:1317"
-		network.TmEndpoint = "http://65.0.127.255:26657"
-		network.ChainEvmRpcEndpoint = "http://65.0.127.255:8545"
-		network.ChainGrpcEndpoint = "tcp://65.0.127.255:9090"
-	} else if name == "mainnet" {
+	} else if name == MAINNET {
+		network.ChainId = "router_9600-1"
 		network.ApiEndpoint = "https://sentry.lcd.routerprotocol.com:443"
 		network.TmEndpoint = "https://sentry.tm.rpc.routerprotocol.com:443"
 		network.ChainEvmRpcEndpoint = "https://sentry.evm.rpc.routerprotocol.com/"
 		network.ChainGrpcEndpoint = "tcp://sentry.grpc.routerprotocol.com:9090"
-	} else if contains(testnet_v2_valid_names, name) {
+	} else if name == TESTNET_V2 {
+		network.ChainId = "router_9607-1"
 		network.ApiEndpoint = "https://lcd.sentry.routerchain.dev:443"
 		network.TmEndpoint = "https://tmrpc.sentry.routerchain.dev:443"
 		network.ChainEvmRpcEndpoint = "https://evmrpc.sentry.routerchain.dev/"
 		network.ChainGrpcEndpoint = "tcp://grpc.sentry.routerchain.dev:9090"
+	} else {
+		return Network{}, fmt.Errorf("network %s not supported", name)
 	}
 
 	//Fetch chain ID
-	chainId, err := FetchChainID(network.TmEndpoint)
-	if err != nil {
-		fmt.Println("Error while fetching chain ID from default TmEndpoint ", "rpc", network.TmEndpoint)
-		// panic(err)
-		return Network{}, err
-	}
+	// chainId, err := FetchChainID(network.TmEndpoint)
+	// if err != nil {
+	// 	fmt.Println("Error while fetching chain ID from default TmEndpoint ", "rpc", network.TmEndpoint)
+	// 	// panic(err)
+	// 	return Network{}, err
+	// }
+	// network.ChainId = chainId
 
-	network.ChainId = chainId
 	return network, nil
-}
-
-func contains(s []string, e string) bool {
-	for _, a := range s {
-		if a == e {
-			return true
-		}
-	}
-	return false
 }
 
 func DialerFunc(ctx context.Context, addr string) (net.Conn, error) {

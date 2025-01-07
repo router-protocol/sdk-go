@@ -2,6 +2,7 @@ package types
 
 import (
 	"encoding/binary"
+	"encoding/hex"
 	math "math"
 	"math/big"
 	"slices"
@@ -11,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	gethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/fardream/go-bcs/bcs"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 
 	errorsmod "cosmossdk.io/errors"
@@ -223,6 +225,8 @@ func (v Valset) GetCheckpoint(destChainType multichainTypes.ChainType) ([]byte, 
 	switch destChainType {
 	case multichainTypes.CHAIN_TYPE_SOLANA:
 		return v.GetSolanaCheckpoint()
+	case multichainTypes.CHAIN_TYPE_SUI:
+		return v.GetSuiCheckpoint()
 	default:
 		return v.GetEvmCheckpoint()
 	}
@@ -308,6 +312,61 @@ func (v Valset) GetEvmCheckpoint() ([]byte, error) {
 	// then need to adjust how many bytes you truncate off the front to get the output of abi.encode()
 	hash := crypto.Keccak256Hash(bytes[4:])
 	return hash.Bytes(), nil
+}
+
+func (v Valset) GetSuiCheckpoint() ([]byte, error) {
+	var checkpoint []byte
+
+	checkpoint = append(checkpoint, []byte{
+		99, 104, 101, 99, 107, 112, 111, 105, 110, 116, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}...)
+
+	// Serialize nonce to 32-byte Big Endian format
+	serializedNonce := make([]byte, 32)
+	for i := 0; i < 8; i++ {
+		serializedNonce[i] = byte((v.Nonce >> (8 * i)) & 0xFF)
+	}
+
+	checkpoint = append(checkpoint, serializedNonce...)
+
+	// Serialize validators
+	var serializedValidators []byte
+	for _, member := range v.Members {
+		val, _ := hex.DecodeString(strings.TrimPrefix(member.EthereumAddress, "0x"))
+		serializedVector, err := bcs.Marshal(val)
+		if err != nil {
+			return nil, err
+		}
+		serializedValidators = append(serializedValidators, serializedVector...)
+	}
+
+	// Serialize powers
+	var serializedPowers []byte
+	for _, member := range v.Members {
+		serializedPower, err := bcs.Marshal(member.Power)
+		if err != nil {
+			return nil, err
+		}
+		serializedPowers = append(serializedPowers, serializedPower...)
+	}
+
+	// Add validators and powers to checkpoint
+	validatorsWithLength, err := bcs.Marshal(serializedValidators)
+	if err != nil {
+		return nil, err
+	}
+
+	checkpoint = append(checkpoint, validatorsWithLength...)
+
+	powersWithLength, err := bcs.Marshal(serializedPowers)
+	if err != nil {
+		return nil, err
+	}
+	checkpoint = append(checkpoint, powersWithLength...)
+
+	return crypto.Keccak256Hash(checkpoint).Bytes(), nil
+
 }
 
 // WithoutEmptyMembers returns a new Valset without member that have 0 power or an empty Ethereum address.

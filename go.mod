@@ -19,6 +19,7 @@ require (
 	github.com/cosmos/ibc-go/v8 v8.3.2
 	github.com/ethereum/go-ethereum v1.13.10
 	github.com/evmos/ethermint v0.22.0
+	github.com/fardream/go-bcs v0.8.0
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.5.4
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0

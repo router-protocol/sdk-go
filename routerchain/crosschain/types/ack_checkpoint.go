@@ -387,8 +387,6 @@ func (msg CrosschainAckRequest) GetSuiCheckpoint(routerIDstring string) ([]byte,
 	ackRequestIdentifier := &big.Int{}
 	ackRequestIdentifier.SetUint64(msg.AckRequestIdentifier)
 
-	requestSender := common.FromHex(msg.RequestSender)
-
 	/////////////////////////////////////////////////
 	/////  pack abi for iReceive function  //////////
 	/////////////////////////////////////////////////
@@ -404,7 +402,7 @@ func (msg CrosschainAckRequest) GetSuiCheckpoint(routerIDstring string) ([]byte,
 		requestIdentifier,
 		ackRequestIdentifier,
 		msg.AckSrcChainId,
-		requestSender,
+		msg.RequestSender,
 		msg.ExecData,
 		msg.ExecStatus,
 	)
