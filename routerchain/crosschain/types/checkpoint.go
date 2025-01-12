@@ -601,6 +601,7 @@ func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
 		packet,
 		isReadCall,
 	)
+
 	if err != nil {
 		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
 	}

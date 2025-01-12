@@ -1,8 +1,6 @@
 package types
 
 import (
-	"time"
-
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 
 	"cosmossdk.io/math"
@@ -43,7 +41,7 @@ type StakingKeeper interface {
 	GetAllValidators(ctx sdk.Context) (validators []stakingtypes.Validator)
 	GetLastValidatorPower(ctx sdk.Context, operator sdk.ValAddress) int64
 	GetLastTotalPower(ctx sdk.Context) (power sdkmath.Int)
-	ValidatorQueueIterator(ctx sdk.Context, endTime time.Time, endHeight int64) sdk.Iterator
+	// ValidatorQueueIterator(ctx sdk.Context, endTime time.Time, endHeight int64) sdk.Iterator
 	GetParams(ctx sdk.Context) stakingtypes.Params
 	GetValidator(ctx sdk.Context, addr sdk.ValAddress) (validator stakingtypes.Validator, found bool)
 	IterateBondedValidatorsByPower(sdk.Context, func(index int64, validator stakingtypes.ValidatorI) (stop bool))
@@ -57,7 +55,7 @@ type StakingKeeper interface {
 	ValidatorByConsAddr(sdk.Context, sdk.ConsAddress) stakingtypes.ValidatorI // get a particular validator by consensus address
 
 	// slash the validator and delegators of the validator, specifying offence height, offence power, and slash fraction
-	Slash(sdk.Context, sdk.ConsAddress, int64, int64, sdk.Dec) math.Int
+	Slash(sdk.Context, sdk.ConsAddress, int64, int64, math.LegacyDec) math.Int
 	Jail(sdk.Context, sdk.ConsAddress)   // jail a validator
 	Unjail(sdk.Context, sdk.ConsAddress) // unjail a validator
 

@@ -16,7 +16,7 @@ func init() {
 	// This is specific to Router chain
 	cmdcfg.SetBech32Prefixes(config)
 	cmdcfg.SetBip44CoinType(config)
-	config.Seal()
+	// config.Seal()
 }
 
 type ClientOptions struct {
