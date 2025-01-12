@@ -12,6 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	gethcommon "github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/fardream/go-bcs/bcs"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 
 	errorsmod "cosmossdk.io/errors"
@@ -321,44 +322,51 @@ func (v Valset) GetSuiCheckpoint() ([]byte, error) {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	}...)
 
-	serializedNonce := serializeU256(v.Nonce)
+	// Serialize nonce to 32-byte Big Endian format
+	serializedNonce := make([]byte, 32)
+	for i := 0; i < 8; i++ {
+		serializedNonce[i] = byte((v.Nonce >> (8 * i)) & 0xFF)
+	}
+
 	checkpoint = append(checkpoint, serializedNonce...)
 
-	var serializedValidators, serializedPowers []byte
+	// Serialize validators
+	var serializedValidators []byte
 	for _, member := range v.Members {
 		val, _ := hex.DecodeString(strings.TrimPrefix(member.EthereumAddress, "0x"))
-		serializedValidator := serializeVectorU8(val)
-		serializedValidators = append(serializedValidators, serializedValidator...)
+		serializedVector, err := bcs.Marshal(val)
+		if err != nil {
+			return nil, err
+		}
+		serializedValidators = append(serializedValidators, serializedVector...)
 	}
 
+	// Serialize powers
+	var serializedPowers []byte
 	for _, member := range v.Members {
-		powerBytes := make([]byte, 8)
-		binary.LittleEndian.PutUint64(powerBytes, member.Power)
-		serializedPowers = append(serializedPowers, powerBytes...)
+		serializedPower, err := bcs.Marshal(member.Power)
+		if err != nil {
+			return nil, err
+		}
+		serializedPowers = append(serializedPowers, serializedPower...)
 	}
 
-	validatorsWithLength := serializeVectorU8(serializedValidators)
-	powersWithLength := serializeVectorU8(serializedPowers)
+	// Add validators and powers to checkpoint
+	validatorsWithLength, err := bcs.Marshal(serializedValidators)
+	if err != nil {
+		return nil, err
+	}
 
 	checkpoint = append(checkpoint, validatorsWithLength...)
+
+	powersWithLength, err := bcs.Marshal(serializedPowers)
+	if err != nil {
+		return nil, err
+	}
 	checkpoint = append(checkpoint, powersWithLength...)
 
 	return crypto.Keccak256Hash(checkpoint).Bytes(), nil
 
-}
-
-// Serialize a 256-bit unsigned integer (u256) in Little Endian
-func serializeU256(value uint64) []byte {
-	bytes := make([]byte, 32)
-	binary.LittleEndian.PutUint64(bytes, value) // Little Endian padding
-	return bytes
-}
-
-func serializeVectorU8(data []byte) []byte {
-	length := len(data)
-	result := []byte{byte(length)}   // Add the length of the vector as the first byte
-	result = append(result, data...) // Append the actual data
-	return result
 }
 
 // WithoutEmptyMembers returns a new Valset without member that have 0 power or an empty Ethereum address.
