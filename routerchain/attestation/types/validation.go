@@ -313,7 +313,6 @@ func (v Valset) GetEvmCheckpoint() ([]byte, error) {
 	return hash.Bytes(), nil
 }
 
-
 func (v Valset) GetSuiCheckpoint() ([]byte, error) {
 	var checkpoint []byte
 
@@ -327,14 +326,14 @@ func (v Valset) GetSuiCheckpoint() ([]byte, error) {
 
 	var serializedValidators, serializedPowers []byte
 	for _, member := range v.Members {
-		val,_:= hex.DecodeString(strings.TrimPrefix(member.EthereumAddress,"0x"))
+		val, _ := hex.DecodeString(strings.TrimPrefix(member.EthereumAddress, "0x"))
 		serializedValidator := serializeVectorU8(val)
 		serializedValidators = append(serializedValidators, serializedValidator...)
 	}
 
 	for _, member := range v.Members {
 		powerBytes := make([]byte, 8)
-		binary.LittleEndian.PutUint64(powerBytes, member.Power) 
+		binary.LittleEndian.PutUint64(powerBytes, member.Power)
 		serializedPowers = append(serializedPowers, powerBytes...)
 	}
 
@@ -344,7 +343,7 @@ func (v Valset) GetSuiCheckpoint() ([]byte, error) {
 	checkpoint = append(checkpoint, validatorsWithLength...)
 	checkpoint = append(checkpoint, powersWithLength...)
 
-	return 	crypto.Keccak256Hash(checkpoint).Bytes() , nil
+	return crypto.Keccak256Hash(checkpoint).Bytes(), nil
 
 }
 
@@ -357,11 +356,10 @@ func serializeU256(value uint64) []byte {
 
 func serializeVectorU8(data []byte) []byte {
 	length := len(data)
-	result := []byte{byte(length)} // Add the length of the vector as the first byte
+	result := []byte{byte(length)}   // Add the length of the vector as the first byte
 	result = append(result, data...) // Append the actual data
 	return result
 }
-
 
 // WithoutEmptyMembers returns a new Valset without member that have 0 power or an empty Ethereum address.
 func (v *Valset) WithoutEmptyMembers() *Valset {

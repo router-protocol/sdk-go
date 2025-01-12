@@ -12,7 +12,7 @@ import (
 type AttestationKeeper interface {
 	// Methods imported from attestation should be defined here
 	CheckOrchestratorValidatorInSet(ctx sdk.Context, orchestrator string) error
-	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim) error
+	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim, isAdhoc bool) error
 	TallyAttestation(ctx sdk.Context, chainId string, contract string, nonce uint64)
 }
 
@@ -33,5 +33,9 @@ type AccountKeeper interface {
 // BankKeeper defines the expected interface needed to retrieve account balances.
 type BankKeeper interface {
 	SpendableCoins(ctx sdk.Context, addr sdk.AccAddress) sdk.Coins
+	GetBalance(ctx sdk.Context, addr sdk.AccAddress, denom string) sdk.Coin
+	BurnCoins(ctx sdk.Context, name string, amt sdk.Coins) error
+	SendCoinsFromAccountToModule(ctx sdk.Context, senderAddr sdk.AccAddress, recipientModule string, amt sdk.Coins) error
+	GetSupply(ctx sdk.Context, denom string) sdk.Coin
 	// Methods imported from bank should be defined here
 }

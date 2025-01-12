@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.txlookup;
+
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/txlookup/types";
+
+// Msg defines the Msg service.
+service Msg {
+  // CreateAdhocRequest defines a method to initiate an adhoc request from the user
+  rpc CreateAdhocRequest (MsgCreateAdhocRequest) returns (MsgCreateAdhocResponse);
+
+  // CreateTxDataRequest defines a method to submit transaction data from orchestrator
+  rpc CreateTxDataRequest (MsgCreateTxDataRequest) returns (MsgCreateTxDataResponse);
+}
+
+message MsgCreateAdhocRequest {
+    string from = 1;
+    repeated string chain_ids = 2;
+    repeated string tx_hashes = 3;
+    repeated bytes meta_data = 4;
+    string middleware_contract_address = 5;
+    cosmos.base.v1beta1.Coin fee = 6 [
+      (gogoproto.nullable) = false
+    ];
+    uint64 cw_gas_limit = 7;
+}
+
+message MsgCreateAdhocResponse {}
+
+message MsgCreateTxDataRequest {
+  string orchestrator = 1;
+  string chain_id = 2;
+  string tx_hash = 3;
+  bytes tx_data = 4;
+  uint64 block_height = 5;
+}
+
+message MsgCreateTxDataResponse {}

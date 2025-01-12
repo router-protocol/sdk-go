@@ -45,7 +45,6 @@ message EventValsetConfirm {
   string signature = 4; 
 }
 
-
 message EventValsetUpdatedClaimCreated {
   bytes attestation_id = 1;
   string chainId = 2;   
@@ -55,4 +54,11 @@ message EventValsetUpdatedClaimCreated {
   uint64 event_height = 6;
   string src_tx_hash = 7; 
   repeated BridgeValidator valset_members = 8[(gogoproto.nullable) = false];  
+}
+
+message EventResetAttestationStates {
+  string chain_id = 1;
+  string contract = 2;
+  uint64 from_event_nonce = 3;
+  uint64 to_event_nonce = 4;
 }

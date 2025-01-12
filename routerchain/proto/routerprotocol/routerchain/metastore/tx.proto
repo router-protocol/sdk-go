@@ -3,13 +3,17 @@ syntax = "proto3";
 package routerprotocol.routerchain.metastore;
 
 option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
+import "gogoproto/gogo.proto";
+import "cosmos/base/v1beta1/coin.proto";
 
 // Msg defines the Msg service.
 service Msg {
   rpc CreateMetadataRequest  (MsgCreateMetadataRequest ) returns (MsgCreateMetadataRequestResponse );
   rpc ApproveFeepayerRequest (MsgApproveFeepayerRequest) returns (MsgApproveFeepayerRequestResponse);
   rpc RevokeFeepayerRequest  (MsgRevokeFeepayerRequest ) returns (MsgRevokeFeepayerRequestResponse );
+  rpc BurnTokensRequest  (MsgBurnTokensRequest) returns (MsgBurnTokensRequestResponse);
 }
+
 message MsgCreateMetadataRequest {
   string orchestrator = 1;
   string chainId      = 2;
@@ -37,4 +41,15 @@ message MsgRevokeFeepayerRequest {
 }
 
 message MsgRevokeFeepayerRequestResponse {}
+
+// MsgBurnTokensRequest is the sdk.Msg type for allowing an account to burn
+// the native tokens in its own address.
+message MsgBurnTokensRequest {
+  string sender = 1;
+  cosmos.base.v1beta1.Coin amount = 2 [
+    (gogoproto.nullable) = false
+  ];
+}
+
+message MsgBurnTokensRequestResponse {}
 

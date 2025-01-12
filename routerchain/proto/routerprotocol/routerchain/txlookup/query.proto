@@ -1,0 +1,75 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.txlookup;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "routerprotocol/routerchain/txlookup/params.proto";
+import "routerprotocol/routerchain/txlookup/adhoc_request.proto";
+import "routerprotocol/routerchain/txlookup/tx_data_request.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/txlookup/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Params queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/txlookup/params";
+  }
+
+  // ListAdhocRequests queries a list of adhoc request items.
+  rpc ListAdhocRequests (QueryListAdhocRequest) returns (QueryListAdhocResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/txlookup/list_adhoc_requests";
+  }
+
+  // ListAdhocRequestsByMiddleware queries a list of adhoc request items for the certain middleware.
+  rpc ListAdhocRequestsByMiddleware (QueryListAdhocByMiddlewareRequest) returns (QueryListAdhocByMiddlewareResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/txlookup/list_adhoc_requests/{middleware_address}";
+  }
+
+  // ListTxDataRequests queries a list of tx data request items.
+  rpc ListTxDataRequests (QueryListTxDataRequest) returns (QueryListTxDataResponse) {
+    option (google.api.http).get = "/router-protocol/router-chain/txlookup/list_tx_data_requests";
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryListAdhocRequest is request type for the Query/ListAdhocRequests RPC method.
+message QueryListAdhocRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryListAdhocResponse is response type for the Query/ListAdhocRequests RPC method.
+message QueryListAdhocResponse {
+  repeated AdhocRequest adhoc_requests = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+// QueryListAdhocByMiddlewareRequest is request type for the Query/ListAdhocRequests RPC method.
+message QueryListAdhocByMiddlewareRequest {
+  string middleware_address = 1;
+}
+
+// QueryListAdhocByMiddlewareResponse is response type for the Query/ListAdhocRequests RPC method.
+message QueryListAdhocByMiddlewareResponse {
+  repeated AdhocRequest adhoc_requests = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryListTxDataRequest is request type for the Query/ListTxDataRequests RPC method.
+message QueryListTxDataRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryListTxDataResponse is response type for the Query/ListTxDataRequests RPC method.
+message QueryListTxDataResponse {
+  repeated TxDataRequest tx_data_requests = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}

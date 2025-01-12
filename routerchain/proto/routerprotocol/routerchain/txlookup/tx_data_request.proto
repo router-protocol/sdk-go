@@ -1,0 +1,21 @@
+syntax = "proto3";
+package routerprotocol.routerchain.txlookup;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/txlookup/types";
+
+import "gogoproto/gogo.proto";
+
+message TxDataRequest {
+    string chain_id = 1;
+    string tx_hash = 2;
+    bytes tx_data = 3;
+    uint64 block_height = 4;
+}
+
+message TxDataRequestClaimHash {  
+    string chain_id = 1; 
+    string tx_hash = 2;
+    bytes tx_data = 3;
+    uint64 block_height = 4;
+}
+  

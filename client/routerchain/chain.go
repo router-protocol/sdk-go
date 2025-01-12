@@ -38,6 +38,7 @@ import (
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
+	txlookupTypes "github.com/router-protocol/sdk-go/routerchain/txlookup/types"
 	voyagerTypes "github.com/router-protocol/sdk-go/routerchain/voyager/types"
 )
 
@@ -173,6 +174,9 @@ type ChainClient interface {
 
 	GetGasFee() (string, error)
 	Close()
+
+	// Txlookup
+	GetAllAdhocRequests(ctx context.Context, pagination *query.PageRequest) (*txlookupTypes.QueryListAdhocResponse, error)
 }
 
 type chainClient struct {
@@ -208,6 +212,7 @@ type chainClient struct {
 	metastoreQueryClient   metastoreTypes.QueryClient
 	crosschainQueryClient  crosschainTypes.QueryClient
 	voyagerQueryClient     voyagerTypes.QueryClient
+	txlookupQueryClient    txlookupTypes.QueryClient
 
 	closed  int64
 	canSign bool
@@ -340,6 +345,7 @@ func NewChainClient(
 		metastoreQueryClient:   metastoreTypes.NewQueryClient(conn),
 		crosschainQueryClient:  crosschainTypes.NewQueryClient(conn),
 		voyagerQueryClient:     voyagerTypes.NewQueryClient(conn),
+		txlookupQueryClient:    txlookupTypes.NewQueryClient(conn),
 		wasmQueryClient:        wasmTypes.NewQueryClient(conn),
 	}
 
@@ -1183,6 +1189,12 @@ func (c *chainClient) GetAllCrosschainRequestAckConfirmations(ctx context.Contex
 func (c *chainClient) GetCrosschainAckReceipt(ctx context.Context, ackReceiptSrcChainId string, ackReceiptIdentifier uint64) (*crosschainTypes.QueryGetCrosschainAckReceiptResponse, error) {
 	req := &crosschainTypes.QueryGetCrosschainAckReceiptRequest{AckReceiptSrcChainId: ackReceiptSrcChainId, AckReceiptIdentifier: ackReceiptIdentifier}
 	return c.crosschainQueryClient.CrosschainAckReceipt(ctx, req)
+}
+
+// Txlookup module
+func (c *chainClient) GetAllAdhocRequests(ctx context.Context, pagination *query.PageRequest) (*txlookupTypes.QueryListAdhocResponse, error) {
+	req := &txlookupTypes.QueryListAdhocRequest{Pagination: pagination}
+	return c.txlookupQueryClient.ListAdhocRequests(ctx, req)
 }
 
 // SyncBroadcastMsg sends Tx to chain and waits until Tx is included in block.

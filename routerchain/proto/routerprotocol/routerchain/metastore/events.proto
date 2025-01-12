@@ -36,3 +36,8 @@ message EventFeePayerRevoked {
   string daapAddress  = 2;
   string feePayer = 3; 
 }
+
+message EventBurnNativeTokens {    
+  string sender = 1; 
+  string amount  = 2;
+}

@@ -11,7 +11,7 @@ import (
 
 type AttestationKeeper interface {
 	CheckOrchestratorValidatorInSet(ctx sdk.Context, orchestrator string) error
-	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim) error
+	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim, isAdhoc bool) error
 	TallyAttestation(ctx sdk.Context, chainId string, contract string, nonce uint64)
 }
 

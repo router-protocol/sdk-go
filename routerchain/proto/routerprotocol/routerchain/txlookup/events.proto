@@ -1,0 +1,11 @@
+syntax = "proto3";
+package routerprotocol.routerchain.txlookup;
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/txlookup/types";
+
+message EventTxDataRequestCreated {  
+  bytes attestation_id = 1;
+  string chain_id = 2;
+  string tx_hash = 3;
+  uint64 block_height = 4;
+}

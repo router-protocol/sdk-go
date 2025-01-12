@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package routerprotocol.routerchain.txlookup;
+
+import "gogoproto/gogo.proto";
+import "routerprotocol/routerchain/txlookup/params.proto";
+import "routerprotocol/routerchain/txlookup/adhoc_request.proto";
+import "routerprotocol/routerchain/txlookup/tx_data_request.proto";
+
+option go_package = "github.com/router-protocol/sdk-go/routerchain/txlookup/types";
+
+// GenesisState defines the txlookup module's genesis state.
+message GenesisState {
+           Params                        params                            =  1 [(gogoproto.nullable) = false];
+  repeated AdhocRequest                  adhoc_request_list                =  2 [(gogoproto.nullable) = false];
+  repeated TxDataRequest                 tx_data_request_list              =  3 [(gogoproto.nullable) = false];
+
+}
+

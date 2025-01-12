@@ -23,7 +23,7 @@ import (
 type AttestationKeeper interface {
 	// Methods imported from attestation should be defined here
 	CheckOrchestratorValidatorInSet(ctx sdk.Context, orchestrator string) error
-	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim) error
+	ClaimHandlerCommon(ctx sdk.Context, msgAny *codectypes.Any, msg attestationTypes.Claim, isAdhoc bool) error
 	ConfirmHandlerCommon(ctx sdk.Context, ethAddress string, orchestrator sdk.AccAddress, signature string, checkpoint []byte) error
 	GetRouterID(ctx sdk.Context) string
 	TallyAttestation(ctx sdk.Context, chainId string, contract string, nonce uint64)

@@ -20,6 +20,7 @@ import (
 	metastoreTypes "github.com/router-protocol/sdk-go/routerchain/metastore/types"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	pricefeedTypes "github.com/router-protocol/sdk-go/routerchain/pricefeed/types"
+	txlookupTypes "github.com/router-protocol/sdk-go/routerchain/txlookup/types"
 	voyagerTypes "github.com/router-protocol/sdk-go/routerchain/voyager/types"
 
 	cosmostypes "github.com/cosmos/cosmos-sdk/types"
@@ -56,6 +57,7 @@ func NewCodec() (*codec.ProtoCodec, types.InterfaceRegistry) {
 	pricefeedTypes.RegisterInterfaces(interfaceRegistry)
 	crosschainTypes.RegisterInterfaces(interfaceRegistry)
 	voyagerTypes.RegisterInterfaces(interfaceRegistry)
+	txlookupTypes.RegisterInterfaces(interfaceRegistry)
 
 	// more cosmos types
 	authtypes.RegisterInterfaces(interfaceRegistry)

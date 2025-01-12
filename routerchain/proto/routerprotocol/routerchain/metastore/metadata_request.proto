@@ -4,7 +4,8 @@ package routerprotocol.routerchain.metastore;
 option go_package = "github.com/router-protocol/sdk-go/routerchain/metastore/types";
 
 import "routerprotocol/routerchain/multichain/chain_type.proto"; 
-import "routerprotocol/routerchain/metastore/meta_tx_status.proto"; 
+import "routerprotocol/routerchain/metastore/meta_tx_status.proto";
+import "gogoproto/gogo.proto";
 
 message MetadataRequest {    
   string chainId = 1; 
@@ -23,4 +24,9 @@ message MetadataRequestClaimHash {
   uint64 blockHeight = 4; 
   string daapAddress = 5; 
   string feePayer = 6; 
+}
+
+message BurnTokensRequest {
+  string sender = 1; 
+  string amount = 2 [(gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (gogoproto.nullable) = false];
 }
