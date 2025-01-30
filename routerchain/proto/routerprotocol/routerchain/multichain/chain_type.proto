@@ -22,4 +22,5 @@ enum ChainType {
   CHAIN_TYPE_SUI = 10 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_SUI"];
   CHAIN_TYPE_ALEPH_ZERO = 11 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_ALEPH_ZERO"];
   CHAIN_TYPE_CASPER = 12 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_CASPER"];
+  CHAIN_TYPE_APTOS = 13 [(gogoproto.enumvalue_customname) = "CHAIN_TYPE_APTOS"];
 }
