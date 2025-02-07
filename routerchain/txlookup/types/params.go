@@ -8,11 +8,15 @@ import (
 )
 
 const (
-	DefaultGasPrice = uint64(50000000)
+	DefaultGasPrice                 = uint64(50000000)
+	DefaultProcessingFeeForOneAdhoc = uint64(10000000000000000)
+	DefaultRequestFeeForOneAdhoc    = uint64(1000000000000000)
 )
 
 var (
-	KeyGasPrice = []byte("GasPrice")
+	KeyGasPrice      = []byte("GasPrice")
+	KeyProcessingFee = []byte("ProcessingFee")
+	KeyRequestFee    = []byte("RequestFee")
 )
 
 var _ paramtypes.ParamSet = (*Params)(nil)
@@ -25,9 +29,13 @@ func ParamKeyTable() paramtypes.KeyTable {
 // NewParams creates a new Params instance
 func NewParams(
 	gasPrice uint64,
+	processingFee uint64,
+	requestFee uint64,
 ) Params {
 	return Params{
-		GasPrice: gasPrice,
+		GasPrice:      gasPrice,
+		ProcessingFee: processingFee,
+		RequestFee:    requestFee,
 	}
 }
 
@@ -35,6 +43,8 @@ func NewParams(
 func DefaultParams() Params {
 	return NewParams(
 		DefaultGasPrice,
+		DefaultProcessingFeeForOneAdhoc,
+		DefaultRequestFeeForOneAdhoc,
 	)
 }
 
@@ -42,6 +52,8 @@ func DefaultParams() Params {
 func (p *Params) ParamSetPairs() paramtypes.ParamSetPairs {
 	return paramtypes.ParamSetPairs{
 		paramtypes.NewParamSetPair(KeyGasPrice, &p.GasPrice, validateUint64("gas price", true)),
+		paramtypes.NewParamSetPair(KeyProcessingFee, &p.ProcessingFee, validateUint64("minimum processing fee", true)),
+		paramtypes.NewParamSetPair(KeyRequestFee, &p.RequestFee, validateUint64("minimum request fee", true)),
 	}
 }
 

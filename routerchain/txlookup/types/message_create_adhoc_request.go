@@ -51,7 +51,7 @@ func (msg *MsgCreateAdhocRequest) ValidateBasic() (err error) {
 
 	numberOfAdhocRequests := len(msg.ChainIds)
 	if len(msg.TxHashes) != numberOfAdhocRequests || len(msg.MetaData) != numberOfAdhocRequests {
-		return errorsmod.Wrap(ErrInput, "error in counting the number of adhoc requests")
+		return errorsmod.Wrap(ErrInvalidInput, "error in counting the number of adhoc requests")
 	}
 
 	if msg.MiddlewareContractAddress != "" {
