@@ -4,8 +4,8 @@ import (
 	"crypto/sha256"
 	"fmt"
 
-	ibctransfertypes "github.com/cosmos/ibc-go/v7/modules/apps/transfer/types"
-	ibcexported "github.com/cosmos/ibc-go/v7/modules/core/exported"
+	ibctransfertypes "github.com/cosmos/ibc-go/v8/modules/apps/transfer/types"
+	ibcexported "github.com/cosmos/ibc-go/v8/modules/core/exported"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 
 	errorsmod "cosmossdk.io/errors"
