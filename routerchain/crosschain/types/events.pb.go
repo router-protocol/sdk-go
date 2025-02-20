@@ -4,8 +4,8 @@
 package types
 
 import (
+	cosmossdk_io_math "cosmossdk.io/math"
 	fmt "fmt"
-	github_com_cosmos_cosmos_sdk_types "github.com/cosmos/cosmos-sdk/types"
 	types1 "github.com/cosmos/cosmos-sdk/types"
 	_ "github.com/cosmos/gogoproto/gogoproto"
 	proto "github.com/cosmos/gogoproto/proto"
@@ -34,7 +34,7 @@ type EventCrosschainRequestCreated struct {
 	SourceTxHash      string                                 `protobuf:"bytes,5,opt,name=source_tx_hash,json=sourceTxHash,proto3" json:"source_tx_hash,omitempty"`
 	SrcTimestamp      uint64                                 `protobuf:"varint,6,opt,name=src_timestamp,json=srcTimestamp,proto3" json:"src_timestamp,omitempty"`
 	SrcTxOrigin       string                                 `protobuf:"bytes,7,opt,name=src_tx_origin,json=srcTxOrigin,proto3" json:"src_tx_origin,omitempty"`
-	RouteAmount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,9,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
+	RouteAmount       cosmossdk_io_math.Int 				 `protobuf:"bytes,9,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
 	RouteRecipient    string                                 `protobuf:"bytes,10,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
 	DestChainId       string                                 `protobuf:"bytes,11,opt,name=dest_chain_id,json=destChainId,proto3" json:"dest_chain_id,omitempty"`
 	RequestSender     string                                 `protobuf:"bytes,12,opt,name=request_sender,json=requestSender,proto3" json:"request_sender,omitempty"`
@@ -336,10 +336,10 @@ func (m *EventCrosschainRequestConfirm) GetOrchestrator() string {
 }
 
 type EventHandleNativeTransfer struct {
-	SourceChainId     string                                 `protobuf:"bytes,1,opt,name=source_chain_id,json=sourceChainId,proto3" json:"source_chain_id,omitempty"`
-	RequestIdentifier uint64                                 `protobuf:"varint,2,opt,name=request_identifier,json=requestIdentifier,proto3" json:"request_identifier,omitempty"`
-	RouteAmount       github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,3,opt,name=route_amount,json=routeAmount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"route_amount"`
-	RouteRecipient    string                                 `protobuf:"bytes,4,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
+	SourceChainId     string                `protobuf:"bytes,1,opt,name=source_chain_id,json=sourceChainId,proto3" json:"source_chain_id,omitempty"`
+	RequestIdentifier uint64                `protobuf:"varint,2,opt,name=request_identifier,json=requestIdentifier,proto3" json:"request_identifier,omitempty"`
+	RouteAmount       cosmossdk_io_math.Int `protobuf:"bytes,3,opt,name=route_amount,json=routeAmount,proto3,customtype=cosmossdk.io/math.Int" json:"route_amount"`
+	RouteRecipient    string                `protobuf:"bytes,4,opt,name=route_recipient,json=routeRecipient,proto3" json:"route_recipient,omitempty"`
 }
 
 func (m *EventHandleNativeTransfer) Reset()         { *m = EventHandleNativeTransfer{} }

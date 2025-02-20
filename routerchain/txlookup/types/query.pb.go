@@ -30,7 +30,7 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// QueryParamsRequest is request type for the Query/Params RPC method.
+// QueryParamsRequest is a request type for the Query/Params RPC method.
 type QueryParamsRequest struct {
 }
 
@@ -67,7 +67,7 @@ func (m *QueryParamsRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_QueryParamsRequest proto.InternalMessageInfo
 
-// QueryParamsResponse is response type for the Query/Params RPC method.
+// QueryParamsResponse is a response type for the Query/Params RPC method.
 type QueryParamsResponse struct {
 	// params holds all the parameters of this module.
 	Params Params `protobuf:"bytes,1,opt,name=params,proto3" json:"params"`
@@ -113,7 +113,7 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-// QueryListAdhocRequest is request type for the Query/ListAdhocRequests RPC method.
+// QueryListAdhocRequest is a request type for the Query/ListAdhocRequests RPC method.
 type QueryListAdhocRequest struct {
 	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
@@ -158,7 +158,7 @@ func (m *QueryListAdhocRequest) GetPagination() *query.PageRequest {
 	return nil
 }
 
-// QueryListAdhocResponse is response type for the Query/ListAdhocRequests RPC method.
+// QueryListAdhocResponse is a response type for the Query/ListAdhocRequests RPC method.
 type QueryListAdhocResponse struct {
 	AdhocRequests []AdhocRequest      `protobuf:"bytes,1,rep,name=adhoc_requests,json=adhocRequests,proto3" json:"adhoc_requests"`
 	Pagination    *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
@@ -211,7 +211,7 @@ func (m *QueryListAdhocResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
-// QueryListAdhocByMiddlewareRequest is request type for the Query/ListAdhocRequests RPC method.
+// QueryListAdhocByMiddlewareRequest is a request type for the Query/ListAdhocRequestsByMiddleware RPC method.
 type QueryListAdhocByMiddlewareRequest struct {
 	MiddlewareAddress string `protobuf:"bytes,1,opt,name=middleware_address,json=middlewareAddress,proto3" json:"middleware_address,omitempty"`
 }
@@ -256,7 +256,7 @@ func (m *QueryListAdhocByMiddlewareRequest) GetMiddlewareAddress() string {
 	return ""
 }
 
-// QueryListAdhocByMiddlewareResponse is response type for the Query/ListAdhocRequests RPC method.
+// QueryListAdhocByMiddlewareResponse is a response type for the Query/ListAdhocRequestsByMiddleware RPC method.
 type QueryListAdhocByMiddlewareResponse struct {
 	AdhocRequests []AdhocRequest `protobuf:"bytes,1,rep,name=adhoc_requests,json=adhocRequests,proto3" json:"adhoc_requests"`
 }

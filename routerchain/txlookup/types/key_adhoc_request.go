@@ -11,8 +11,6 @@ var _ binary.ByteOrder
 const (
 	// AdhocRequestKeyPrefix is the prefix to retrieve all adhoc requests
 	AdhocRequestKeyPrefix = "AdhocRequest/value/"
-	// AdhocRequestNonceKey is the key to retrieve the nonce of the latest adhoc request
-	AdhocRequestNonceKey = "AdhocRequestNonce/value/"
 )
 
 // AdhocRequestKey returns the store key to retrieve a adhoc request from the index fields

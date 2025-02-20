@@ -1328,7 +1328,7 @@ func (c *chainClient) broadcastTx(
 
 	txn.SetFeeGranter(clientCtx.GetFeeGranterAddress())
 	fmt.Println("Sign tx", "signer", clientCtx.GetFromName())
-	err = tx.Sign(txf, clientCtx.GetFromName(), txn, true)
+	err = tx.Sign(context.Background(), txf, clientCtx.GetFromName(), txn, true)
 	if err != nil {
 		err = errors.Wrap(err, "failed to Sign Tx")
 		return nil, err
