@@ -14,6 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/fardream/go-bcs/bcs"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
@@ -43,6 +44,8 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return crosschainRequest.GetSolanaCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return crosschainRequest.GetSuiCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return crosschainRequest.GetAptosCheckpoint("")
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}
@@ -606,6 +609,92 @@ func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
 	}
 
 	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+}
+
+func U64(value uint64) []byte {
+	bytes := make([]byte, 8)
+	binary.BigEndian.PutUint64(bytes, value)
+	return bytes
+}
+
+// U256 serializes a big.Int (256-bit value) to BCS
+func U256(value *big.Int) []byte {
+	bytes := make([]byte, 32)
+	valBytes := value.Bytes()
+	copy(bytes[32-len(valBytes):], valBytes) // Right-align
+	return bytes
+}
+
+// Helper function to serialize a Move string
+func MoveString(value string) []byte {
+	return append([]byte{byte(len(value))}, []byte(value)...)
+}
+
+// getIReceiveMsgHash replicates the function in Go
+func (msg CrosschainRequest) GetAptosCheckpoint(routerIDstring string) []byte {
+	fmt.Println("Inside GetAptosCheckpoint", )
+	metadata := DecodeEvmContractMetadata(&msg)
+	requestPacket := DecodeRouterCrosschainPacket(&msg)
+
+	// Initialize the checkpoint array
+	checkpoint := []byte{
+		105, 82, 101, 99, 101, 105, 118, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}
+
+	// Append serialized data
+	checkpoint = append(checkpoint, U64(msg.RouteAmount.Uint64())...)
+	checkpoint = append(checkpoint, U256(new(big.Int).SetUint64(msg.RequestIdentifier))...)
+	checkpoint = append(checkpoint, U256(new(big.Int).SetUint64(msg.SrcTimestamp))...)
+	checkpoint = append(checkpoint, MoveString(msg.SrcChainId)...)
+
+	var routeRecipient []byte
+	if len(msg.RouteRecipient) == 0 {
+		routeRecipient = make([]byte, 32)
+		checkpoint = append(checkpoint, routeRecipient...)
+	} else {
+		routeRecipient , err := hex.DecodeString(msg.RouteRecipient)
+		if err != nil {
+			return nil
+		}
+		checkpoint = append(checkpoint,routeRecipient...)
+	}
+	
+	checkpoint = append(checkpoint, MoveString(msg.DestChainId)...)
+
+
+	asmBytes, err := bcs.Marshal(metadata.AsmAddress)
+	if err != nil {
+		return nil
+	}
+	checkpoint = append(checkpoint, asmBytes...)
+	
+	checkpoint = append(checkpoint, MoveString(msg.RequestSender)...)
+
+	handlerBytes, err := bcs.Marshal(requestPacket.Handler)
+	if err != nil {
+		return nil
+	}
+	checkpoint = append(checkpoint, handlerBytes...)
+
+
+	packetBytes, err := bcs.Marshal(requestPacket.Payload)
+	if err != nil {
+		return nil
+	}
+	checkpoint = append(checkpoint, packetBytes...)
+
+	var boolByte byte
+	if metadata.IsReadCall {
+		boolByte = 1
+	} else {
+		boolByte = 0
+	}
+	checkpoint = append(checkpoint, boolByte)
+	// Compute Keccak-256 hash
+	checkPointBytes := crypto.Keccak256Hash(checkpoint).Bytes()
+	panic(0)
+	return checkPointBytes
 }
 
 func hashSlice(input []*big.Int) (*big.Int, error) {
