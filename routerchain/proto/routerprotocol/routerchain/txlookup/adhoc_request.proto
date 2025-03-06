@@ -1,11 +1,12 @@
 syntax = "proto3";
 package routerprotocol.routerchain.txlookup;
 
-option go_package = "github.com/router-protocol/sdk-go/routerchain/txlookup/types";
+option go_package = "github.com/router-protocol/router-chain/x/txlookup/types";
 
 import "routerprotocol/routerchain/multichain/chain_type.proto"; 
 import "gogoproto/gogo.proto";
-import "cosmos/base/v1beta1/coin.proto";
+import "cosmos_proto/cosmos.proto";
+import "amino/amino.proto";
 
 message AdhocRequest {
     string from = 1;
@@ -13,8 +14,18 @@ message AdhocRequest {
     repeated string tx_hashes = 3;
     repeated bytes meta_data = 4;
     string middleware_contract_address = 5;
-    cosmos.base.v1beta1.Coin processing_fee = 6 [
-        (gogoproto.nullable) = false
+    string processing_fee = 6 [
+        (cosmos_proto.scalar)  = "cosmos.Int",
+        (gogoproto.customtype) = "cosmossdk.io/math.Int",
+        (gogoproto.nullable)   = false,
+        (amino.dont_omitempty) = true
     ];
-    uint64 gas_limit = 7;
+    string total_fee = 7 [
+        (cosmos_proto.scalar)  = "cosmos.Int",
+        (gogoproto.customtype) = "cosmossdk.io/math.Int",
+        (gogoproto.nullable)   = false,
+        (amino.dont_omitempty) = true
+    ];
+    uint64 gas_limit = 8;
+    uint64 timestamp = 9;
 }
