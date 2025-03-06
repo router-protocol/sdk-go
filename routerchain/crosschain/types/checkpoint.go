@@ -11,10 +11,10 @@ import (
 	"github.com/NethermindEth/juno/core/felt"
 	starknetgo "github.com/NethermindEth/starknet.go/curve"
 	"github.com/NethermindEth/starknet.go/utils"
+	aptosBcs "github.com/aptos-labs/aptos-go-sdk/bcs"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/fardream/go-bcs/bcs"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
@@ -71,6 +71,8 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return msg.GetSolanaCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return msg.GetSuiCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return msg.GetAptosCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -612,89 +614,103 @@ func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
 	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
 }
 
-func U64(value uint64) []byte {
-	bytes := make([]byte, 8)
-	binary.BigEndian.PutUint64(bytes, value)
-	return bytes
-}
-
-// U256 serializes a big.Int (256-bit value) to BCS
-func U256(value *big.Int) []byte {
-	bytes := make([]byte, 32)
-	valBytes := value.Bytes()
-	copy(bytes[32-len(valBytes):], valBytes) // Right-align
-	return bytes
-}
-
-// Helper function to serialize a Move string
-func MoveString(value string) []byte {
-	return append([]byte{byte(len(value))}, []byte(value)...)
-}
-
 // getIReceiveMsgHash replicates the function in Go
 func (msg CrosschainRequest) GetAptosCheckpoint(routerIDstring string) []byte {
-	fmt.Println("Inside GetAptosCheckpoint", )
 	metadata := DecodeEvmContractMetadata(&msg)
 	requestPacket := DecodeRouterCrosschainPacket(&msg)
 
 	// Initialize the checkpoint array
-	checkpoint := []byte{
+	checkPointPrefix := []byte{
 		105, 82, 101, 99, 101, 105, 118, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 	}
+	checkpoint := append([]byte{}, checkPointPrefix...)
 
+	routeAmount, err:=  aptosBcs.SerializeU64(msg.RouteAmount.Uint64())
+	if err != nil {
+		fmt.Println(err)
+	}
 	// Append serialized data
-	checkpoint = append(checkpoint, U64(msg.RouteAmount.Uint64())...)
-	checkpoint = append(checkpoint, U256(new(big.Int).SetUint64(msg.RequestIdentifier))...)
-	checkpoint = append(checkpoint, U256(new(big.Int).SetUint64(msg.SrcTimestamp))...)
-	checkpoint = append(checkpoint, MoveString(msg.SrcChainId)...)
+	checkpoint = append(checkpoint, routeAmount...)
 
-	var routeRecipient []byte
+	requestIdentifier, err:= aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.RequestIdentifier))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, requestIdentifier...)
+
+	requestTimestamp, err:= aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.SrcTimestamp))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, requestTimestamp...)
+
+	srcChainId, err := aptosBcs.SerializeBytes([]byte(msg.SrcChainId))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, srcChainId...)
+
 	if len(msg.RouteRecipient) == 0 {
-		routeRecipient = make([]byte, 32)
+		routeRecipient := make([]byte, 32)
 		checkpoint = append(checkpoint, routeRecipient...)
 	} else {
-		routeRecipient , err := hex.DecodeString(msg.RouteRecipient)
+		routeRecipient , err := hex.DecodeString(strings.TrimPrefix(msg.RouteRecipient,"0x"))
 		if err != nil {
 			return nil
 		}
 		checkpoint = append(checkpoint,routeRecipient...)
 	}
 	
-	checkpoint = append(checkpoint, MoveString(msg.DestChainId)...)
+	destChainId, err := aptosBcs.SerializeBytes([]byte(msg.DestChainId))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, destChainId...)
 
 
-	asmBytes, err := bcs.Marshal(metadata.AsmAddress)
+	asmAddress , err := hex.DecodeString(strings.TrimPrefix(metadata.AsmAddress,"0x"))
 	if err != nil {
 		return nil
 	}
-	checkpoint = append(checkpoint, asmBytes...)
+	asmBcs, err := aptosBcs.SerializeBytes(asmAddress)
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, asmBcs...)
 	
-	checkpoint = append(checkpoint, MoveString(msg.RequestSender)...)
+	
+	requestSenderBcs, err := aptosBcs.SerializeBytes([]byte(msg.RequestSender))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, requestSenderBcs...)	
 
-	handlerBytes, err := bcs.Marshal(requestPacket.Handler)
+
+	handler, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler,"0x"))
 	if err != nil {
 		return nil
 	}
-	checkpoint = append(checkpoint, handlerBytes...)
-
-
-	packetBytes, err := bcs.Marshal(requestPacket.Payload)
+	handlerBcs, err := aptosBcs.SerializeBytes(handler)
 	if err != nil {
-		return nil
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, handlerBcs...)
+
+	packetBytes, err := aptosBcs.SerializeBytes(requestPacket.Payload)
+	if err != nil {
+		fmt.Println(err)
 	}
 	checkpoint = append(checkpoint, packetBytes...)
 
-	var boolByte byte
-	if metadata.IsReadCall {
-		boolByte = 1
-	} else {
-		boolByte = 0
+	bcsBool, err := aptosBcs.SerializeBool(metadata.IsReadCall)
+	if err != nil {
+		fmt.Println(err)
 	}
-	checkpoint = append(checkpoint, boolByte)
+	checkpoint = append(checkpoint, bcsBool...)
+
 	// Compute Keccak-256 hash
 	checkPointBytes := crypto.Keccak256Hash(checkpoint).Bytes()
-	panic(0)
 	return checkPointBytes
 }
 
