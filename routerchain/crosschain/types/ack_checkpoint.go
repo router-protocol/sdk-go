@@ -11,7 +11,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-
+	aptosBcs "github.com/aptos-labs/aptos-go-sdk/bcs"
 	"github.com/NethermindEth/juno/core/felt"
 	"github.com/NethermindEth/starknet.go/utils"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
@@ -43,6 +43,8 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 		return crosschainAckRequest.GetSolanaCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return crosschainAckRequest.GetSuiCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return crosschainAckRequest.GetAptosCheckpoint("")
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
 	}
@@ -63,6 +65,8 @@ func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, er
 		return msg.GetSolanaCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return msg.GetSuiCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return msg.GetAptosCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -413,6 +417,70 @@ func (msg CrosschainAckRequest) GetSuiCheckpoint(routerIDstring string) ([]byte,
 
 	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
 }
+
+
+func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string)  ([]byte, error) {
+
+	checkPointPrefix := []byte{
+		105, 65, 99, 107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}
+	
+	checkpoint := append([]byte{}, checkPointPrefix...)
+
+	bcsRequestIdentifier, err := aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.RequestIdentifier))
+	if err != nil {
+		return nil, fmt.Errorf("failed to serialize msg.RequestIdentifier: %w", err)
+	}
+	checkpoint = append(checkpoint, bcsRequestIdentifier...)
+
+	bcsAckRequestIdentifier, err := aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.AckRequestIdentifier))
+	if err != nil {
+		return nil, fmt.Errorf("failed to serialize msg.AckRequestIdentifier: %w", err)
+	}
+	checkpoint = append(checkpoint, bcsAckRequestIdentifier...)
+
+	destChainId, err := aptosBcs.SerializeBytes([]byte(msg.AckDestChainId))
+	if err != nil {
+		return nil, fmt.Errorf("failed to serialize msg.AckDestChainId: %w", err)
+	}
+	checkpoint = append(checkpoint,destChainId...)
+
+	requestSenderBytes, err := hex.DecodeString(strings.TrimPrefix(msg.RequestSender,"0x"))
+	if err != nil {
+		return nil, fmt.Errorf("error in m.Payload.RequestSender")
+	}
+	requestSenderBcs, err := aptosBcs.SerializeBytes(requestSenderBytes)
+		if err != nil {
+		return nil,err
+	}
+	checkpoint = append(checkpoint, requestSenderBcs...)
+
+	execDataBytes, err := aptosBcs.SerializeBytes(msg.ExecData)
+	if err != nil {
+		return nil,err
+	}
+	checkpoint = append(checkpoint, execDataBytes...)
+
+	bcsBool, err := aptosBcs.SerializeBool(msg.ExecStatus)
+	if err != nil {
+		return nil, fmt.Errorf("error in msg.ExecStatus")
+	}
+	checkpoint = append(checkpoint, bcsBool...)
+
+	ackSrcChainId,err :=aptosBcs.SerializeBytes([]byte(msg.AckSrcChainId))
+	if err != nil {
+		return nil, fmt.Errorf("error in msg.AckSrcChainId")
+	}
+
+	checkpoint = append(checkpoint, ackSrcChainId...)
+
+	// Compute Keccak-256 hash
+	checkPointBytes := crypto.Keccak256Hash(checkpoint).Bytes()
+
+	return checkPointBytes,nil
+}
+
 
 func Ensure32Bytes(hash *big.Int) []byte {
 	hashBytes := hash.Bytes()

@@ -11,6 +11,7 @@ import (
 	"github.com/NethermindEth/juno/core/felt"
 	starknetgo "github.com/NethermindEth/starknet.go/curve"
 	"github.com/NethermindEth/starknet.go/utils"
+	aptosBcs "github.com/aptos-labs/aptos-go-sdk/bcs"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
@@ -43,6 +44,8 @@ func (msg MsgCrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return crosschainRequest.GetSolanaCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return crosschainRequest.GetSuiCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return crosschainRequest.GetAptosCheckpoint("")
 	default:
 		return crosschainRequest.GetEvmCheckpoint("")
 	}
@@ -68,6 +71,8 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return msg.GetSolanaCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return msg.GetSuiCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return msg.GetAptosCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -607,6 +612,106 @@ func (msg CrosschainRequest) GetSuiCheckpoint(routerIDstring string) []byte {
 	}
 
 	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+}
+
+// getIReceiveMsgHash replicates the function in Go
+func (msg CrosschainRequest) GetAptosCheckpoint(routerIDstring string) []byte {
+	metadata := DecodeEvmContractMetadata(&msg)
+	requestPacket := DecodeRouterCrosschainPacket(&msg)
+
+	// Initialize the checkpoint array
+	checkPointPrefix := []byte{
+		105, 82, 101, 99, 101, 105, 118, 101, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}
+	checkpoint := append([]byte{}, checkPointPrefix...)
+
+	routeAmount, err:=  aptosBcs.SerializeU64(msg.RouteAmount.Uint64())
+	if err != nil {
+		fmt.Println(err)
+	}
+	// Append serialized data
+	checkpoint = append(checkpoint, routeAmount...)
+
+	requestIdentifier, err:= aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.RequestIdentifier))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, requestIdentifier...)
+
+	requestTimestamp, err:= aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.SrcTimestamp))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, requestTimestamp...)
+
+	srcChainId, err := aptosBcs.SerializeBytes([]byte(msg.SrcChainId))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, srcChainId...)
+
+	if len(msg.RouteRecipient) == 0 {
+		routeRecipient := make([]byte, 32)
+		checkpoint = append(checkpoint, routeRecipient...)
+	} else {
+		routeRecipient , err := hex.DecodeString(strings.TrimPrefix(msg.RouteRecipient,"0x"))
+		if err != nil {
+			return nil
+		}
+		checkpoint = append(checkpoint,routeRecipient...)
+	}
+	
+	destChainId, err := aptosBcs.SerializeBytes([]byte(msg.DestChainId))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, destChainId...)
+
+
+	asmAddress , err := hex.DecodeString(strings.TrimPrefix(metadata.AsmAddress,"0x"))
+	if err != nil {
+		return nil
+	}
+	asmBcs, err := aptosBcs.SerializeBytes(asmAddress)
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, asmBcs...)
+	
+	
+	requestSenderBcs, err := aptosBcs.SerializeBytes([]byte(msg.RequestSender))
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, requestSenderBcs...)	
+
+
+	handler, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler,"0x"))
+	if err != nil {
+		return nil
+	}
+	handlerBcs, err := aptosBcs.SerializeBytes(handler)
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, handlerBcs...)
+
+	packetBytes, err := aptosBcs.SerializeBytes(requestPacket.Payload)
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, packetBytes...)
+
+	bcsBool, err := aptosBcs.SerializeBool(metadata.IsReadCall)
+	if err != nil {
+		fmt.Println(err)
+	}
+	checkpoint = append(checkpoint, bcsBool...)
+
+	// Compute Keccak-256 hash
+	checkPointBytes := crypto.Keccak256Hash(checkpoint).Bytes()
+	return checkPointBytes
 }
 
 func hashSlice(input []*big.Int) (*big.Int, error) {

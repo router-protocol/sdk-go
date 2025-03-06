@@ -227,6 +227,8 @@ func (v Valset) GetCheckpoint(destChainType multichainTypes.ChainType) ([]byte, 
 		return v.GetSolanaCheckpoint()
 	case multichainTypes.CHAIN_TYPE_SUI:
 		return v.GetSuiCheckpoint()
+	case multichainTypes.CHAIN_TYPE_APTOS:
+		return v.GetSuiCheckpoint()
 	default:
 		return v.GetEvmCheckpoint()
 	}
