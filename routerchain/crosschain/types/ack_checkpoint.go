@@ -419,13 +419,13 @@ func (msg CrosschainAckRequest) GetSuiCheckpoint(routerIDstring string) ([]byte,
 }
 
 
-func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string)  ([]byte, error) {
-
+func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string) ([]byte, error) {
+	
 	checkPointPrefix := []byte{
 		105, 65, 99, 107, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 		0, 0, 0, 0, 0, 0, 0, 0, 0,
 	}
-	
+
 	checkpoint := append([]byte{}, checkPointPrefix...)
 
 	bcsRequestIdentifier, err := aptosBcs.SerializeU256(*new(big.Int).SetUint64(msg.RequestIdentifier))
@@ -440,25 +440,26 @@ func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string)  ([]by
 	}
 	checkpoint = append(checkpoint, bcsAckRequestIdentifier...)
 
-	destChainId, err := aptosBcs.SerializeBytes([]byte(msg.AckDestChainId))
+	ackSrcChainId, err := aptosBcs.SerializeBytes([]byte(msg.AckSrcChainId))
 	if err != nil {
-		return nil, fmt.Errorf("failed to serialize msg.AckDestChainId: %w", err)
+		return nil, fmt.Errorf("error in msg.AckSrcChainId")
 	}
-	checkpoint = append(checkpoint,destChainId...)
 
-	requestSenderBytes, err := hex.DecodeString(strings.TrimPrefix(msg.RequestSender,"0x"))
+	checkpoint = append(checkpoint, ackSrcChainId...)
+
+	requestSenderBytes, err := hex.DecodeString(strings.TrimPrefix(msg.RequestSender, "0x"))
 	if err != nil {
 		return nil, fmt.Errorf("error in m.Payload.RequestSender")
 	}
 	requestSenderBcs, err := aptosBcs.SerializeBytes(requestSenderBytes)
-		if err != nil {
-		return nil,err
+	if err != nil {
+		return nil, err
 	}
 	checkpoint = append(checkpoint, requestSenderBcs...)
 
 	execDataBytes, err := aptosBcs.SerializeBytes(msg.ExecData)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 	checkpoint = append(checkpoint, execDataBytes...)
 
@@ -468,17 +469,16 @@ func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string)  ([]by
 	}
 	checkpoint = append(checkpoint, bcsBool...)
 
-	ackSrcChainId,err :=aptosBcs.SerializeBytes([]byte(msg.AckSrcChainId))
+	destChainId, err := aptosBcs.SerializeBytes([]byte(msg.AckDestChainId))
 	if err != nil {
-		return nil, fmt.Errorf("error in msg.AckSrcChainId")
+		return nil, fmt.Errorf("failed to serialize msg.AckDestChainId: %w", err)
 	}
-
-	checkpoint = append(checkpoint, ackSrcChainId...)
+	checkpoint = append(checkpoint, destChainId...)
 
 	// Compute Keccak-256 hash
 	checkPointBytes := crypto.Keccak256Hash(checkpoint).Bytes()
 
-	return checkPointBytes,nil
+	return checkPointBytes, nil
 }
 
 
