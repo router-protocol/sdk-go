@@ -8,12 +8,12 @@ import (
 	"math/big"
 	"strings"
 
+	"github.com/NethermindEth/juno/core/felt"
+	"github.com/NethermindEth/starknet.go/utils"
+	aptosBcs "github.com/aptos-labs/aptos-go-sdk/bcs"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	aptosBcs "github.com/aptos-labs/aptos-go-sdk/bcs"
-	"github.com/NethermindEth/juno/core/felt"
-	"github.com/NethermindEth/starknet.go/utils"
 	multichainTypes "github.com/router-protocol/sdk-go/routerchain/multichain/types"
 	"github.com/router-protocol/sdk-go/routerchain/util"
 )
@@ -45,6 +45,8 @@ func (msg MsgCrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte,
 		return crosschainAckRequest.GetSuiCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_APTOS:
 		return crosschainAckRequest.GetAptosCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_CASPER:
+		return crosschainAckRequest.GetCasperCheckpoint("")
 	default:
 		return crosschainAckRequest.GetEvmCheckpoint("")
 	}
@@ -481,6 +483,51 @@ func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string)  ([]by
 	return checkPointBytes,nil
 }
 
+func (msg CrosschainAckRequest) GetCasperCheckpoint(routerIDstring string) ([]byte, error) {
+	// Create a fixed 32-byte array for "iAck" method name
+	methodNameBytes := []byte("i_ack")
+	var crosschainAckMethodName [32]byte
+	copy(crosschainAckMethodName[:], methodNameBytes)
+
+	// Convert request identifier to big.Int
+	requestIdentifier := new(big.Int).SetUint64(msg.RequestIdentifier)
+
+	// Convert ack request identifier to big.Int
+	ackRequestIdentifier := new(big.Int).SetUint64(msg.AckRequestIdentifier)
+
+	// Convert request sender to 32-byte array
+	var requestSender [32]byte
+	if msg.RequestSender != "" {
+		requestSenderBytes, err := hex.DecodeString(strings.TrimPrefix(msg.RequestSender, "0x"))
+		if err == nil {
+			copy(requestSender[:], requestSenderBytes)
+		}
+	}
+
+	// Pack the data using ethabi
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestCheckpointABIJSON))
+	if err != nil {
+		return nil, err
+	}
+
+	// Pack all parameters in the order matching the Rust implementation
+	abiEncodedBatch, err := abiDef.Pack("checkpoint",
+		crosschainAckMethodName[:],
+		msg.AckDestChainId,
+		requestIdentifier,
+		ackRequestIdentifier,
+		msg.AckSrcChainId,
+		requestSender[:],
+		msg.ExecData,
+		msg.ExecStatus,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("error packing checkpoint: %s", err)
+	}
+
+	// Hash the encoded result (excluding function selector)
+	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes(), nil
+}
 
 func Ensure32Bytes(hash *big.Int) []byte {
 	hashBytes := hash.Bytes()

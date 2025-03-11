@@ -229,6 +229,8 @@ func (v Valset) GetCheckpoint(destChainType multichainTypes.ChainType) ([]byte, 
 		return v.GetSuiCheckpoint()
 	case multichainTypes.CHAIN_TYPE_APTOS:
 		return v.GetSuiCheckpoint()
+	case multichainTypes.CHAIN_TYPE_CASPER:
+		return v.GetCasperCheckpoint()
 	default:
 		return v.GetEvmCheckpoint()
 	}
@@ -369,6 +371,45 @@ func (v Valset) GetSuiCheckpoint() ([]byte, error) {
 
 	return crypto.Keccak256Hash(checkpoint).Bytes(), nil
 
+}
+
+func (v Valset) GetCasperCheckpoint() ([]byte, error) {
+	// Create a fixed 32-byte array for "checkpoint" method name
+	checkpointMethod := make([]byte, 32)
+	copy(checkpointMethod, []byte("checkpoint"))
+
+	// Convert valset nonce to big.Int for encoding
+	valsetNonce := new(big.Int).SetUint64(v.Nonce)
+
+	// Convert validator addresses to ethereum addresses
+	validatorAddresses := make([]gethcommon.Address, len(v.Members))
+	validatorPowers := make([]*big.Int, len(v.Members))
+	for i, member := range v.Members {
+		validatorAddresses[i] = gethcommon.HexToAddress(member.EthereumAddress)
+		validatorPowers[i] = new(big.Int).SetUint64(member.Power)
+	}
+
+	// Encode the data using ethabi
+	contractAbi, err := abi.JSON(strings.NewReader(util.ValsetCheckpointABIJSON))
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "invalid valset checkpoint abi")
+	}
+
+	// Pack the data (checkpoint method name, nonce, addresses, powers)
+	bytes, err := contractAbi.Pack(
+		"checkpoint",
+		checkpointMethod,
+		valsetNonce,
+		validatorAddresses,
+		validatorPowers,
+	)
+	if err != nil {
+		return nil, errorsmod.Wrap(err, "failed to pack checkpoint data")
+	}
+
+	// Remove the first 4 bytes (function selector) and hash the result
+	hash := crypto.Keccak256Hash(bytes[4:])
+	return hash.Bytes(), nil
 }
 
 // WithoutEmptyMembers returns a new Valset without member that have 0 power or an empty Ethereum address.
