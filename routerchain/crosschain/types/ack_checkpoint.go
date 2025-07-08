@@ -69,6 +69,8 @@ func (msg CrosschainAckRequest) GetCheckpoint(routerIDstring string) ([]byte, er
 		return msg.GetSuiCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_APTOS:
 		return msg.GetAptosCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_CASPER:
+		return msg.GetCasperCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -485,9 +487,8 @@ func (msg CrosschainAckRequest) GetAptosCheckpoint(routerIDstring string)  ([]by
 
 func (msg CrosschainAckRequest) GetCasperCheckpoint(routerIDstring string) ([]byte, error) {
 	// Create a fixed 32-byte array for "iAck" method name
-	methodNameBytes := []byte("i_ack")
-	var crosschainAckMethodName [32]byte
-	copy(crosschainAckMethodName[:], methodNameBytes)
+	var methodName [32]byte
+	copy(methodName[:], []byte("i_ack"))
 
 	// Convert request identifier to big.Int
 	requestIdentifier := new(big.Int).SetUint64(msg.RequestIdentifier)
@@ -495,29 +496,21 @@ func (msg CrosschainAckRequest) GetCasperCheckpoint(routerIDstring string) ([]by
 	// Convert ack request identifier to big.Int
 	ackRequestIdentifier := new(big.Int).SetUint64(msg.AckRequestIdentifier)
 
-	// Convert request sender to 32-byte array
-	var requestSender [32]byte
-	if msg.RequestSender != "" {
-		requestSenderBytes, err := hex.DecodeString(strings.TrimPrefix(msg.RequestSender, "0x"))
-		if err == nil {
-			copy(requestSender[:], requestSenderBytes)
-		}
-	}
 
 	// Pack the data using ethabi
-	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestCheckpointABIJSON))
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainAckRequestNearCheckpointABIJSON))
 	if err != nil {
 		return nil, err
 	}
 
 	// Pack all parameters in the order matching the Rust implementation
 	abiEncodedBatch, err := abiDef.Pack("checkpoint",
-		crosschainAckMethodName[:],
+		methodName,
 		msg.AckDestChainId,
 		requestIdentifier,
 		ackRequestIdentifier,
 		msg.AckSrcChainId,
-		requestSender[:],
+		msg.RequestSender,
 		msg.ExecData,
 		msg.ExecStatus,
 	)

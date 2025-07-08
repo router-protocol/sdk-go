@@ -75,6 +75,8 @@ func (msg CrosschainRequest) GetCheckpoint(routerIDstring string) []byte {
 		return msg.GetSuiCheckpoint("")
 	case multichainTypes.CHAIN_TYPE_APTOS:
 		return msg.GetAptosCheckpoint("")
+	case multichainTypes.CHAIN_TYPE_CASPER:
+		return msg.GetCasperCheckpoint("")
 	default:
 		return msg.GetEvmCheckpoint("")
 	}
@@ -720,76 +722,42 @@ func (msg CrosschainRequest) GetCasperCheckpoint(routerIDstring string) []byte {
 	metadata := DecodeEvmContractMetadata(&msg)
 	requestPacket := DecodeRouterCrosschainPacket(&msg)
 
-	// Create a fixed 32-byte array for "i_receive" method name
-	methodNameBytes := []byte("i_receive")
-	var crosschainMethodName [32]byte
-	copy(crosschainMethodName[:], methodNameBytes)
+	// Fixed 32-byte method name (bytes32)
+	var methodName [32]byte
+	copy(methodName[:], []byte("i_receive"))
 
-	// Convert route amount to big.Int
 	routeAmount := msg.RouteAmount.BigInt()
-
-	// Convert request identifier to big.Int
 	requestIdentifier := new(big.Int).SetUint64(msg.RequestIdentifier)
+	requestTimestamp := new(big.Int).SetUint64(msg.SrcTimestamp)
 
-	// Convert request timestamp to big.Int
-	requestTimestamp := new(big.Int).SetUint64(uint64(msg.SrcTimestamp))
-
-	// Convert route recipient to 32-byte array
-	var routeRecipient [32]byte
-	if msg.RouteRecipient != "" {
-		routeRecipientBytes, err := hex.DecodeString(strings.TrimPrefix(msg.RouteRecipient, "0x"))
-		if err == nil {
-			copy(routeRecipient[:], routeRecipientBytes)
-		}
-	}
-
-	// Convert asm address to 32-byte array
-	var asmAddress [32]byte
-	if metadata.AsmAddress != "" {
-		asmAddressBytes, err := hex.DecodeString(strings.TrimPrefix(metadata.AsmAddress, "0x"))
-		if err == nil {
-			copy(asmAddress[:], asmAddressBytes)
-		}
-	}
-
-	// Convert handler address to 32-byte array
-	var handlerAddress [32]byte
-	if requestPacket.Handler != "" {
-		handlerBytes, err := hex.DecodeString(strings.TrimPrefix(requestPacket.Handler, "0x"))
-		if err == nil {
-			copy(handlerAddress[:], handlerBytes)
-		}
-	}
-
-	// Pack the data using ethabi
-	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestCheckpointABIJSON))
+	// Load ABI
+	abiDef, err := abi.JSON(strings.NewReader(util.CrosschainRequestNearCheckpointABIJSON))
 	if err != nil {
-		panic("Bad ABI constant!")
+		panic(fmt.Sprintf("Failed to parse ABI: %v", err))
 	}
 
-	// Pack all parameters in the order matching the Rust implementation
-	abiEncodedBatch, err := abiDef.Pack("checkpoint",
-		crosschainMethodName[:],
-		routeAmount,
-		requestIdentifier,
-		requestTimestamp,
-		msg.SrcChainId,
-		routeRecipient[:],
-		msg.DestChainId,
-		asmAddress[:],
-		msg.RequestSender,
-		handlerAddress[:],
-		requestPacket.Payload,
-		metadata.IsReadCall,
+	// Encode params in order
+	encoded, err := abiDef.Pack("checkpoint",
+		methodName,                   // bytes32
+		routeAmount,                 // uint256
+		requestIdentifier,           // uint256
+		requestTimestamp,            // uint256
+		msg.SrcChainId,              // string
+		msg.RouteRecipient,              // address
+		msg.DestChainId,             // string
+		metadata.AsmAddress,                  // address
+		msg.RequestSender,           // string
+		requestPacket.Handler,              // address
+		requestPacket.Payload,       // bytes
+		metadata.IsReadCall,  
 	)
 	if err != nil {
-		panic(fmt.Sprintf("Error packing checkpoint! %s/n", err))
+		panic(fmt.Sprintf("Error packing checkpoint: %v", err))
 	}
-
-	// Hash the entire encoded result
-	return crypto.Keccak256Hash(abiEncodedBatch[4:]).Bytes()
+	fmt.Println(crypto.Keccak256Hash(encoded[4:]).Bytes())
+	// Return keccak256 hash of calldata (skip 4-byte function selector)
+	return crypto.Keccak256Hash(encoded[4:]).Bytes()
 }
-
 func hashSlice(input []*big.Int) (*big.Int, error) {
 	// Check if the input slice is empty and return an error or a specific hash value
 	if len(input) == 0 {
